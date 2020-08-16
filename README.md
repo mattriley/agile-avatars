@@ -45,7 +45,7 @@ Inspired by [Functional Core, Imperative Shell](https://www.destroyallsoftware.c
 
 #### IO
 
-An __io__ function is an impure function that produces side effects or otherwise depends on the environment. 
+An __io__ function is an impure function that depends on the environment. 
 
 #### Subscriptions
 
