@@ -1,0 +1,23 @@
+@media print {
+    .tag.nil-role-true .role-name {
+        display: none;
+    }
+}
+
+.tag.nil-role-true .role-name {
+    border: 1px dashed gray;
+    color: lightgray;
+    background-color: white;
+}
+
+.tag.nil-role-true .role-name:before {
+    content: 'role';
+}
+
+.tag.nil-role-true .role-name:focus:before {
+    content: '';
+}
+
+.tag.nil-role-true .role-name:focus {
+    color: black;
+}

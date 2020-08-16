@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+# Runs unit tests and checks coverage.
+
+. ./env
+
+npx nyc \
+    --include "$SRC" \
+    --report-dir "$COVERAGE_REPORT_DIR" \
+    --reporter=text-summary \
+    --reporter=lcov \
+    --branches 98 \
+    --lines 100 \
+    --functions 100 \
+    --statements 100 \
+    ./tasks/test

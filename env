@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+export BUILD_OUTPUT="build_output"
+export PACKAGE_OUTPUT="package_output"
+
+export PUBLIC="public"
+export PUBLIC_INDEX_HTML="$PUBLIC/index.html"
+export PUBLIC_INDEX_JS="$PUBLIC/index.js"
+export PUBLIC_IMAGES="$PUBLIC/img"
+
+export SRC="src"
+export TEST="test"
+export COVERAGE_REPORT_DIR=".coverage"

@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+# Generates index.js files.
+
+. ./env
+
+npx indexgen "$SRC" "$TEST" --watch 

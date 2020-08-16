@@ -1,0 +1,26 @@
+/* https://developer.mozilla.org/en-US/docs/Web/CSS/var */
+
+body {
+    -webkit-print-color-adjust: exact !important;
+    -moz-user-select: none;
+    /* fixes Firefox issue */
+    font-family: arial, helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: dimgray;
+}
+
+
+a {
+    color: white;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+span[contenteditable=true] {
+    cursor: text;
+}

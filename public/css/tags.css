@@ -1,0 +1,74 @@
+.tag-list {
+    display: grid;
+    grid-auto-rows: 1fr;
+    margin: 5px;
+}
+
+.tag {
+    text-align: center;
+    color: black;
+    font-weight: bold;
+    padding: 5px 0;
+    border: 1px dashed silver;
+    
+}
+
+.tag * {
+    margin: 0 auto;
+}
+
+.tag .layout .group {
+    display: block;
+    margin: 8px;
+}
+
+.tag-name {
+    margin-bottom: 5px;
+    /* for when it wraps so it doesnt get too close to role */
+}
+
+.tag-name:empty {
+    border: 1px dashed gray;
+    width: 20px;
+}
+
+.tag .role-name {
+    border: 1px solid transparent;
+    margin: 0 3px;
+    max-width: 100%;
+    /* forces name to wrap and no exceed bounds of tag */
+}
+
+
+.tag-image {
+    box-sizing: border-box;
+    border: solid 5px transparent;
+    background-clip: content-box;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 100%;
+    width: 100%;
+}
+
+.tag-name {
+    display: inline-block;
+    border: 1px solid transparent;
+    padding-top: 2px;
+    padding-bottom: 1px;
+    margin-left: 3px;
+    margin-right: 3px;
+    max-width: 100%;
+    /* forces name to wrap and no exceed bounds of tag */
+}
+
+.tag.passive .tag-image {
+    -webkit-filter: grayscale(100%);
+    /* Safari 6.0 - 9.0 */
+    filter: grayscale(100%);
+    border-color: silver !important;
+}
+
+.tag.passive .role-name {
+    background-color: silver !important;
+}

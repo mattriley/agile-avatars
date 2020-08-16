@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+# Runs ESLint. 
+
+. ./env
+
+npx eslint "$SRC" "$TEST" $@

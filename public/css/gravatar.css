@@ -1,0 +1,42 @@
+.modal-title a.about-gravatar {    
+    font-size: smaller;
+    font-weight: normal;
+    font-style: italic;
+    display: inline-block;
+    padding-top: .2rem;
+}
+
+.gravatar-title {
+    margin-right: 1.5rem;
+}
+
+.gravatar label,
+.gravatar .label {
+    display: block;
+    margin-bottom: 1rem;
+}
+
+.gravatar .freetext {
+    width: 100%;
+    height: 200px;
+}
+
+.gravatar .freetext:disabled {
+    background-color: gainsboro;
+}
+
+.gravatar .fallback {
+    border: solid 3px white;
+    padding: 1px;
+    margin: 2px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.gravatar .fallback:hover {
+    transform: scale(1.1);
+}
+
+.gravatar .fallback.selected-true {
+    border-color: cornflowerblue;
+}

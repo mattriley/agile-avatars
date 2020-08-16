@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+# Runs unit tests.
+
+. ./env
+
+rm -rf "$COVERAGE_REPORT_DIR"
+
+npx tape "$TEST/test.js" | npx tap-summary

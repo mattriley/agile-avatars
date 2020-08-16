@@ -1,0 +1,42 @@
+.options-bar {
+    line-height: 2em;
+}
+
+.options-bar * {
+    font-size: small;
+}
+
+.options-bar .group {
+    margin: 0 10px;
+    white-space: nowrap;
+}
+
+.options-bar label {
+    padding: 0 5px;
+}
+
+.options-bar .label {
+    margin-right: 5px;
+}
+
+.shape-option {
+    display: inline-block;
+    margin: 0 4px -4px 0;
+    border: solid 3px gray;
+    width: 12px;
+    height: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.shape-option:hover {
+    transform: scale(1.2);
+}
+
+.shape-option.selected-true {
+    border-color: cornflowerblue;
+}
+
+input[type=number] {
+    width: 50px;
+}

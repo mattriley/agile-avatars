@@ -1,0 +1,128 @@
+/* Overlay entire viewport with black, semi-transparent background. */
+.modal-overlay {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 98;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-overlay.visible-false {
+    visibility: hidden;
+    opacity: 0;
+    transform: scale(1.1); 
+    transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s;
+}
+
+.modal-overlay.visible-true {
+    visibility: visible;
+    opacity: 1;
+    transform: scale(1);
+    transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
+}
+
+.modal-prompt {
+    border-radius: 0.5rem;
+    background-color: white;
+}
+
+/* Horizontally and vertically center. */
+.modal-prompt {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Prevent height from exceeding the viewport and enable scrolling. */
+.modal-prompt {
+    max-height: calc(100vh - 200px);
+    overflow-y: auto;
+}
+
+.modal-title {
+    padding: 1rem;
+    background-color: cornflowerblue;
+    color: white;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+
+/* Stick to the top when scrolling */
+.modal-title {
+    position: sticky;
+    top: 0;
+    z-index: 99;
+}
+
+.modal-title.visible-false {
+    display: none;
+}
+
+.modal-title .dismiss {
+    margin-left: auto; 
+    width: 1.5rem;
+    line-height: 1.5rem;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 0.25rem;
+    background-color: lightgray;
+    color: black;
+    transition: all 0.2s ease-in-out;
+}
+
+.modal-title .dismiss::after {
+    content: '\00d7';
+}
+
+.modal-title .dismiss:hover {
+    background-color: darkgray;
+}
+
+.modal-content {
+    margin: 1.5rem;
+}
+
+.modal-actions {    
+    text-align: center;
+    margin: 1.5rem;
+}
+
+.modal-actions a {
+    color: cornflowerblue;
+}
+
+.modal-actions button {
+    height: 2.5rem;
+    padding: 0 3rem;
+    font-size: 1rem;
+    font-weight: bold;    
+    background-color: cornflowerblue;
+    color: white;
+    border: none;
+    border-radius: 5px;    
+    transition: all 0.2s ease-in-out;
+}
+
+.modal-actions button:hover:enabled {
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+.modal-actions button:disabled {
+    background-color: gainsboro;
+    cursor: not-allowed;
+}
+
+.modal-actions .error-message {
+    color: red;
+    padding-bottom: 1rem;
+}
+
+.modal-actions.visible-false,
+.modal-actions .visible-false {
+    display: none;
+}

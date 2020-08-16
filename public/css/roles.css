@@ -1,0 +1,38 @@
+.role-customiser {
+    border: 1px solid lightgray;
+    background-color: white;
+    padding: 5px;
+    margin: 5px;
+    display: inline-block;
+    white-space: nowrap;
+}
+
+.role-name {
+    color: white;
+    border-radius: 25px;
+    padding-left: 7px;
+    padding-right: 7px;
+    padding-top: 3px;
+    padding-bottom: 2px;
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: bold;
+    /* text-shadow: #000 0px 0px 2px; */
+}
+
+.color-picker {
+    display: inline-block;
+    padding-top: 3px;
+    padding-bottom: 2px;
+    font-size: smaller;
+    width: 10px;
+    cursor: pointer;
+    margin-left: 5px;
+    margin-right: 2px;
+}
+
+.color-picker::before {
+    color: gray;
+    content: '\25bc';
+    /* unicode zero width space character */
+}

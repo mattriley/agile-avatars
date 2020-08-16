@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+# Runs lint and test.
+
+set -e
+
+. ./env
+
+./tasks/lint
+./tasks/test-cov-check

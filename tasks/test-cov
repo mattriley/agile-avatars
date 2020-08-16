@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+# Runs unit tests and reports coverage.
+
+. ./env
+
+npx nyc \
+    --include "$SRC" \
+    --reporter=text-summary \
+    ./tasks/test

@@ -1,0 +1,18 @@
+.image-upload-options {
+    font-weight: bold;
+}
+
+.image-upload-options a {
+    color: cornflowerblue;
+}
+
+.image-upload-options > *:after {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    content: '●'
+}
+
+.image-upload-options > *:last-child:after {
+    content: '';
+    padding: 0;
+}

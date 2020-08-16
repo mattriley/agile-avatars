@@ -1,0 +1,16 @@
+
+/* Prevent background scrolling while modal visible */
+.app.modal-true {
+    width: 100%;
+    height: 100%;
+    overflow: hidden; 
+}
+
+/* Workaround inability to drop file over body in Chrome and Firefox */
+.dropzone {
+    min-height: 100%; 
+}
+
+.welcome {
+    text-align: center;
+}

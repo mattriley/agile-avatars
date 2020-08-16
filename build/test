@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+. ./env
+
+PROFILE="test"
+PROFILE_OUTPUT="$BUILD_OUTPUT/$PROFILE"
+rm -rf "$PROFILE_OUTPUT"
+npx parcel build "$PUBLIC_INDEX_JS" -d "$PROFILE_OUTPUT" --no-source-maps

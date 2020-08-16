@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+# Generates index.html interpolated with metadata.
+
+. ./env
+
+URL="https://agileavatars.com"
+TITLE="Agile Avatars"
+DESCRIPTION="Avatars for your agile board made easy"
+AUTHOR="Matt Riley"
+IMAGE="$URL/img/social.jpg"
+
+cat > "$PUBLIC_INDEX_HTML" <<EOF
+<head>
+<title>$TITLE</title>
+<meta name="title" content="$TITLE">
+<meta name="description" content="$DESCRIPTION">
+<meta name="author" content="$AUTHOR">
+<meta name="url" content="$URL">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="$URL">
+<meta property="og:title" content="$TITLE">
+<meta property="og:description" content="$DESCRIPTION">
+<meta property="og:image" content="$IMAGE">
+
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:url" content="$URL">
+<meta property="twitter:title" content="$TITLE">
+<meta property="twitter:description" content="$DESCRIPTION">
+<meta property="twitter:image" content="$IMAGE">
+</head>
+
+<body>
+<script src="./index.js"></script>
+</body>
+EOF

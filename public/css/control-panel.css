@@ -1,0 +1,33 @@
+@media print {
+    .control-panel {
+        display: none;
+    }
+}
+
+.control-panel {    
+    text-align: center;
+    background-color: whitesmoke;
+    padding: 10px 0;
+}
+
+/* Stick to top of screen while scrolling */
+.control-panel {        
+    position: sticky;
+    top: 0; 
+}
+
+.control-panel > * {
+    margin: 10px 0;
+    transition: all ease-in-out 1s;
+}
+
+.control-panel > .visible-false {
+    margin: 0;
+    opacity: 0;
+    max-height: 0;
+}
+
+.control-panel > .visible-true {
+    opacity: 1;
+    max-height: 100%;
+}

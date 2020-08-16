@@ -1,0 +1,7 @@
+build_output
+package_output
+node_modules
+.cache
+.nyc_output
+.coverage
+.DS_Store

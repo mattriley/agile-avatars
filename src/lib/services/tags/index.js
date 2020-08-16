@@ -1,0 +1,21 @@
+module.exports = {
+    __modulename: 'tags',
+    dataTransforms: require('./data-transforms'),
+    adjustInstanceCounts: require('./adjust-instance-counts'),
+    attachImageAsync: require('./attach-image-async'),
+    buildInstance: require('./build-instance'),
+    buildTag: require('./build-tag'),
+    changeInstanceRole: require('./change-instance-role'),
+    changeTagName: require('./change-tag-name'),
+    getInstance: require('./get-instance'),
+    insertFileAsync: require('./insert-file-async'),
+    insertFileBatchAsync: require('./insert-file-batch-async'),
+    insertGravatarAsync: require('./insert-gravatar-async'),
+    insertGravatarBatchAsync: require('./insert-gravatar-batch-async'),
+    insertInstance: require('./insert-instance'),
+    insertTag: require('./insert-tag'),
+    removeInstance: require('./remove-instance'),
+    setupRolePropagation: require('./setup-role-propagation'),
+    setupTagPropagation: require('./setup-tag-propagation'),
+    sortInstances: require('./sort-instances')
+};

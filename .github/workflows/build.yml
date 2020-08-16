@@ -1,0 +1,54 @@
+name: Build
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Read .nvmrc
+        id: node_version
+        run: echo ::set-output name=NODE_VERSION::$(cat .nvmrc)
+      - name: Setup Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ steps.node_version.outputs.NODE_VERSION }}
+      - name: Install dependencies
+        run: npm i
+      - name: Lint
+        run: ./tasks/lint
+      - name: Test
+        run: ./tasks/test-cov-check
+      - name: Upload coverage
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+      - name: Build
+        run: ./build/prod
+      - name: Package
+        run: ./tasks/package prod
+      - name: Get tag name
+        id: date
+        run: echo "::set-output name=TAG_NAME::v$(date -u +"%Y%m%dT%H%M%SZ")"        
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.date.outputs.TAG_NAME }}
+          release_name: Release ${{ steps.date.outputs.TAG_NAME }}
+      - name: Upload package
+        id: upload-release-asset 
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./package_output/prod.tar.gz
+          asset_name: agileavatars.tar.gz
+          asset_content_type: application/zip          
