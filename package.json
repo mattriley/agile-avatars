@@ -2,6 +2,7 @@
     "name": "agileavatars",
     "version": "1.0.0",
     "author": "Matt Riley",
+    "repository": "github:mattriley/agileavatars",
     "scripts": {
         "test": "./tasks/test-cov",
         "cov": "./tasks/test-cov-browse",
