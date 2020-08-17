@@ -45,13 +45,96 @@ Inspired by [Functional Core, Imperative Shell](https://www.destroyallsoftware.c
 
 #### IO
 
-An __io__ function is an impure function that depends on the environment. 
+The __io__ object contains objects and functions that depend on the environment. 
 
 #### Subscriptions
 
-...
+A __subscription__ function enables a listener to be notified of state changes.
 
 #### Stores
 
-...
+A __store__ object encapsulates state mutations and notifications.
 
+## Dependencies
+
+### Production
+
+#### @sentry/browser
+
+The JavaScript SDK for Sentry, a cloud-based application monitoring service.
+
+#### blueimp-md5
+
+A JavaScript implementation of the md5 hashing algorithm.
+
+Notes:
+- Used to hash email addresses sent to Gravatar.
+
+#### lodash
+
+A JavaScript utility library.
+
+Notes:
+- Used by exception where there's no concise native JavaScript alternative.
+
+#### module-composer
+
+Enables dependency injection using currying.
+
+Notes:
+- I am the author of this library.
+
+#### vanilla-picker
+
+A vanilla JavaScript color picker. 
+
+Notes:
+- It was suprisingly hard to find a good looking, easy to use color picker writting in vanilla JavaScript. Many color pickers are implemented as jQuery plugins.
+- I am using a fork which I have customised to accept a window object in order to avoid globals.
+
+### Development
+
+#### eslint
+
+A static code analysis tool for identifying problematic patterns found in JavaScript code.
+
+Notes:
+- Also used for automatic code formatting.
+- I had originally used prettier for code formatting but was regularly dissatisfied with the results.
+
+#### jsdom
+
+Emulates a web browser for testing web applications with Node.js.
+
+Notes:
+- I had originally used in conjunction with jsdom-global until I decided to strictly limit use of globals.
+
+#### module-indexgen
+
+Generates index.js files with Node.js.
+
+Notes:
+- I am also the author of this library.
+
+#### nyc
+
+A JavaScript test coverage tool.
+
+#### parcel-bundler
+
+A zero-configuration web application bundler.
+
+Notes:
+- I have found Parcel to be much simpler to use than webpack.
+
+#### tap-summary
+
+A TAP (Test Anything Protocol) reporter.
+
+Notes:
+- A benefit of TAP is the variety of reporters available.
+- tap-summary output is minimal and includes duration of each test which is useful for keeping the tests fast.
+
+#### tape
+
+A very lightweight TAP producing test harness.
