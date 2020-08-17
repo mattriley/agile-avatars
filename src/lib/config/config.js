@@ -1,5 +1,7 @@
 module.exports = ({ window }) => {
 
+    const meta = name => window.document.querySelector(`meta[name=${name}]`)?.getAttribute('content');
+
     const maxImageSize = 600;
     const isLocalhost = (/localhost/).test(window.location.host);
 
@@ -15,11 +17,11 @@ module.exports = ({ window }) => {
             }
         },
         app: {
-            name: 'Agile Avatars',
+            name: meta('title'),
             issues: 'https://github.com/mattriley/agileavatars/issues'
         },
         author: {
-            name: 'Matt Riley',
+            name: meta('author'),
             profile: 'https://www.linkedin.com/in/mattrileyau/'
         },
         gravatar: {
