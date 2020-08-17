@@ -1,7 +1,3 @@
-<style>
-h4 ~ p, ul { margin-left: 2rem; }
-</style>
-
 # Agile Avatars
 
 Source code for [agileavatars.com](https://agileavatars.com), an experiment in frameworkless/vanilla JavaScript.
