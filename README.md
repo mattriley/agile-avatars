@@ -1,3 +1,7 @@
+<style>
+h4 ~ p, ul { margin-left: 2rem; }
+</style>
+
 # Agile Avatars
 
 Source code for [agileavatars.com](https://agileavatars.com), an experiment in frameworkless/vanilla JavaScript.
@@ -63,7 +67,7 @@ A __store__ object encapsulates state mutations and notifications.
 
 ## Dependencies
 
-### Production
+### Production dependencies
 
 #### @sentry/browser
 
@@ -98,7 +102,7 @@ Notes:
 - It was suprisingly hard to find a good looking, easy to use color picker writting in vanilla JavaScript. Many color pickers are implemented as jQuery plugins.
 - I am using a fork which I have customised to accept a window object in order to avoid globals.
 
-### Development
+### Development dependencies
 
 #### eslint
 
