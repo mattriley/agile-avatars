@@ -1,6 +1,6 @@
 # Agile Avatars
 
-Source code for [agileavatars.com](https://agileavatars.com), and experiment in frameworkless/vanilla JavaScript.
+Source code for [agileavatars.com](https://agileavatars.com), an experiment in frameworkless/vanilla JavaScript.
 
 ![Build](https://github.com/mattriley/agileavatars/workflows/Build/badge.svg)
 [![codecov](https://codecov.io/gh/mattriley/agileavatars/branch/master/graph/badge.svg)](https://codecov.io/gh/mattriley/agileavatars)
