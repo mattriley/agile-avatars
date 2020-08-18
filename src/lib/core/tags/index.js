@@ -6,7 +6,7 @@ module.exports = {
     parseFileExpression: require('./parse-file-expression'),
     parseTagExpression: require('./parse-tag-expression'),
     planInstanceAdjustment: require('./plan-instance-adjustment'),
-    sortInstancesByTagThenMode: require('./sort-instances-by-tag-then-mode'),
+    sortTagInstancesByTagThenMode: require('./sort-tag-instances-by-tag-then-mode'),
     sortTagsByName: require('./sort-tags-by-name'),
     sortTagsByRoleThenName: require('./sort-tags-by-role-then-name')
 };

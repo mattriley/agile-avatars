@@ -1,15 +1,15 @@
-module.exports = ({ stores }) => instanceId => {
+module.exports = ({ stores }) => tagInstanceId => {
 
-    const { tagId, mode } = stores.tagInstances.getState(instanceId);
+    const { tagId, mode } = stores.tagInstances.getState(tagInstanceId);
     const tag = stores.tags.getState(tagId);
 
-    const notThisInstance = id => id !== instanceId;
+    const notThis = id => id !== tagInstanceId;
 
     stores.tags.setState(tagId, {
-        instances: tag.instances.filter(notThisInstance),
-        [mode]: tag[mode].filter(notThisInstance)
+        instances: tag.instances.filter(notThis),
+        [mode]: tag[mode].filter(notThis)
     });
 
-    stores.tagInstances.remove(instanceId);
+    stores.tagInstances.remove(tagInstanceId);
     
 };

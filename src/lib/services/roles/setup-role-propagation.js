@@ -2,8 +2,8 @@ module.exports = ({ stores }) => roleId => () => {
 
     const { roleName } = stores.roles.getState(roleId);
     const changes = { roleName };
-    const matchRole = instance => instance.roleId === roleId;
-    const setRoleName = instance => stores.tagInstances.setState(instance.id, changes);
+    const matchRole = tagInstance => tagInstance.roleId === roleId;
+    const setRoleName = tagInstance => stores.tagInstances.setState(tagInstance.id, changes);
     stores.tagInstances.getArray().filter(matchRole).forEach(setRoleName);
 
 };

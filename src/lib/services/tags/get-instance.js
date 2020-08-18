@@ -1,5 +1,5 @@
-module.exports = ({ stores }) => instanceId => {
+module.exports = ({ stores }) => tagInstanceId => {
 
-    return stores.tagInstances.getState(instanceId);
+    return stores.tagInstances.getState(tagInstanceId);
 
 };

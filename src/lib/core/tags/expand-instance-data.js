@@ -1,8 +1,8 @@
-module.exports = () => (instanceData, tagMap, roleMap) => {
+module.exports = () => (tagInstanceData, tagMap, roleMap) => {
     
-    const { tagId } = instanceData;
+    const { tagId } = tagInstanceData;
     const { tagName, roleId } = tagMap[tagId];
     const { roleName } = roleMap[roleId];
-    return { ...instanceData, tagName, roleId, roleName };
+    return { ...tagInstanceData, tagName, roleId, roleName };
 
 };

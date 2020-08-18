@@ -8,7 +8,7 @@ module.exports = ({ core, settings, stores }) => () => {
 
     const { sort } = settings.options.getState();
     const tags = sorts[sort]();
-    const instanceMap = stores.tagInstances.getMap();
-    return core.tags.sortInstancesByTagThenMode(tags, instanceMap);
+    const tagInstanceMap = stores.tagInstances.getMap();
+    return core.tags.sortTagInstancesByTagThenMode(tags, tagInstanceMap);
 
 };

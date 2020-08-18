@@ -4,21 +4,21 @@ module.exports = ({ el, tagList, services, subscriptions, util }) => () => {
 
     const $tags = el('div', 'tag-list');
     
-    subscriptions.tagInstances.onInsert(instanceId => {
-        const $tag = tagList.tag(instanceId);
-        $$tags.set(instanceId, $tag);
+    subscriptions.tagInstances.onInsert(tagInstanceId => {
+        const $tag = tagList.tag(tagInstanceId);
+        $$tags.set(tagInstanceId, $tag);
         $tags.append($tag);        
         delayedSort();
     });
 
-    subscriptions.tagInstances.onBeforeRemove(instanceId => {
-        $$tags.get(instanceId).remove();
-        $$tags.delete(instanceId);
+    subscriptions.tagInstances.onBeforeRemove(tagInstanceId => {
+        $$tags.get(tagInstanceId).remove();
+        $$tags.delete(tagInstanceId);
     });
 
     const sort = () => {
-        services.tags.sortInstances().forEach(instance => {
-            const $tag = $$tags.get(instance.id);
+        services.tags.sortInstances().forEach(tagInstance => {
+            const $tag = $$tags.get(tagInstance.id);
             $tag.remove();
             $tags.append($tag);
         });

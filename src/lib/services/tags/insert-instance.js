@@ -1,16 +1,16 @@
-module.exports = ({ services, stores }) => instanceData => {
+module.exports = ({ services, stores }) => tagInstanceData => {
 
-    const instance = services.tags.buildInstance(instanceData);
-    const { tagId, mode } = instance;
+    const tagInstance = services.tags.buildInstance(tagInstanceData);
+    const { tagId, mode } = tagInstance;
     const tag = stores.tags.getState(tagId);
 
-    const instanceId = stores.tagInstances.insert(instance, instanceId => {
+    const tagInstanceId = stores.tagInstances.insert(tagInstance, tagInstanceId => {
         stores.tags.setState(tagId, {
-            instances: tag.instances.concat(instanceId),
-            [mode]: tag[mode].concat(instanceId)
+            instances: tag.instances.concat(tagInstanceId),
+            [mode]: tag[mode].concat(tagInstanceId)
         });
     });
     
-    return instanceId;
+    return tagInstanceId;
 
 };
