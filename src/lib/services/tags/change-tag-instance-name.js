@@ -1,5 +1,6 @@
-module.exports = ({ core, services, stores }) => (tagId, expression) => {
+module.exports = ({ core, services, stores }) => (tagInstanceId, expression) => {
 
+    const { tagId } = services.tags.getTagInstance(tagInstanceId);
     const { tagName, roleName } = core.tags.parseTagExpression(expression);
 
     stores.tags.setState(tagId, { tagName });

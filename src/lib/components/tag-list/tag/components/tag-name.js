@@ -2,9 +2,7 @@ module.exports = ({ elements, services, subscriptions }) => tagInstanceId => {
 
     const $tagName = elements.editableSpan({ className: 'tag-name' })
         .addEventListener('blur', () => {
-            const tagName = $tagName.textContent.trim();
-            const { tagId } = services.tags.getTagInstance(tagInstanceId);
-            services.tags.changeTagName(tagId, tagName);
+            services.tags.changeTagInstanceName(tagInstanceId, $tagName.textContent);
         });
 
     subscriptions.tagInstances.onChange(tagInstanceId, 'tagName', tagName => {
