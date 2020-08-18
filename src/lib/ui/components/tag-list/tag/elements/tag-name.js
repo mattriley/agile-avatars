@@ -3,7 +3,7 @@ module.exports = ({ elements, services, subscriptions }) => tagInstanceId => {
     const $tagName = elements.editableSpan({ className: 'tag-name' })
         .addEventListener('blur', () => {
             const tagName = $tagName.textContent.trim();
-            const { tagId } = services.tags.getInstance(tagInstanceId);
+            const { tagId } = services.tags.getTagInstance(tagInstanceId);
             services.tags.changeTagName(tagId, tagName);
         });
 

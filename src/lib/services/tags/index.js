@@ -7,7 +7,7 @@ module.exports = {
     buildTag: require('./build-tag'),
     changeTagInstanceRole: require('./change-tag-instance-role'),
     changeTagName: require('./change-tag-name'),
-    getInstance: require('./get-instance'),
+    getTagInstance: require('./get-tag-instance'),
     insertFileAsync: require('./insert-file-async'),
     insertFileBatchAsync: require('./insert-file-batch-async'),
     insertGravatarAsync: require('./insert-gravatar-async'),
@@ -17,5 +17,5 @@ module.exports = {
     removeTagInstance: require('./remove-tag-instance'),
     setupRolePropagation: require('./setup-role-propagation'),
     setupTagPropagation: require('./setup-tag-propagation'),
-    sortInstances: require('./sort-instances')
+    sortTagInstances: require('./sort-tag-instances')
 };
