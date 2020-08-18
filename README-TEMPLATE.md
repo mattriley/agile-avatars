@@ -11,13 +11,13 @@ Source code for [agileavatars.com](https://agileavatars.com), an experiment in f
 
 This is a hobby project I decided to double as an experiment in writing a web application in JavaScript without the aid of a framework like React or Angular. Such an approach is often referred to as frameworkless, or vanilla JavaScript.
 
-## Architecture
+# Architecture
 
 ![Architecture](docs/architecture.svg)
 
-### Architecture Components
+## Architecture Components
 
-#### Components
+### Components
 
 A __component__ function returns a [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) which may mutate or invoke services in reaction to user interaction and state changes.
 
@@ -29,7 +29,7 @@ Example:
 <%- include(exampleComponentPath); -%>
 ```
 
-#### Elements
+### Elements
 
 An __element__ function returns a [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) which may mutate in reaction to user interaction.
 
@@ -43,39 +43,39 @@ Example:
 <%- include(exampleElementPath).split('/*')[0]; -%>
 ```
 
-#### Services
+### Services
 
 A __service__ function that orchestrates domain logic and IO including issuing state changes to state stores.
 
 Inspired by [Functional Core, Imperative Shell](https://www.destroyallsoftware.com/screencasts/catalog/functional-core-imperative-shell), service functions may be characterised as imperative shells.
 
-#### Core
+### Core
 
 A __core__ function is a pure function. 
 
 Inspired by [Functional Core, Imperative Shell](https://www.destroyallsoftware.com/screencasts/catalog/functional-core-imperative-shell), core functions comprise the functional core.
 
-#### IO
+### IO
 
 The __io__ object contains objects and functions that depend on the environment. 
 
-#### Subscriptions
+### Subscriptions
 
 A __subscription__ function enables a listener to be notified of state changes.
 
-#### Stores
+### Stores
 
 A __store__ object encapsulates state mutations and notifications.
 
-## Dependencies
+# Dependencies
 
-### Production dependencies
+## Production dependencies
 
-#### @sentry/browser
+### @sentry/browser
 
 The JavaScript SDK for Sentry, a cloud-based application monitoring service.
 
-#### blueimp-md5
+### blueimp-md5
 
 A JavaScript implementation of the md5 hashing algorithm.
 
@@ -86,21 +86,21 @@ __Why not use crypto from Node.js and avoid the extra dependency?__
 
 As far as I can tell, it's not possible to extract individual algorithms from crypto. The consequence is a minified bundle size of 431.78 KB compared with blueimp's 4.86 KB. The difference is significant and justifies the extra dependency.
 
-#### lodash
+### lodash
 
 A JavaScript utility library.
 
 Notes:
 - Used by exception where there's no concise native JavaScript alternative.
 
-#### module-composer
+### module-composer
 
 Enables dependency injection using currying.
 
 Notes:
 - I am the author of this library.
 
-#### vanilla-picker
+### vanilla-picker
 
 A vanilla JavaScript color picker. 
 
@@ -108,9 +108,9 @@ Notes:
 - It was suprisingly hard to find a good looking, easy to use color picker writting in vanilla JavaScript. Many color pickers are implemented as jQuery plugins.
 - I am using a fork which I have customised to accept a window object in order to avoid globals.
 
-### Development dependencies
+## Development dependencies
 
-#### eslint
+### eslint
 
 A static code analysis tool for identifying problematic patterns found in JavaScript code.
 
@@ -118,32 +118,32 @@ Notes:
 - Also used for automatic code formatting.
 - I had originally used prettier for code formatting but was regularly dissatisfied with the results.
 
-#### jsdom
+### jsdom
 
 Emulates a web browser for testing web applications with Node.js.
 
 Notes:
 - I had originally used in conjunction with jsdom-global until I decided to strictly limit use of globals.
 
-#### module-indexgen
+### module-indexgen
 
 Generates index.js files with Node.js.
 
 Notes:
 - I am also the author of this library.
 
-#### nyc
+### nyc
 
 A JavaScript test coverage tool.
 
-#### parcel-bundler
+### parcel-bundler
 
 A zero-configuration web application bundler.
 
 Notes:
 - I have found Parcel to be much simpler to use than webpack.
 
-#### tap-summary
+### tap-summary
 
 A TAP (Test Anything Protocol) reporter.
 
@@ -151,6 +151,6 @@ Notes:
 - A benefit of TAP is the variety of reporters available.
 - tap-summary output is minimal and includes duration of each test which is useful for keeping the tests fast.
 
-#### tape
+### tape
 
 A very lightweight TAP producing test harness.
