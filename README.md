@@ -24,7 +24,7 @@ A __component__ function returns a [HTMLElement](https://developer.mozilla.org/e
 Example:
 
 ```js
-// src/lib/components/tag-list/tag/elements/tag-name.js
+// src/lib/components/tag-list/tag/components/tag-name.js
 
 module.exports = ({ elements, services, subscriptions }) => tagInstanceId => {
 

@@ -2,7 +2,7 @@ module.exports = ({ el, tag, elements, services, subscriptions, config }) => tag
 
     const $layout = elements.layout({
         layout: config.tags.layout, 
-        components: tag.elements, 
+        components: tag.components, 
         componentArgs: [tagInstanceId]
     });
     

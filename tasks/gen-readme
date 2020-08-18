@@ -3,5 +3,5 @@
 # Generates README.md
 
 npx ejs ./README-TEMPLATE.md -o ./README.md \
-    exampleComponentPath=src/lib/components/tag-list/tag/elements/tag-name.js \
+    exampleComponentPath=src/lib/components/tag-list/tag/components/tag-name.js \
     exampleElementPath=src/lib/elements/editable-span.js

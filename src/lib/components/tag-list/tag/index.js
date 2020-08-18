@@ -1,5 +1,5 @@
 module.exports = {
     __modulename: 'tag',
-    elements: require('./elements'),
+    components: require('./components'),
     tag: require('./tag')
 };
