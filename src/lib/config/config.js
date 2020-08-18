@@ -61,7 +61,7 @@ module.exports = ({ window }) => {
             }
         },
         debounce: {
-            adjustInstanceCounts: 100,
+            adjustTagInstanceCounts: 100,
             sortTagList: 50
         },
         storage: {

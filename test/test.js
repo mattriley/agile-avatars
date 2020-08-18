@@ -9,7 +9,7 @@ const { window } = new JSDOM('', { url: 'https://localhost/' });
 const helpers = compose(test.helpers, { window });
 
 const defaultConfig = { 
-    debounce: { adjustInstanceCounts: 0, sortTagList: 0 }, 
+    debounce: { adjustTagInstanceCounts: 0, sortTagList: 0 }, 
     defaultSettings: { app: { modal: null } } 
 };
 

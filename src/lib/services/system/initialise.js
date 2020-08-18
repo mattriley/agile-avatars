@@ -2,12 +2,12 @@ module.exports = ({ config, services, subscriptions, util }) => () => {
 
     services.roles.insertNilRole();
 
-    const adjustInstanceCounts = util.debounce(services.tags.adjustInstanceCounts, 'adjustInstanceCounts');
+    const adjustTagInstanceCounts = util.debounce(services.tags.adjustTagInstanceCounts, 'adjustTagInstanceCounts');
 
     config.options.modes.forEach(mode => {
-        subscriptions.settings.options.onChange(mode, adjustInstanceCounts).invoke();
+        subscriptions.settings.options.onChange(mode, adjustTagInstanceCounts).invoke();
     });
 
-    subscriptions.tags.onInsert(adjustInstanceCounts);
+    subscriptions.tags.onInsert(adjustTagInstanceCounts);
 
 };

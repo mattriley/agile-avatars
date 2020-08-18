@@ -1,7 +1,7 @@
 module.exports = {
     __modulename: 'tags',
     dataTransforms: require('./data-transforms'),
-    adjustInstanceCounts: require('./adjust-instance-counts'),
+    adjustTagInstanceCounts: require('./adjust-tag-instance-counts'),
     attachImageAsync: require('./attach-image-async'),
     buildTagInstance: require('./build-tag-instance'),
     buildTag: require('./build-tag'),
