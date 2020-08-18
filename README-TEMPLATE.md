@@ -23,10 +23,12 @@ A __component__ function returns a [HTMLElement](https://developer.mozilla.org/e
 
 Components may be composed of other components, elements, or third party components.
 
-Example: `tag-name.js`
+Example:
 
 ```js
-<%- include('src/lib/ui/components/tag-list/tag/elements/tag-name.js'); -%>
+<%- `// ${exampleComponentPath}`; %>
+
+<%- include(exampleComponentPath); -%>
 ```
 
 #### Elements

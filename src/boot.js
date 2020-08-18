@@ -13,10 +13,10 @@ module.exports = ({ window, ...args }) => {
     const core = compose(lib.core, { config });
     const services = compose(lib.services, { subscriptions, settings, stores, core, io, util, config }, args.services);
     
-    const elements = compose(lib.ui.elements, { window, io });
+    const elements = compose(lib.elements, { window, io });
     const { el } = elements;
-    const thirdPartyComponents = compose(lib.ui.thirdPartyComponents, { window });
-    const components = compose(lib.ui.components, { el, elements, thirdPartyComponents, services, subscriptions, util, config });
+    const thirdPartyComponents = compose(lib.thirdPartyComponents, { window });
+    const components = compose(lib.components, { el, elements, thirdPartyComponents, services, subscriptions, util, config });
     
     services.system.initialise();
     
