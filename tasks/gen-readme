@@ -4,6 +4,8 @@
 
 npx ejs ./README-TEMPLATE.md -o ./README.md \
     exampleComponentPath=src/lib/components/tag-list/tag/components/tag-name.js \
-    exampleElementPath=src/lib/elements/editable-span.js
+    exampleElementPath=src/lib/elements/editable-span.js \
+    exampleServicePath=src/lib/services/tags/change-tag-name.js \
+    exampleCorePath=src/lib/core/tags/parse-tag-expression.js
 
 git add ./README.md

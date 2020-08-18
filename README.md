@@ -78,11 +78,44 @@ A __service__ function that orchestrates domain logic and IO including issuing s
 
 Inspired by [Functional Core, Imperative Shell](https://www.destroyallsoftware.com/screencasts/catalog/functional-core-imperative-shell), service functions may be characterised as imperative shells.
 
+Example:
+
+```js
+// src/lib/services/tags/change-tag-name.js
+
+module.exports = ({ core, services, stores }) => (tagId, expression) => {
+
+    const { tagName, roleName } = core.tags.parseTagExpression(expression);
+
+    stores.tags.setState(tagId, { tagName });
+
+    if (roleName) {
+        const roleId = services.roles.findOrInsertRoleWithName(roleName);
+        stores.tags.setState(tagId, { roleId });
+    }
+    
+};
+```
+
 ### Core
 
 A __core__ function is a pure function. 
 
 Inspired by [Functional Core, Imperative Shell](https://www.destroyallsoftware.com/screencasts/catalog/functional-core-imperative-shell), core functions comprise the functional core.
+
+Example:
+
+```js
+// src/lib/core/tags/parse-tag-expression.js
+
+module.exports = () => expression => {
+
+    const [tagName, roleName] = expression.split('+').map(s => s.trim());        
+    return { tagName, roleName };
+
+};
+
+```
 
 ### IO
 

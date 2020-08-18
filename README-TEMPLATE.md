@@ -24,9 +24,9 @@ A __component__ function returns a [HTMLElement](https://developer.mozilla.org/e
 Example:
 
 ```js
-<%- `// ${exampleComponentPath}`; %>
+<%- `// ${exampleComponentPath}` %>
 
-<%- include(exampleComponentPath); -%>
+<%- include(exampleComponentPath).split('/*')[0] -%>
 ```
 
 ### Elements
@@ -38,9 +38,9 @@ Elements are more fundamental than components. Unlike components, they cannot re
 Example:
 
 ```js
-<%- `// ${exampleElementPath}`; %>
+<%- `// ${exampleElementPath}` %>
 
-<%- include(exampleElementPath).split('/*')[0]; -%>
+<%- include(exampleElementPath).split('/*')[0] -%>
 ```
 
 ### Services
@@ -49,11 +49,27 @@ A __service__ function that orchestrates domain logic and IO including issuing s
 
 Inspired by [Functional Core, Imperative Shell](https://www.destroyallsoftware.com/screencasts/catalog/functional-core-imperative-shell), service functions may be characterised as imperative shells.
 
+Example:
+
+```js
+<%- `// ${exampleServicePath}` %>
+
+<%- include(exampleServicePath).split('/*')[0] -%>
+```
+
 ### Core
 
 A __core__ function is a pure function. 
 
 Inspired by [Functional Core, Imperative Shell](https://www.destroyallsoftware.com/screencasts/catalog/functional-core-imperative-shell), core functions comprise the functional core.
+
+Example:
+
+```js
+<%- `// ${exampleCorePath}` %>
+
+<%- include(exampleCorePath).split('/*')[0] -%>
+```
 
 ### IO
 
