@@ -7,6 +7,5 @@ module.exports = {
     io: require('./io'),
     services: require('./services'),
     storage: require('./storage'),
-    thirdPartyComponents: require('./third-party-components'),
     util: require('./util')
 };

@@ -4,7 +4,7 @@ const lib = require('./lib');
 module.exports = ({ window, ...args }) => {
 
     const config = compose(lib.config, { window }, args.config);
-    const io = compose(lib.io, { window, config }, args.io);
+    const io = compose(lib.io, { config, window }, args.io);
     const util = compose(lib.util, { config });
 
     const storage = compose(lib.storage, { config });
@@ -13,17 +13,15 @@ module.exports = ({ window, ...args }) => {
     const core = compose(lib.core, { config });
     const services = compose(lib.services, { subscriptions, settings, stores, core, io, util, config }, args.services);
     
-    const elements = compose(lib.elements, { window, io });
+    const elements = compose(lib.elements, { io, window });
     const { el } = elements;
-    const thirdPartyComponents = compose(lib.thirdPartyComponents, { window });
-    const components = compose(lib.components, { el, elements, thirdPartyComponents, services, subscriptions, util, config });
+    const components = compose(lib.components, { el, elements, services, subscriptions, util, config, window });
     
     services.system.initialise();
     
     const context = {        
         elements,
         components,
-        thirdPartyComponents,
         services,
         storage,
         state,

@@ -12,5 +12,6 @@ module.exports = {
     app: require('./app'),
     dropzone: require('./dropzone'),
     googleAnalytics: require('./google-analytics'),
-    modal: require('./modal')
+    modal: require('./modal'),
+    vanillaPicker: require('./vanilla-picker')
 };

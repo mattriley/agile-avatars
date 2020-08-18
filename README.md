@@ -72,12 +72,6 @@ module.exports = ({ window, elements }) => (props = {}) => {
 
 ```
 
-#### Third Party Components
-
-A __third party component__ function returns a [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) controlled by a third party library. 
-
-Like elements, they cannot react to state changes or invoke services. Rather they provide an interface consistent with components and elements.
-
 #### Services
 
 A __service__ function that orchestrates domain logic and IO including issuing state changes to state stores.

@@ -1,7 +1,7 @@
-module.exports = ({ el, styles, thirdPartyComponents, subscriptions }) => () => {
+module.exports = ({ el, styles, subscriptions }) => () => {
 
     const $styles = el('div', { hidden: true }).append(
-        thirdPartyComponents.vanillaPicker.style(),
+        styles.vanillaPicker(),
         styles.tagShape(),
         styles.tagSize(),
         styles.tagSpacing(),
