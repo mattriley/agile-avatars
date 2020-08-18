@@ -21,8 +21,6 @@ This is a hobby project I decided to double as an experiment in writing a web ap
 
 A __component__ function returns a [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) which may mutate or invoke services in reaction to user interaction and state changes.
 
-Components may be composed of other components, elements, or third party components.
-
 Example:
 
 ```js
@@ -52,7 +50,25 @@ An __element__ function returns a [HTMLElement](https://developer.mozilla.org/en
 
 Elements are more fundamental than components. Unlike components, they cannot react to state changes or invoke services. For this reason, elements tend to be lower level, more generic and more reusable.
 
-Elements may be composed only of other elements.
+Example:
+
+```js
+// src/lib/elements/editable-span.js
+
+module.exports = ({ window, elements }) => (props = {}) => {
+
+    const $span = elements.el('span', props)
+        .addEventListener('keydown', e => {            
+            if (e.code === 'Enter') {
+                e.preventDefault();
+                $span.dispatchEvent(new window.Event('blur'));
+            }
+        });
+    
+    $span.setAttribute('contenteditable', true);
+   
+    return $span;
+};```
 
 #### Third Party Components
 
