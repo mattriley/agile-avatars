@@ -30,9 +30,7 @@ module.exports = ({ elements, services, subscriptions }) => tagInstanceId => {
 
     const $tagName = elements.editableSpan({ className: 'tag-name' })
         .addEventListener('blur', () => {
-            const tagName = $tagName.textContent.trim();
-            const { tagId } = services.tags.getTagInstance(tagInstanceId);
-            services.tags.changeTagName(tagId, tagName);
+            services.tags.changeTagInstanceName(tagInstanceId, $tagName.textContent);
         });
 
     subscriptions.tagInstances.onChange(tagInstanceId, 'tagName', tagName => {
@@ -81,10 +79,11 @@ Inspired by [Functional Core, Imperative Shell](https://www.destroyallsoftware.c
 Example:
 
 ```js
-// src/lib/services/tags/change-tag-name.js
+// src/lib/services/tags/change-tag-instance-name.js
 
-module.exports = ({ core, services, stores }) => (tagId, expression) => {
+module.exports = ({ core, services, stores }) => (tagInstanceId, expression) => {
 
+    const { tagId } = services.tags.getTagInstance(tagInstanceId);
     const { tagName, roleName } = core.tags.parseTagExpression(expression);
 
     stores.tags.setState(tagId, { tagName });
