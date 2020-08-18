@@ -68,7 +68,9 @@ module.exports = ({ window, elements }) => (props = {}) => {
     $span.setAttribute('contenteditable', true);
    
     return $span;
-};```
+};
+
+```
 
 #### Third Party Components
 
