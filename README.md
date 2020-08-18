@@ -121,6 +121,7 @@ A JavaScript utility library.
 
 Notes:
 - Used by exception where there's no concise native JavaScript alternative.
+- Functions are required individually to minimise bundle size, e.g. `require('lodash/merge')`
 
 ### module-composer
 
@@ -138,6 +139,13 @@ Notes:
 - I am using a fork which I have customised to accept a window object in order to avoid globals.
 
 ## Development dependencies
+
+### ejs
+
+A simple templating language that lets you generate HTML markup with plain JavaScript.
+
+Used for:
+- Generating `README.md` from a template to reduce duplication and improve maintainability.
 
 ### eslint
 
