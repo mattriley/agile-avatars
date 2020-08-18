@@ -6,5 +6,6 @@ set -e
 
 . ./env
 
+./tasks/gen-readme
 ./tasks/lint
 ./tasks/test-cov-check

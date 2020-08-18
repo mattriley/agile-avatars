@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+# Generates README.md
+
+npx ejs ./README-TEMPLATE.md -o ./README.md

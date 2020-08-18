@@ -26,22 +26,7 @@ Components may be composed of other components, elements, or third party compone
 Example: `tag-name.js`
 
 ```js
-module.exports = ({ elements, services, subscriptions }) => tagInstanceId => {
-
-    const $tagName = elements.editableSpan({ className: 'tag-name' })
-        .addEventListener('blur', () => {
-            const tagName = $tagName.textContent.trim();
-            const { tagId } = services.tags.getTagInstance(tagInstanceId);
-            services.tags.changeTagName(tagId, tagName);
-        });
-
-    subscriptions.tagInstances.onChange(tagInstanceId, 'tagName', tagName => {
-        $tagName.textContent = tagName;
-    }).invoke();
-
-    return $tagName;
-
-};
+<%- include('src/lib/ui/components/tag-list/tag/elements/tag-name.js'); -%>
 ```
 
 #### Elements
