@@ -1,6 +1,6 @@
 module.exports = ({ services, stores }) => tagInstanceData => {
 
-    const tagInstance = services.tags.buildInstance(tagInstanceData);
+    const tagInstance = services.tags.buildTagInstance(tagInstanceData);
     const { tagId, mode } = tagInstance;
     const tag = stores.tags.getState(tagId);
 

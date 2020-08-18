@@ -4,7 +4,7 @@ module.exports = ({ elements, services, subscriptions }) => tagInstanceId => {
         className: 'role-name'
     }).addEventListener('blur', e => {
         const roleName = e.target.textContent.trim();
-        services.tags.changeInstanceRole(tagInstanceId, roleName);
+        services.tags.changeTagInstanceRole(tagInstanceId, roleName);
     });
 
     subscriptions.tagInstances.onChange(tagInstanceId, 'roleName', roleName => {

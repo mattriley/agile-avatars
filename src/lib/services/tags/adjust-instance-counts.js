@@ -8,8 +8,8 @@ module.exports = ({ core, config, settings, stores, services }) => () => {
 
     plans.forEach(plan => {
         plan = { insert: [], remove: [], ...plan };
-        plan.insert.forEach(services.tags.insertInstance);
-        plan.remove.forEach(services.tags.removeInstance);
+        plan.insert.forEach(services.tags.insertTagInstance);
+        plan.remove.forEach(services.tags.removeTagInstance);
     });
 
 };
