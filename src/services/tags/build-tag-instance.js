@@ -1,9 +1,8 @@
 module.exports = ({ stores }) => tagInstanceData => {
 
-    const { tagId } = tagInstanceData;
+    const { tagId, mode } = tagInstanceData;
     const { tagName, roleId } = stores.tags.getState(tagId);
     const { roleName } = stores.roles.getState(roleId);
-    return { ...tagInstanceData, tagName, roleId, roleName };
-
+    return { tagId, tagName, roleId, roleName, mode };
     
 };
