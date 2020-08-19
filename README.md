@@ -120,6 +120,26 @@ module.exports = () => expression => {
 
 The __io__ object contains objects and functions that depend on the environment. 
 
+```js
+// src/lib/io/io.js
+
+const Sentry = require('@sentry/browser');
+
+module.exports = ({ window, config }) => {
+
+    Sentry.init(config.analytics.sentry);
+
+    return {
+        sentry: Sentry,
+        getDate: () => new window.Date(),
+        random: window.Math.random,
+        fetch: window.fetch.bind(window),
+        createFileReader: () => new window.FileReader()
+    };
+
+};
+```
+
 ### Subscriptions
 
 A __subscription__ function enables a listener to be notified of state changes.

@@ -75,6 +75,12 @@ Example:
 
 The __io__ object contains objects and functions that depend on the environment. 
 
+```js
+<%- `// ${exampleIOPath}` %>
+
+<%- include(exampleIOPath).split('/*')[0] -%>
+```
+
 ### Subscriptions
 
 A __subscription__ function enables a listener to be notified of state changes.
