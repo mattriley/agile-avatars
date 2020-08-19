@@ -3,10 +3,10 @@
 # Generates README.md
 
 npx ejs ./README-TEMPLATE.md -o ./README.md \
-    exampleComponentPath=src/lib/components/tag-list/tag/components/tag-name.js \
-    exampleElementPath=src/lib/elements/editable-span.js \
-    exampleServicePath=src/lib/services/tags/change-tag-instance-name.js \
-    exampleCorePath=src/lib/core/tags/parse-tag-expression.js \
-    exampleIOPath=src/lib/io/io.js
+    exampleComponentPath=src/components/tag-list/tag/components/tag-name.js \
+    exampleElementPath=src/elements/editable-span.js \
+    exampleServicePath=src/services/tags/change-tag-instance-name.js \
+    exampleCorePath=src/core/tags/parse-tag-expression.js \
+    exampleIOPath=src/io/io.js
 
 git add ./README.md

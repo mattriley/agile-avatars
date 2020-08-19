@@ -3,7 +3,7 @@ const tape = require('tape');
 const merge = require('lodash/merge');
 const compose = require('module-composer');
 const test = require('.');
-const src = require('../src');
+const bootOrig = require('../boot');
 
 const { window } = new JSDOM('', { url: 'https://localhost/' });
 const helpers = compose(test.helpers, { window });
@@ -18,7 +18,7 @@ const boot = (args = {}) => {
     window.fetch = () => undefined;
     window.document.getElementsByTagName('html')[0].innerHTML = '';
     const config = merge({}, defaultConfig, args.config);
-    return src.boot({ window, ...args, config });
+    return bootOrig({ window, ...args, config });
 };
 
 compose(test.tests, { test: tape, boot, window, helpers });

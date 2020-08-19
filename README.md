@@ -24,7 +24,7 @@ A __component__ function returns a [HTMLElement](https://developer.mozilla.org/e
 Example:
 
 ```js
-// src/lib/components/tag-list/tag/components/tag-name.js
+// src/components/tag-list/tag/components/tag-name.js
 
 module.exports = ({ elements, services, subscriptions }) => tagInstanceId => {
 
@@ -51,7 +51,7 @@ Elements are more fundamental than components. Unlike components, they cannot re
 Example:
 
 ```js
-// src/lib/elements/editable-span.js
+// src/elements/editable-span.js
 
 module.exports = ({ window, elements }) => (props = {}) => {
 
@@ -79,7 +79,7 @@ Inspired by [Functional Core, Imperative Shell](https://www.destroyallsoftware.c
 Example:
 
 ```js
-// src/lib/services/tags/change-tag-instance-name.js
+// src/services/tags/change-tag-instance-name.js
 
 module.exports = ({ core, services, stores }) => (tagInstanceId, expression) => {
 
@@ -105,7 +105,7 @@ Inspired by [Functional Core, Imperative Shell](https://www.destroyallsoftware.c
 Example:
 
 ```js
-// src/lib/core/tags/parse-tag-expression.js
+// src/core/tags/parse-tag-expression.js
 
 module.exports = () => expression => {
 
@@ -121,7 +121,7 @@ module.exports = () => expression => {
 The __io__ object contains objects and functions that depend on the environment. 
 
 ```js
-// src/lib/io/io.js
+// src/io/io.js
 
 const Sentry = require('@sentry/browser');
 
