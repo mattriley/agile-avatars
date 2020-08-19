@@ -5,10 +5,10 @@ module.exports = ({ window, config }) => {
     Sentry.init(config.analytics.sentry);
 
     return {
-        sentry: Sentry,
-        getDate: () => new window.Date(),
+        sentry: Sentry,        
         random: window.Math.random,
         fetch: window.fetch.bind(window),
+        date: () => new window.Date(),
         createFileReader: () => new window.FileReader()
     };
 

@@ -19,7 +19,7 @@ module.exports = ({ test, boot, window }) => {
                 analytics: { google: { enabled: true } } 
             },
             io: {
-                getDate: () => date
+                date: () => date
             }
         });
         components.googleAnalytics();
