@@ -252,3 +252,25 @@ I generally prefer to avoid variable prefixes but I've found these prefixes help
 
 1. Improves visual scanning of code making it faster to interpret.
 2. Avoids naming conflicts, e.g. `$tagName.textContext = tagName;`
+
+__Clarifying comments as footnotes__
+
+Such comments are secondary to the code and so follow the code rather than preceed it.
+
+Example: 
+
+```js
+// src/components/tag-list/tag/components/tag-image.js
+
+module.exports = ({ el }) => () => {
+
+    return el('div', 'tag-image');
+
+};
+
+/* FOOTNOTES
+
+Actual image is rendered using CSS background-image as a performance optimisation.
+
+*/
+```

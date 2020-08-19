@@ -7,6 +7,7 @@ npx ejs ./README-TEMPLATE.md -o ./README.md \
     exampleElementPath=src/elements/editable-span.js \
     exampleServicePath=src/services/tags/change-tag-instance-name.js \
     exampleCorePath=src/core/tags/parse-tag-expression.js \
-    exampleIOPath=src/io/io.js
+    exampleIOPath=src/io/io.js \
+    exampleFootnotePath=src/components/tag-list/tag/components/tag-image.js
 
 git add ./README.md

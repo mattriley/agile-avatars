@@ -193,3 +193,15 @@ I generally prefer to avoid variable prefixes but I've found these prefixes help
 
 1. Improves visual scanning of code making it faster to interpret.
 2. Avoids naming conflicts, e.g. `$tagName.textContext = tagName;`
+
+__Clarifying comments as footnotes__
+
+Such comments are secondary to the code and so follow the code rather than preceed it.
+
+Example: 
+
+```js
+<%- `// ${exampleFootnotePath}` %>
+
+<%- include(exampleFootnotePath) -%>
+```
