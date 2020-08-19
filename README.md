@@ -17,7 +17,10 @@ This is a hobby project I decided to double as an experiment in writing a web ap
 
 ### Learnability
 
-TODO: Elaborate
+- Prioritise for beginner-friendliness, or [Shoshin](https://en.wikipedia.org/wiki/Shoshin), meaning "beginner's mind".
+- Minimise the need for prerequisite knowledge.
+- Minimise the number of elements to learn beyond native JavaScript and basic design patterns.
+- Minimise the use of obscure language features.
 
 ### Maintainability
 
