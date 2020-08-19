@@ -1,7 +1,6 @@
 module.exports = {
     __modulename: 'tags',
     dataTransforms: require('./data-transforms'),
-    expandTagInstanceData: require('./expand-tag-instance-data'),
     parseEmailExpression: require('./parse-email-expression'),
     parseFileExpression: require('./parse-file-expression'),
     parseTagExpression: require('./parse-tag-expression'),

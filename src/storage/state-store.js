@@ -6,7 +6,6 @@ module.exports = () => localState => {
     const collectionEmitter = new EventEmitter();
 
     const manage = id => funcIndex[id] ?? { getState: () => null };
-    const getMap = () => localState;
     const getArray = () => Object.values(localState);
     const getState = id => manage(id).getState();
     const setState = (id, changes) => manage(id).setState(changes);
@@ -55,6 +54,6 @@ module.exports = () => localState => {
         delete localState[id];
     };
 
-    return { manage, insert, remove, getMap, getArray, getState, setState, subscriptions };
+    return { manage, insert, remove, getArray, getState, setState, subscriptions };
 
 };

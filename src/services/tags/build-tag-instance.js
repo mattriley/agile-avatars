@@ -1,7 +1,9 @@
-module.exports = ({ core, stores }) => tagInstanceData => {
+module.exports = ({ stores }) => tagInstanceData => {
 
-    const tagMap = stores.tags.getMap();
-    const roleMap = stores.roles.getMap();
-    return core.tags.expandTagInstanceData(tagInstanceData, tagMap, roleMap);
+    const { tagId } = tagInstanceData;
+    const { tagName, roleId } = stores.tags.getState(tagId);
+    const { roleName } = stores.roles.getState(roleId);
+    return { ...tagInstanceData, tagName, roleId, roleName };
+
     
 };
