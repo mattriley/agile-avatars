@@ -66,9 +66,9 @@
     -webkit-filter: grayscale(100%);
     /* Safari 6.0 - 9.0 */
     filter: grayscale(100%);
-    border-color: silver !important;
+    border-color: silver;
 }
 
-.tag.passive .role-name {
-    background-color: silver !important;
+.tag.passive.nil-role-false .role-name {
+    background-color: silver;
 }
