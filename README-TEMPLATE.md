@@ -21,28 +21,13 @@ This is a hobby project I decided to double as an experiment in writing a web ap
 - Minimise the need for prerequisite knowledge.
 - Minimise the number of elements to learn beyond native JavaScript and basic design patterns.
 - Minimise the use of obscure language features.
+- When multiple options exist, use the simplest tool for the job.
 
 ### Maintainability
 
-TODO: Elaborate
-
-### Modularity
-
-TODO: Elaborate
-
-## Constraints
-
-### No frameworks
-
-TODO: Elaborate
-
-### Minimise dependencies
-
-TODO: Elaborate
-
-### Simplest tool for the job
-
-TODO: Elaborate
+- Minimise dependencies to reduce security concerns and upgrade cycles.
+- Clean code. [Here's a good summary](https://gist.github.com/wojteklu/73c6914cc446146b8b533c0988cf8d29).
+- Adopt functional programming techniques with a low learninig curve, supported by native JavaScript.
 
 # Architecture
 
