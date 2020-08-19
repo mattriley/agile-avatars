@@ -11,6 +11,20 @@ Source code for [agileavatars.com](https://agileavatars.com), an experiment in f
 
 This is a hobby project I decided to double as an experiment in writing a web application in JavaScript without the aid of a framework like React or Angular. Such an approach is often referred to as frameworkless, or vanilla JavaScript.
 
+# Constraints
+
+## No frameworks
+
+TODO: Elaborate
+
+## Minimise dependencies
+
+TODO: Elaborate
+
+## Simplest tool for the job
+
+TODO: Elaborate
+
 # Architecture
 
 ![Architecture](docs/architecture.svg)
