@@ -243,3 +243,12 @@ Notes:
 ### tape
 
 A very lightweight TAP producing test harness.
+
+# Conventions
+
+__Prefix $ to variables storing HTML element and $$ for collections of HTML elements__
+
+I generally prefer to avoid variable prefixes but I've found these prefixes help in a couple of ways:
+
+1. Improves visual scanning of code making it faster to interpret.
+2. Avoids naming conflicts, e.g. `$tagName.textContext = tagName;`
