@@ -1,5 +1,5 @@
 module.exports = ({ elements, config }) => () => {
 
-    return elements.googleAnalytics(config.analytics.google);
+    return elements.googleAnalytics(config.googleAnalytics);
     
 };

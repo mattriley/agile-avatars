@@ -127,7 +127,7 @@ const Sentry = require('@sentry/browser');
 
 module.exports = ({ window, config }) => {
 
-    Sentry.init(config.analytics.sentry);
+    Sentry.init(config.sentry);
 
     return {
         sentry: Sentry,        

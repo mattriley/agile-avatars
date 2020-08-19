@@ -3,7 +3,7 @@ module.exports = ({ test, boot, window }) => {
     test('script tag initialised correctly', t => {
         const { components } = boot({ 
             config: { 
-                analytics: { google: { enabled: true } } 
+                googleAnalytics: { enabled: true } 
             }
         });
         const $script = components.googleAnalytics();
@@ -16,7 +16,7 @@ module.exports = ({ test, boot, window }) => {
         const date = new Date(1590969600000);
         const { components } = boot({ 
             config: { 
-                analytics: { google: { enabled: true } } 
+                googleAnalytics: { enabled: true } 
             },
             io: {
                 date: () => date
@@ -31,7 +31,7 @@ module.exports = ({ test, boot, window }) => {
     test('gtag function sets metadata correctly', t => {
         const { components } = boot({ 
             config: { 
-                analytics: { google: { enabled: true } } 
+                googleAnalytics: { enabled: true } 
             }
         });
         components.googleAnalytics();
@@ -43,7 +43,7 @@ module.exports = ({ test, boot, window }) => {
     test('disabled', t => {
         const { components } = boot({ 
             config: { 
-                analytics: { google: { enabled: false } } 
+                googleAnalytics: { enabled: false } 
             }
         });
         components.googleAnalytics();
