@@ -29,6 +29,13 @@ This is a hobby project I decided to double as an experiment in writing a web ap
 - Clean code. [Here's a good summary](https://gist.github.com/wojteklu/73c6914cc446146b8b533c0988cf8d29).
 - Adopt functional programming techniques with a low learninig curve, supported by native JavaScript.
 
+# Experiments
+
+## Each file only required/imported once
+
+TODO: Elaborate
+
+
 # Architecture
 
 ![Architecture](docs/architecture.svg)
@@ -264,14 +271,14 @@ A very lightweight TAP producing test harness.
 
 # Conventions
 
-__Prefix $ to variables storing HTML element and $$ for collections of HTML elements__
+### Prefix $ to variables storing HTML element and $$ for collections of HTML elements
 
 I generally prefer to avoid variable prefixes but I've found these prefixes help in a couple of ways:
 
 1. Improves visual scanning of code making it faster to interpret.
 2. Avoids naming conflicts, e.g. `$tagName.textContext = tagName;`
 
-__Clarifying comments as footnotes__
+### Clarifying comments as footnotes
 
 Such comments are secondary to the code and so follow the code rather than preceed it.
 
@@ -292,3 +299,9 @@ Actual image is rendered using CSS background-image as a performance optimisatio
 
 */
 ```
+
+### Functional programming
+
+- Prefer `const` over `let`, and avoid `var`.
+- Prefer higher-order functions such as `filter`, `map`, `reduce`, over imperative looping statements.
+- Prefer currying dependencies over constructors (classes), e.g. `({ dep1, dep2 }) => ({ arg1, arg2 }) => { ... }`
