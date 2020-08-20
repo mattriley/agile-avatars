@@ -75,9 +75,9 @@ Elements are more fundamental than components. Unlike components, they cannot re
 
 Example:
 
-```js
-// src/elements/editable-span.js
+[src/elements/editable-span.js](src/elements/editable-span.js)
 
+```js
 module.exports = ({ window, elements }) => (props = {}) => {
 
     const $span = elements.el('span', props)
@@ -103,9 +103,9 @@ Inspired by [Functional Core, Imperative Shell](https://www.destroyallsoftware.c
 
 Example:
 
-```js
-// src/services/tags/change-tag-instance-name.js
+[src/services/tags/change-tag-instance-name.js](src/services/tags/change-tag-instance-name.js)
 
+```js
 module.exports = ({ core, services, stores }) => (tagInstanceId, expression) => {
 
     const { tagId } = services.tags.getTagInstance(tagInstanceId);
@@ -129,9 +129,9 @@ Inspired by [Functional Core, Imperative Shell](https://www.destroyallsoftware.c
 
 Example:
 
-```js
-// src/core/tags/parse-tag-expression.js
+[src/core/tags/parse-tag-expression.js](src/core/tags/parse-tag-expression.js)
 
+```js
 module.exports = () => expression => {
 
     const [tagName, roleName] = expression.split('+').map(s => s.trim());        
@@ -145,9 +145,9 @@ module.exports = () => expression => {
 
 The __io__ object contains objects and functions that depend on the environment. 
 
-```js
-// src/io/io.js
+[src/io/io.js](src/io/io.js)
 
+```js
 const Sentry = require('@sentry/browser');
 
 module.exports = ({ window, config }) => {
@@ -284,9 +284,9 @@ Such comments are secondary to the code and so follow the code rather than prece
 
 Example: 
 
-```js
-// src/components/tag-list/tag/components/tag-image.js
+[src/components/tag-list/tag/components/tag-image.js](src/components/tag-list/tag/components/tag-image.js)
 
+```js
 module.exports = ({ el }) => () => {
 
     return el('div', 'tag-image');
@@ -305,3 +305,4 @@ Actual image is rendered using CSS background-image as a performance optimisatio
 - Prefer `const` over `let`, and avoid `var`.
 - Prefer higher-order functions such as `filter`, `map`, `reduce`, over imperative looping statements.
 - Prefer currying dependencies over constructors (classes), e.g. `({ dep1, dep2 }) => ({ arg1, arg2 }) => { ... }`
+

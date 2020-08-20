@@ -48,7 +48,7 @@ A __component__ function returns a [HTMLElement](https://developer.mozilla.org/e
 
 Example:
 
-<%- `[${exampleComponentPath}](${exampleComponentPath})` %>
+<%- renderLink(exampleComponentPath) %>
 
 ```js
 <%- include(exampleComponentPath).split('/*')[0] -%>
@@ -62,9 +62,9 @@ Elements are more fundamental than components. Unlike components, they cannot re
 
 Example:
 
-```js
-<%- `// ${exampleElementPath}` %>
+<%- renderLink(exampleElementPath) %>
 
+```js
 <%- include(exampleElementPath).split('/*')[0] -%>
 ```
 
@@ -76,9 +76,9 @@ Inspired by [Functional Core, Imperative Shell](https://www.destroyallsoftware.c
 
 Example:
 
-```js
-<%- `// ${exampleServicePath}` %>
+<%- renderLink(exampleServicePath) %>
 
+```js
 <%- include(exampleServicePath).split('/*')[0] -%>
 ```
 
@@ -90,9 +90,9 @@ Inspired by [Functional Core, Imperative Shell](https://www.destroyallsoftware.c
 
 Example:
 
-```js
-<%- `// ${exampleCorePath}` %>
+<%- renderLink(exampleCorePath) %>
 
+```js
 <%- include(exampleCorePath).split('/*')[0] -%>
 ```
 
@@ -100,9 +100,9 @@ Example:
 
 The __io__ object contains objects and functions that depend on the environment. 
 
-```js
-<%- `// ${exampleIOPath}` %>
+<%- renderLink(exampleIOPath) %>
 
+```js
 <%- include(exampleIOPath).split('/*')[0] -%>
 ```
 
@@ -225,9 +225,9 @@ Such comments are secondary to the code and so follow the code rather than prece
 
 Example: 
 
-```js
-<%- `// ${exampleFootnotePath}` %>
+<%- renderLink(exampleFootnotePath) %>
 
+```js
 <%- include(exampleFootnotePath) -%>
 ```
 
