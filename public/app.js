@@ -1,5 +1,4 @@
 require('./css/*.css');
 const boot = require('../boot');
-const { components, context } = boot({ window });
-window.agileavatars = context;
+const { components } = boot({ window });
 document.body.append(components.app());
