@@ -36,6 +36,6 @@ module.exports = ({ window, ...args }) => {
     };
 
     window.agileavatars = context;
-
-    return { context, ...context };
+    return context;
+    
 };
