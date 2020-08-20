@@ -277,6 +277,7 @@ Such comments are secondary to the code and so follow the code rather than prece
 
 Example: 
 
+[src/components/tag-list/tag/components/tag-image.js](src/components/tag-list/tag/components/tag-image.js)
 ```js
 module.exports = ({ el }) => () => {
 

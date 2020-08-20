@@ -48,7 +48,7 @@ A __component__ function returns a [HTMLElement](https://developer.mozilla.org/e
 
 Example:
 
-<%- renderJsFile(exampleComponentPath) %>
+<%- renderJsFile(examples.component) %>
 
 ### Elements
 
@@ -58,7 +58,7 @@ Elements are more fundamental than components. Unlike components, they cannot re
 
 Example:
 
-<%- renderJsFile(exampleElementPath) %>
+<%- renderJsFile(examples.element) %>
 
 ### Services
 
@@ -68,7 +68,7 @@ Inspired by [Functional Core, Imperative Shell](https://www.destroyallsoftware.c
 
 Example:
 
-<%- renderJsFile(exampleServicePath) %>
+<%- renderJsFile(examples.service) %>
 
 ### Core
 
@@ -78,13 +78,13 @@ Inspired by [Functional Core, Imperative Shell](https://www.destroyallsoftware.c
 
 Example:
 
-<%- renderJsFile(exampleCorePath) %>
+<%- renderJsFile(examples.core) %>
 
 ### IO
 
 The __io__ object contains objects and functions that depend on the environment. 
 
-<%- renderJsFile(exampleIOPath) %>
+<%- renderJsFile(examples.io) %>
 
 ### Subscriptions
 
@@ -205,9 +205,7 @@ Such comments are secondary to the code and so follow the code rather than prece
 
 Example: 
 
-```js
-<%- include(exampleFootnotePath) -%>
-```
+<%- renderJsFile(examples.footnote, { includeFootnotes: true }) %>
 
 ### Functional programming
 
