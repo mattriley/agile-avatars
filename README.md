@@ -48,9 +48,9 @@ A __component__ function returns a [HTMLElement](https://developer.mozilla.org/e
 
 Example:
 
-```js
-// src/components/tag-list/tag/components/tag-name.js
+[src/components/tag-list/tag/components/tag-name.js](src/components/tag-list/tag/components/tag-name.js)
 
+```js
 module.exports = ({ elements, services, subscriptions }) => tagInstanceId => {
 
     const $tagName = elements.editableSpan({ className: 'tag-name' })

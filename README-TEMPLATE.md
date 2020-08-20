@@ -48,9 +48,9 @@ A __component__ function returns a [HTMLElement](https://developer.mozilla.org/e
 
 Example:
 
-```js
-<%- `// ${exampleComponentPath}` %>
+<%- `[${exampleComponentPath}](${exampleComponentPath})` %>
 
+```js
 <%- include(exampleComponentPath).split('/*')[0] -%>
 ```
 
