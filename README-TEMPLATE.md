@@ -48,11 +48,7 @@ A __component__ function returns a [HTMLElement](https://developer.mozilla.org/e
 
 Example:
 
-<%- renderLink(exampleComponentPath) %>
-
-```js
-<%- include(exampleComponentPath).split('/*')[0] -%>
-```
+<%- renderJsFile(exampleComponentPath) %>
 
 ### Elements
 
@@ -62,11 +58,7 @@ Elements are more fundamental than components. Unlike components, they cannot re
 
 Example:
 
-<%- renderLink(exampleElementPath) %>
-
-```js
-<%- include(exampleElementPath).split('/*')[0] -%>
-```
+<%- renderJsFile(exampleElementPath) %>
 
 ### Services
 
@@ -76,11 +68,7 @@ Inspired by [Functional Core, Imperative Shell](https://www.destroyallsoftware.c
 
 Example:
 
-<%- renderLink(exampleServicePath) %>
-
-```js
-<%- include(exampleServicePath).split('/*')[0] -%>
-```
+<%- renderJsFile(exampleServicePath) %>
 
 ### Core
 
@@ -90,21 +78,13 @@ Inspired by [Functional Core, Imperative Shell](https://www.destroyallsoftware.c
 
 Example:
 
-<%- renderLink(exampleCorePath) %>
-
-```js
-<%- include(exampleCorePath).split('/*')[0] -%>
-```
+<%- renderJsFile(exampleCorePath) %>
 
 ### IO
 
 The __io__ object contains objects and functions that depend on the environment. 
 
-<%- renderLink(exampleIOPath) %>
-
-```js
-<%- include(exampleIOPath).split('/*')[0] -%>
-```
+<%- renderJsFile(exampleIOPath) %>
 
 ### Subscriptions
 
@@ -224,8 +204,6 @@ I generally prefer to avoid variable prefixes but I've found these prefixes help
 Such comments are secondary to the code and so follow the code rather than preceed it.
 
 Example: 
-
-<%- renderLink(exampleFootnotePath) %>
 
 ```js
 <%- include(exampleFootnotePath) -%>

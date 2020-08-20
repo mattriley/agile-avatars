@@ -49,7 +49,6 @@ A __component__ function returns a [HTMLElement](https://developer.mozilla.org/e
 Example:
 
 [src/components/tag-list/tag/components/tag-name.js](src/components/tag-list/tag/components/tag-name.js)
-
 ```js
 module.exports = ({ elements, services, subscriptions }) => tagInstanceId => {
 
@@ -76,7 +75,6 @@ Elements are more fundamental than components. Unlike components, they cannot re
 Example:
 
 [src/elements/editable-span.js](src/elements/editable-span.js)
-
 ```js
 module.exports = ({ window, elements }) => (props = {}) => {
 
@@ -92,7 +90,6 @@ module.exports = ({ window, elements }) => (props = {}) => {
    
     return $span;
 };
-
 ```
 
 ### Services
@@ -104,7 +101,6 @@ Inspired by [Functional Core, Imperative Shell](https://www.destroyallsoftware.c
 Example:
 
 [src/services/tags/change-tag-instance-name.js](src/services/tags/change-tag-instance-name.js)
-
 ```js
 module.exports = ({ core, services, stores }) => (tagInstanceId, expression) => {
 
@@ -130,7 +126,6 @@ Inspired by [Functional Core, Imperative Shell](https://www.destroyallsoftware.c
 Example:
 
 [src/core/tags/parse-tag-expression.js](src/core/tags/parse-tag-expression.js)
-
 ```js
 module.exports = () => expression => {
 
@@ -138,7 +133,6 @@ module.exports = () => expression => {
     return { tagName, roleName };
 
 };
-
 ```
 
 ### IO
@@ -146,7 +140,6 @@ module.exports = () => expression => {
 The __io__ object contains objects and functions that depend on the environment. 
 
 [src/io/io.js](src/io/io.js)
-
 ```js
 const Sentry = require('@sentry/browser');
 
@@ -284,8 +277,6 @@ Such comments are secondary to the code and so follow the code rather than prece
 
 Example: 
 
-[src/components/tag-list/tag/components/tag-image.js](src/components/tag-list/tag/components/tag-image.js)
-
 ```js
 module.exports = ({ el }) => () => {
 
@@ -305,4 +296,3 @@ Actual image is rendered using CSS background-image as a performance optimisatio
 - Prefer `const` over `let`, and avoid `var`.
 - Prefer higher-order functions such as `filter`, `map`, `reduce`, over imperative looping statements.
 - Prefer currying dependencies over constructors (classes), e.g. `({ dep1, dep2 }) => ({ arg1, arg2 }) => { ... }`
-
