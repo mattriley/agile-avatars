@@ -2,6 +2,6 @@
 
 # Generates README.md
 
-node ./tasks/gen-readme.js > README.md
-
-git add ./README.md
+README=README.md
+node ./tasks/gen-readme.js > $README
+git add $README
