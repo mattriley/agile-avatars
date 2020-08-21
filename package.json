@@ -14,7 +14,7 @@
         "blueimp-md5": "^2.16.0",
         "lodash": "^4.17.17",
         "lodash.merge": "^4.6.2",
-        "module-composer": "^0.3.0",
+        "module-composer": "^0.3.1",
         "vanilla-picker": "github:mattriley/vanilla-picker"
     },
     "devDependencies": {
