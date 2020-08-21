@@ -1,5 +1,4 @@
 module.exports = {
-    __modulename: 'tips',
     badges: require('./badges'),
     images: require('./images'),
     laminating: require('./laminating'),

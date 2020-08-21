@@ -1,5 +1,4 @@
 module.exports = {
-    __modulename: 'roles',
     buildRole: require('./build-role'),
     changeRoleColor: require('./change-role-color'),
     changeRoleName: require('./change-role-name'),

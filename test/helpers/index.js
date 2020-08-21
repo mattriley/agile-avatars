@@ -1,5 +1,4 @@
 module.exports = {
-    __modulename: 'helpers',
     assertBoolClass: require('./assert-bool-class'),
     dispatchDropFiles: require('./dispatch-drop-files'),
     dispatchEvent: require('./dispatch-event'),

@@ -1,5 +1,4 @@
 module.exports = {
-    __modulename: 'styles',
     role: require('./role'),
     styles: require('./styles'),
     tagImage: require('./tag-image'),

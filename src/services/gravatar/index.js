@@ -1,5 +1,4 @@
 module.exports = {
-    __modulename: 'gravatar',
     changeFallback: require('./change-fallback'),
     changeFreetext: require('./change-freetext'),
     fetchImageAsync: require('./fetch-image-async'),

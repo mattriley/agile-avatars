@@ -1,5 +1,4 @@
 module.exports = {
-    __modulename: 'tags',
     dataTransforms: require('./data-transforms'),
     parseEmailExpression: require('./parse-email-expression'),
     parseFileExpression: require('./parse-file-expression'),

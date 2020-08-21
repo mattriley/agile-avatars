@@ -1,5 +1,4 @@
 module.exports = {
-    __modulename: 'options',
     modes: require('./modes'),
     outline: require('./outline'),
     shapes: require('./shapes'),

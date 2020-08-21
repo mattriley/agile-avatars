@@ -1,21 +1,23 @@
-const compose = require('module-composer');
+const composer = require('module-composer');
 const src = require('./src');
 
 module.exports = ({ window, ...args }) => {
 
-    const config = compose(src.config, { window }, args.config);
-    const io = compose(src.io, { config, window }, args.io);
-    const util = compose(src.util, { config });
+    const compose = composer(src);
 
-    const storage = compose(src.storage, { config });
+    const config = compose('config', { window }, args.config);
+    const io = compose('io', { config, window }, args.io);
+    const util = compose('util', { config });
+
+    const storage = compose('storage', { config });
     const { state, stores, settings, subscriptions } = storage.initialise();
 
-    const core = compose(src.core, { config });
-    const services = compose(src.services, { subscriptions, settings, stores, core, io, util, config }, args.services);
+    const core = compose('core', { config });
+    const services = compose('services', { subscriptions, settings, stores, core, io, util, config }, args.services);
     
-    const elements = compose(src.elements, { io, window });
+    const elements = compose('elements', { io, window });
     const { el } = elements;
-    const components = compose(src.components, { el, elements, services, subscriptions, util, config, window });
+    const components = compose('components', { el, elements, services, subscriptions, util, config, window });
     
     services.system.initialise();
     

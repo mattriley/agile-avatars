@@ -1,5 +1,4 @@
 module.exports = {
-    __modulename: 'elements',
     dropzone: require('./dropzone'),
     editableSpan: require('./editable-span'),
     el: require('./el'),

@@ -1,12 +1,13 @@
 const { JSDOM } = require('jsdom');
 const tape = require('tape');
 const merge = require('lodash/merge');
-const compose = require('module-composer');
+const composer = require('module-composer');
 const test = require('.');
 const bootOrig = require('../boot');
 
+const compose = composer(test);
 const { window } = new JSDOM('', { url: 'https://localhost/' });
-const helpers = compose(test.helpers, { window });
+const helpers = compose('helpers', { window });
 
 const defaultConfig = { 
     debounce: { adjustTagInstanceCounts: 0, sortTagList: 0 }, 
@@ -21,4 +22,4 @@ const boot = (args = {}) => {
     return bootOrig({ window, ...args, config });
 };
 
-compose(test.tests, { test: tape, boot, window, helpers });
+compose('tests', { test: tape, boot, window, helpers });

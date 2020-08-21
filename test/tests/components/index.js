@@ -1,5 +1,4 @@
 module.exports = {
-    __modulename: 'components',
     appTest: require('./app.test'),
     chooseImagesTest: require('./choose-images.test'),
     dropImagesTest: require('./drop-images.test'),

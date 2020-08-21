@@ -1,5 +1,4 @@
 module.exports = {
-    __modulename: 'components',
     gravatar: require('./gravatar'),
     header: require('./header'),
     imageUploadOptions: require('./image-upload-options'),

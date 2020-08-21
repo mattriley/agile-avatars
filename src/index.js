@@ -1,5 +1,4 @@
 module.exports = {
-    __modulename: 'src',
     components: require('./components'),
     config: require('./config'),
     core: require('./core'),

@@ -1,5 +1,4 @@
 module.exports = {
-    __modulename: 'tags',
     dataTransforms: require('./data-transforms'),
     adjustTagInstanceCounts: require('./adjust-tag-instance-counts'),
     attachImageAsync: require('./attach-image-async'),
