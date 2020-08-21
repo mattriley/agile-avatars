@@ -22,7 +22,7 @@
         "eslint": "^7.2.0",
         "husky": "^4.2.5",
         "jsdom": "^16.2.2",
-        "module-indexgen": "^0.2.0",
+        "module-indexgen": "^0.2.1",
         "nyc": "^15.1.0",
         "parcel-bundler": "^1.12.4",
         "tap-summary": "^4.0.0",
