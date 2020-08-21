@@ -1,19 +1,19 @@
-const composer = require('module-composer');
-const src = require('./src');
+const merge = require('lodash.merge');
+const composeSrc = require('module-composer')(require('./src'));
 
-module.exports = ({ window, ...args }) => {
+module.exports = ({ window, ...overrides }) => {
 
-    const compose = composer(src);
+    const compose = (key, arg) => merge(composeSrc(key, arg), overrides[key]);
 
-    const config = compose('config', { window }, args.config);
-    const io = compose('io', { config, window }, args.io);
+    const config = compose('config', { window });
+    const io = compose('io', { config, window });
     const util = compose('util', { config });
 
     const storage = compose('storage', { config });
     const { state, stores, settings, subscriptions } = storage.initialise();
 
     const core = compose('core', { config });
-    const services = compose('services', { subscriptions, settings, stores, core, io, util, config }, args.services);
+    const services = compose('services', { subscriptions, settings, stores, core, io, util, config });
     
     const elements = compose('elements', { io, window });
     const { el } = elements;
