@@ -11,7 +11,13 @@ Source code for [agileavatars.com](https://agileavatars.com), an experiment in f
 
 This is a hobby project I decided to double as an experiment in writing a web application in JavaScript without the aid of a framework like React or Angular. Such an approach is often referred to as frameworkless, or vanilla JavaScript.
 
-# Requirements
+## Table of Contents
+
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+# Constraints
 
 ## System quality attributes
 
@@ -28,13 +34,6 @@ This is a hobby project I decided to double as an experiment in writing a web ap
 - Minimise dependencies to reduce security concerns and upgrade cycles.
 - Clean code. [Here's a good summary](https://gist.github.com/wojteklu/73c6914cc446146b8b533c0988cf8d29).
 - Adopt functional programming techniques with a low learninig curve, supported by native JavaScript.
-
-# Experiments
-
-## Each file only required/imported once
-
-TODO: Elaborate
-
 
 # Architecture
 
@@ -297,3 +296,9 @@ Actual image is rendered using CSS background-image as a performance optimisatio
 - Prefer `const` over `let`, and avoid `var`.
 - Prefer higher-order functions such as `filter`, `map`, `reduce`, over imperative looping statements.
 - Prefer currying dependencies over constructors (classes), e.g. `({ dep1, dep2 }) => ({ arg1, arg2 }) => { ... }`
+
+# Experiments
+
+## Each file only required/imported once
+
+TODO: Elaborate
