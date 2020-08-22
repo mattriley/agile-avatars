@@ -39,16 +39,33 @@ This is a hobby project I decided to double as an experiment in writing a web ap
 
 ## Technical constraints
 
-### Source files loaded (required/imported) only once
+### No globals
 
-Encourages:
-- Structuring dependencies in a logical and obvious manner to ease cognitive load.
-- Loading source files as a distinct responsibility.
-- Keeping source files in obvious locations.
+TODO: Elaborate.
 
-Discourages:
-- Source files starting with blocks of require/import statements.
-- Loading the same file many times with slighly different relative paths.
+### No classes
+
+TODO: Elaborate.
+
+### non-index.js files must only be loaded from index.js files
+
+Constraints:
+- `index.js` files must load and export sibling files and directories.
+- Non-`index.js` files must only load directories (i.e. `index.js` files).
+
+Implications:
+- Files are loaded only once each.
+- Results are shared by "passing down" using function arguments.
+- Non-`index.js` files have very few import/require statements.
+- `index.js` files have a single responsibility.
+- `index.js` files don't contain logic.
+- `index.js` files could be generated.
+- Increases likelihood that any logic is placed in appropriately named file, which improves searchability.
+- Increase the likelihood that dependencies will be structured in a logical and predictable manner.
+
+Avoids:
+- Source files starting with potentially large blocks of import/require statements.
+- Loading the same file multiple times with a slighly different relative path.
 - Coupling to file paths in general.
 
 ### Minimise test doubles and avoid mocking libraries
