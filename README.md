@@ -22,7 +22,7 @@ This is a hobby project I decided to double as an experiment in writing a web ap
     - [Learnability](#learnability)
     - [Maintainability](#maintainability)
   - [Technical constraints](#technical-constraints)
-    - [Each file only required/imported once](#each-file-only-requiredimported-once)
+    - [Source files only loaded (required/imported) only once](#source-files-only-loaded-requiredimported-only-once)
     - [Minimise test doubles and avoid mocking libraries](#minimise-test-doubles-and-avoid-mocking-libraries)
 - [Architecture](#architecture)
   - [Architectural components](#architectural-components)
@@ -76,9 +76,17 @@ This is a hobby project I decided to double as an experiment in writing a web ap
 
 ## Technical constraints
 
-### Each file only required/imported once
+### Source files only loaded (required/imported) only once
 
-TODO: Elaborate.
+Encourages:
+- Structuring dependencies in a logical and obvious manner to ease cognitive load.
+- Loading source files as a distinct responsibility.
+- Keeping source files in obvious locations.
+
+Discourages:
+- Source files starting with blocks of require/import statements.
+- Loading the same file many times with slighly different relative paths.
+- Coupling to file paths in general.
 
 ### Minimise test doubles and avoid mocking libraries
 
@@ -86,9 +94,9 @@ Eric Elliott's [Mocking is a code smell](https://medium.com/javascript-scene/moc
 
 > Mocking is required when our decomposition strategy has failed.
 
-This constraint encourages a design which is:
-- Loosely coupled.
-- Supports test doubles without the aid of a library.
+Encourages:
+- Loose coupling.
+- Test doubles without the aid of a library.
 
 # Architecture
 
