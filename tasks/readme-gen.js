@@ -1,3 +1,4 @@
+/* eslint-disable no-sync */
 const ejs = require('ejs');
 const fs = require('fs');
 
