@@ -2,7 +2,7 @@
 
 WORK IN PROGRESS.
 
-Source code for [agileavatars.com](https://agileavatars.com), an experiment in frameworkless/vanilla JavaScript.
+Source code for [agileavatars.com](https://agileavatars.com). An experiment in frameworkless/vanilla JavaScript.
 
 ![Build](https://github.com/mattriley/agileavatars/workflows/Build/badge.svg)
 [![codecov](https://codecov.io/gh/mattriley/agileavatars/branch/master/graph/badge.svg)](https://codecov.io/gh/mattriley/agileavatars)
@@ -24,7 +24,7 @@ This is a hobby project I decided to double as an experiment in writing a web ap
     - [Learnability](#learnability)
     - [Maintainability](#maintainability)
   - [Technical constraints](#technical-constraints)
-    - [Source files only loaded (required/imported) only once](#source-files-only-loaded-requiredimported-only-once)
+    - [Source files loaded (required/imported) only once](#source-files-loaded-requiredimported-only-once)
     - [Minimise test doubles and avoid mocking libraries](#minimise-test-doubles-and-avoid-mocking-libraries)
 - [Architecture](#architecture)
   - [Architectural components](#architectural-components)
@@ -78,7 +78,7 @@ This is a hobby project I decided to double as an experiment in writing a web ap
 
 ## Technical constraints
 
-### Source files only loaded (required/imported) only once
+### Source files loaded (required/imported) only once
 
 Encourages:
 - Structuring dependencies in a logical and obvious manner to ease cognitive load.

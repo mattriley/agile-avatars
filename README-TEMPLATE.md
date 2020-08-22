@@ -39,7 +39,7 @@ This is a hobby project I decided to double as an experiment in writing a web ap
 
 ## Technical constraints
 
-### Source files only loaded (required/imported) only once
+### Source files loaded (required/imported) only once
 
 Encourages:
 - Structuring dependencies in a logical and obvious manner to ease cognitive load.
