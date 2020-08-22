@@ -9,7 +9,7 @@ module.exports = ({ window, ...overrides }) => {
         const config = compose('config', { window });
         const io = compose('io', { config, window });
     
-        const { stores, settings, subscriptions } = compose('storage', { config }, storage => storage.initialise());
+        const { stores, settings, subscriptions } = compose('storage', { lib, config }, storage => storage.initialise());
 
         const core = compose('core', { lib, config });
         const services = compose('services', { subscriptions, settings, stores, core, io, lib, config });

@@ -1,6 +1,6 @@
 const EventEmitter = require('events');
 
-module.exports = () => localState => {
+module.exports = localState => {
     let nextId = 1;
     const funcIndex = {};
     const collectionEmitter = new EventEmitter();
