@@ -21,8 +21,11 @@ This is a hobby project I decided to double as an experiment in writing a web ap
   - [System quality attributes](#system-quality-attributes)
     - [Learnability](#learnability)
     - [Maintainability](#maintainability)
+  - [Technical constraints](#technical-constraints)
+    - [Each file only required/imported once](#each-file-only-requiredimported-once)
+    - [Minimise test doubles and avoid mocking libraries](#minimise-test-doubles-and-avoid-mocking-libraries)
 - [Architecture](#architecture)
-  - [Architecture Components](#architecture-components)
+  - [Architectural components](#architectural-components)
     - [Components](#components)
     - [Elements](#elements)
     - [Services](#services)
@@ -50,8 +53,6 @@ This is a hobby project I decided to double as an experiment in writing a web ap
     - [Prefix $ to variables storing HTML element and $$ for collections of HTML elements](#prefix--to-variables-storing-html-element-and--for-collections-of-html-elements)
     - [Clarifying comments as footnotes](#clarifying-comments-as-footnotes)
     - [Functional programming](#functional-programming)
-- [Experiments](#experiments)
-  - [Each file only required/imported once](#each-file-only-requiredimported-once)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -73,11 +74,27 @@ This is a hobby project I decided to double as an experiment in writing a web ap
 - Clean code. [Here's a good summary](https://gist.github.com/wojteklu/73c6914cc446146b8b533c0988cf8d29).
 - Adopt functional programming techniques with a low learninig curve, supported by native JavaScript.
 
+## Technical constraints
+
+### Each file only required/imported once
+
+TODO: Elaborate.
+
+### Minimise test doubles and avoid mocking libraries
+
+Eric Elliott's [Mocking is a code smell](https://medium.com/javascript-scene/mocking-is-a-code-smell-944a70c90a6a) says it all:
+
+> Mocking is required when our decomposition strategy has failed.
+
+This constraint encourages a design which is:
+- Loosely coupled.
+- Supports test doubles without the aid of a library.
+
 # Architecture
 
 ![Architecture](docs/architecture.svg)
 
-## Architecture Components
+## Architectural components
 
 ### Components
 
@@ -334,9 +351,3 @@ Actual image is rendered using CSS background-image as a performance optimisatio
 - Prefer `const` over `let`, and avoid `var`.
 - Prefer higher-order functions such as `filter`, `map`, `reduce`, over imperative looping statements.
 - Prefer currying dependencies over constructors (classes), e.g. `({ dep1, dep2 }) => ({ arg1, arg2 }) => { ... }`
-
-# Experiments
-
-## Each file only required/imported once
-
-TODO: Elaborate

@@ -35,11 +35,27 @@ This is a hobby project I decided to double as an experiment in writing a web ap
 - Clean code. [Here's a good summary](https://gist.github.com/wojteklu/73c6914cc446146b8b533c0988cf8d29).
 - Adopt functional programming techniques with a low learninig curve, supported by native JavaScript.
 
+## Technical constraints
+
+### Each file only required/imported once
+
+TODO: Elaborate.
+
+### Minimise test doubles and avoid mocking libraries
+
+Eric Elliott's [Mocking is a code smell](https://medium.com/javascript-scene/mocking-is-a-code-smell-944a70c90a6a) says it all:
+
+> Mocking is required when our decomposition strategy has failed.
+
+This constraint encourages a design which is:
+- Loosely coupled.
+- Supports test doubles without the aid of a library.
+
 # Architecture
 
 ![Architecture](docs/architecture.svg)
 
-## Architecture Components
+## Architectural components
 
 ### Components
 
@@ -211,9 +227,3 @@ Example:
 - Prefer `const` over `let`, and avoid `var`.
 - Prefer higher-order functions such as `filter`, `map`, `reduce`, over imperative looping statements.
 - Prefer currying dependencies over constructors (classes), e.g. `({ dep1, dep2 }) => ({ arg1, arg2 }) => { ... }`
-
-# Experiments
-
-## Each file only required/imported once
-
-TODO: Elaborate
