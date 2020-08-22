@@ -1,4 +1,4 @@
-module.exports = ({ el, services, subscriptions, util }) => () => {
+module.exports = ({ el, services, subscriptions, lib }) => () => {
 
     const $import = el('button', 'import', { textContent: 'Import' })
         .addEventListener('click', () => {
@@ -7,7 +7,7 @@ module.exports = ({ el, services, subscriptions, util }) => () => {
         });
 
     subscriptions.settings.gravatar.onChange('status', () => {
-        util.toggleBoolClass($import, 'visible', services.gravatar.status.is.ready());
+        lib.toggleBoolClass($import, 'visible', services.gravatar.status.is.ready());
     }).invoke();
 
     subscriptions.settings.gravatar.onChange('freetext', freetext => {

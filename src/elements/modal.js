@@ -1,6 +1,6 @@
 const merge = require('lodash/merge');
 
-module.exports = ({ window, elements }) => (args = {}) => {
+module.exports = ({ window, elements, lib }) => (args = {}) => {
 
     const defaults = {
         visible: false,
@@ -31,16 +31,16 @@ module.exports = ({ window, elements }) => (args = {}) => {
         .append($title, $content, $actions)
         .addEventListener('click', e => e.stopPropagation());
 
-    const $overlay = el('div')
+    const $overlay = el('div', 'modal-overlay')
         .append($prompt)
         .addEventListener('click', dismiss);
     
-    const setClassName = visible => {
-        $overlay.className = `modal-overlay visible-${visible}`;
+    const toggleVisibility = visible => {
+        lib.toggleBoolClass($overlay, 'visible', visible);
     };
 
-    setClassName(visible);
-    onVisibilityChange(setClassName, $overlay);
+    toggleVisibility(visible);
+    onVisibilityChange(toggleVisibility, $overlay);
     
     return $overlay;
 

@@ -1,4 +1,4 @@
-module.exports = ({ el, services, subscriptions, util }) => fallback => {
+module.exports = ({ el, services, subscriptions, lib }) => fallback => {
     
     const $fallback = el('img', 'fallback', {
         title: fallback,
@@ -8,7 +8,7 @@ module.exports = ({ el, services, subscriptions, util }) => fallback => {
     });
 
     subscriptions.settings.gravatar.onChange('fallback', selectedFallback => {
-        util.toggleBoolClass($fallback, 'selected', fallback === selectedFallback);
+        lib.toggleBoolClass($fallback, 'selected', fallback === selectedFallback);
     }).invoke();
 
     return $fallback;

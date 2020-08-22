@@ -14,9 +14,12 @@ module.exports = ({ window, ...overrides }) => {
         const core = compose('core', { config });
         const services = compose('services', { subscriptions, settings, stores, core, io, util, config });
         
-        const elements = compose('elements', { io, window });
-        const { el } = elements;
-        compose('components', { el, elements, services, subscriptions, util, config, window });
+        {
+            const lib = src.lib.ui;
+            const elements = compose('elements', { io, window, lib });
+            const { el } = elements;
+            compose('components', { el, elements, services, subscriptions, util, config, window, lib });
+        }
 
         services.system.initialise();
 
