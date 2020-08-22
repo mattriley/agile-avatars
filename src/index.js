@@ -6,6 +6,5 @@ module.exports = {
     io: require('./io'),
     lib: require('./lib'),
     services: require('./services'),
-    storage: require('./storage'),
-    util: require('./util')
+    storage: require('./storage')
 };

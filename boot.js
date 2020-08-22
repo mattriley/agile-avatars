@@ -1,5 +1,6 @@
 const composer = require('module-composer');
 const src = require('./src');
+const { lib } = src;
 
 module.exports = ({ window, ...overrides }) => {
 
@@ -7,18 +8,15 @@ module.exports = ({ window, ...overrides }) => {
 
         const config = compose('config', { window });
         const io = compose('io', { config, window });
-        const util = compose('util', { config });
     
         const { stores, settings, subscriptions } = compose('storage', { config }, storage => storage.initialise());
-    
-        const { lib } = src;
 
-        const core = compose('core', { config, lib });
-        const services = compose('services', { subscriptions, settings, stores, core, io, util, config });
+        const core = compose('core', { lib, config });
+        const services = compose('services', { subscriptions, settings, stores, core, io, lib, config });
         
-        const elements = compose('elements', { io, window, lib });
+        const elements = compose('elements', { io, lib, window });
         const { el } = elements;
-        compose('components', { el, elements, services, subscriptions, util, config, window, lib });
+        compose('components', { el, elements, services, subscriptions, lib, config, window });
 
         services.system.initialise();
 

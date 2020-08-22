@@ -1,4 +1,4 @@
-module.exports = ({ el, tagList, services, subscriptions, util }) => () => {
+module.exports = ({ el, tagList, services, subscriptions, lib, config }) => () => {
     
     const $$tags = new Map();
 
@@ -24,7 +24,10 @@ module.exports = ({ el, tagList, services, subscriptions, util }) => () => {
         });
     };
 
-    const delayedSort = util.debounce(sort, 'sortTagList');
+    const delayedSort = lib.util.debounce(
+        sort, 
+        config.debounce.sortTagList
+    );
 
     subscriptions.settings.options.onChange('sort', sort).invoke();
     subscriptions.tagInstances.onChangeAny('tagName', delayedSort);

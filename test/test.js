@@ -3,6 +3,7 @@ const tape = require('tape');
 const merge = require('lodash/merge');
 const composer = require('module-composer');
 const test = require('.');
+const src = require('../src');
 const bootOrig = require('../boot');
 
 const compose = composer(test);
@@ -22,4 +23,4 @@ const boot = (args = {}) => {
     return bootOrig({ window, ...args, config });
 };
 
-compose('tests', { test: tape, boot, window, helpers });
+compose('tests', { test: tape, boot, src, window, helpers });
