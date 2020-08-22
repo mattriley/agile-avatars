@@ -6,7 +6,6 @@
     "license": "GPL-3.0-or-later",
     "scripts": {
         "test": "./tasks/test-cov",
-        "cov": "./tasks/test-cov-browse",
         "start": "./tasks/start"
     },
     "dependencies": {
