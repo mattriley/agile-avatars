@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+# Installs itermocil - a tool for automating window arrangements in iTerm2.
+# https://github.com/TomAnthony/itermocil
+
+brew update
+brew install TomAnthony/brews/itermocil
+mkdir -p ~/.itermocil

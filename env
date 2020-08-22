@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+export PROJECT_NAME="agileavatars"
+
 export BUILD_OUTPUT="build_output"
 export PACKAGE_OUTPUT="package_output"
 

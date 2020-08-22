@@ -1,6 +1,7 @@
 build_output
 package_output
 node_modules
+iTermocil.yml
 .cache
 .nyc_output
 .coverage
