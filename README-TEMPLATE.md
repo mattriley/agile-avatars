@@ -1,5 +1,7 @@
 # Agile Avatars
 
+WORK IN PROGRESS.
+
 Source code for [agileavatars.com](https://agileavatars.com), an experiment in frameworkless/vanilla JavaScript.
 
 ![Build](https://github.com/mattriley/agileavatars/workflows/Build/badge.svg)
