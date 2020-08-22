@@ -36,7 +36,7 @@ module.exports = ({ window, elements, lib }) => (args = {}) => {
         .addEventListener('click', dismiss);
     
     const toggleVisibility = visible => {
-        lib.toggleBoolClass($overlay, 'visible', visible);
+        lib.ui.toggleBoolClass($overlay, 'visible', visible);
     };
 
     toggleVisibility(visible);

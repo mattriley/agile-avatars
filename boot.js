@@ -11,15 +11,14 @@ module.exports = ({ window, ...overrides }) => {
     
         const { stores, settings, subscriptions } = compose('storage', { config }, storage => storage.initialise());
     
-        const core = compose('core', { config });
+        const { lib } = src;
+
+        const core = compose('core', { config, lib });
         const services = compose('services', { subscriptions, settings, stores, core, io, util, config });
         
-        {
-            const lib = src.lib.ui;
-            const elements = compose('elements', { io, window, lib });
-            const { el } = elements;
-            compose('components', { el, elements, services, subscriptions, util, config, window, lib });
-        }
+        const elements = compose('elements', { io, window, lib });
+        const { el } = elements;
+        compose('components', { el, elements, services, subscriptions, util, config, window, lib });
 
         services.system.initialise();
 

@@ -1,4 +1,4 @@
-module.exports = ({ core }) => expression => {
+module.exports = ({ core, lib }) => expression => {
 
     const isEmail = expression.includes('@');
     if (!isEmail) return core.tags.parseTagExpression(expression);
@@ -7,7 +7,7 @@ module.exports = ({ core }) => expression => {
     const [tagName] = expression.substr(0, indexOfAt).split('+');
     const lastIndexOfPlus = expression.lastIndexOf('+');
     const hasRole = lastIndexOfPlus > indexOfAt;        
-    const [email, roleName] = hasRole ? core.util.splitAt(expression, lastIndexOfPlus, 1) : [expression];
+    const [email, roleName] = hasRole ? lib.util.splitAt(expression, lastIndexOfPlus, 1) : [expression];
     return { tagName, email, roleName };
 
 };

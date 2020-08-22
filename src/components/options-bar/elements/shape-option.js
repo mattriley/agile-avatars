@@ -10,7 +10,7 @@ module.exports = ({ el, subscriptions, services, lib, config }) => shapeName => 
     $shape.style.borderRadius = `${borderRadius}%`;
 
     subscriptions.settings.options.onChange('shape', selectedShape => {
-        lib.toggleBoolClass($shape, 'selected', shapeName === selectedShape);
+        lib.ui.toggleBoolClass($shape, 'selected', shapeName === selectedShape);
     }).invoke();
 
     return $shape;

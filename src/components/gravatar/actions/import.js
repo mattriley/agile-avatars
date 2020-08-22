@@ -7,7 +7,7 @@ module.exports = ({ el, services, subscriptions, lib }) => () => {
         });
 
     subscriptions.settings.gravatar.onChange('status', () => {
-        lib.toggleBoolClass($import, 'visible', services.gravatar.status.is.ready());
+        lib.ui.toggleBoolClass($import, 'visible', services.gravatar.status.is.ready());
     }).invoke();
 
     subscriptions.settings.gravatar.onChange('freetext', freetext => {

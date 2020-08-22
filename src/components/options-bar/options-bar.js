@@ -8,7 +8,7 @@ module.exports = ({ optionsBar, elements, subscriptions, lib, config }) => () =>
     $optionsBar.className = 'options-bar visible-false';
 
     subscriptions.tags.onFirstInsert(() => {
-        lib.toggleBoolClass($optionsBar, 'visible', true);
+        lib.ui.toggleBoolClass($optionsBar, 'visible', true);
     });
 
     return $optionsBar;
