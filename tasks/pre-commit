@@ -1,11 +1,9 @@
 #!/usr/bin/env bash
 
-# Runs lint and test.
+# Minimum quality check for a commit.
 
 set -e
 
-. ./env
-
-./tasks/gen-readme
+./tasks/readme-gen
 ./tasks/lint
 ./tasks/test-cov-check

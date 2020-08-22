@@ -17,6 +17,44 @@ This is a hobby project I decided to double as an experiment in writing a web ap
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
+- [Constraints](#constraints)
+  - [System quality attributes](#system-quality-attributes)
+    - [Learnability](#learnability)
+    - [Maintainability](#maintainability)
+- [Architecture](#architecture)
+  - [Architecture Components](#architecture-components)
+    - [Components](#components)
+    - [Elements](#elements)
+    - [Services](#services)
+    - [Core](#core)
+    - [IO](#io)
+    - [Subscriptions](#subscriptions)
+    - [Stores](#stores)
+- [Dependencies](#dependencies)
+  - [Production dependencies](#production-dependencies)
+    - [@sentry/browser](#sentrybrowser)
+    - [blueimp-md5](#blueimp-md5)
+    - [lodash](#lodash)
+    - [module-composer](#module-composer)
+    - [vanilla-picker](#vanilla-picker)
+  - [Development dependencies](#development-dependencies)
+    - [ejs](#ejs)
+    - [eslint](#eslint)
+    - [jsdom](#jsdom)
+    - [module-indexgen](#module-indexgen)
+    - [nyc](#nyc)
+    - [parcel-bundler](#parcel-bundler)
+    - [tap-summary](#tap-summary)
+    - [tape](#tape)
+- [Conventions](#conventions)
+    - [Prefix $ to variables storing HTML element and $$ for collections of HTML elements](#prefix--to-variables-storing-html-element-and--for-collections-of-html-elements)
+    - [Clarifying comments as footnotes](#clarifying-comments-as-footnotes)
+    - [Functional programming](#functional-programming)
+- [Experiments](#experiments)
+  - [Each file only required/imported once](#each-file-only-requiredimported-once)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # Constraints
 
 ## System quality attributes

@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-# Generates README.md
-
-README=README.md
-node ./tasks/gen-readme.js > $README
-git add $README
