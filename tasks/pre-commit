@@ -5,5 +5,13 @@
 set -e
 
 ./tasks/readme-gen
-./tasks/lint
-./tasks/test-cov-check
+
+STAGED_FILES=$(git diff --name-only --staged)
+STAGED_DOCS=$(echo $STAGED_FILES | grep .md$ || :)
+
+if [ "$STAGED_FILES" = "$STAGED_DOCS" ]; then
+    echo "Stages files are all docs. Skipping lint and test."
+else
+    ./tasks/lint
+    ./tasks/test-cov-check
+fi
