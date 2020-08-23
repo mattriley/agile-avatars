@@ -90,7 +90,7 @@ Example:
 ```js
 module.exports = ({ elements, services, subscriptions }) => tagInstanceId => {
 
-    const $tagName = elements.editableSpan({ className: 'tag-name' })
+    const $tagName = elements.editableSpan('tag-name')
         .addEventListener('blur', () => {
             services.tags.changeTagInstanceName(tagInstanceId, $tagName.textContent);
         });
@@ -120,9 +120,9 @@ Example:
 
 [src/elements/editable-span.js](src/elements/editable-span.js)
 ```js
-module.exports = ({ window, elements }) => (props = {}) => {
+module.exports = ({ window, elements }) => className => {
 
-    const $span = elements.el('span', props)
+    const $span = elements.el('span', className)
         .addEventListener('keydown', e => {            
             if (e.code === 'Enter') {
                 e.preventDefault();

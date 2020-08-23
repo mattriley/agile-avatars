@@ -1,6 +1,6 @@
-module.exports = ({ window, elements }) => (props = {}) => {
+module.exports = ({ window, elements }) => className => {
 
-    const $span = elements.el('span', props)
+    const $span = elements.el('span', className)
         .addEventListener('keydown', e => {            
             if (e.code === 'Enter') {
                 e.preventDefault();
