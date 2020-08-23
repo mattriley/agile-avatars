@@ -111,6 +111,10 @@ A plain object graph containing only utility functions without collaborators.
 
 A plain object graph containing only primitive data types.
 
+# State management
+
+<%- renderJsFile(stateStore, { open: false }) %>
+
 # Constraints
 
 ## System quality attributes

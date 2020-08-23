@@ -2,15 +2,17 @@
 const ejs = require('ejs');
 const fs = require('fs');
 
-const renderLink = path => `[${path}](${path})`;
-
 const renderJsFile = (path, opts = {}) => {
+    const open = opts.open ?? true;
     const code = fs.readFileSync(path, 'utf-8');
     return [
-        renderLink(path),
+        `<details ${open ? 'open' : ''}>`,
+        `<summary>${path}</summary>`,
+        '',
         '```js',
         (opts.includeFootnotes ? code : code.split('/*')[0]).trim(),
-        '```'
+        '```',
+        '</details>'
     ].join('\n');
 };
 
@@ -23,7 +25,8 @@ const data = {
         core: 'src/core/tags/parse-tag-expression.js',
         io: 'src/io/io.js',
         footnote: 'src/components/tag-list/tag/components/tag-image.js'
-    }
+    },
+    stateStore: 'src/lib/storage/state-store.js'
 };
 
 ejs.renderFile('README-TEMPLATE.md', data, {}, (err, str) => {

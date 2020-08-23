@@ -33,6 +33,7 @@ DISCLAIMER: Some of the approaches used may be unconventional. Any attempt to em
     - [Stores](#stores)
     - [Lib](#lib)
     - [Config](#config)
+- [State management](#state-management)
 - [Constraints](#constraints)
   - [System quality attributes](#system-quality-attributes)
     - [Learnability](#learnability)
@@ -86,7 +87,9 @@ A __component builder function__ returns an object deriving [HTMLElement](https:
 
 Example:
 
-[src/components/tag-list/tag/components/tag-name.js](src/components/tag-list/tag/components/tag-name.js)
+<details open>
+<summary>src/components/tag-list/tag/components/tag-name.js</summary>
+
 ```js
 module.exports = ({ elements, services, subscriptions }) => tagInstanceId => {
 
@@ -103,6 +106,7 @@ module.exports = ({ elements, services, subscriptions }) => tagInstanceId => {
 
 };
 ```
+</details>
 
 __Why not decouple components from services using pub/sub?__
 
@@ -118,7 +122,9 @@ Elements are 'fundamental' components. Unlike components, they cannot react to s
 
 Example:
 
-[src/elements/editable-span.js](src/elements/editable-span.js)
+<details open>
+<summary>src/elements/editable-span.js</summary>
+
 ```js
 module.exports = ({ window, elements }) => className => {
 
@@ -135,6 +141,7 @@ module.exports = ({ window, elements }) => className => {
     return $span;
 };
 ```
+</details>
 
 ### Services
 
@@ -146,7 +153,9 @@ Inspired by [Functional Core, Imperative Shell](https://www.destroyallsoftware.c
 
 Example:
 
-[src/services/tags/change-tag-instance-name.js](src/services/tags/change-tag-instance-name.js)
+<details open>
+<summary>src/services/tags/change-tag-instance-name.js</summary>
+
 ```js
 module.exports = ({ core, services, stores }) => (tagInstanceId, expression) => {
 
@@ -162,6 +171,7 @@ module.exports = ({ core, services, stores }) => (tagInstanceId, expression) => 
     
 };
 ```
+</details>
 
 ### Core
 
@@ -176,7 +186,9 @@ Inspired by [Functional Core, Imperative Shell](https://www.destroyallsoftware.c
 
 Example:
 
-[src/core/tags/parse-tag-expression.js](src/core/tags/parse-tag-expression.js)
+<details open>
+<summary>src/core/tags/parse-tag-expression.js</summary>
+
 ```js
 module.exports = () => expression => {
 
@@ -185,12 +197,15 @@ module.exports = () => expression => {
 
 };
 ```
+</details>
 
 ### IO
 
 A plain object graph containing only functions that that depend on or act on the environment. 
 
-[src/io/io.js](src/io/io.js)
+<details open>
+<summary>src/io/io.js</summary>
+
 ```js
 const Sentry = require('@sentry/browser');
 
@@ -208,6 +223,7 @@ module.exports = ({ window, config }) => {
 
 };
 ```
+</details>
 
 ### Subscriptions
 
@@ -228,6 +244,74 @@ A plain object graph containing only utility functions without collaborators.
 ### Config
 
 A plain object graph containing only primitive data types.
+
+# State management
+
+<details >
+<summary>src/lib/storage/state-store.js</summary>
+
+```js
+const EventEmitter = require('events');
+
+module.exports = localState => {
+    let nextId = 1;
+    const funcIndex = {};
+    const collectionEmitter = new EventEmitter();
+
+    const manage = id => funcIndex[id] ?? { getState: () => null };
+    const getArray = () => Object.values(localState);
+    const getState = id => manage(id).getState();
+    const setState = (id, changes) => manage(id).setState(changes);
+
+    const onChange = (id, key, listener) => manage(id).subscriptions.onChange(key, listener);
+    const onChangeAny = (key, listener) => collectionEmitter.on(key, listener);
+    const onInsert = listener => collectionEmitter.on('insert', listener);
+    const onFirstInsert = listener => collectionEmitter.once('firstInsert', listener);
+    const onBeforeRemove = listener => collectionEmitter.on('beforeRemove', listener);
+    const subscriptions = { onChange, onChangeAny, onInsert, onFirstInsert, onBeforeRemove };
+
+    const insert = (data, callback) => {
+        const id = nextId++;
+        const state = { id, ...data };
+        const itemEmitter = new EventEmitter();
+
+        const getState = () => ({ ...state });
+
+        const setState = changes => {
+            Object.entries(changes).forEach(([key, val]) => {
+                state[key] = val;
+                const emit = emitter => emitter.emit(key, state[key], state);
+                [itemEmitter, collectionEmitter].forEach(emit);
+            });
+        };
+
+        const onChange = (key, listener) => {
+            itemEmitter.on(key, listener);
+            const invoke = () => listener(state[key], state);
+            invoke();
+        };
+
+        const subscriptions = { onChange };
+        localState[id] = state;  
+        funcIndex[id] = { getState, setState, subscriptions };
+
+        if (callback) callback(id);
+        collectionEmitter.emit('firstInsert', id);
+        collectionEmitter.emit('insert', id);
+        return id;
+    };
+
+    const remove = id => {
+        collectionEmitter.emit('beforeRemove', id);
+        delete funcIndex[id];
+        delete localState[id];
+    };
+
+    return { manage, insert, remove, getArray, getState, setState, subscriptions };
+
+};
+```
+</details>
 
 # Constraints
 
@@ -403,7 +487,9 @@ Such comments are secondary to the code and so follow the code rather than prece
 
 Example: 
 
-[src/components/tag-list/tag/components/tag-image.js](src/components/tag-list/tag/components/tag-image.js)
+<details open>
+<summary>src/components/tag-list/tag/components/tag-image.js</summary>
+
 ```js
 module.exports = ({ el }) => () => {
 
@@ -417,6 +503,7 @@ Actual image is rendered using CSS background-image as a performance optimisatio
 
 */
 ```
+</details>
 
 ### Functional programming
 
