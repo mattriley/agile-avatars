@@ -69,7 +69,7 @@ This is a hobby project I decided to double as an experiment in writing a web ap
 
 Omitted for brievity:
 - __Lib__: All depend on Lib except Config and IO.
-- __Config__: All depend on Config except Elements.
+- __Config__: All depend on Config except Elements and Lib.
 
 ## Architectural components
 
