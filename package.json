@@ -12,7 +12,6 @@
         "@sentry/browser": "^5.19.1",
         "blueimp-md5": "^2.16.0",
         "lodash": "^4.17.17",
-        "lodash.merge": "^4.6.2",
         "module-composer": "^0.3.2",
         "vanilla-picker": "github:mattriley/vanilla-picker"
     },
