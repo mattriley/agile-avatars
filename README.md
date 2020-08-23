@@ -19,15 +19,6 @@ This is a hobby project I decided to double as an experiment in writing a web ap
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-- [Constraints](#constraints)
-  - [System quality attributes](#system-quality-attributes)
-    - [Learnability](#learnability)
-    - [Maintainability](#maintainability)
-  - [Technical constraints](#technical-constraints)
-    - [No globals](#no-globals)
-    - [No classes](#no-classes)
-    - [non-index.js files must only be loaded from index.js files](#non-indexjs-files-must-only-be-loaded-from-indexjs-files)
-    - [Minimise test doubles and avoid mocking libraries](#minimise-test-doubles-and-avoid-mocking-libraries)
 - [Architecture](#architecture)
   - [Architectural components](#architectural-components)
     - [Components](#components)
@@ -37,6 +28,15 @@ This is a hobby project I decided to double as an experiment in writing a web ap
     - [IO](#io)
     - [Subscriptions](#subscriptions)
     - [Stores](#stores)
+- [Constraints](#constraints)
+  - [System quality attributes](#system-quality-attributes)
+    - [Learnability](#learnability)
+    - [Maintainability](#maintainability)
+  - [Technical constraints](#technical-constraints)
+    - [No globals](#no-globals)
+    - [No classes](#no-classes)
+    - [non-index.js files must only be loaded from index.js files](#non-indexjs-files-must-only-be-loaded-from-indexjs-files)
+    - [Minimise test doubles and avoid mocking libraries](#minimise-test-doubles-and-avoid-mocking-libraries)
 - [Dependencies](#dependencies)
   - [Production dependencies](#production-dependencies)
     - [@sentry/browser](#sentrybrowser)
@@ -60,64 +60,6 @@ This is a hobby project I decided to double as an experiment in writing a web ap
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-# Constraints
-
-## System quality attributes
-
-### Learnability
-
-- Prioritise for beginner-friendliness, or [Shoshin](https://en.wikipedia.org/wiki/Shoshin), meaning "beginner's mind".
-- Minimise the need for prerequisite knowledge.
-- Minimise the number of elements to learn beyond native JavaScript and basic design patterns.
-- Minimise the use of obscure language features.
-- When multiple options exist, use the simplest tool for the job.
-
-### Maintainability
-
-- Minimise dependencies to reduce security concerns and upgrade cycles.
-- Clean code. [Here's a good summary](https://gist.github.com/wojteklu/73c6914cc446146b8b533c0988cf8d29).
-- Adopt functional programming techniques with a low learninig curve, supported by native JavaScript.
-
-## Technical constraints
-
-### No globals
-
-TODO: Elaborate.
-
-### No classes
-
-TODO: Elaborate.
-
-### non-index.js files must only be loaded from index.js files
-
-Constraints:
-- `index.js` files must load and export sibling files and directories.
-- Non-`index.js` files must only load directories (i.e. `index.js` files).
-
-Implications:
-- Files are loaded only once each.
-- Results are shared by "passing down" using function arguments.
-- Non-`index.js` files have very few import/require statements.
-- `index.js` files have a single responsibility.
-- `index.js` files don't contain logic.
-- `index.js` files could be generated.
-- Increases likelihood that any logic is placed in appropriately named file, which improves searchability.
-- Increase the likelihood that dependencies will be structured in a logical and predictable manner.
-
-Avoids:
-- Source files starting with potentially large blocks of import/require statements.
-- Loading the same file multiple times with a slighly different relative path.
-- Coupling to file paths in general.
-
-### Minimise test doubles and avoid mocking libraries
-
-Eric Elliott's [Mocking is a code smell](https://medium.com/javascript-scene/mocking-is-a-code-smell-944a70c90a6a) says it all:
-
-> Mocking is required when our decomposition strategy has failed.
-
-Encourages:
-- Loose coupling.
-- Test doubles without the aid of a library.
 
 # Architecture
 
@@ -248,6 +190,67 @@ A __subscription__ function enables a listener to be notified of state changes.
 ### Stores
 
 A __store__ object encapsulates state mutations and notifications.
+
+# Constraints
+
+## System quality attributes
+
+### Learnability
+
+- Prioritise for beginner-friendliness, or [Shoshin](https://en.wikipedia.org/wiki/Shoshin), meaning "beginner's mind".
+- Minimise the need for prerequisite knowledge.
+- Minimise the number of elements to learn beyond native JavaScript and basic design patterns.
+- Minimise the use of obscure language features.
+- When multiple options exist, use the simplest tool for the job.
+
+### Maintainability
+
+- Minimise dependencies to reduce security concerns and upgrade cycles.
+- Clean code. [Here's a good summary](https://gist.github.com/wojteklu/73c6914cc446146b8b533c0988cf8d29).
+- Adopt functional programming techniques with a low learninig curve, supported by native JavaScript.
+
+## Technical constraints
+
+### No globals
+
+TODO: Elaborate.
+
+### No classes
+
+TODO: Elaborate.
+
+### non-index.js files must only be loaded from index.js files
+
+Constraints:
+- `index.js` files must load and export sibling files and directories.
+- Non-`index.js` files must only load directories (i.e. `index.js` files).
+
+Implications:
+- Files are loaded only once each.
+- Results are shared by "passing down" using function arguments.
+- Non-`index.js` files have very few import/require statements.
+- `index.js` files have a single responsibility.
+- `index.js` files don't contain logic.
+- `index.js` files could be generated.
+- Increases likelihood that any logic is placed in appropriately named file, which improves searchability.
+- Increase the likelihood that dependencies will be structured in a logical and predictable manner.
+
+Avoids:
+- Source files starting with potentially large blocks of import/require statements.
+- Loading the same file multiple times with a slighly different relative path.
+- Coupling to file paths in general.
+
+### Minimise test doubles and avoid mocking libraries
+
+Eric Elliott's [Mocking is a code smell](https://medium.com/javascript-scene/mocking-is-a-code-smell-944a70c90a6a) says it all:
+
+> Mocking is required when our decomposition strategy has failed.
+
+Encourages:
+- Loose coupling.
+- Test doubles without the aid of a library.
+
+
 
 # Dependencies
 

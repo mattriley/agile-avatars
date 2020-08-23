@@ -19,6 +19,65 @@ This is a hobby project I decided to double as an experiment in writing a web ap
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
+
+# Architecture
+
+![Architecture](docs/architecture.svg)
+
+## Architectural components
+
+### Components
+
+A __component__ function returns a [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) which may mutate or invoke services in reaction to user interaction and state changes.
+
+Example:
+
+<%- renderJsFile(examples.component) %>
+
+### Elements
+
+An __element__ function returns a [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) which may mutate in reaction to user interaction.
+
+Elements are more fundamental than components. Unlike components, they cannot react to state changes or invoke services. For this reason, elements tend to be lower level, more generic and more reusable.
+
+Example:
+
+<%- renderJsFile(examples.element) %>
+
+### Services
+
+A __service__ function that orchestrates domain logic and IO including issuing state changes to state stores.
+
+Inspired by [Functional Core, Imperative Shell](https://www.destroyallsoftware.com/screencasts/catalog/functional-core-imperative-shell), service functions may be characterised as imperative shells.
+
+Example:
+
+<%- renderJsFile(examples.service) %>
+
+### Core
+
+A __core__ function is a pure function. 
+
+Inspired by [Functional Core, Imperative Shell](https://www.destroyallsoftware.com/screencasts/catalog/functional-core-imperative-shell), core functions comprise the functional core.
+
+Example:
+
+<%- renderJsFile(examples.core) %>
+
+### IO
+
+The __io__ object contains objects and functions that depend on the environment. 
+
+<%- renderJsFile(examples.io) %>
+
+### Subscriptions
+
+A __subscription__ function enables a listener to be notified of state changes.
+
+### Stores
+
+A __store__ object encapsulates state mutations and notifications.
+
 # Constraints
 
 ## System quality attributes
@@ -78,63 +137,7 @@ Encourages:
 - Loose coupling.
 - Test doubles without the aid of a library.
 
-# Architecture
 
-![Architecture](docs/architecture.svg)
-
-## Architectural components
-
-### Components
-
-A __component__ function returns a [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) which may mutate or invoke services in reaction to user interaction and state changes.
-
-Example:
-
-<%- renderJsFile(examples.component) %>
-
-### Elements
-
-An __element__ function returns a [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) which may mutate in reaction to user interaction.
-
-Elements are more fundamental than components. Unlike components, they cannot react to state changes or invoke services. For this reason, elements tend to be lower level, more generic and more reusable.
-
-Example:
-
-<%- renderJsFile(examples.element) %>
-
-### Services
-
-A __service__ function that orchestrates domain logic and IO including issuing state changes to state stores.
-
-Inspired by [Functional Core, Imperative Shell](https://www.destroyallsoftware.com/screencasts/catalog/functional-core-imperative-shell), service functions may be characterised as imperative shells.
-
-Example:
-
-<%- renderJsFile(examples.service) %>
-
-### Core
-
-A __core__ function is a pure function. 
-
-Inspired by [Functional Core, Imperative Shell](https://www.destroyallsoftware.com/screencasts/catalog/functional-core-imperative-shell), core functions comprise the functional core.
-
-Example:
-
-<%- renderJsFile(examples.core) %>
-
-### IO
-
-The __io__ object contains objects and functions that depend on the environment. 
-
-<%- renderJsFile(examples.io) %>
-
-### Subscriptions
-
-A __subscription__ function enables a listener to be notified of state changes.
-
-### Stores
-
-A __store__ object encapsulates state mutations and notifications.
 
 # Dependencies
 
