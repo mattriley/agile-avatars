@@ -40,7 +40,7 @@ Example:
 
 <%- renderJsFile(examples.component) %>
 
-#### Why not decouple components from services using pub/sub?
+__Why not decouple components from services using pub/sub?__
 
 TODO: Elaborate.
 

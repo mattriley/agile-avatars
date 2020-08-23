@@ -23,7 +23,6 @@ This is a hobby project I decided to double as an experiment in writing a web ap
 - [Architecture](#architecture)
   - [Architectural components](#architectural-components)
     - [Components](#components)
-      - [Why not decouple components from services using pub/sub?](#why-not-decouple-components-from-services-using-pubsub)
     - [Elements](#elements)
     - [Services](#services)
     - [Core](#core)
@@ -100,7 +99,7 @@ module.exports = ({ elements, services, subscriptions }) => tagInstanceId => {
 };
 ```
 
-#### Why not decouple components from services using pub/sub?
+__Why not decouple components from services using pub/sub?__
 
 TODO: Elaborate.
 
