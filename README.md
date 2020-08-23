@@ -14,6 +14,8 @@ Source code for [agileavatars.com](https://agileavatars.com). An experiment in f
 
 This is a hobby project I decided to double as an experiment in writing a web application in JavaScript without the aid of a framework like React or Angular. Such an approach is often referred to as frameworkless, or vanilla JavaScript.
 
+DISCLAIMER: Some of the approaches used may be unconventional. Any attempt to emulate these approaches should be done with the unique needs and circumstances of your project taken into consideration.
+
 ## Table of Contents
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
@@ -36,6 +38,9 @@ This is a hobby project I decided to double as an experiment in writing a web ap
     - [Learnability](#learnability)
     - [Maintainability](#maintainability)
   - [Technical constraints](#technical-constraints)
+    - [No frameworks](#no-frameworks)
+    - [No view libraries](#no-view-libraries)
+    - [No state management libraries](#no-state-management-libraries)
     - [No globals](#no-globals)
     - [No classes](#no-classes)
     - [non-index.js files must only be loaded from index.js files](#non-indexjs-files-must-only-be-loaded-from-indexjs-files)
@@ -244,13 +249,15 @@ A plain object graph containing only primitive data types.
 
 ## Technical constraints
 
+### No frameworks
+
+### No view libraries 
+
+### No state management libraries
+
 ### No globals
 
-TODO: Elaborate.
-
 ### No classes
-
-TODO: Elaborate.
 
 ### non-index.js files must only be loaded from index.js files
 
