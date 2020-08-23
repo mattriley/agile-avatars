@@ -1,8 +1,18 @@
-#!/usr/bin/env bash
+#!/usr/bin/env bash -i
 
 # Generates README.md
+# NOTE: Ensure draw.io is on the PATH.
 
 README="README.md"
+
+# Generate README.md from ejs template.
 node ./tasks/readme-gen.js > $README
+
+# Generate table of contents.
 npx doctoc $README
+
+# Export architecture diagram.
+draw.io -x -f svg --crop -o "docs/architecture.svg" "docs/architecture.drawio" 
+
 git add $README
+git add docs

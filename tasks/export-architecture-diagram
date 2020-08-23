@@ -1,6 +1,0 @@
-#!/bin/bash -i
-
-# Exports the architecture diagram from draw.io.
-# NOTE: Ensure draw.io is on the PATH.
-
-draw.io -x -f svg --crop -o "docs/architecture.svg" "docs/architecture.drawio" 
