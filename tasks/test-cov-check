@@ -9,7 +9,7 @@ npx nyc \
     --report-dir "$COVERAGE_REPORT_DIR" \
     --reporter=text-summary \
     --reporter=lcov \
-    --branches 98 \
+    --branches 100 \
     --lines 100 \
     --functions 100 \
     --statements 100 \

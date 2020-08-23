@@ -28,7 +28,7 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
       - name: Build
-        run: ./build/prod
+        run: ./tasks/build-prod
       - name: Package
         run: ./tasks/package prod
       - name: Get tag name
