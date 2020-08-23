@@ -4,7 +4,7 @@ module.exports = ({ el, subscriptions }) => () => {
 
     subscriptions.settings.options.onChange('outline', outline => {
         $style.textContent = outline ? '' : '.tag { border-color: transparent; }';
-    }).invoke();
+    });
 
     return $style;
     

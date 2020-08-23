@@ -9,7 +9,7 @@ module.exports = ({ elements, services, subscriptions }) => roleId => {
     
     subscriptions.roles.onChange(roleId, 'roleName', roleName => {
         $roleName.textContent = roleName;
-    }).invoke();
+    });
 
     return $roleName;
 

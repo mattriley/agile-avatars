@@ -7,7 +7,7 @@ module.exports = ({ el, elements, services, subscriptions }) => () => {
 
     subscriptions.settings.options.onChange('outline', outline => {
         $showOutline.checked = outline;
-    }).invoke();
+    });
 
     return elements.label($showOutline, 'Show outline');
 

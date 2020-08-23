@@ -7,7 +7,7 @@ module.exports = ({ el, subscriptions }) => roleId => {
             .role${roleId} .tag-image { border-color: ${color}; }            
             .role${roleId} .role-name { background-color: ${color}; }
         `;
-    }).invoke();
+    });
 
     return $style;
 

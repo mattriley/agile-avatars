@@ -11,7 +11,7 @@ module.exports = ({ el, tag, elements, services, subscriptions, config }) => tag
     subscriptions.tagInstances.onChange(tagInstanceId, 'roleId', (roleId, { tagId, mode }) => {
         const isNilRole = services.roles.isNilRole(roleId);
         $tag.className = `tag tag${tagId} role${roleId} nil-role-${isNilRole} ${mode}`;
-    }).invoke();
+    });
 
     return $tag;
 

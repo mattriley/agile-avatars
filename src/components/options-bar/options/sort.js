@@ -12,7 +12,7 @@ module.exports = ({ el, elements, services, subscriptions, config }) => () => {
 
     subscriptions.settings.options.onChange('sort', sort => {
         $keepSorted.value = sort;
-    }).invoke();
+    });
 
     return elements.label('Keep sorted by', $keepSorted);
     

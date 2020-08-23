@@ -9,7 +9,7 @@ module.exports = ({ elements, services, subscriptions }) => tagInstanceId => {
 
     subscriptions.tagInstances.onChange(tagInstanceId, 'roleName', roleName => {
         $roleName.textContent = roleName;
-    }).invoke();
+    });
 
     return $roleName;
 

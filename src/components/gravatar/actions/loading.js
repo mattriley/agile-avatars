@@ -4,7 +4,7 @@ module.exports = ({ el, services, subscriptions, lib }) => () => {
 
     subscriptions.settings.gravatar.onChange('status', () => {
         lib.ui.toggleBoolClass($loading, 'visible', services.gravatar.status.is.working());
-    }).invoke();
+    });
 
     return $loading;
 

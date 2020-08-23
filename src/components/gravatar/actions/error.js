@@ -9,11 +9,11 @@ module.exports = ({ el, services, subscriptions, lib }) => () => {
     
     subscriptions.settings.gravatar.onChange('status', () => {
         lib.ui.toggleBoolClass($error, 'visible', services.gravatar.status.is.error());
-    }).invoke();
+    });
 
     subscriptions.settings.gravatar.onChange('errorMessage', errorMessage => {
         $errorMessage.textContent = errorMessage;
-    }).invoke();
+    });
 
     return $error;
 

@@ -4,7 +4,7 @@ module.exports = ({ el, subscriptions }) => () => {
 
     subscriptions.settings.options.onChange('spacing', spacing => {
         $style.textContent = `.tag-list { gap: ${spacing}px; }`;
-    }).invoke();
+    });
 
     return $style;
     

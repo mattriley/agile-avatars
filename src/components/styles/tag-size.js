@@ -8,7 +8,7 @@ module.exports = ({ el, subscriptions, config }) => () => {
             .tag-list { grid-template-columns: repeat(auto-fill, ${size}px); }
             .tag-image { width: ${width}px; height: ${width}px; }
         `;
-    }).invoke();
+    });
 
     return $style;
     

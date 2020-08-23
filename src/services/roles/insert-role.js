@@ -7,7 +7,7 @@ module.exports = ({ stores, services, subscriptions }) => roleData => {
             roleId, 
             'roleName', 
             services.roles.setupRolePropagation(roleId)
-        ).invoke();
+        );
     });
 
 };

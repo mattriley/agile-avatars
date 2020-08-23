@@ -35,7 +35,7 @@ module.exports = localState => {
         const onChange = (key, listener) => {
             itemEmitter.on(key, listener);
             const invoke = () => listener(state[key], state);
-            return { invoke };
+            invoke();
         };
 
         const subscriptions = { onChange };

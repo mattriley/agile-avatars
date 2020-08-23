@@ -7,7 +7,7 @@ module.exports = ({ elements, services, subscriptions }) => tagInstanceId => {
 
     subscriptions.tagInstances.onChange(tagInstanceId, 'tagName', tagName => {
         $tagName.textContent = tagName;
-    }).invoke();
+    });
 
     return $tagName;
 

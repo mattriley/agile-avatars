@@ -29,7 +29,7 @@ module.exports = ({ el, tagList, services, subscriptions, lib, config }) => () =
         config.debounce.sortTagList
     );
 
-    subscriptions.settings.options.onChange('sort', sort).invoke();
+    subscriptions.settings.options.onChange('sort', sort);
     subscriptions.tagInstances.onChangeAny('tagName', delayedSort);
     subscriptions.tagInstances.onChangeAny('roleName', delayedSort);
 

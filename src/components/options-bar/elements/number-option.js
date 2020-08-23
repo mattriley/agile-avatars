@@ -11,7 +11,7 @@ module.exports = ({ elements, services, subscriptions, config }) => optionName =
 
     subscriptions.settings.options.onChange(optionName, val => {
         $number.value = val;
-    }).invoke();
+    });
 
     const labelText = upperFirst(optionName);
     return elements.label(labelText, $number);

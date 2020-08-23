@@ -7,11 +7,11 @@ module.exports = ({ el, services, subscriptions, elements }) => () => {
 
     subscriptions.settings.gravatar.onChange('freetext', freetext => {
         $freetext.value = freetext;
-    }).invoke();
+    });
 
     subscriptions.settings.gravatar.onChange('status', () => {
         $freetext.disabled = services.gravatar.status.is.working();
-    }).invoke();
+    });
 
     const labelText = 'Email addresses:';
 

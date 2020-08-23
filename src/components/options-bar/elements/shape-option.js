@@ -11,7 +11,7 @@ module.exports = ({ el, subscriptions, services, lib, config }) => shapeName => 
 
     subscriptions.settings.options.onChange('shape', selectedShape => {
         lib.ui.toggleBoolClass($shape, 'selected', shapeName === selectedShape);
-    }).invoke();
+    });
 
     return $shape;
     

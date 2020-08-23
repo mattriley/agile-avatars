@@ -8,11 +8,11 @@ module.exports = ({ el, services, subscriptions, lib }) => () => {
 
     subscriptions.settings.gravatar.onChange('status', () => {
         lib.ui.toggleBoolClass($import, 'visible', services.gravatar.status.is.ready());
-    }).invoke();
+    });
 
     subscriptions.settings.gravatar.onChange('freetext', freetext => {
         $import.disabled = !freetext.trim();
-    }).invoke();
+    });
 
     return $import;
 

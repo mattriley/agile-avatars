@@ -8,13 +8,13 @@ module.exports = ({ services, stores, subscriptions }) => tagData => {
             tagId, 
             'tagName', 
             services.tags.setupTagPropagation(tagId)
-        ).invoke();
+        );
 
         subscriptions.tags.onChange(
             tagId, 
             'roleId', 
             services.tags.setupRolePropagation(tagId)
-        ).invoke();
+        );
     
     });
     
