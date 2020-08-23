@@ -20,26 +20,37 @@ This is a hobby project I decided to double as an experiment in writing a web ap
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-
 # Architecture
 
 ![Architecture](docs/architecture.svg)
+
+Omitted for brievity:
+- __Lib__: All depend on Lib except Config and IO.
+- __Config__: All depend on Config except Elements.
 
 ## Architectural components
 
 ### Components
 
-A __component__ function returns a [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) which may mutate or invoke services in reaction to user interaction and state changes.
+A plain object graph containing only _component builder functions_.
+
+A __component builder function__ returns an object deriving [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) and may use closures to react to both user interaction and state changes (via subscriptions), and may self-mutate, and interact with services.
 
 Example:
 
 <%- renderJsFile(examples.component) %>
 
+#### Why not decouple components from services using pub/sub?
+
+TODO: Elaborate.
+
 ### Elements
 
-An __element__ function returns a [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) which may mutate in reaction to user interaction.
+A plain object graph containing only _element builder functions_.
 
-Elements are more fundamental than components. Unlike components, they cannot react to state changes or invoke services. For this reason, elements tend to be lower level, more generic and more reusable.
+An __element builder function__ returns an object deriving [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) and may use closures to react to user interaction, and may self-mutate.
+
+Elements are 'fundamental' components. Unlike components, they cannot react to state changes or interact with services. For this reason, elements tend to be lower level, generic, and reusable.
 
 Example:
 
@@ -47,9 +58,11 @@ Example:
 
 ### Services
 
-A __service__ function that orchestrates domain logic and IO including issuing state changes to state stores.
+A plain object graph containing only _service functions_.
 
-Inspired by [Functional Core, Imperative Shell](https://www.destroyallsoftware.com/screencasts/catalog/functional-core-imperative-shell), service functions may be characterised as imperative shells.
+A __service function__ orchestrates domain logic and IO including state changes.
+
+Inspired by [Functional Core, Imperative Shell](https://www.destroyallsoftware.com/screencasts/catalog/functional-core-imperative-shell), __services__ comprise the 'imperative shell'.
 
 Example:
 
@@ -57,9 +70,14 @@ Example:
 
 ### Core
 
-A __core__ function is a pure function. 
+A plain object graph containing only _pure functions_.
 
-Inspired by [Functional Core, Imperative Shell](https://www.destroyallsoftware.com/screencasts/catalog/functional-core-imperative-shell), core functions comprise the functional core.
+From [Wikipedia](https://en.wikipedia.org/wiki/Pure_function):
+> In computer programming, a __pure function__ is a function that has the following properties:
+> 1. Its return value is the same for the same arguments (no variation with local static variables, non-local variables, mutable reference arguments or input streams from I/O devices).
+> 2. Its evaluation has no side effects (no mutation of local static variables, non-local variables, mutable reference arguments or I/O streams).
+
+Inspired by [Functional Core, Imperative Shell](https://www.destroyallsoftware.com/screencasts/catalog/functional-core-imperative-shell), __core__ comprises the 'functional core'.
 
 Example:
 
@@ -67,17 +85,29 @@ Example:
 
 ### IO
 
-The __io__ object contains objects and functions that depend on the environment. 
+A plain object graph containing only functions that that depend on or act on the environment. 
 
 <%- renderJsFile(examples.io) %>
 
 ### Subscriptions
 
-A __subscription__ function enables a listener to be notified of state changes.
+A plain object graph containing only _subscription functions_.
+
+A __subscription function__ enables a listener to be notified of state changes.
 
 ### Stores
 
-A __store__ object encapsulates state mutations and notifications.
+A plain object graph containing only instances of _state stores_.
+
+A __state store__ encapsulates state mutations and notifications.
+
+### Lib
+
+A plain object graph containing only utility functions without collaborators.
+
+### Config
+
+A plain object graph containing only primitive data types.
 
 # Constraints
 
