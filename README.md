@@ -77,7 +77,7 @@ Omitted for brievity:
 
 A plain object graph containing only _component builder functions_.
 
-A __component builder function__ returns an object deriving [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) and may use closures to react to both user interaction and state changes (via subscriptions), and may self-mutate, and interact with services.
+A __component builder function__ returns an object deriving [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) using closures to react to both user interaction and state changes (via subscriptions), may self-mutate, and interact with services.
 
 Example:
 
@@ -107,7 +107,7 @@ TODO: Elaborate.
 
 A plain object graph containing only _element builder functions_.
 
-An __element builder function__ returns an object deriving [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) and may use closures to react to user interaction, and may self-mutate.
+An __element builder function__ returns an object deriving [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) using closures to react to user interaction, and may self-mutate.
 
 Elements are 'fundamental' components. Unlike components, they cannot react to state changes or interact with services. For this reason, elements tend to be lower level, generic, and reusable.
 
