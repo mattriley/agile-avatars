@@ -9,7 +9,7 @@ module.exports = ({ window, elements }) => className => {
         });
     
     $span.setAttribute('contenteditable', true);
-   
+
     return $span;
 };
 

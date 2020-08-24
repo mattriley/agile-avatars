@@ -1,4 +1,4 @@
-module.exports = ({ el, tagList, services, subscriptions, lib, config }) => () => {
+module.exports = ({ el, tagList, services, subscriptions, lib, config, window }) => () => {
     
     const $$tags = new Map();
 
@@ -17,11 +17,13 @@ module.exports = ({ el, tagList, services, subscriptions, lib, config }) => () =
     });
 
     const sort = () => {
+        const { activeElement } = window.document;
         services.tags.sortTagInstances().forEach(tagInstance => {
             const $tag = $$tags.get(tagInstance.id);
             $tag.remove();
             $tags.append($tag);
         });
+        activeElement.focus();
     };
 
     const delayedSort = lib.util.debounce(
