@@ -6,6 +6,7 @@ module.exports = ({ window, helpers }) => $tagList => {
         const $roleName = $tag.querySelector('.role-name');
 
         return {
+            $tag,
             getTagName: () => $tagName.textContent,
             getRoleName: () => $roleName.textContent,
             getRoleStyle: () => window.getComputedStyle($roleName),

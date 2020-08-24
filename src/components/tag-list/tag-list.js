@@ -1,4 +1,4 @@
-module.exports = ({ el, tagList, services, subscriptions, lib, config, window }) => () => {
+module.exports = ({ el, tagList, services, subscriptions, lib, config }) => () => {
     
     const $$tags = new Map();
 
@@ -17,10 +17,8 @@ module.exports = ({ el, tagList, services, subscriptions, lib, config, window })
     });
 
     const sort = () => {
-        lib.ui.refocusActiveElement(window, () => {
-            services.tags.sortTagInstances().forEach(tagInstance => {
-                $tags.append($$tags.get(tagInstance.id));
-            });
+        services.tags.sortTagInstances().forEach((tagInstance, i) => {
+            $$tags.get(tagInstance.id).style.order = i;
         });
     };
 
@@ -36,11 +34,3 @@ module.exports = ({ el, tagList, services, subscriptions, lib, config, window })
     return $tags;
     
 };
-
-/* FOOTNOTES
-
-Sort is achieved by "re-appending" tag elements in the new order.
-If the active (focused) element is re-appended, focus is lost.
-lib.refocusActiveElement ensures focus is maintained.
-
-*/
