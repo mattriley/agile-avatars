@@ -17,13 +17,11 @@ module.exports = ({ el, tagList, services, subscriptions, lib, config, window })
     });
 
     const sort = () => {
-        const { activeElement } = window.document;
-        services.tags.sortTagInstances().forEach(tagInstance => {
-            const $tag = $$tags.get(tagInstance.id);
-            $tag.remove();
-            $tags.append($tag);
+        lib.ui.refocusActiveElement(window, () => {
+            services.tags.sortTagInstances().forEach(tagInstance => {
+                $tags.append($$tags.get(tagInstance.id));
+            });
         });
-        activeElement.focus();
     };
 
     const delayedSort = lib.util.debounce(
@@ -38,3 +36,11 @@ module.exports = ({ el, tagList, services, subscriptions, lib, config, window })
     return $tags;
     
 };
+
+/* FOOTNOTES
+
+Sort is achieved by "re-appending" tag elements in the new order.
+If the active (focused) element is re-appended, focus is lost.
+lib.refocusActiveElement ensures focus is maintained.
+
+*/
