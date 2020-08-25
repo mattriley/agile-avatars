@@ -1,10 +1,15 @@
 module.exports = ({ window, elements }) => className => {
 
+    const dispatchChange = () => $span.dispatchEvent(new window.Event('change'));
+
     const $span = elements.el('span', className)
+        .addEventListener('blur', () => {
+            dispatchChange();
+        })
         .addEventListener('keydown', e => {            
             if (e.code === 'Enter') {
                 e.preventDefault();
-                $span.dispatchEvent(new window.Event('blur'));
+                dispatchChange();
             }
         });
     

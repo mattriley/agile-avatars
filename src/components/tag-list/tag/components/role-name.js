@@ -1,7 +1,7 @@
 module.exports = ({ elements, services, subscriptions }) => tagInstanceId => {
 
     const $roleName = elements.editableSpan('role-name')
-        .addEventListener('blur', () => {
+        .addEventListener('change', () => {
             services.tags.changeTagInstanceRole(tagInstanceId, $roleName.textContent);
         });
 
