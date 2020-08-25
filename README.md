@@ -212,14 +212,9 @@ A plain object graph containing only functions that that depend on or act on the
 <summary>src/io/io.js</summary>
 
 ```js
-const Sentry = require('@sentry/browser');
-
-module.exports = ({ window, config }) => {
-
-    Sentry.init(config.sentry);
+module.exports = ({ window }) => {
 
     return {
-        sentry: Sentry,        
         random: window.Math.random,
         fetch: window.fetch.bind(window),
         date: () => new window.Date(),

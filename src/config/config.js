@@ -1,4 +1,4 @@
-module.exports = ({ window }) => {
+module.exports = ({ io, window }) => {
 
     const meta = name => window.document.querySelector(`meta[name=${name}]`)?.getAttribute('content');
 
@@ -6,7 +6,8 @@ module.exports = ({ window }) => {
     const isLocalhost = (/localhost/).test(window.location.host);
 
     return {
-        googleAnalytics: {                
+        googleAnalytics: {         
+            date: io.date(),
             trackingId: 'UA-34497639-2',
             enabled: !isLocalhost
         },
