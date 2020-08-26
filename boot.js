@@ -12,7 +12,8 @@ module.exports = ({ window, ...overrides }) => {
         sentry.init(config.sentry);
         
         // Data layer
-        const { stores, settings, subscriptions } = compose('storage', { lib, config }, storage => storage.initialise());
+        const storage = compose('storage', { lib, config }, storage => storage.initialise());
+        const { stores, settings, subscriptions } = storage;
 
         // Domain layer
         const core = compose('core', { lib, config });
