@@ -16,8 +16,7 @@ module.exports = ({ window, ...overrides }) => {
         const core = compose('core', { lib, config });
         const services = compose('services', { subscriptions, settings, stores, core, io, lib, config, sentry });
         
-        const elements = compose('elements', { lib, window });
-        const { el } = elements;
+        const { el, ...elements } = compose('elements', { lib, window });
         compose('components', { el, elements, services, subscriptions, lib, config, window });
 
         services.system.initialise();
