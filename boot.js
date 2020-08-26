@@ -11,15 +11,17 @@ module.exports = ({ window, ...overrides }) => {
         const config = compose('config', { io, window });
         sentry.init(config.sentry);
         
+        // Data layer
         const { stores, settings, subscriptions } = compose('storage', { lib, config }, storage => storage.initialise());
 
+        // Domain layer
         const core = compose('core', { lib, config });
         const services = compose('services', { subscriptions, settings, stores, core, io, lib, config, sentry });
-        
+        services.system.initialise();
+
+        // Presentation layer
         const { el, ...elements } = compose('elements', { lib, window });
         compose('components', { el, elements, services, subscriptions, lib, config, window });
-
-        services.system.initialise();
 
     });
     
