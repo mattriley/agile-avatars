@@ -1,4 +1,4 @@
-module.exports = () => ({ stores, settings }) => {
+module.exports = ({ stores, settings }) => {
 
     const getSub = targets => {
         return Object.entries(targets).reduce((acc, [name, { subscriptions }]) => {

@@ -1,4 +1,4 @@
-module.exports = ({ lib, config }) => ({ state }) => {
+module.exports = ({ state, lib, config }) => {
 
     return config.storage.stores.reduce((acc, name) => {
         const localState = state[name] = {};
