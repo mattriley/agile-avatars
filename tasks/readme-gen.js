@@ -20,6 +20,7 @@ const data = {
     renderJsFile,
     examples: {
         component: 'src/components/tag-list/tag/components/tag-name.js',
+        componentAppend: 'src/components/header/header.js',
         element: 'src/elements/editable-span.js',
         service: 'src/services/tags/change-tag-instance-name.js',
         core: 'src/core/tags/parse-tag-expression.js',

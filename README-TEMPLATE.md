@@ -30,7 +30,7 @@ Omitted for brievity:
 - __Lib__: All depend on Lib except Config and IO.
 - __Config__: All depend on Config except Elements and Lib.
 
-A familiar presentation/domain/data layered architecture has been used to manage separation of concerns. This is a common approach to modularise backend applications and therefore I hypothesise this design will be more approachable for backend developers.
+A familiar presentation/domain/data __layered architecture__ has been used to manage __separation of concerns__. This is a common approach to modularise backend applications and therefore I hypothesise this design will be more approachable for backend developers.
 
 Further reading:
 - [PresentationDomainDataLayering - martinfowler.com](https://martinfowler.com/bliki/PresentationDomainDataLayering.html)
@@ -43,9 +43,11 @@ A plain object graph containing only _component builder functions_.
 
 A __component builder function__ returns an object deriving [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) using closures to react to both user interaction and state changes (via subscriptions), may self-mutate, and interact with services.
 
-Example:
-
 <%- renderJsFile(examples.component) %>
+
+Because component builder functions simply return native HTML elements, they can easily be appended to create component hierarchies.
+
+<%- renderJsFile(examples.componentAppend) %>
 
 __Why not decouple components from services using pub/sub?__
 
@@ -59,8 +61,6 @@ An __element builder function__ returns an object deriving [HTMLElement](https:/
 
 Elements are 'fundamental' components. Unlike components, they cannot react to state changes or interact with services. For this reason, elements tend to be lower level, generic, and reusable.
 
-Example:
-
 <%- renderJsFile(examples.element) %>
 
 ### Services
@@ -70,8 +70,6 @@ A plain object graph containing only _service functions_.
 A __service function__ orchestrates domain logic and IO including state changes.
 
 Inspired by [Functional Core, Imperative Shell](https://www.destroyallsoftware.com/screencasts/catalog/functional-core-imperative-shell), __services__ comprise the 'imperative shell'.
-
-Example:
 
 <%- renderJsFile(examples.service) %>
 
@@ -85,8 +83,6 @@ From [Wikipedia](https://en.wikipedia.org/wiki/Pure_function):
 > 2. Its evaluation has no side effects (no mutation of local static variables, non-local variables, mutable reference arguments or I/O streams).
 
 Inspired by [Functional Core, Imperative Shell](https://www.destroyallsoftware.com/screencasts/catalog/functional-core-imperative-shell), __core__ comprises the 'functional core'.
-
-Example:
 
 <%- renderJsFile(examples.core) %>
 
@@ -291,8 +287,6 @@ I generally prefer to avoid variable prefixes but I've found these prefixes help
 ### Clarifying comments as footnotes
 
 Such comments are secondary to the code and so follow the code rather than preceed it.
-
-Example: 
 
 <%- renderJsFile(examples.footnote, { includeFootnotes: true }) %>
 
