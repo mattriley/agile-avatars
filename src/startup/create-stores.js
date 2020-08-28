@@ -1,4 +1,4 @@
-module.exports = ({ storage }) => () => {
+module.exports = ({ storage }) => {
 
     const state = {};
     const stores = storage.stores({ state });

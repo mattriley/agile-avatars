@@ -1,6 +1,4 @@
-module.exports = ({ services, subscriptions, lib, config }) => () => {
-
-    services.roles.insertNilRole();
+module.exports = ({ services, subscriptions, lib, config }) => {
 
     const adjustTagInstanceCounts = lib.util.debounce(
         services.tags.adjustTagInstanceCounts, 
