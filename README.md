@@ -14,7 +14,7 @@ Source code for [agileavatars.com](https://agileavatars.com). An experiment in f
 
 This is a hobby project I decided to double as an experiment in writing a web application in JavaScript without the aid of a framework like React or Angular. Such an approach is often referred to as frameworkless, or vanilla JavaScript.
 
-DISCLAIMER: Some of the approaches used may be unconventional. Any attempt to emulate these approaches should be done with the unique needs and circumstances of your project taken into consideration.
+DISCLAIMER: Some of the approaches used are intentionally unconventional. Any attempt to emulate these approaches should be done with the unique needs and circumstances of your project taken into consideration.
 
 ## Table of Contents
 
@@ -76,6 +76,11 @@ DISCLAIMER: Some of the approaches used may be unconventional. Any attempt to em
 Omitted for brievity:
 - __Lib__: All depend on Lib except Config and IO.
 - __Config__: All depend on Config except Elements and Lib.
+
+A familiar presentation/domain/data layered architecture has been used to manage separation of concerns. This is a common approach to modularise backend applications and therefore I hypothesise this design will be more approachable for backend developers.
+
+Further reading:
+- [PresentationDomainDataLayering - martinfowler.com](https://martinfowler.com/bliki/PresentationDomainDataLayering.html)
 
 ## Architectural components
 
