@@ -1,31 +1,30 @@
 const sentry = require('@sentry/browser');
 const composer = require('module-composer');
-const src = require('./src');
-const { lib, startup } = src;
+const { lib, startup, ...src } = require('./src');
 
 module.exports = ({ window, ...overrides }) => {
 
-    return composer(src, { overrides }, compose => {
+    const compose = composer(src, { overrides });
 
-        const io = compose('io', { window });
-        const config = compose('config', { io, window });
-        sentry.init(config.sentry);
+    const io = compose('io', { window });
+    const config = compose('config', { io, window });
+    sentry.init(config.sentry);
         
-        // Data layer
-        const storage = compose('storage', { lib, config }, storage => startup.createStores({ storage }));
-        const { stores, settings, subscriptions } = storage;
+    // Data layer
+    const storage = compose('storage', { lib, config });
+    const { state, stores, settings, subscriptions } = startup.createStores({ storage });
         
-        // Domain layer
-        const core = compose('core', { lib, config });
-        const services = compose('services', { subscriptions, settings, stores, core, io, lib, config, sentry });
+    // Domain layer
+    const core = compose('core', { lib, config });
+    const services = compose('services', { subscriptions, settings, stores, core, io, lib, config, sentry });
 
-        // Presentation layer
-        const { el, ...elements } = compose('elements', { lib, window });
-        compose('components', { el, elements, services, subscriptions, lib, config, window });
+    // Presentation layer
+    const { el, ...elements } = compose('elements', { lib, window });
+    const components = compose('components', { el, elements, services, subscriptions, lib, config, window });
 
-        startup.insertNilRole({ config, settings, stores });
-        startup.createHandlers({ services, subscriptions, lib, config });
-        
-    });
-    
+    startup.insertNilRole({ config, settings, stores });
+    startup.createHandlers({ services, subscriptions, lib, config });
+
+    return { components, elements, services, core, config, state };
+
 };

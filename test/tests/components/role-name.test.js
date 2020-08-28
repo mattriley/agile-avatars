@@ -41,8 +41,8 @@ module.exports = ({ test, boot, helpers }) => {
     });
     
     test('nil role is hidden', t => {
-        const { components, settings } = boot();
-        const { nilRoleId } = settings.app.getState();
+        const { components, services } = boot();
+        const nilRoleId = services.roles.getNilRoleId();
         const $roleCustomiser = components.roleList.roleCustomiser(nilRoleId);
         t.true($roleCustomiser.hidden);
         t.end();
