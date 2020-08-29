@@ -1,1 +1,3 @@
-A JavaScript test coverage tool.
+#### Purpose
+
+Code coverage reporter.

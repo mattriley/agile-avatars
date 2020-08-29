@@ -1,4 +1,7 @@
-A simple templating language that lets you generate HTML markup with plain JavaScript.
+#### Purpose
 
-Used for:
-- Generating `README.md` from a template to reduce duplication and improve maintainability.
+Generating `README.md` from a template.
+
+#### Contingency plan
+
+Change to one of the many other templating libraries available in JavaScript.

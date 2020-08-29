@@ -1,5 +1,7 @@
-A static code analysis tool for identifying problematic patterns found in JavaScript code.
+#### Purpose
 
-Notes:
-- Also used for automatic code formatting.
-- I had originally used prettier for code formatting but was regularly dissatisfied with the results.
+Identify problematic patterns found in JavaScript code and automatic code formatting.
+
+#### Alternatives considered
+
+Prettier was used for code formatting however the results were not satisfying.

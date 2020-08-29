@@ -1,4 +1,7 @@
-Emulates a web browser for testing web applications with Node.js.
+#### Purpose
 
-Notes:
+Emulating a web browser for testing with Node.js.
+
+#### Implementation notes
+
 - I had originally used in conjunction with jsdom-global until I decided to strictly limit use of globals.

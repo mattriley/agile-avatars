@@ -1,4 +1,3 @@
-A zero-configuration web application bundler.
+#### Contingency plan
 
-Notes:
-- I have found Parcel to be much simpler to use than webpack.
+Change to webpack.

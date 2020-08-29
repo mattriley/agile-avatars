@@ -1,8 +1,6 @@
-A JavaScript implementation of the md5 hashing algorithm.
+#### Purpose
 
-#### Used for
-
-Fetching profiled and images from Gravatar requires the md5 hash of an email address.
+Fetching profiled and images from Gravatar requires the MD5 hash of an email address.
 
 #### Alternatives considered
 
@@ -11,4 +9,4 @@ Fetching profiled and images from Gravatar requires the md5 hash of an email add
 
 #### Contingency plan
 
-Change to one of the many other md5 implementations available in JavaScript, or Node's built in crypto module as a last resort.
+Change to one of the many other MD5 implementations available in JavaScript, or Node's built in crypto module as a last resort.

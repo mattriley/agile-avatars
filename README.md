@@ -47,22 +47,30 @@ DISCLAIMER: Some of the approaches used are intentionally unconventional. Any at
   - [Production dependencies](#production-dependencies)
     - [@sentry/browser](#sentrybrowser)
     - [blueimp-md5](#blueimp-md5)
-      - [Used for](#used-for)
       - [Alternatives considered](#alternatives-considered)
       - [Contingency plan](#contingency-plan)
     - [lodash](#lodash)
+      - [Usage notes](#usage-notes)
+      - [Contingency plan](#contingency-plan-1)
     - [module-composer](#module-composer)
     - [vanilla-picker](#vanilla-picker)
+      - [Alternatives considered](#alternatives-considered-1)
+      - [Implementation notes](#implementation-notes)
   - [Development dependencies](#development-dependencies)
     - [doctoc](#doctoc)
     - [ejs](#ejs)
+      - [Contingency plan](#contingency-plan-2)
     - [eslint](#eslint)
+      - [Alternatives considered](#alternatives-considered-2)
     - [husky](#husky)
     - [jsdom](#jsdom)
+      - [Implementation notes](#implementation-notes-1)
     - [module-indexgen](#module-indexgen)
+      - [Disclaimers](#disclaimers)
     - [nyc](#nyc)
     - [parcel-bundler](#parcel-bundler)
     - [tap-summary](#tap-summary)
+      - [Contingency plan](#contingency-plan-3)
     - [tape](#tape)
 - [Conventions](#conventions)
     - [Prefix $ to variables storing HTML element and $$ for collections of HTML elements](#prefix--to-variables-storing-html-element-and--for-collections-of-html-elements)
@@ -433,15 +441,23 @@ Encourages:
 
 ## Production dependencies
 
+
 ### @sentry/browser
 
-The JavaScript SDK for Sentry, a cloud-based application monitoring service.
+> Official Sentry SDK for browsers\
+https://github.com/getsentry/sentry-javascript/tree/master/packages/browser
+#### Purpose
+
+Monitoring and alerting.
+
+
 ### blueimp-md5
-A JavaScript implementation of the md5 hashing algorithm.
 
-#### Used for
+> JavaScript MD5 implementation. Compatible with server-side environments like Node.js, module loaders like RequireJS, Browserify or webpack and all web browsers.\
+https://github.com/blueimp/JavaScript-MD5
+#### Purpose
 
-Fetching profiled and images from Gravatar requires the md5 hash of an email address.
+Fetching profiled and images from Gravatar requires the MD5 hash of an email address.
 
 #### Alternatives considered
 
@@ -450,68 +466,153 @@ Fetching profiled and images from Gravatar requires the md5 hash of an email add
 
 #### Contingency plan
 
-Change to one of the many other md5 implementations available in JavaScript, or Node's built in crypto module as a last resort.
+Change to one of the many other MD5 implementations available in JavaScript, or Node's built in crypto module as a last resort.
+
 
 ### lodash
-A JavaScript utility library.
 
-Notes:
-- Used by exception where there's no concise native JavaScript alternative.
-- Functions are required individually to minimise bundle size, e.g. `require('lodash/merge')`
-  
+> Lodash modular utilities.\
+https://lodash.com/
+#### Purpose
+
+Used by exception where there's no concise native JavaScript implementation available.
+
+#### Usage notes
+
+- Each function should be required explicitly by path to minimise bundle size, e.g. `require('lodash/merge')`
+
+#### Contingency plan
+
+Change to one of the many other utility libraries available in JavaScript.
+
+
 ### module-composer
-Enables dependency injection using currying.
 
-Notes:
+> Composes 'modules' enabling coarse-grained module-level depenency injection\
+https://github.com/mattriley/node-module-composer
+#### Disclaimers
+
 - I am the author of this library.
-### vanilla-picker
-A vanilla JavaScript color picker. 
+  
 
-Notes:
+### vanilla-picker
+
+> A simple, easy to use vanilla JS color picker with alpha selection.\
+https://vanilla-picker.js.org
+#### Purpose
+
+Used to change the colour of each role.
+
+#### Alternatives considered
+
 - It was suprisingly hard to find a good looking, easy to use color picker writting in vanilla JavaScript. Many color pickers are implemented as jQuery plugins.
+
+#### Implementation notes
+
 - I am using a fork which I have customised to accept a window object in order to avoid globals.
+
 
 ## Development dependencies
 
+
 ### doctoc
 
+> Generates TOC for markdown files of local git repo.\
+https://github.com/thlorenz/doctoc#readme
+
+
 ### ejs
-A simple templating language that lets you generate HTML markup with plain JavaScript.
 
-Used for:
-- Generating `README.md` from a template to reduce duplication and improve maintainability.
+> Embedded JavaScript templates\
+https://github.com/mde/ejs
+#### Purpose
+
+Generating `README.md` from a template.
+
+#### Contingency plan
+
+Change to one of the many other templating libraries available in JavaScript.
+
+
 ### eslint
-A static code analysis tool for identifying problematic patterns found in JavaScript code.
 
-Notes:
-- Also used for automatic code formatting.
-- I had originally used prettier for code formatting but was regularly dissatisfied with the results.
+> An AST-based pattern checker for JavaScript.\
+https://eslint.org
+#### Purpose
+
+Identify problematic patterns found in JavaScript code and automatic code formatting.
+
+#### Alternatives considered
+
+Prettier was used for code formatting however the results were not satisfying.
+
+
 ### husky
 
+> Prevents bad commit or push (git hooks, pre-commit/precommit, pre-push/prepush, post-merge/postmerge and all that stuff...)\
+https://github.com/typicode/husky#readme
+
+
 ### jsdom
-Emulates a web browser for testing web applications with Node.js.
 
-Notes:
+> A JavaScript implementation of many web standards\
+https://github.com/jsdom/jsdom#readme
+#### Purpose
+
+Emulating a web browser for testing with Node.js.
+
+#### Implementation notes
+
 - I had originally used in conjunction with jsdom-global until I decided to strictly limit use of globals.
+
+
 ### module-indexgen
-Generates index.js files with Node.js.
 
-Notes:
-- I am also the author of this library.
+> Generates index.js files\
+https://github.com/mattriley/node-module-indexgen
+#### Contingency plan
+
+Consider changing to one of the few other index.js file generators available, or simply remove this dependency and write require statements manually as is typical is most Node applications.
+
+#### Disclaimers
+
+- I am the author of this library.
+  
+
 ### nyc
-A JavaScript test coverage tool.
+
+> the Istanbul command line interface\
+https://istanbul.js.org/
+#### Purpose
+
+Code coverage reporter.
+
+
 ### parcel-bundler
-A zero-configuration web application bundler.
 
-Notes:
-- I have found Parcel to be much simpler to use than webpack.
+> Blazing fast, zero configuration web application bundler\
+https://github.com/parcel-bundler/parcel#readme
+#### Contingency plan
+
+Change to webpack.
+
 ### tap-summary
-A TAP (Test Anything Protocol) reporter.
 
-Notes:
-- A benefit of TAP is the variety of reporters available.
-- tap-summary output is minimal and includes duration of each test which is useful for keeping the tests fast.
+> Summarize TAP\
+https://github.com/zoubin/tap-summary#readme
+#### Purpose
+
+Formatting minimal test output including duration of each test which is useful for keeping the tests fast.
+
+#### Contingency plan
+
+Change to one of the many other TAP reporters available.
+
+
 ### tape
+
+> tap-producing test harness for node and browsers\
+https://github.com/substack/tape
 
 
 # Conventions

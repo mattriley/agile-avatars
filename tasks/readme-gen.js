@@ -7,7 +7,13 @@ const nodeVersion = fs.readFileSync('.nvmrc', 'utf-8').trim();
 
 const renderDependencies = key => {
     const sections = Object.entries(package[key]).map(([name]) => {
-        const header = `### ${name}\n`;
+        const package = require(process.cwd() + `/node_modules/${name}/package.json`);
+        const header = `
+### ${name}
+
+> ${package.description}\\
+${package.homepage}
+`;
         try {
             return header + fs.readFileSync(`docs/dependencies/${name}.md`, 'utf-8');
         } catch (err) {
