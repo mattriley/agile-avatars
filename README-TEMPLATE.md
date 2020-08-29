@@ -53,7 +53,7 @@ Lanches a new iTerm2 tab with 3 panes: empty command prompt, local dev server, i
 - Module composition confined to a composition root.
   - [Composition Root - Mark Seemann](https://blog.ploeh.dk/2011/07/28/CompositionRoot/)
 - Unit test suite optimised for speed. Max 10 seconds. Currently < 2 seconds.
-  - [TDD test suites should run in 10 seconds or less by Mark Seemann](https://blog.ploeh.dk/2012/05/24/TDDtestsuitesshouldrunin10secondsorless/)
+  - [TDD test suites should run in 10 seconds or less - Mark Seemann](https://blog.ploeh.dk/2012/05/24/TDDtestsuitesshouldrunin10secondsorless/)
 
 # Architecture
 
