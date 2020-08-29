@@ -47,6 +47,9 @@ DISCLAIMER: Some of the approaches used are intentionally unconventional. Any at
   - [Production dependencies](#production-dependencies)
     - [@sentry/browser](#sentrybrowser)
     - [blueimp-md5](#blueimp-md5)
+      - [Used for](#used-for)
+      - [Alternatives considered](#alternatives-considered)
+      - [Contingency plan](#contingency-plan)
     - [lodash](#lodash)
     - [module-composer](#module-composer)
     - [vanilla-picker](#vanilla-picker)
@@ -436,12 +439,19 @@ The JavaScript SDK for Sentry, a cloud-based application monitoring service.
 ### blueimp-md5
 A JavaScript implementation of the md5 hashing algorithm.
 
-Notes:
-- Used to hash email addresses sent to Gravatar.
+#### Used for
 
-__Why not use crypto from Node.js and avoid the extra dependency?__
+Fetching profiled and images from Gravatar requires the md5 hash of an email address.
 
-As far as I can tell, it's not possible to extract individual algorithms from crypto. The consequence is a minified bundle size of 431.78 KB compared with blueimp's 4.86 KB. The difference is significant and justifies the extra dependency.
+#### Alternatives considered
+
+- __Node's built in crypto module__\
+  It doesn't seem possible to extract individual algorithms from crypto. The consequence is a minified bundle size of 431.78 KB compared with blueimp's 4.86 KB. The difference is significant and justifies the extra dependency.
+
+#### Contingency plan
+
+Change to one of the many other md5 implementations available in JavaScript, or Node's built in crypto module as a last resort.
+
 ### lodash
 A JavaScript utility library.
 
