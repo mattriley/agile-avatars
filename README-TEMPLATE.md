@@ -22,6 +22,23 @@ DISCLAIMER: Some of the approaches used are intentionally unconventional. Any at
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
+# Getting started
+
+__Prerequisites__
+- Install Node <%- nodeVersion %> or install [nvm](https://github.com/nvm-sh/nvm) and run `nvm install`
+- Install dependencies: `npm install`
+
+__Tasks__
+- Run the tests: `tasks/test`
+- Start local dev server: `tasks/start`
+- See all available dev tasks: `ls tasks`
+
+__iTerm2 automated window arrangement (macOS only)__
+- Install iTermocil: `tasks/itermocil-install`
+- Launch window arrangement: `tasks/itermocil`
+
+Lanches a new iTerm2 tab with 3 panes: empty command prompt, local dev server, index.js file generator.
+
 # Architecture
 
 ![Architecture](docs/architecture.svg)

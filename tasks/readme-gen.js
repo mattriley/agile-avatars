@@ -2,6 +2,8 @@
 const ejs = require('ejs');
 const fs = require('fs');
 
+const nodeVersion = fs.readFileSync('.nvmrc', 'utf-8').trim();
+
 const renderJsFile = (path, opts = {}) => {
     const open = opts.open ?? true;
     const code = fs.readFileSync(path, 'utf-8');
@@ -17,6 +19,7 @@ const renderJsFile = (path, opts = {}) => {
 };
 
 const data = {
+    nodeVersion,
     renderJsFile,
     examples: {
         component: 'src/components/tag-list/tag/components/tag-name.js',
