@@ -1,0 +1,1 @@
+A JavaScript test coverage tool.

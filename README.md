@@ -51,8 +51,10 @@ DISCLAIMER: Some of the approaches used are intentionally unconventional. Any at
     - [module-composer](#module-composer)
     - [vanilla-picker](#vanilla-picker)
   - [Development dependencies](#development-dependencies)
+    - [doctoc](#doctoc)
     - [ejs](#ejs)
     - [eslint](#eslint)
+    - [husky](#husky)
     - [jsdom](#jsdom)
     - [module-indexgen](#module-indexgen)
     - [nyc](#nyc)
@@ -431,9 +433,7 @@ Encourages:
 ### @sentry/browser
 
 The JavaScript SDK for Sentry, a cloud-based application monitoring service.
-
 ### blueimp-md5
-
 A JavaScript implementation of the md5 hashing algorithm.
 
 Notes:
@@ -442,24 +442,19 @@ Notes:
 __Why not use crypto from Node.js and avoid the extra dependency?__
 
 As far as I can tell, it's not possible to extract individual algorithms from crypto. The consequence is a minified bundle size of 431.78 KB compared with blueimp's 4.86 KB. The difference is significant and justifies the extra dependency.
-
 ### lodash
-
 A JavaScript utility library.
 
 Notes:
 - Used by exception where there's no concise native JavaScript alternative.
 - Functions are required individually to minimise bundle size, e.g. `require('lodash/merge')`
-
+  
 ### module-composer
-
 Enables dependency injection using currying.
 
 Notes:
 - I am the author of this library.
-
 ### vanilla-picker
-
 A vanilla JavaScript color picker. 
 
 Notes:
@@ -468,57 +463,46 @@ Notes:
 
 ## Development dependencies
 
-### ejs
+### doctoc
 
+### ejs
 A simple templating language that lets you generate HTML markup with plain JavaScript.
 
 Used for:
 - Generating `README.md` from a template to reduce duplication and improve maintainability.
-
 ### eslint
-
 A static code analysis tool for identifying problematic patterns found in JavaScript code.
 
 Notes:
 - Also used for automatic code formatting.
 - I had originally used prettier for code formatting but was regularly dissatisfied with the results.
+### husky
 
 ### jsdom
-
 Emulates a web browser for testing web applications with Node.js.
 
 Notes:
 - I had originally used in conjunction with jsdom-global until I decided to strictly limit use of globals.
-
 ### module-indexgen
-
 Generates index.js files with Node.js.
 
 Notes:
 - I am also the author of this library.
-
 ### nyc
-
 A JavaScript test coverage tool.
-
 ### parcel-bundler
-
 A zero-configuration web application bundler.
 
 Notes:
 - I have found Parcel to be much simpler to use than webpack.
-
 ### tap-summary
-
 A TAP (Test Anything Protocol) reporter.
 
 Notes:
 - A benefit of TAP is the variety of reporters available.
 - tap-summary output is minimal and includes duration of each test which is useful for keeping the tests fast.
-
 ### tape
 
-A very lightweight TAP producing test harness.
 
 # Conventions
 

@@ -1,8 +1,21 @@
 /* eslint-disable no-sync */
 const ejs = require('ejs');
 const fs = require('fs');
+const package = require(process.cwd() + '/package.json');
 
 const nodeVersion = fs.readFileSync('.nvmrc', 'utf-8').trim();
+
+const renderDependencies = key => {
+    const sections = Object.entries(package[key]).map(([name]) => {
+        const header = `### ${name}\n`;
+        try {
+            return header + fs.readFileSync(`docs/dependencies/${name}.md`, 'utf-8');
+        } catch (err) {
+            return header;
+        }
+    });
+    return sections.join('\n');
+};
 
 const renderJsFile = (path, opts = {}) => {
     const open = opts.open ?? true;
@@ -20,6 +33,8 @@ const renderJsFile = (path, opts = {}) => {
 
 const data = {
     nodeVersion,
+    dependencies: renderDependencies('dependencies'),
+    devDependencies: renderDependencies('devDependencies'),
     renderJsFile,
     examples: {
         component: 'src/components/tag-list/tag/components/tag-name.js',
