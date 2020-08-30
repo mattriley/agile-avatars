@@ -25,7 +25,7 @@ module.exports = ({ test, boot, window, helpers }) => {
         const imageStyle = tag1.getImageStyle();
         t.equal(imageStyle.width, `${sizeMinusPadding}px`);
         t.equal(imageStyle.height, `${sizeMinusPadding}px`);
-        t.end();        
+                
     };
 
     test('tag size increases', t => {

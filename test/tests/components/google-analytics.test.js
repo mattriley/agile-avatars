@@ -9,7 +9,7 @@ module.exports = ({ test, boot, window }) => {
         const $script = components.googleAnalytics();
         t.equal($script.tagName, 'SCRIPT');
         t.equal($script.src, 'https://www.googletagmanager.com/gtag/js?id=UA-34497639-2');
-        t.end();
+        
     });
 
     test('tracking metadata set correctly', t => {
@@ -25,7 +25,7 @@ module.exports = ({ test, boot, window }) => {
         components.googleAnalytics();
         t.deepEqual(Array.from(window.dataLayer[0]), ['js', date]);
         t.deepEqual(Array.from(window.dataLayer[1]), ['config', 'UA-34497639-2']);
-        t.end();
+        
     });
 
     test('gtag function sets metadata correctly', t => {
@@ -37,7 +37,7 @@ module.exports = ({ test, boot, window }) => {
         components.googleAnalytics();
         window.gtag('foobar');
         t.deepEqual(Array.from(window.dataLayer[2]), ['foobar']);
-        t.end();
+        
     });
 
     test('disabled', t => {
@@ -48,7 +48,7 @@ module.exports = ({ test, boot, window }) => {
         });
         components.googleAnalytics();
         t.equal(window['ga-disable-UA-34497639-2'], true);
-        t.end();
+        
     });
 
 };

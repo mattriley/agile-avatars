@@ -6,7 +6,7 @@ module.exports = ({ test, boot, helpers }) => {
         helpers.assertBoolClass(t, $optionsBar, 'visible', false);    
         services.tags.insertTag();
         helpers.assertBoolClass(t, $optionsBar, 'visible', true);
-        t.end();
+        
     });
 
 };

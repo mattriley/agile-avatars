@@ -7,7 +7,7 @@ module.exports = ({ test, boot, helpers }) => {
         const $tipsModal = components.modals.tips('tips');
         helpers.dispatchEvent('click', $tips);
         helpers.assertBoolClass(t, $tipsModal, 'visible', true);
-        t.end();
+        
     });
     
 };

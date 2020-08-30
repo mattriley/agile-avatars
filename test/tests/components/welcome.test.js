@@ -7,7 +7,7 @@ module.exports = ({ test, boot, helpers }) => {
         const $dismiss = $welcome.querySelector('button');
         helpers.dispatchEvent('click', $dismiss);
         helpers.assertBoolClass(t, $welcome, 'visible', false);  
-        t.end();
+        
     });
 
 };

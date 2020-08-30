@@ -19,7 +19,7 @@ module.exports = ({ test, boot, window, helpers }) => {
         helpers.dispatchEvent('input', $spacingInput);
         const tagListStyle = window.getComputedStyle($tagList);
         t.equal(tagListStyle.gap, `${targetSpacing}px`);
-        t.end();
+        
     };
 
     test('tag spacing increases', t => {

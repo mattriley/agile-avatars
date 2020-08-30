@@ -20,8 +20,8 @@ module.exports = ({ test, boot, window, helpers }) => {
         helpers.dispatchEvent('change', $checkbox); 
         const [tag1] = helpers.getTags($tagList);
         const outlineColor = tag1.getTagStyle().borderColor;
-        t.false(outlineColor === 'transparent');
-        t.end();
+        t.notOk(outlineColor === 'transparent');
+        
     });
 
     test('outline toggles off', t => {
@@ -30,8 +30,8 @@ module.exports = ({ test, boot, window, helpers }) => {
         helpers.dispatchEvent('change', $checkbox); 
         const [tag1] = helpers.getTags($tagList);
         const outlineColor = tag1.getTagStyle().borderColor;
-        t.true(outlineColor === 'transparent');
-        t.end();
+        t.ok(outlineColor === 'transparent');
+        
     });
 
 };

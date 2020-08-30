@@ -7,15 +7,15 @@ module.exports = ({ test, boot, window, helpers }) => {
         const $gravatarLink = components.imageUploadOptions.gravatar();
         helpers.dispatchEvent('click', $gravatarLink);
         helpers.assertBoolClass(t, $gravatarModal, 'visible', true);
-        t.end();
+        
     });
 
     test('prevented from importing from gravatar with no input', t => {
         const { components } = boot();
         const $gravatar = components.modals.gravatar();
         const $importButton = $gravatar.querySelector('.import');
-        t.assert($importButton.disabled, true);
-        t.end();
+        t.ok($importButton.disabled, true);
+        
     });
 
     test('prevented from importing from gravatar with blank input', t => {
@@ -25,8 +25,8 @@ module.exports = ({ test, boot, window, helpers }) => {
         $freetext.textContent = '   \n   \n   ';
         helpers.dispatchEvent('input', $freetext);
         const $importButton = $gravatar.querySelector('.import');
-        t.true($importButton.disabled);
-        t.end();
+        t.ok($importButton.disabled);
+        
     });
 
     test('gravatar fallback changes', async t => {
@@ -35,7 +35,7 @@ module.exports = ({ test, boot, window, helpers }) => {
                 gravatar: {
                     buildImageUrlAsync: (email, defaultImage) => {
                         t.equal(defaultImage, 'monsterid');
-                        t.end();
+                        
                     }
                 }
             }
@@ -81,7 +81,7 @@ module.exports = ({ test, boot, window, helpers }) => {
             () => {
                 $freetext.value = freetext;
                 helpers.dispatchEvent('input', $freetext);
-                t.false($import.disabled);
+                t.notOk($import.disabled);
                 $import.click();
             },
             () => {
@@ -96,7 +96,7 @@ module.exports = ({ test, boot, window, helpers }) => {
                 helpers.assertBoolClass(t, $import, 'visible', true);
                 helpers.assertBoolClass(t, $error, 'visible', false);
                 t.equal($freetext.value, freetext);                        
-                t.end();
+                
             }
         );  
     });
@@ -117,7 +117,7 @@ module.exports = ({ test, boot, window, helpers }) => {
             
         $freetext.value = freetext;
         helpers.dispatchEvent('input', $freetext);
-        t.false($import.disabled);
+        t.notOk($import.disabled);
     
         await helpers.onTagListMutation(
             $tagList,
@@ -127,20 +127,20 @@ module.exports = ({ test, boot, window, helpers }) => {
             tag1 => {
                 t.equal(tag1.getTagName(), 'Foo');
                 helpers.assertBoolClass(t, $gravatar, 'visible', false);
-                t.end();
+                
             }
         );  
     };
 
-    test('import gravatar successfully with email address', t => {
-        successTestCase(t, { freetext: 'foo@bar.com' });
+    test('import gravatar successfully with email address', async t => {
+        await successTestCase(t, { freetext: 'foo@bar.com' });
     });
 
-    test('import gravatar successfully with username', t => {
-        successTestCase(t, { freetext: 'foo' });
+    test('import gravatar successfully with username', async t => {
+        await successTestCase(t, { freetext: 'foo' });
     });
 
-    test('tag inserted from gravatar', t => {
+    test('tag inserted from gravatar', async t => {
         const { components } = boot({
             services: {
                 gravatar: {
@@ -160,7 +160,7 @@ module.exports = ({ test, boot, window, helpers }) => {
         $freetext.value = freetext;
         helpers.dispatchEvent('input', $freetext);
 
-        helpers.onTagListMutation(
+        await helpers.onTagListMutation(
             $tagList,
             () => {
                 helpers.dispatchEvent('click', $importButton);
@@ -168,7 +168,7 @@ module.exports = ({ test, boot, window, helpers }) => {
             async tag1 => {
                 t.equal(tag1.getTagName(), 'Foo');
                 t.equal(await tag1.getImage(), 'url(data:image/jpg;base64,QllURVM=)');
-                t.end();
+                
             }
         );       
     });

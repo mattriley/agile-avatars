@@ -20,7 +20,7 @@ module.exports = ({ test, boot, window, helpers }) => {
         const role = helpers.getRole($roleCustomiser);
         t.equal(role.getRoleStyle().backgroundColor, 'rgba(255, 255, 255, 1)');
 
-        t.end();
+        
     });
     
     test('role color change propagates to tags', t => {
@@ -47,7 +47,7 @@ module.exports = ({ test, boot, window, helpers }) => {
         const roleStyle = tag1.getRoleStyle();
         t.equal(imageStyle.borderColor, '#ffffffff');
         t.equal(roleStyle.backgroundColor, 'rgba(255, 255, 255, 1)');
-        t.end();
+        
     });
 
 };

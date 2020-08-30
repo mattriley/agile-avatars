@@ -62,6 +62,7 @@ DISCLAIMER: Some of the approaches used are intentionally unconventional. Any at
       - [Contingency plan](#contingency-plan-2)
     - [eslint](#eslint)
       - [Alternatives considered](#alternatives-considered-2)
+    - [globby](#globby)
     - [husky](#husky)
     - [jsdom](#jsdom)
       - [Implementation notes](#implementation-notes-1)
@@ -69,9 +70,8 @@ DISCLAIMER: Some of the approaches used are intentionally unconventional. Any at
       - [Disclaimers](#disclaimers)
     - [nyc](#nyc)
     - [parcel-bundler](#parcel-bundler)
-    - [tap-summary](#tap-summary)
-      - [Contingency plan](#contingency-plan-3)
-    - [tape](#tape)
+    - [tap-mocha-reporter](#tap-mocha-reporter)
+    - [zora](#zora)
 - [Conventions](#conventions)
     - [Prefix $ to variables storing HTML element and $$ for collections of HTML elements](#prefix--to-variables-storing-html-element-and--for-collections-of-html-elements)
     - [Clarifying comments as footnotes](#clarifying-comments-as-footnotes)
@@ -547,6 +547,12 @@ Identify problematic patterns found in JavaScript code and automatic code format
 Prettier was used for code formatting however the results were not satisfying.
 
 
+### globby
+
+> User-friendly glob matching\
+https://github.com/sindresorhus/globby#readme
+
+
 ### husky
 
 > Prevents bad commit or push (git hooks, pre-commit/precommit, pre-push/prepush, post-merge/postmerge and all that stuff...)\
@@ -596,23 +602,16 @@ https://github.com/parcel-bundler/parcel#readme
 
 Change to webpack.
 
-### tap-summary
+### tap-mocha-reporter
 
-> Summarize TAP\
-https://github.com/zoubin/tap-summary#readme
-#### Purpose
-
-Formatting minimal test output including duration of each test which is useful for keeping the tests fast.
-
-#### Contingency plan
-
-Change to one of the many other TAP reporters available.
+> Format a TAP stream using Mocha's set of reporters\
+https://github.com/isaacs/tap-mocha-reporter
 
 
-### tape
+### zora
 
-> tap-producing test harness for node and browsers\
-https://github.com/substack/tape
+> tap test harness for nodejs and browsers\
+https://github.com/lorenzofox3/zora#readme
 
 
 # Conventions

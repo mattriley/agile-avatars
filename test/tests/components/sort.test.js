@@ -26,7 +26,7 @@ module.exports = ({ test, boot, helpers }) => {
         const [tag1, tag2] = sortBy(helpers.getTags($tagList), t => t.getTagStyle().order);
         t.deepEqual([tag1.getTagName(), tag1.getRoleName()], ['B', 'A']);
         t.deepEqual([tag2.getTagName(), tag2.getRoleName()], ['A', 'B']);
-        t.end();
+        
     });
 
     test('keep sorted by role then name', t => {
@@ -43,7 +43,7 @@ module.exports = ({ test, boot, helpers }) => {
         t.deepEqual([tag1.getTagName(), tag1.getRoleName()], ['B', 'A']);
         t.deepEqual([tag2.getTagName(), tag2.getRoleName()], ['C', 'A']);
         t.deepEqual([tag3.getTagName(), tag3.getRoleName()], ['A', 'B']);
-        t.end();
+        
     });
 
     test('keep sorted by name', t => {
@@ -57,7 +57,7 @@ module.exports = ({ test, boot, helpers }) => {
         const [tag1, tag2] = sortBy(helpers.getTags($tagList), t => t.getTagStyle().order);
         t.deepEqual([tag1.getTagName(), tag1.getRoleName()], ['A', 'B']);
         t.deepEqual([tag2.getTagName(), tag2.getRoleName()], ['B', 'A']);
-        t.end();
+        
     });
 
     test('sorts existing tags', t => {
@@ -99,7 +99,7 @@ module.exports = ({ test, boot, helpers }) => {
             t.deepEqual([tag3.getTagName(), tag3.getRoleName()], ['B', 'A']);            
         }
         
-        t.end(); 
+         
     });
 
 };

@@ -24,7 +24,7 @@ module.exports = ({ test, boot }) => {
             const tagData = core.tags.parseFileExpression(scenario.expression);
             t.equal(tagData.tagName, scenario.expected.tagName);
             t.equal(tagData.roleName, scenario.expected.roleName);
-            t.end();
+            
         });
     });
 

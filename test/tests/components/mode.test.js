@@ -29,7 +29,7 @@ module.exports = ({ test, boot, helpers }) => {
             t.equal(modeCount, targetCount);
         }
         
-        t.end();
+        
     };
 
     test('active instances increased', t => {

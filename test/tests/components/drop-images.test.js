@@ -20,7 +20,7 @@ module.exports = ({ test, boot, window, helpers }) => {
             (tag1, tag2) => {
                 t.deepEqual([tag1.getTagName(), tag1.getRoleName()], ['Foo', 'BAR']);
                 t.deepEqual([tag2.getTagName(), tag2.getRoleName()], ['Baz', 'QUX']);
-                t.end();
+                
             }
         );        
     });

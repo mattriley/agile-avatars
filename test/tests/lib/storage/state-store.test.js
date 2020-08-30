@@ -7,7 +7,7 @@ module.exports = ({ test, src }) => {
         t.equal(id1, 1);
         const id2 = store.insert(data);
         t.equal(id2, 2);
-        t.end();
+        
     });
 
     test('insert then get state', t => {
@@ -16,7 +16,7 @@ module.exports = ({ test, src }) => {
         const id = store.insert(data);
         const state = store.getState(id);
         t.same(state, { id: 1, foo: 'bar' });
-        t.end();
+        
     });
 
     test('insert then set state', t => {
@@ -26,7 +26,7 @@ module.exports = ({ test, src }) => {
         store.setState(id, { foo: 'boo', baz: 'qux' });
         const state = store.getState(id);
         t.same(state, { id: 1, foo: 'boo', baz: 'qux' });
-        t.end();
+        
     });
 
     test('insert emits insert event and inserted item can be found', t => {
@@ -35,7 +35,7 @@ module.exports = ({ test, src }) => {
         store.subscriptions.onInsert(id => {
             const state = store.getState(id);
             t.same(state, { id: 1, foo: 'bar' });
-            t.end();
+            
         });
 
         const data = { foo: 'bar' };
@@ -48,8 +48,8 @@ module.exports = ({ test, src }) => {
         let callbackInvoked = false;
 
         store.subscriptions.onInsert(() => {
-            t.assert(callbackInvoked);
-            t.end();
+            t.ok(callbackInvoked);
+            
         });
 
         const data = { foo: 'bar' };
@@ -68,7 +68,7 @@ module.exports = ({ test, src }) => {
         store.remove(id);
         const state = store.getState(id);
         t.equal(state, null);
-        t.end();
+        
     });
 
     test('before remove emitted before removing', t => {
@@ -77,7 +77,7 @@ module.exports = ({ test, src }) => {
         store.subscriptions.onBeforeRemove(id => {
             const state = store.getState(id);
             t.same(state, { id: 1, foo: 'bar' });
-            t.end();
+            
         });
 
         const data = { foo: 'bar' };
@@ -95,7 +95,7 @@ module.exports = ({ test, src }) => {
         store.subscriptions.onChangeAny('foo', () => {
             const state = store.getState(id);
             t.same(state, { id: 1, foo: 'boo' });
-            t.end();
+            
         });
 
         store.setState(id, { foo: 'boo' });

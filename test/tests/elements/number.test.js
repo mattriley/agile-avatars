@@ -6,7 +6,7 @@ module.exports = ({ test, boot, helpers }) => {
         $input.value = '';
         helpers.dispatchEvent('blur', $input);
         t.equal($input.value, '1');
-        t.end();
+        
     });
 
     test('empty remains empty on input', t => {
@@ -15,7 +15,7 @@ module.exports = ({ test, boot, helpers }) => {
         $input.value = '';
         helpers.dispatchEvent('input', $input);
         t.equal($input.value, '');
-        t.end();
+        
     });
 
     test('minimum is accepted', t => {
@@ -25,7 +25,7 @@ module.exports = ({ test, boot, helpers }) => {
         $input.value = newValue;
         helpers.dispatchEvent('input', $input);
         t.equal($input.value, newValue.toString());
-        t.end();
+        
     });
 
     test('maxium is accepted', t => {
@@ -35,7 +35,7 @@ module.exports = ({ test, boot, helpers }) => {
         $input.value = newValue;
         helpers.dispatchEvent('input', $input);
         t.equal($input.value, newValue.toString());
-        t.end();
+        
     });
 
     test('minimum enforced', t => {
@@ -44,7 +44,7 @@ module.exports = ({ test, boot, helpers }) => {
         $input.value = 0;
         helpers.dispatchEvent('input', $input);
         t.equal($input.value, '1');
-        t.end();
+        
     });
 
     test('maximum enforced', t => {
@@ -53,7 +53,7 @@ module.exports = ({ test, boot, helpers }) => {
         $input.value = 10;
         helpers.dispatchEvent('input', $input);
         t.equal($input.value, '9');
-        t.end();
+        
     });        
 
     test('decimal ignored', t => {
@@ -62,7 +62,7 @@ module.exports = ({ test, boot, helpers }) => {
         $input.value = 2.5;
         helpers.dispatchEvent('input', $input);
         t.equal($input.value, '2');
-        t.end();
+        
     });
 
 };
