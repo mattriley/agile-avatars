@@ -6,16 +6,14 @@ module.exports = ({ test, boot, window, helpers }) => {
         helpers.assertBoolClass(t, $gravatarModal, 'visible', false);
         const $gravatarLink = components.imageUploadOptions.gravatar();
         helpers.dispatchEvent('click', $gravatarLink);
-        helpers.assertBoolClass(t, $gravatarModal, 'visible', true);
-        
+        helpers.assertBoolClass(t, $gravatarModal, 'visible', true);        
     });
 
     test('prevented from importing from gravatar with no input', t => {
         const { components } = boot();
         const $gravatar = components.modals.gravatar();
         const $importButton = $gravatar.querySelector('.import');
-        t.ok($importButton.disabled, true);
-        
+        t.ok($importButton.disabled, true);        
     });
 
     test('prevented from importing from gravatar with blank input', t => {
@@ -25,38 +23,20 @@ module.exports = ({ test, boot, window, helpers }) => {
         $freetext.textContent = '   \n   \n   ';
         helpers.dispatchEvent('input', $freetext);
         const $importButton = $gravatar.querySelector('.import');
-        t.ok($importButton.disabled);
-        
+        t.ok($importButton.disabled);        
     });
 
-    test('gravatar fallback changes', async t => {
-        const { components } = boot({
-            services: {
-                gravatar: {
-                    buildImageUrlAsync: (email, defaultImage) => {
-                        t.equal(defaultImage, 'monsterid');
-                        
-                    }
-                }
-            }
-        });
+    test('gravatar fallback changes', t => {
+        const { components } = boot();
 
         const $gravatar = components.modals.gravatar();
-        const $import = $gravatar.querySelector('.import');
         const $freetext = $gravatar.querySelector('.freetext');
         const $monsterid = $gravatar.querySelector('[title=monsterid]');
 
         $freetext.value = 'foo@bar.com';
         helpers.dispatchEvent('input', $freetext);
-
-        await helpers.onMutation(
-            $gravatar,
-            () => {
-                $monsterid.click();
-                helpers.assertBoolClass(t, $monsterid, 'selected', true);
-                $import.click();
-            }
-        );
+        $monsterid.click();                
+        helpers.assertBoolClass(t, $monsterid, 'selected', true);
     });
 
     test('import gravatar error', async t => {
