@@ -1,9 +1,9 @@
 module.exports = ({ window }) => ($target, trigger, ...callbacks) => {
 
     return new Promise(resolve => {
-        const observer = new window.MutationObserver(() => {
+        const observer = new window.MutationObserver(async () => {
             const cb = callbacks.shift();
-            if (cb) cb();
+            if (cb) await cb();
             if (!callbacks.length) {
                 observer.disconnect();
                 resolve();
