@@ -9,7 +9,7 @@ README="README.md"
 node ./tasks/readme-gen.js > $README
 
 # Generate table of contents.
-npx doctoc $README
+npx doctoc --maxlevel 2 $README 
 
 # Export architecture diagram.
 draw.io -x -f svg --crop -o "docs/architecture.svg" "docs/architecture.drawio" 
