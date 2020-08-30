@@ -1,3 +1,4 @@
+/* eslint-disable no-async-promise-executor */
 module.exports = ({ test, boot, window, helpers }) => {
 
     test('launches gravatar', t => {
@@ -120,7 +121,7 @@ module.exports = ({ test, boot, window, helpers }) => {
     });
 
     test('tag inserted from gravatar', async t => {
-        const { components } = boot({
+        const { components, subscriptions } = boot({
             services: {
                 gravatar: {
                     fetchNameAsync: () => 'foo',
@@ -128,28 +129,39 @@ module.exports = ({ test, boot, window, helpers }) => {
                 }
             }
         }); 
+        
 
         window.document.body.append(components.styles());     
-        const $tagList = components.tagList();   
-        const $gravatar = components.modals.gravatar();
-        const $freetext = $gravatar.querySelector('.freetext');
-        const $importButton = $gravatar.querySelector('.import');
 
-        const freetext = 'foo@bar.com';
-        $freetext.value = freetext;
-        helpers.dispatchEvent('input', $freetext);
+        await new Promise(async resolve => {
 
-        await helpers.onTagListMutation(
-            $tagList,
-            () => {
-                helpers.dispatchEvent('click', $importButton);
-            },
-            tag1 => {
-                t.equal(tag1.getTagName(), 'Foo');
-                // FIXME: image not detected
-                // t.equal(await tag1.getImage(), 'url(data:image/jpg;base64,QllURVM=)');
-            }
-        );       
+            subscriptions.tags.onChangeAny('image', image => {
+                t.equal(image, 'data:image/jpg;base64,QllURVM=');
+                resolve();
+            });
+
+            const $tagList = components.tagList();   
+            const $gravatar = components.modals.gravatar();
+            const $freetext = $gravatar.querySelector('.freetext');
+            const $importButton = $gravatar.querySelector('.import');
+
+            const freetext = 'foo@bar.com';
+            $freetext.value = freetext;
+            helpers.dispatchEvent('input', $freetext);
+
+            await helpers.onTagListMutation(
+                $tagList,
+                () => {
+                    helpers.dispatchEvent('click', $importButton);
+                },
+                tag1 => {
+                    t.equal(tag1.getTagName(), 'Foo');
+                    // FIXME: image not detected
+                    // t.equal(await tag1.getImage(), 'url(data:image/jpg;base64,QllURVM=)');
+                }
+            );      
+        }); 
+    
     });
 
 };

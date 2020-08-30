@@ -10,8 +10,8 @@ npx c8 \
     --include "$SRC" \
     --reporter=text-summary \
     --reporter=lcov \
-    --branches 98 \
-    --lines 98 \
-    --functions 98 \
-    --statements 98 \
+    --branches 100 \
+    --lines 100 \
+    --functions 100 \
+    --statements 100 \
     ./tasks/test

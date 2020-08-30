@@ -24,6 +24,6 @@ module.exports = ({ window, ...overrides }) => {
     startup.insertNilRole({ config, settings, stores });
     startup.createHandlers({ services, subscriptions, lib, config });
 
-    return { components, elements, services, core, lib, config, state };
+    return { components, elements, services, core, subscriptions, lib, config, state };
 
 };
