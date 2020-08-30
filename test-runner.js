@@ -40,7 +40,6 @@ const start = async () => {
             const func = runOnly ? 'only' : 'test';
             testHarness[func](f, ({ only, skip, ...t }) => {
                 const test = (...args) => {
-                    delete window.dataLayer;
                     window.fetch = () => undefined;
                     window.document.getElementsByTagName('html')[0].innerHTML = '';
                     t.test(...args);

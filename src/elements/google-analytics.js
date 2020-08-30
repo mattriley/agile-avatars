@@ -2,7 +2,7 @@
 
 module.exports = ({ window, elements }) => ({ date, trackingId, enabled }) => {
 
-    window.dataLayer = window.dataLayer ?? [];
+    window.dataLayer = [];
     function gtag () { window.dataLayer.push(arguments); } 
     gtag('js', date);
     gtag('config', trackingId);
