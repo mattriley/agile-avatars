@@ -8,9 +8,9 @@ const path = require('path');
 
 const merge = require('lodash/merge');
 const composer = require('module-composer');
-const testSrc = require('.');
-const src = require('../src');
-const bootOrig = require('../boot');
+const testSrc = require('./test');
+const src = require('./src');
+const bootOrig = require('./boot');
 
 const compose = composer(testSrc);
 const { window } = new JSDOM('', { url: 'https://localhost/' });
