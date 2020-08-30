@@ -6,10 +6,9 @@
 
 npx nyc \
     --include "$SRC" \
-    --report-dir "$COVERAGE_REPORT_DIR" \
     --reporter=text-summary \
     --reporter=html \
     ./tasks/test
 
 
-open "$COVERAGE_REPORT_DIR/index.html"
+open "coverage/index.html"

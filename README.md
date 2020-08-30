@@ -479,10 +479,10 @@ Used to change the colour of each role.
 https://github.com/zeit/arg#readme
 
 
-### args
+### c8
 
-> Minimal toolkit for building CLIs\
-https://github.com/leo/args#readme
+> output coverage reports using Node.js' built in coverage\
+https://github.com/bcoe/c8#readme
 
 
 ### doctoc
@@ -554,15 +554,6 @@ Consider changing to one of the few other index.js file generators available, or
 
 - I am the author of this library.
   
-
-### nyc
-
-> the Istanbul command line interface\
-https://istanbul.js.org/
-#### Purpose
-
-Code coverage reporter.
-
 
 ### parcel-bundler
 

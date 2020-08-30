@@ -4,9 +4,10 @@
 
 . ./env
 
-npx nyc \
+npx c8 \
+    --check-coverage \
+    --all \
     --include "$SRC" \
-    --report-dir "$COVERAGE_REPORT_DIR" \
     --reporter=text-summary \
     --reporter=lcov \
     --branches 98 \

@@ -1,8 +1,7 @@
 build_output
 package_output
 node_modules
+coverage
 iTermocil.yml
 .cache
-.nyc_output
-.coverage
 .DS_Store
