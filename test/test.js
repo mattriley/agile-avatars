@@ -2,7 +2,7 @@
 /* eslint-disable no-process-exit */
 
 const { JSDOM } = require('jsdom');
-const zora = require('zora');
+const { createHarness } = require('zora');
 const globby = require('globby');
 const path = require('path');
 
@@ -29,17 +29,31 @@ const boot = (args = {}) => {
     return bootOrig({ window, ...args, config });
 };
 
+const arg = require('arg');
+
+const DEFAULT_FILE_PATTERN = ['test/tests/**/*.test.js'];
+
+
 const start = async () => {
-    const testHarness = zora.createHarness({
-        indent: true
+    const { _: filePatternArg, '--only': runOnly } = arg({ '--only': Boolean, '-o': '--only' }, {
+        permissive: false,
+        argv: process.argv.slice(2)
+    });
+
+    const filePattern = filePatternArg.length > 0 ? filePatternArg : DEFAULT_FILE_PATTERN;
+
+    const testHarness = createHarness({
+        indent: true,
+        runOnly
     });
     try {
-        const files = await globby('test/tests/**/*.test.js');
+        const files = await globby(filePattern);
         for (const f of files) {
             const mod = require(path.resolve(process.cwd(), f));
-            const { test } = testHarness;
-            test(f, t => {
-                mod({ test: t.test, boot, src, window, helpers });
+            const zora = testHarness;
+            const func = runOnly ? 'only' : 'test';
+            zora[func](f, t => {
+                mod({ ...t, zora, boot, src, window, helpers });
             });
         }
         await testHarness.report();

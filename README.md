@@ -57,6 +57,8 @@ DISCLAIMER: Some of the approaches used are intentionally unconventional. Any at
       - [Alternatives considered](#alternatives-considered-1)
       - [Implementation notes](#implementation-notes)
   - [Development dependencies](#development-dependencies)
+    - [arg](#arg)
+    - [args](#args)
     - [doctoc](#doctoc)
     - [ejs](#ejs)
       - [Contingency plan](#contingency-plan-2)
@@ -513,6 +515,18 @@ Used to change the colour of each role.
 
 
 ## Development dependencies
+
+
+### arg
+
+> Another simple argument parser\
+https://github.com/zeit/arg#readme
+
+
+### args
+
+> Minimal toolkit for building CLIs\
+https://github.com/leo/args#readme
 
 
 ### doctoc

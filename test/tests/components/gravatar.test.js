@@ -59,7 +59,6 @@ module.exports = ({ test, boot, window, helpers }) => {
         );
     });
 
-
     test('import gravatar error', async t => {
         const { components } = boot({
             services: {

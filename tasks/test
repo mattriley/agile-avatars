@@ -6,4 +6,4 @@
 
 rm -rf "$COVERAGE_REPORT_DIR"
 
-npx tape "$TEST/test.js" | npx tap-mocha-reporter spec
+node "$TEST/test.js" $@ | npx tap-mocha-reporter spec
