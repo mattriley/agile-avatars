@@ -35,7 +35,7 @@ module.exports = ({ test, boot, window, helpers }) => {
 
         $freetext.value = 'foo@bar.com';
         helpers.dispatchEvent('input', $freetext);
-        $monsterid.click();                
+        helpers.dispatchEvent('click', $monsterid);
         helpers.assertBoolClass(t, $monsterid, 'selected', true);
     });
 
@@ -61,7 +61,7 @@ module.exports = ({ test, boot, window, helpers }) => {
                 $freetext.value = freetext;
                 helpers.dispatchEvent('input', $freetext);
                 t.notOk($import.disabled);
-                $import.click();
+                helpers.dispatchEvent('click', $import);
             },
             () => {
                 const $errorMessage = $error.querySelector('.error-message');
@@ -101,7 +101,7 @@ module.exports = ({ test, boot, window, helpers }) => {
         await helpers.onTagListMutation(
             $tagList,
             () => {
-                $import.click();
+                helpers.dispatchEvent('click', $import);
             },
             tag1 => {
                 t.equal(tag1.getTagName(), 'Foo');
