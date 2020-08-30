@@ -4,4 +4,4 @@
 
 . ./env
 
-npx indexgen "$SRC" "$TEST" --watch 
+npx indexgen "$SRC" "$TEST_HELPERS" --watch 

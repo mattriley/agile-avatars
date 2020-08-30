@@ -31,7 +31,7 @@ const boot = (args = {}) => {
 
 const arg = require('arg');
 
-const DEFAULT_FILE_PATTERN = ['test/tests/**/*.test.js'];
+const DEFAULT_FILE_PATTERN = ['tests/**/*.test.js'];
 
 
 const start = async () => {

@@ -11,5 +11,6 @@ export PUBLIC_INDEX_JS="$PUBLIC/index.js"
 export PUBLIC_IMAGES="$PUBLIC/img"
 
 export SRC="src"
-export TEST="test"
+export TESTS="tests"
+export TEST_HELPERS="test-helpers"
 export COVERAGE_REPORT_DIR=".coverage"

@@ -4,4 +4,4 @@
 
 . ./env
 
-npx eslint "$SRC" "$TEST" $@
+npx eslint "*.js" "$SRC" "$TESTS" "$TEST_HELPERS" $@
