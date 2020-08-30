@@ -8,11 +8,11 @@ const path = require('path');
 
 const merge = require('lodash/merge');
 const composer = require('module-composer');
-const testSrc = require('./test');
+const testHelpers = require('./test-helpers');
 const src = require('./src');
 const bootOrig = require('./boot');
 
-const compose = composer(testSrc);
+const compose = composer({ helpers: testHelpers });
 const { window } = new JSDOM('', { url: 'https://localhost/' });
 const helpers = compose('helpers', { window });
 
