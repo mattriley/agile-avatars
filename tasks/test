@@ -6,4 +6,4 @@
 
 rm -rf "$COVERAGE_REPORT_DIR"
 
-node test-runner.js $@ | npx tap-mocha-reporter spec
+node test-runner.js "tests/**/*.test.js" --indent $@ | npx tap-mocha-reporter spec

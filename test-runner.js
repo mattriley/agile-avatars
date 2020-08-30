@@ -4,17 +4,16 @@
 const { JSDOM } = require('jsdom');
 const { createHarness } = require('zora');
 const globby = require('globby');
+const arg = require('arg');
 const path = require('path');
-
 const merge = require('lodash/merge');
 const composer = require('module-composer');
 const testHelpers = require('./test-helpers');
 const src = require('./src');
 const bootOrig = require('./boot');
 
-const compose = composer({ helpers: testHelpers });
 const { window } = new JSDOM('', { url: 'https://localhost/' });
-const helpers = compose('helpers', { window });
+const helpers = composer({ helpers: testHelpers })('helpers', { window });
 
 const defaultConfig = { 
     debounce: { adjustTagInstanceCounts: 0, sortTagList: 0 }, 
@@ -29,31 +28,21 @@ const boot = (args = {}) => {
     return bootOrig({ window, ...args, config });
 };
 
-const arg = require('arg');
-
-const DEFAULT_FILE_PATTERN = ['tests/**/*.test.js'];
-
-
 const start = async () => {
-    const { _: filePatternArg, '--only': runOnly } = arg({ '--only': Boolean, '-o': '--only' }, {
-        permissive: false,
-        argv: process.argv.slice(2)
-    });
+    const { _: filePattern, '--only': runOnly, '--indent': indent } = arg(
+        { '--only': Boolean, '--indent': Boolean }, 
+        { permissive: false, argv: process.argv.slice(2) }
+    );
 
-    const filePattern = filePatternArg.length > 0 ? filePatternArg : DEFAULT_FILE_PATTERN;
-
-    const testHarness = createHarness({
-        indent: true,
-        runOnly
-    });
+    const testHarness = createHarness({ indent, runOnly });
     try {
         const files = await globby(filePattern);
         for (const f of files) {
             const mod = require(path.resolve(process.cwd(), f));
-            const zora = testHarness;
             const func = runOnly ? 'only' : 'test';
-            zora[func](f, t => {
-                mod({ ...t, zora, boot, src, window, helpers });
+            testHarness[func](f, ({ test, ...rest }) => {
+                Object.assign(test, rest);
+                mod({ test, boot, src, window, helpers });
             });
         }
         await testHarness.report();
