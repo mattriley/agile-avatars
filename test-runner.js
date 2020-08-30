@@ -21,9 +21,6 @@ const defaultConfig = {
 };
 
 const boot = (args = {}) => {
-    delete window.dataLayer;
-    window.fetch = () => undefined;
-    window.document.getElementsByTagName('html')[0].innerHTML = '';
     const config = merge({}, defaultConfig, args.config);
     return bootOrig({ window, ...args, config });
 };
@@ -35,13 +32,21 @@ const start = async () => {
     );
 
     const testHarness = createHarness({ indent, runOnly });
+
     try {
         const files = await globby(filePattern);
+
         for (const f of files) {
             const mod = require(path.resolve(process.cwd(), f));
             const func = runOnly ? 'only' : 'test';
-            testHarness[func](f, ({ test, ...rest }) => {
-                Object.assign(test, rest);
+            testHarness[func](f, ({ only, skip, ...t }) => {
+                const test = (...args) => {
+                    delete window.dataLayer;
+                    window.fetch = () => undefined;
+                    window.document.getElementsByTagName('html')[0].innerHTML = '';
+                    t.test(...args);
+                };
+                Object.assign(test, { only, skip });
                 mod({ test, boot, src, window, helpers });
             });
         }
