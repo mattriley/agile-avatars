@@ -12,6 +12,7 @@ const testHelpers = require('./test-helpers');
 const bootOrig = require('./boot');
 
 const { window } = new JSDOM('', { url: 'https://localhost/' });
+window.fetch = () => undefined;
 const helpers = composer({ helpers: testHelpers })('helpers', { window });
 
 const defaultConfig = { 
@@ -34,20 +35,18 @@ const start = async () => {
 
     try {
         const files = await globby(filePattern);
-
-        for (const f of files) {
+        files.forEach(f => {
             const mod = require(path.resolve(process.cwd(), f));
             const func = runOnly ? 'only' : 'test';
             testHarness[func](f, ({ only, skip, ...t }) => {
                 const test = (...args) => {
-                    window.fetch = () => undefined;
                     window.document.getElementsByTagName('html')[0].innerHTML = '';
                     t.test(...args);
                 };
                 Object.assign(test, { only, skip });
                 mod({ test, boot, window, helpers });
             });
-        }
+        });
         await testHarness.report();
     } catch (e) {
         console.error(e);
