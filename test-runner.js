@@ -9,7 +9,6 @@ const path = require('path');
 const merge = require('lodash/merge');
 const composer = require('module-composer');
 const testHelpers = require('./test-helpers');
-const src = require('./src');
 const bootOrig = require('./boot');
 
 const { window } = new JSDOM('', { url: 'https://localhost/' });
@@ -47,7 +46,7 @@ const start = async () => {
                     t.test(...args);
                 };
                 Object.assign(test, { only, skip });
-                mod({ test, boot, src, window, helpers });
+                mod({ test, boot, window, helpers });
             });
         }
         await testHarness.report();

@@ -1,22 +1,24 @@
-module.exports = ({ test, src }) => {
+module.exports = ({ test, boot }) => {
 
     test('debounce is zero', async () => {
+        const { lib } = boot();
         await new Promise(resolve => {
             const foo = () => {
                 resolve();
             };
 
-            src.lib.util.debounce(foo, 0)();   
+            lib.util.debounce(foo, 0)();   
         });     
     });
 
     test('debounce is greater than zero', async () => {
+        const { lib } = boot();
         await new Promise(resolve => {
             const foo = () => {
                 resolve();
             };
     
-            src.lib.util.debounce(foo, 1)(); 
+            lib.util.debounce(foo, 1)(); 
         });
              
     });

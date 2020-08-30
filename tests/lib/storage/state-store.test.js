@@ -1,7 +1,8 @@
-module.exports = ({ test, src }) => {
+module.exports = ({ test, boot }) => {
 
     test('insert increments id by 1', t => {
-        const store = src.lib.storage.stateStore({});
+        const { lib } = boot();
+        const store = lib.storage.stateStore({});
         const data = { foo: 'bar' };
         const id1 = store.insert(data);
         t.equal(id1, 1);
@@ -11,7 +12,8 @@ module.exports = ({ test, src }) => {
     });
 
     test('insert then get state', t => {
-        const store = src.lib.storage.stateStore({});
+        const { lib } = boot();
+        const store = lib.storage.stateStore({});
         const data = { foo: 'bar' };
         const id = store.insert(data);
         const state = store.getState(id);
@@ -20,7 +22,8 @@ module.exports = ({ test, src }) => {
     });
 
     test('insert then set state', t => {
-        const store = src.lib.storage.stateStore({});
+        const { lib } = boot();
+        const store = lib.storage.stateStore({});
         const data = { foo: 'bar' };
         const id = store.insert(data);
         store.setState(id, { foo: 'boo', baz: 'qux' });
@@ -30,7 +33,8 @@ module.exports = ({ test, src }) => {
     });
 
     test('insert emits insert event and inserted item can be found', t => {
-        const store = src.lib.storage.stateStore({});
+        const { lib } = boot();
+        const store = lib.storage.stateStore({});
 
         store.subscriptions.onInsert(id => {
             const state = store.getState(id);
@@ -43,7 +47,8 @@ module.exports = ({ test, src }) => {
     });
 
     test('insert callback invoked before insert event emitted', t => {
-        const store = src.lib.storage.stateStore({});
+        const { lib } = boot();
+        const store = lib.storage.stateStore({});
 
         let callbackInvoked = false;
 
@@ -62,7 +67,8 @@ module.exports = ({ test, src }) => {
     });
 
     test('insert then remove', t => {
-        const store = src.lib.storage.stateStore({});
+        const { lib } = boot();
+        const store = lib.storage.stateStore({});
         const data = { foo: 'bar' };
         const id = store.insert(data);
         store.remove(id);
@@ -72,7 +78,8 @@ module.exports = ({ test, src }) => {
     });
 
     test('before remove emitted before removing', t => {
-        const store = src.lib.storage.stateStore({});
+        const { lib } = boot();
+        const store = lib.storage.stateStore({});
 
         store.subscriptions.onBeforeRemove(id => {
             const state = store.getState(id);
@@ -87,7 +94,8 @@ module.exports = ({ test, src }) => {
     });
 
     test('onChangeAny is emitted when any item is changed', t => {
-        const store = src.lib.storage.stateStore({});
+        const { lib } = boot();
+        const store = lib.storage.stateStore({});
 
         const data = { foo: 'bar' };
         const id = store.insert(data);
