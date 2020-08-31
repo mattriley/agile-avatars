@@ -39,19 +39,8 @@ const renderJsFile = (path, opts = {}) => {
 
 const data = {
     nodeVersion,
-    dependencies: renderDependencies('dependencies'),
-    devDependencies: renderDependencies('devDependencies'),
     renderJsFile,
-    examples: {
-        component: 'src/components/tag-list/tag/components/tag-name.js',
-        componentAppend: 'src/components/header/header.js',
-        element: 'src/elements/editable-span.js',
-        service: 'src/services/tags/change-tag-instance-name.js',
-        core: 'src/core/tags/parse-tag-expression.js',
-        io: 'src/io/io.js',
-        footnote: 'src/components/tag-list/tag/components/tag-image.js'
-    },
-    stateStore: 'src/lib/storage/state-store.js'
+    renderDependencies        
 };
 
 ejs.renderFile('README-TEMPLATE.md', data, {}, (err, str) => {

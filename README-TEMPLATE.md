@@ -77,11 +77,11 @@ A plain object graph containing only _component builder functions_.
 
 A __component builder function__ returns an object deriving [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) using closures to react to both user interaction and state changes (via subscriptions), may self-mutate, and interact with services.
 
-<%- renderJsFile(examples.component) %>
+<%- renderJsFile('src/components/tag-list/tag/components/tag-name.js') %>
 
 Because component builder functions simply return native HTML elements, they can easily be appended to create component hierarchies.
 
-<%- renderJsFile(examples.componentAppend) %>
+<%- renderJsFile('src/components/header/header.js') %>
 
 __Why not decouple components from services?__
 
@@ -108,7 +108,7 @@ An __element builder function__ returns an object deriving [HTMLElement](https:/
 
 Elements are 'fundamental' components. Unlike components, they cannot react to state changes or interact with services. For this reason, elements tend to be lower level, generic, and reusable.
 
-<%- renderJsFile(examples.element) %>
+<%- renderJsFile('src/elements/editable-span.js') %>
 
 ### Services
 
@@ -118,7 +118,7 @@ A __service function__ orchestrates domain logic and IO including state changes.
 
 Inspired by [Functional Core, Imperative Shell](https://www.destroyallsoftware.com/screencasts/catalog/functional-core-imperative-shell), __services__ comprise the 'imperative shell'.
 
-<%- renderJsFile(examples.service) %>
+<%- renderJsFile('src/services/tags/change-tag-instance-name.js') %>
 
 ### Core
 
@@ -131,13 +131,13 @@ From [Wikipedia](https://en.wikipedia.org/wiki/Pure_function):
 
 Inspired by [Functional Core, Imperative Shell](https://www.destroyallsoftware.com/screencasts/catalog/functional-core-imperative-shell), __core__ comprises the 'functional core'.
 
-<%- renderJsFile(examples.core) %>
+<%- renderJsFile('src/core/tags/parse-tag-expression.js') %>
 
 ### IO
 
 A plain object graph containing only functions that that depend on or act on the environment. 
 
-<%- renderJsFile(examples.io) %>
+<%- renderJsFile('src/io/io.js') %>
 
 ### Subscriptions
 
@@ -161,7 +161,7 @@ A plain object graph containing only primitive data types.
 
 # State management
 
-<%- renderJsFile(stateStore, { open: false }) %>
+<%- renderJsFile('src/lib/storage/state-store.js', { open: false }) %>
 
 # Constraints
 
@@ -220,11 +220,11 @@ Encourages:
 
 ## Production dependencies
 
-<%- dependencies %>
+<%- renderDependencies('dependencies') %>
 
 ## Development dependencies
 
-<%- devDependencies %>
+<%- renderDependencies('devDependencies') %>
 
 # Conventions
 
@@ -239,7 +239,7 @@ I generally prefer to avoid variable prefixes but I've found these prefixes help
 
 Such comments are secondary to the code and so follow the code rather than preceed it.
 
-<%- renderJsFile(examples.footnote, { includeFootnotes: true }) %>
+<%- renderJsFile('src/components/tag-list/tag/components/tag-image.js', { includeFootnotes: true }) %>
 
 ### Functional programming
 
