@@ -8,8 +8,8 @@ const arg = require('arg');
 const path = require('path');
 const merge = require('lodash/merge');
 const composer = require('module-composer');
-const testHelpers = require('./test-helpers');
-const bootOrig = require('./boot');
+const testHelpers = require('../test-helpers');
+const bootOrig = require('../boot');
 
 const { window } = new JSDOM('', { url: 'https://localhost/' });
 window.fetch = () => undefined;
