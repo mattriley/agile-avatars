@@ -2,6 +2,4 @@
 
 # Runs unit tests.
 
-. ./env
-
 node test-runner.js "$TESTS/**/*.test.js" --indent "$@" | npx tap-mocha-reporter spec

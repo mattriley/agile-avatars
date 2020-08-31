@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-. ./env
-
 PROFILE="prod"
 PROFILE_OUTPUT="$BUILD_OUTPUT/$PROFILE"
 tasks/pre-build "$PROFILE"

@@ -2,8 +2,6 @@
 
 # Runs unit tests and checks coverage.
 
-. ./env
-
 npx c8 \
     --check-coverage \
     --all \

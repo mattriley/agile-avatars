@@ -1,3 +1,5 @@
 #!/usr/bin/env bash
 
-time tasks/$1 "${@:2}"
+. ./env
+
+time "tasks/$1" "${@:2}"

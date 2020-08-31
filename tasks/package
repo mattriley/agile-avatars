@@ -2,8 +2,6 @@
 
 # Builds a .tar.gz package for a given build profile.
 
-. ./env
-
 PROFILE="$1"
 
 mkdir -p "$PACKAGE_OUTPUT"

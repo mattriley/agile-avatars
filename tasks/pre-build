@@ -2,8 +2,6 @@
 
 # Generates index.html and copies images.
 
-. ./env
-
 PROFILE="$1"
 PROFILE_OUTPUT="$BUILD_OUTPUT/$PROFILE"
 

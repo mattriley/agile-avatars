@@ -2,6 +2,4 @@
 
 # Runs ESLint. 
 
-. ./env
-
 npx eslint "*.js" "$SRC" "$TESTS" "$TEST_HELPERS" $@

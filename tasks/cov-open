@@ -2,8 +2,6 @@
 
 # Runs unit tests with coverage and opens the coverage report.
 
-. ./env
-
 npx c8 \
     --all \
     --include "$SRC" \

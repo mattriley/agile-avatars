@@ -32,7 +32,7 @@
     ],
     "husky": {
         "hooks": {
-            "pre-commit": "./tasks/pre-commit"
+            "pre-commit": "./task pre-commit"
         }
     }
 }
