@@ -44,13 +44,13 @@ __Prerequisites__
 - Install dependencies: `npm install`
 
 __Tasks__
-- Run the tests: `tasks/test`
-- Start local dev server: `tasks/start`
-- See all available dev tasks: `ls tasks`
+- Run the tests: `./task test`
+- Start local dev server: `./task start`
+- See all available dev tasks: `ls ./tasks`
 
 __iTerm2 automated window arrangement (macOS only)__
-- Install iTermocil: `tasks/itermocil-install`
-- Launch window arrangement: `tasks/itermocil`
+- Install iTermocil: `./task itermocil-install`
+- Launch window arrangement: `./task itermocil`
 
 Lanches a new iTerm2 tab with 3 panes: empty command prompt, local dev server, index.js file generator.
 

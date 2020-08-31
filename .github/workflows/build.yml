@@ -30,7 +30,7 @@ jobs:
       - name: Build
         run: ./task build-prod
       - name: Package
-        run: ./tasks package prod
+        run: ./task package prod
       - name: Get tag name
         id: date
         run: echo "::set-output name=TAG_NAME::v$(date -u +"%Y%m%dT%H%M%SZ")"        
