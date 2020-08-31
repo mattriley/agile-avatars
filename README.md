@@ -473,12 +473,6 @@ Used to change the colour of each role.
 ## Development dependencies
 
 
-### arg
-
-> Another simple argument parser\
-https://github.com/zeit/arg#readme
-
-
 ### c8
 
 > output coverage reports using Node.js' built in coverage\

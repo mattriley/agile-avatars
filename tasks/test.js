@@ -1,10 +1,10 @@
+/* eslint-disable no-process-env */
 /* eslint-disable no-console */
 /* eslint-disable no-process-exit */
 
 const { JSDOM } = require('jsdom');
 const { createHarness } = require('zora');
 const globby = require('globby');
-const arg = require('arg');
 const path = require('path');
 const merge = require('lodash/merge');
 const composer = require('module-composer');
@@ -25,12 +25,11 @@ const boot = (args = {}) => {
     return bootOrig({ window, ...args, config });
 };
 
-const start = async () => {
-    const { _: filePattern, '--only': runOnly, '--indent': indent } = arg(
-        { '--only': Boolean, '--indent': Boolean }, 
-        { permissive: false, argv: process.argv.slice(2) }
-    );
+const [filePattern] = process.argv.slice(2);
+const runOnly = process.env.RUN_ONLY === 'true';
+const indent = process.env.INDENT === 'true';
 
+const start = async () => {
     const testHarness = createHarness({ indent, runOnly });
 
     try {

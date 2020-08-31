@@ -2,4 +2,5 @@
 
 # Runs unit tests.
 
-node ./tasks/test.js "$TESTS/**/*.test.js" --indent "$@" | npx tap-mocha-reporter spec
+export INDENT=true
+node ./tasks/test.js "$TESTS/**/*.test.js" | npx tap-mocha-reporter spec
