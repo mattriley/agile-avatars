@@ -13,5 +13,5 @@ if [ "$STAGED_FILES" = "$STAGED_DOCS" ]; then
     echo "Stages files are all docs. Skipping lint and test."
 else
     ./tasks/lint
-    ./tasks/test-cov-check
+    ./tasks/cov-check
 fi
