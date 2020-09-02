@@ -17,8 +17,8 @@ module.exports = ({ el, tagList, services, subscriptions, lib, config }) => () =
     });
 
     const sort = () => {
-        services.tags.sortTagInstances().forEach((tagInstance, i) => {
-            $$tags.get(tagInstance.id).style.order = i;
+        services.tags.sortTagInstances().forEach(tagInstance => {
+            $tags.append($$tags.get(tagInstance.id));
         });
     };
 

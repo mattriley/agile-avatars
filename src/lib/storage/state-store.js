@@ -26,6 +26,7 @@ module.exports = localState => {
 
         const setState = changes => {
             Object.entries(changes).forEach(([key, val]) => {
+                if (state[key] === val) return;
                 state[key] = val;
                 const emit = emitter => emitter.emit(key, state[key], state);
                 [itemEmitter, collectionEmitter].forEach(emit);
