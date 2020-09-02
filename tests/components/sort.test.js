@@ -1,5 +1,3 @@
-const sortBy = require('lodash/sortBy');
-
 module.exports = ({ test, boot, helpers }) => {
     
     const setup = () => {
@@ -23,7 +21,7 @@ module.exports = ({ test, boot, helpers }) => {
         services.tags.insertTag({ tagName: 'B', roleName: 'A' });
         services.tags.insertTag({ tagName: 'A', roleName: 'B' });
 
-        const [tag1, tag2] = sortBy(helpers.getTags($tagList), t => t.getTagStyle().order);
+        const [tag1, tag2] = helpers.getTags($tagList);
         t.deepEqual([tag1.getTagName(), tag1.getRoleName()], ['B', 'A']);
         t.deepEqual([tag2.getTagName(), tag2.getRoleName()], ['A', 'B']);
         
@@ -38,7 +36,7 @@ module.exports = ({ test, boot, helpers }) => {
         services.tags.insertTag({ tagName: 'B', roleName: 'A' });
         services.tags.insertTag({ tagName: 'C', roleName: 'A' });
 
-        const [tag1, tag2, tag3] = sortBy(helpers.getTags($tagList), t => t.getTagStyle().order);
+        const [tag1, tag2, tag3] = helpers.getTags($tagList);
         
         t.deepEqual([tag1.getTagName(), tag1.getRoleName()], ['B', 'A']);
         t.deepEqual([tag2.getTagName(), tag2.getRoleName()], ['C', 'A']);
@@ -54,7 +52,7 @@ module.exports = ({ test, boot, helpers }) => {
         services.tags.insertTag({ tagName: 'B', roleName: 'A' });
         services.tags.insertTag({ tagName: 'A', roleName: 'B' });
 
-        const [tag1, tag2] = sortBy(helpers.getTags($tagList), t => t.getTagStyle().order);
+        const [tag1, tag2] = helpers.getTags($tagList);
         t.deepEqual([tag1.getTagName(), tag1.getRoleName()], ['A', 'B']);
         t.deepEqual([tag2.getTagName(), tag2.getRoleName()], ['B', 'A']);
         
@@ -68,14 +66,14 @@ module.exports = ({ test, boot, helpers }) => {
         services.tags.insertTag({ tagName: 'B', roleName: 'A' });
 
         {
-            const tags = sortBy(helpers.getTags($tagList), t => t.getTagStyle().order);
+            const tags = helpers.getTags($tagList);
             t.equal(tags.length, 3);
         }
 
         changeSortOption('roleThenName');
         
         {
-            const [tag1, tag2, tag3] = sortBy(helpers.getTags($tagList), t => t.getTagStyle().order);
+            const [tag1, tag2, tag3] = helpers.getTags($tagList);
             t.deepEqual([tag1.getTagName(), tag1.getRoleName()], ['B', 'A']);
             t.deepEqual([tag2.getTagName(), tag2.getRoleName()], ['C', 'A']);
             t.deepEqual([tag3.getTagName(), tag3.getRoleName()], ['A', 'B']);
@@ -84,7 +82,7 @@ module.exports = ({ test, boot, helpers }) => {
         changeSortOption('name');
 
         {
-            const [tag1, tag2, tag3] = sortBy(helpers.getTags($tagList), t => t.getTagStyle().order);
+            const [tag1, tag2, tag3] = helpers.getTags($tagList);
             t.deepEqual([tag1.getTagName(), tag1.getRoleName()], ['A', 'B']);
             t.deepEqual([tag2.getTagName(), tag2.getRoleName()], ['B', 'A']);
             t.deepEqual([tag3.getTagName(), tag3.getRoleName()], ['C', 'A']);
@@ -93,7 +91,7 @@ module.exports = ({ test, boot, helpers }) => {
         changeSortOption('orderAdded');
 
         {
-            const [tag1, tag2, tag3] = sortBy(helpers.getTags($tagList), t => t.getTagStyle().order);
+            const [tag1, tag2, tag3] = helpers.getTags($tagList);
             t.deepEqual([tag1.getTagName(), tag1.getRoleName()], ['A', 'B']);
             t.deepEqual([tag2.getTagName(), tag2.getRoleName()], ['C', 'A']);
             t.deepEqual([tag3.getTagName(), tag3.getRoleName()], ['B', 'A']);            
