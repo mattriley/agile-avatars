@@ -419,7 +419,7 @@ https://github.com/blueimp/JavaScript-MD5
 
 Hashing of email addresses for use with the Gravatar service.
 
-- [x] Not simply chosen due to hype or popularity\
+- [x] Decision is not driven by hype or popularity\
       blueimp-md5 is not the most widely used MD5 implementation in JavaScript.
 - [x] No suitable built-in JavaScript alternative exists\
       JavaScript does not feature a built-in MD5 implementation.
@@ -446,7 +446,7 @@ https://lodash.com/
 
 Utility functions where there's no suitable built-in JavaScript alternative.
 
-- [x] Not simply chosen due to hype or popularity
+- [x] Decision is not driven by hype or popularity
 - [x] No suitable built-in JavaScript alternative exists\
       Many lodash utility functions do have suitable built-in JavaScript alternatives. lodash is only used where this is not the case.
 - [x] Not trivial to implement with vanilla JavaScript\
@@ -469,22 +469,19 @@ Utility functions where there's no suitable built-in JavaScript alternative.
 > Composes 'modules' enabling coarse-grained module-level depenency injection\
 https://github.com/mattriley/node-module-composer
 
-This library was extracted from Agile Avatars.
-
-`module-composer` is used to compose modules 
-
-- [x] __Not simply chosen due to hype or popularity__\
-- [x] __No suitable built-in JavaScript alternative exists__\
-- [x] __Not trivial to implement with vanilla JavaScript__\
-- [x] __No suitable built-in Node.js equivalent exists__\      
-- [x] __No alternative that more closely matches the need exists__\
-- [x] __No alternative with fewer dependencies exists__\
-- [ ] __Widely used__\         
-- [x] __Usage is isolated__
-- [x] __Low maintenance__
-- [x] __Low likelihood of changing in a material way__
-- [x] __Low impact of material change__\
-
+undefined
+- [x] Decision is not driven by hype or popularity
+- [x] No suitable built-in JavaScript alternative exists
+- [x] Not trivial to implement with vanilla JavaScript
+- [x] No suitable built-in Node.js equivalent exists
+- [x] No alternative that more closely matches the need exists\
+      This library was built with the specific constraints of Agile Avatars in mind.
+- [x] No alternative with fewer dependencies exists
+- [ ] Widely used
+- [x] Usage is isolated
+- [x] Low maintenance
+- [x] Low likelihood of changing in a material way
+- [x] Low impact of material change
 
 ### vanilla-picker
 

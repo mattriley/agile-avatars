@@ -6,7 +6,7 @@ const package = require(process.cwd() + '/package.json');
 const yaml = require('js-yaml');
 
 const mapping = {
-    'no-hype': 'Not simply chosen due to hype or popularity',
+    'no-hype': 'Decision is not driven by hype or popularity',
     'no-js-alternative': 'No suitable built-in JavaScript alternative exists',
     'not-trivial': 'Not trivial to implement with vanilla JavaScript',
     'no-node-alternative': 'No suitable built-in Node.js equivalent exists',

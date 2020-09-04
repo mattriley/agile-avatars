@@ -65,3 +65,31 @@ lodash:
         low-impact:
             checked: true
             comment: The cost of identifying and integrating an alternative utility library is low.
+
+module-composer:
+    used_for: |
+            This library was extracted from Agile Avatars. It is used to compose modules.
+    checklist:
+        no-hype:
+            checked: true
+        no-js-alternative:
+            checked: true
+        not-trivial:
+            checked: true
+        no-node-alternative:
+            checked: true
+        no-closer-match:
+            checked: true
+            comment: This library was built with the specific constraints of Agile Avatars in mind.
+        no-fewer-deps:
+            checked: true
+        widely-used:
+            checked: false
+        usage-isolated:
+            checked: true
+        low-maintenance:
+            checked: true
+        low-change:
+            checked: true
+        low-impact:
+            checked: true
