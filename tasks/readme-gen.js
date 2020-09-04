@@ -39,8 +39,8 @@ ${package.homepage}
                 
                 const body = Object.entries(mapping).map(([k, text]) => {
                     const item = doc[name].checklist[k];
-                    // const checkmark = item.checked ? '[x]' : '[ ]';
-                    const checkmark = item.checked ? ':white_check_mark:' : ':warning:'; 
+                    const checkmark = item.checked ? '[x]' : '[ ]';
+                    // const checkmark = item.checked ? ':white_check_mark:' : ':warning:'; 
                     const comment = item.comment ? `\\\n      ${item.comment}` : '';
                     return `${checkmark} __${text}__${comment}\n`;
                 }).join('\n');
