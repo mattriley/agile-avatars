@@ -32,3 +32,36 @@ blueimp-md5:
         low-impact:
             checked: true
             comment: The cost of identifying and integrating an alternative MD5 implementation is low.
+
+lodash:
+    used-for: |
+        Utility functions where there's no suitable built-in JavaScript alternative.
+    checklist:
+        no-hype:
+            checked: true
+        no-js-alternative:
+            checked: true
+            comment: Many lodash utility functions do have suitable built-in JavaScript alternatives. lodash is only used where this is not the case.
+        not-trivial:
+            checked: true
+            comment: Most of the utlity functions used are non-trivial.
+        no-node-alternative:
+            checked: true
+        no-closer-match:
+            checked: true
+            comment: Each lodash utility function does have a standalone package available on NPM. Given more than a couple of utility functions are being used, a single dependency on lodash is easier to manage.
+        no-fewer-deps:
+            checked: true
+            comment: lodash has zero dependencies.
+        widely-used:
+            checked: true
+            comment: lodash is widely used at 34,556,582 weekly downloads.
+        usage-isolated:
+            checked: true
+        low-maintenance:
+            checked: true
+        low-change:
+            checked: true
+        low-impact:
+            checked: true
+            comment: The cost of identifying and integrating an alternative utility library is low.
