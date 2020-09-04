@@ -59,11 +59,12 @@ Lanches a new iTerm2 tab with 3 panes: empty command prompt, local dev server, i
 - No languages that compile to JavaScript; No TypeScript. 
   - [You Might Not Need TypeScript (or Static Types) - Eric Elliott](https://medium.com/javascript-scene/you-might-not-need-typescript-or-static-types-aa7cb670a77b)
 - No frameworks, view libraries, state management libraries; No Angular, React, Redux.
-- Prefer dependencies that do one thing and do it well.
-  - [Unix philosophy - Wikipedia](https://en.wikipedia.org/wiki/Unix_philosophy)
 - No globals. Including tests. Access to `window` strictly controlled.
 - No classes. Prefer partial application.
   - [Curry and Function Composition - Eric Elliott](https://medium.com/javascript-scene/curry-and-function-composition-2c208d774983)
+- No `..` in require paths in `src` and `tests`. Minimise `..` in paths in general.
+- Prefer dependencies that do one thing and do it well.
+  - [Unix philosophy - Wikipedia](https://en.wikipedia.org/wiki/Unix_philosophy)
 - Layered architecture for separation of concerns.
   - [PresentationDomainDataLayering - Martin Fowler](https://martinfowler.com/bliki/PresentationDomainDataLayering.html)
 - Service functions are imperative shells.
