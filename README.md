@@ -522,17 +522,29 @@ This library was extracted from Agile Avatars. It is used to compose modules.
 > A simple, easy to use vanilla JS color picker with alpha selection.\
 https://vanilla-picker.js.org
 
-#### Purpose
+Used to change the role color.
 
-Used to change the colour of each role.
+- [x] __Decision is not driven by hype or popularity__
 
-#### Alternatives considered
+- [x] __No suitable built-in JavaScript alternative exists__
 
-- It was suprisingly hard to find a good looking, easy to use color picker writting in vanilla JavaScript. Many color pickers are implemented as jQuery plugins.
+- [x] __Not trivial to implement with vanilla JavaScript__
 
-#### Implementation notes
+- [x] __No suitable built-in Node.js equivalent exists__
 
-- I am using a fork which I have customised to accept a window object in order to avoid globals.
+- [x] __No alternative that more closely matches the need exists__
+
+- [x] __No alternative with fewer dependencies exists__
+
+- [x] __Widely used__
+
+- [x] __Usage is isolated__
+
+- [x] __Low maintenance__
+
+- [x] __Low likelihood of changing in a material way__
+
+- [x] __Low impact of material change__
 
 
 ## Development dependencies
