@@ -40,7 +40,7 @@ ${package.homepage}
                 const body = Object.entries(mapping).map(([k, text]) => {
                     const item = doc[name].checklist[k];
                     const checkmark = item.checked ? 'x' : ' ';
-                    const comment = item.comment ? `\\\n      <small>${item.comment}</small>` : '';
+                    const comment = item.comment ? `\\\n      <span class="text-gray">${item.comment}</span>` : '';
                     return `- [${checkmark}] ${text}${comment}`;
                 }).join('\n');
                 return header + `${doc[name]['used-for']}\n` + body;
