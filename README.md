@@ -469,7 +469,8 @@ Utility functions where there's no suitable built-in JavaScript alternative.
 > Composes 'modules' enabling coarse-grained module-level depenency injection\
 https://github.com/mattriley/node-module-composer
 
-undefined
+This library was extracted from Agile Avatars. It is used to compose modules.
+
 - [x] __Decision is not driven by hype or popularity__
 - [x] __No suitable built-in JavaScript alternative exists__
 - [x] __Not trivial to implement with vanilla JavaScript__

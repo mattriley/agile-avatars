@@ -67,7 +67,7 @@ lodash:
             comment: The cost of identifying and integrating an alternative utility library is low.
 
 module-composer:
-    used_for: |
+    used-for: |
             This library was extracted from Agile Avatars. It is used to compose modules.
     checklist:
         no-hype:
