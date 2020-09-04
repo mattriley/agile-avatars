@@ -13,6 +13,7 @@ const renderDependencies = key => {
 
 > ${package.description}\\
 ${package.homepage}
+
 `;
         try {
             return header + fs.readFileSync(`docs/dependencies/${name}.md`, 'utf-8');

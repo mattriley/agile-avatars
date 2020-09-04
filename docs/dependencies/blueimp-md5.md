@@ -8,7 +8,7 @@
       The MD5 algorithm is non-trivial and is a well solved problem.
 - [x] __No suitable built-in Node.js equivalent exists__\
       The `crypto` module supports MD5. It doesn't seem possible to extract individual algorithms from crypto. The consequence is a minified bundle size of 431.78 KB compared with 4.86 KB for `blueimp-md5` which is a significant difference.
-- [x] __No alternative that more closely matches the need exists__
+- [x] __No alternative that more closely matches the need exists__\
       According to [this issue](https://github.com/blueimp/JavaScript-MD5/issues/26), the original use case was to hash email addresses for Gravatar.
 - [x] __No alternative with fewer dependencies exists__\
       `blueimp-md5` has zero dependencies. `md5` although more more widely used, has 3 dependencies.

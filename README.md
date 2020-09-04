@@ -406,6 +406,7 @@ Encourages:
 
 > Official Sentry SDK for browsers\
 https://github.com/getsentry/sentry-javascript/tree/master/packages/browser
+
 #### Purpose
 
 Monitoring and alerting.
@@ -415,6 +416,7 @@ Monitoring and alerting.
 
 > JavaScript MD5 implementation. Compatible with server-side environments like Node.js, module loaders like RequireJS, Browserify or webpack and all web browsers.\
 https://github.com/blueimp/JavaScript-MD5
+
 `blueimp-md5` is used to hash email addresses for use with the Gravatar service.
 
 - [x] __Not simply chosen due to hype or popularity__\
@@ -425,7 +427,7 @@ https://github.com/blueimp/JavaScript-MD5
       The MD5 algorithm is non-trivial and is a well solved problem.
 - [x] __No suitable built-in Node.js equivalent exists__\
       The `crypto` module supports MD5. It doesn't seem possible to extract individual algorithms from crypto. The consequence is a minified bundle size of 431.78 KB compared with 4.86 KB for `blueimp-md5` which is a significant difference.
-- [x] __No alternative that more closely matches the need exists__
+- [x] __No alternative that more closely matches the need exists__\
       According to [this issue](https://github.com/blueimp/JavaScript-MD5/issues/26), the original use case was to hash email addresses for Gravatar.
 - [x] __No alternative with fewer dependencies exists__\
       `blueimp-md5` has zero dependencies. `md5` although more more widely used, has 3 dependencies.
@@ -442,6 +444,7 @@ https://github.com/blueimp/JavaScript-MD5
 
 > Lodash modular utilities.\
 https://lodash.com/
+
 #### Purpose
 
 Used by exception where there's no concise native JavaScript implementation available.
@@ -459,6 +462,7 @@ Change to one of the many other utility libraries available in JavaScript.
 
 > Composes 'modules' enabling coarse-grained module-level depenency injection\
 https://github.com/mattriley/node-module-composer
+
 #### Disclaimers
 
 - I am the author of this library.
@@ -468,6 +472,7 @@ https://github.com/mattriley/node-module-composer
 
 > A simple, easy to use vanilla JS color picker with alpha selection.\
 https://vanilla-picker.js.org
+
 #### Purpose
 
 Used to change the colour of each role.
@@ -490,16 +495,19 @@ Used to change the colour of each role.
 https://github.com/bcoe/c8#readme
 
 
+
 ### doctoc
 
 > Generates TOC for markdown files of local git repo.\
 https://github.com/thlorenz/doctoc#readme
 
 
+
 ### ejs
 
 > Embedded JavaScript templates\
 https://github.com/mde/ejs
+
 #### Purpose
 
 Generating `README.md` from a template.
@@ -513,6 +521,7 @@ Change to one of the many other templating libraries available in JavaScript.
 
 > An AST-based pattern checker for JavaScript.\
 https://eslint.org
+
 #### Purpose
 
 Identify problematic patterns found in JavaScript code and automatic code formatting.
@@ -528,16 +537,19 @@ Prettier was used for code formatting however the results were not satisfying.
 https://github.com/sindresorhus/globby#readme
 
 
+
 ### husky
 
 > Prevents bad commit or push (git hooks, pre-commit/precommit, pre-push/prepush, post-merge/postmerge and all that stuff...)\
 https://github.com/typicode/husky#readme
 
 
+
 ### jsdom
 
 > A JavaScript implementation of many web standards\
 https://github.com/jsdom/jsdom#readme
+
 #### Purpose
 
 Emulating a web browser for testing with Node.js.
@@ -551,6 +563,7 @@ Emulating a web browser for testing with Node.js.
 
 > Generates index.js files\
 https://github.com/mattriley/node-module-indexgen
+
 #### Contingency plan
 
 Consider changing to one of the few other index.js file generators available, or simply remove this dependency and write require statements manually as is typical is most Node applications.
@@ -564,6 +577,7 @@ Consider changing to one of the few other index.js file generators available, or
 
 > Blazing fast, zero configuration web application bundler\
 https://github.com/parcel-bundler/parcel#readme
+
 #### Contingency plan
 
 Change to webpack.
@@ -574,10 +588,12 @@ Change to webpack.
 https://github.com/isaacs/tap-mocha-reporter
 
 
+
 ### zora
 
 > tap test harness for nodejs and browsers\
 https://github.com/lorenzofox3/zora#readme
+
 
 
 # Conventions
