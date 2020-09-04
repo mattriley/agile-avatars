@@ -420,24 +420,24 @@ https://github.com/blueimp/JavaScript-MD5
 Hashing of email addresses for use with the Gravatar service.
 
 - [x] Decision is not driven by hype or popularity\
-      blueimp-md5 is not the most widely used MD5 implementation in JavaScript.
+      <small>blueimp-md5 is not the most widely used MD5 implementation in JavaScript.</small>
 - [x] No suitable built-in JavaScript alternative exists\
-      JavaScript does not feature a built-in MD5 implementation.
+      <small>JavaScript does not feature a built-in MD5 implementation.</small>
 - [x] Not trivial to implement with vanilla JavaScript\
-      The MD5 algorithm is non-trivial and is a well solved problem.
+      <small>The MD5 algorithm is non-trivial and is a well solved problem.</small>
 - [x] No suitable built-in Node.js equivalent exists\
-      The crypto module supports MD5. It doesn't seem possible to extract individual algorithms from crypto. The consequence is a minified bundle size of 431.78 KB compared with 4.86 KB for blueimp-md5 which is a significant difference.
+      <small>The crypto module supports MD5. It doesn't seem possible to extract individual algorithms from crypto. The consequence is a minified bundle size of 431.78 KB compared with 4.86 KB for blueimp-md5 which is a significant difference.</small>
 - [x] No alternative that more closely matches the need exists\
-      According to [this issue](https://github.com/blueimp/JavaScript-MD5/issues/26), the original use case was to hash email addresses for Gravatar.
+      <small>According to [this issue](https://github.com/blueimp/JavaScript-MD5/issues/26), the original use case was to hash email addresses for Gravatar.</small>
 - [x] No alternative with fewer dependencies exists\
-      blueimp-md5 has zero dependencies. md5 although more more widely used, has 3 dependencies.
+      <small>blueimp-md5 has zero dependencies. md5 although more more widely used, has 3 dependencies.</small>
 - [x] Widely used\
-      blueimp-md5 is widely used at 565,584 weekly downloads. md5 is more widely used at 2,676,589 weekly downloads.
+      <small>blueimp-md5 is widely used at 565,584 weekly downloads. md5 is more widely used at 2,676,589 weekly downloads.</small>
 - [x] Usage is isolated
 - [x] Low maintenance
 - [x] Low likelihood of changing in a material way
 - [x] Low impact of material change\
-      The cost of identifying and integrating an alternative MD5 implementation is low.
+      <small>The cost of identifying and integrating an alternative MD5 implementation is low.</small>
 
 ### lodash
 
@@ -448,21 +448,21 @@ Utility functions where there's no suitable built-in JavaScript alternative.
 
 - [x] Decision is not driven by hype or popularity
 - [x] No suitable built-in JavaScript alternative exists\
-      Many lodash utility functions do have suitable built-in JavaScript alternatives. lodash is only used where this is not the case.
+      <small>Many lodash utility functions do have suitable built-in JavaScript alternatives. lodash is only used where this is not the case.</small>
 - [x] Not trivial to implement with vanilla JavaScript\
-      Most of the utlity functions used are non-trivial.
+      <small>Most of the utlity functions used are non-trivial.</small>
 - [x] No suitable built-in Node.js equivalent exists
 - [x] No alternative that more closely matches the need exists\
-      Each lodash utility function does have a standalone package available on NPM. Given more than a couple of utility functions are being used, a single dependency on lodash is easier to manage.
+      <small>Each lodash utility function does have a standalone package available on NPM. Given more than a couple of utility functions are being used, a single dependency on lodash is easier to manage.</small>
 - [x] No alternative with fewer dependencies exists\
-      lodash has zero dependencies.
+      <small>lodash has zero dependencies.</small>
 - [x] Widely used\
-      lodash is widely used at 34,556,582 weekly downloads.
+      <small>lodash is widely used at 34,556,582 weekly downloads.</small>
 - [x] Usage is isolated
 - [x] Low maintenance
 - [x] Low likelihood of changing in a material way
 - [x] Low impact of material change\
-      The cost of identifying and integrating an alternative utility library is low.
+      <small>The cost of identifying and integrating an alternative utility library is low.</small>
 
 ### module-composer
 
@@ -475,7 +475,7 @@ undefined
 - [x] Not trivial to implement with vanilla JavaScript
 - [x] No suitable built-in Node.js equivalent exists
 - [x] No alternative that more closely matches the need exists\
-      This library was built with the specific constraints of Agile Avatars in mind.
+      <small>This library was built with the specific constraints of Agile Avatars in mind.</small>
 - [x] No alternative with fewer dependencies exists
 - [ ] Widely used
 - [x] Usage is isolated
