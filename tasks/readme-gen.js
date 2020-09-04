@@ -41,7 +41,7 @@ ${package.homepage}
                     const item = doc[name].checklist[k];
                     const checkmark = item.checked ? 'x' : ' ';
                     const comment = item.comment ? `\\\n      ${item.comment}` : '';
-                    return `- [${checkmark}] ${text}${comment}`;
+                    return `- [${checkmark}] __${text}__${comment}`;
                 }).join('\n');
                 return header + `${doc[name]['used-for']}\n` + body;
             } 
