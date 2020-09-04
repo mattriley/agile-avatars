@@ -1,0 +1,34 @@
+blueimp-md5:
+    used-for: |
+        Hashing of email addresses for use with the Gravatar service.
+    checklist:
+        no-hype:
+            checked: true
+            comment: blueimp-md5 is not the most widely used MD5 implementation in JavaScript. 
+        no-js-alternative:
+            checked: true
+            comment: JavaScript does not feature a built-in MD5 implementation.
+        not-trivial:
+            checked: true
+            comment: The MD5 algorithm is non-trivial and is a well solved problem.
+        no-node-alternative:
+            checked: true
+            comment: The crypto module supports MD5. It doesn't seem possible to extract individual algorithms from crypto. The consequence is a minified bundle size of 431.78 KB compared with 4.86 KB for blueimp-md5 which is a significant difference.
+        no-closer-match:
+            checked: true
+            comment: According to [this issue](https://github.com/blueimp/JavaScript-MD5/issues/26), the original use case was to hash email addresses for Gravatar.
+        no-fewer-deps:
+            checked: true
+            comment: blueimp-md5 has zero dependencies. md5 although more more widely used, has 3 dependencies.
+        widely-used:
+            checked: true
+            comment: blueimp-md5 is widely used at 565,584 weekly downloads. md5 is more widely used at 2,676,589 weekly downloads.
+        usage-isolated:
+            checked: true
+        low-maintenance:
+            checked: true
+        low-change:
+            checked: true
+        low-impact:
+            checked: true
+            comment: The cost of identifying and integrating an alternative MD5 implementation is low.

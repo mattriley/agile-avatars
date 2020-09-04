@@ -3,6 +3,25 @@ const ejs = require('ejs');
 const fs = require('fs');
 const package = require(process.cwd() + '/package.json');
 
+const yaml = require('js-yaml');
+
+const mapping = {
+    'no-hype': 'Not simply chosen due to hype or popularity',
+    'no-js-alternative': 'No suitable built-in JavaScript alternative exists',
+    'not-trivial': 'Not trivial to implement with vanilla JavaScript',
+    'no-node-alternative': 'No suitable built-in Node.js equivalent exists',
+    'no-closer-match': 'No alternative that more closely matches the need exists',
+    'no-fewer-deps': 'No alternative with fewer dependencies exists',
+    'widely-used': 'Widely used',
+    'usage-isolated': 'Usage is isolated',
+    'low-maintenance': 'Low maintenance',
+    'low-change': 'Low likelihood of changing in a material way',
+    'low-impact': 'Low impact of material change'
+};
+
+
+const doc = yaml.safeLoad(fs.readFileSync(process.cwd() + '/docs/dependencies.yaml', 'utf8'));
+
 const nodeVersion = fs.readFileSync('.nvmrc', 'utf-8').trim();
 
 const renderDependencies = key => {
@@ -16,7 +35,18 @@ ${package.homepage}
 
 `;
         try {
+            if (doc[name]) {
+                
+                const body = Object.entries(mapping).map(([k, text]) => {
+                    const item = doc[name].checklist[k];
+                    const checkmark = item.checked ? 'x' : ' ';
+                    const comment = item.comment ? `\\\n      ${item.comment}` : '';
+                    return `- [${checkmark}] ${text}${comment}`;
+                }).join('\n');
+                return header + `${doc[name]['used-for']}\n` + body;
+            } 
             return header + fs.readFileSync(`docs/dependencies/${name}.md`, 'utf-8');
+            
         } catch (err) {
             return header;
         }

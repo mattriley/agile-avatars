@@ -18,6 +18,7 @@
         "eslint": "^7.2.0",
         "globby": "^11.0.1",
         "husky": "^4.2.5",
+        "js-yaml": "^3.14.0",
         "jsdom": "^16.2.2",
         "module-indexgen": "^0.2.1",
         "parcel-bundler": "^1.12.4",
