@@ -11,6 +11,8 @@ constraints:
     low-impact: Low impact of material change
 
 dependencies:
+    # Production
+
     '@sentry/browser':
         used-for: Integration with [Sentry](https://sentry.io/) for monitoring and alerting.
 
@@ -41,10 +43,17 @@ dependencies:
         comments:
             low-impact: The cost of identifying and integrating an alternative color picker is estimated to be low.
 
+    # Development.
+
     ejs:
         used-for: Generating README from a template.
         comments:
             low-impact: The cost of identifying and integrating an alternative templating library is estimated to be low.
+
+    jsdom:
+        used-for: Emulating a web browser so tests can be run with Node.js for speed.
+        comments:
+            low-impact: There doesn't seem to be any viable replacement for JSDOM. The fallback would be to run the tests in a browser. The cost is estimated to be low.
 
     parcel-bundler:
         used-for: Bundling the application.

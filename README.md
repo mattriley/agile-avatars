@@ -574,8 +574,14 @@ https://github.com/nodeca/js-yaml
 > A JavaScript implementation of many web standards\
 https://github.com/jsdom/jsdom#readme
 
+#### Used for
 
+Emulating a web browser so tests can be run with Node.js for speed.
 
+#### Comments
+
+- __Low impact of material change__\
+There doesn't seem to be any viable replacement for JSDOM. The fallback would be to run the tests in a browser. The cost is estimated to be low.
 
 ### module-indexgen
 
