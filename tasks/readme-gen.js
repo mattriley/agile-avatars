@@ -9,7 +9,9 @@ const loadDepdoc = require('./readme-gen-src/load-depdoc')({ process, fs });
 
 const depdoc = loadDepdoc();
 
-const nodeVersion = fs.readFileSync('.nvmrc', 'utf-8').trim();
+const getNodeVersion = require('./readme-gen-src/get-node-version')({ fs });
+
+const nodeVersion = getNodeVersion();
 
 const renderDependency = require('./readme-gen-src/render-dependency')({ process, depdoc });
 
