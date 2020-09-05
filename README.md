@@ -421,7 +421,9 @@ Constraints:
 ### ❖ @sentry/browser
 
 > Official Sentry SDK for browsers\
-https://github.com/getsentry/sentry-javascript/tree/master/packages/browser
+
+- Homepage: https://github.com/getsentry/sentry-javascript/tree/master/packages/browser
+- __4__ dependencies 
 
 #### Used for
 
@@ -433,7 +435,9 @@ Integration with [Sentry](https://sentry.io/) for monitoring and alerting.
 ### ❖ blueimp-md5
 
 > JavaScript MD5 implementation. Compatible with server-side environments like Node.js, module loaders like RequireJS, Browserify or webpack and all web browsers.\
-https://github.com/blueimp/JavaScript-MD5
+
+- Homepage: https://github.com/blueimp/JavaScript-MD5
+- __0__ dependencies :white_check_mark:
 
 #### Used for
 
@@ -458,7 +462,9 @@ blueimp-md5 has zero dependencies.
 ### ❖ lodash
 
 > Lodash modular utilities.\
-https://lodash.com/
+
+- Homepage: https://lodash.com/
+- __0__ dependencies :white_check_mark:
 
 #### Used for
 
@@ -480,7 +486,9 @@ lodash has zero dependencies.
 ### ❖ module-composer
 
 > Module composition using partial function application\
-https://github.com/mattriley/node-module-composer
+
+- Homepage: https://github.com/mattriley/node-module-composer
+- __1__ dependency 
 
 #### Used for
 
@@ -496,7 +504,9 @@ This library was extracted from Agile Avatars.
 ### ❖ vanilla-picker
 
 > A simple, easy to use vanilla JS color picker with alpha selection.\
-https://vanilla-picker.js.org
+
+- Homepage: https://vanilla-picker.js.org
+- __1__ dependency 
 
 #### Used for
 
@@ -511,7 +521,9 @@ Presenting a color picker to change the color of a role.
 ### ❖ c8
 
 > output coverage reports using Node.js' built in coverage\
-https://github.com/bcoe/c8#readme
+
+- Homepage: https://github.com/bcoe/c8#readme
+- __13__ dependencies :warning:
 
 #### Used for
 
@@ -527,7 +539,9 @@ nyc was originally used for code coverage and was fine however c8 was chosen for
 ### ❖ doctoc
 
 > Generates TOC for markdown files of local git repo.\
-https://github.com/thlorenz/doctoc#readme
+
+- Homepage: https://github.com/thlorenz/doctoc#readme
+- __6__ dependencies 
 
 #### Used for
 
@@ -539,7 +553,9 @@ Generating README table of contents.
 ### ❖ ejs
 
 > Embedded JavaScript templates\
-https://github.com/mde/ejs
+
+- Homepage: https://github.com/mde/ejs
+- __1__ dependency 
 
 #### Used for
 
@@ -551,7 +567,9 @@ Generating README from a template.
 ### ❖ eslint
 
 > An AST-based pattern checker for JavaScript.\
-https://eslint.org
+
+- Homepage: https://eslint.org
+- __36__ dependencies :warning:
 
 #### Used for
 
@@ -567,7 +585,9 @@ Prettier was originally used for code formatting but was dropped due to limited 
 ### ❖ husky
 
 > Prevents bad commit or push (git hooks, pre-commit/precommit, pre-push/prepush, post-merge/postmerge and all that stuff...)\
-https://github.com/typicode/husky#readme
+
+- Homepage: https://github.com/typicode/husky#readme
+- __10__ dependencies :warning:
 
 #### Used for
 
@@ -579,7 +599,9 @@ Running pre-commit validation scripts.
 ### ❖ jsdom
 
 > A JavaScript implementation of many web standards\
-https://github.com/jsdom/jsdom#readme
+
+- Homepage: https://github.com/jsdom/jsdom#readme
+- __26__ dependencies :warning:
 
 #### Used for
 
@@ -595,7 +617,9 @@ There does not seem to be any viable replacement for JSDOM. The fallback would b
 ### ❖ module-indexgen
 
 > Generates index.js files\
-https://github.com/mattriley/node-module-indexgen
+
+- Homepage: https://github.com/mattriley/node-module-indexgen
+- __5__ dependencies 
 
 #### Used for
 
@@ -611,7 +635,9 @@ This library was extracted from Agile Avatars.
 ### ❖ parcel-bundler
 
 > Blazing fast, zero configuration web application bundler\
-https://github.com/parcel-bundler/parcel#readme
+
+- Homepage: https://github.com/parcel-bundler/parcel#readme
+- __59__ dependencies :warning:
 
 #### Used for
 
@@ -630,7 +656,9 @@ Designed to be easier to use than webpack.
 ### ❖ tap-mocha-reporter
 
 > Format a TAP stream using Mocha's set of reporters\
-https://github.com/isaacs/tap-mocha-reporter
+
+- Homepage: https://github.com/isaacs/tap-mocha-reporter
+- __8__ dependencies 
 
 #### Used for
 
@@ -642,7 +670,9 @@ Formatting test output. Supports indented TAP output.
 ### ❖ zora
 
 > tap test harness for nodejs and browsers\
-https://github.com/lorenzofox3/zora#readme
+
+- Homepage: https://github.com/lorenzofox3/zora#readme
+- __0__ dependencies :white_check_mark:
 
 #### Used for
 

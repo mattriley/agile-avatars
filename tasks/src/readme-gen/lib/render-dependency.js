@@ -1,12 +1,16 @@
 module.exports = ({ depdoc, packageRoot }) => name => {
 
     const package = require(`${packageRoot}/node_modules/${name}/package.json`);
+    const numDependencies = Object.keys(package.dependencies ?? {}).length;
+    const icon = numDependencies === 0 ? ':white_check_mark:' : (numDependencies > 9 ? ':warning:' : '');
 
     const headerLines = [
         `### ❖ ${name}`,
         '',
         `> ${package.description}\\`,
-        `${package.homepage}`
+        '',
+        `- Homepage: ${package.homepage}`,
+        `- __${numDependencies}__ dependenc${numDependencies === 1 ? 'y' : 'ies'} ${icon}`
     ];
 
     const renderUsedForLines = dep => {
