@@ -7,7 +7,7 @@ module.exports = ({ depdoc, packageRoot }) => name => {
     const headerLines = [
         `### ❖ ${name}`,
         '',
-        `> ${package.description}\\`,
+        `> ${package.description}`,
         '',
         `- Homepage: ${package.homepage}`,
         `- __${numDependencies}__ dependenc${numDependencies === 1 ? 'y' : 'ies'} ${icon}`
