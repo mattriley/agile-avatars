@@ -3,6 +3,8 @@ const ejs = require('ejs');
 const fs = require('fs');
 const package = require(process.cwd() + '/package.json');
 
+const renderJsFile = require('./readme-gen-src/render-js-file')({ fs });
+
 const yaml = require('js-yaml');
 
 const depdoc = yaml.safeLoad(fs.readFileSync(process.cwd() + '/docs/dependencies.yaml', 'utf8'));
@@ -35,20 +37,6 @@ ${package.homepage}
         }
     });
     return sections.join('\n');
-};
-
-const renderJsFile = (path, opts = {}) => {
-    const open = opts.open ?? true;
-    const code = fs.readFileSync(path, 'utf-8');
-    return [
-        `<details ${open ? 'open' : ''}>`,
-        `<summary>${path}</summary>`,
-        '',
-        '```js',
-        (opts.includeFootnotes ? code : code.split('/*')[0]).trim(),
-        '```',
-        '</details>'
-    ].join('\n');
 };
 
 const data = {
