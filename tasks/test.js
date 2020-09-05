@@ -11,6 +11,7 @@ const bootOrig = require('../boot');
 
 const { window } = new JSDOM('', { url: 'https://localhost/' });
 window.fetch = () => undefined;
+const resetJsdom = () => { window.document.getElementsByTagName('html')[0].innerHTML = ''; };
 const helpers = composer({ helpers: testHelpers })('helpers', { window });
 
 const defaultConfig = { 
@@ -24,25 +25,22 @@ const boot = (args = {}) => {
 };
 
 const files = process.argv.slice(2);
-const runOnly = process.env.RUN_ONLY === 'true';
 const indent = process.env.INDENT === 'true';
+const runOnly = process.env.RUN_ONLY === 'true';
+const testHarness = createHarness({ indent, runOnly });
+const test = testHarness[runOnly ? 'only' : 'test'];
+
+const runTests = filePath => {
+    test(filePath, ({ only, skip, ...t }) => {
+        const test = (...args) => { resetJsdom(); t.test(...args); };
+        Object.assign(test, { only, skip });
+        require(filePath)({ test, boot, window, helpers });
+    });
+};
 
 const start = async () => {
-    const testHarness = createHarness({ indent, runOnly });
-
     try {
-        files.forEach(f => {
-            const mod = require(f);
-            const func = runOnly ? 'only' : 'test';
-            testHarness[func](f, ({ only, skip, ...t }) => {
-                const test = (...args) => {
-                    window.document.getElementsByTagName('html')[0].innerHTML = '';
-                    t.test(...args);
-                };
-                Object.assign(test, { only, skip });
-                mod({ test, boot, window, helpers });
-            });
-        });
+        files.forEach(runTests);
         await testHarness.report();
     } catch (e) {
         console.error(e);
