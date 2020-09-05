@@ -485,7 +485,7 @@ lodash has zero dependencies.
 
 ### ❖ module-composer
 
-> Module composition using partial function application
+> Composes 'modules' enabling coarse-grained module-level depenency injection
 
 - Homepage: https://github.com/mattriley/node-module-composer
 - __1__ dependency 
@@ -569,7 +569,7 @@ Generating README from a template.
 > An AST-based pattern checker for JavaScript.
 
 - Homepage: https://eslint.org
-- __36__ dependencies :warning:
+- __37__ dependencies :warning:
 
 #### Used for
 
