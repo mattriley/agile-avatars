@@ -489,7 +489,7 @@ https://github.com/mattriley/node-module-composer
 
 #### Used for
 
-Module composition / dependency injection.
+Module composition / dependency injection. Extracted from Agile Avatars.
 
 #### Comments
 
@@ -525,10 +525,20 @@ The cost of identifying and integrating an alternative color picker is estimated
 > output coverage reports using Node.js' built in coverage\
 https://github.com/bcoe/c8#readme
 
+#### Used for
+
+Code coverage
+
+#### Comments
+
+- __Low impact of material change__\
+To cost of identifying and integrating an alternative code coverage tool is estimated to be low.
 
 
+#### Alternatives considered
 
-
+- __nyc__\
+nyc was originally used for code coverage and was fine however c8 was chosen for leveraging [native coverage](https://nodejs.org/dist/latest-v10.x/docs/api/cli.html#cli_node_v8_coverage_dir) in recent versions of Node and V8
 
 ### doctoc
 
@@ -609,7 +619,7 @@ https://github.com/mattriley/node-module-indexgen
 
 #### Used for
 
-Generating index.js files.
+Generating index.js files. Extracted from Agile Avatars.
 
 #### Comments
 

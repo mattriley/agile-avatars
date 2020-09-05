@@ -35,7 +35,7 @@ module.exports = {
             }
         },
         'module-composer': {
-            usedFor: 'Module composition / dependency injection.',
+            usedFor: 'Module composition / dependency injection. Extracted from Agile Avatars.',
             comments: {
                 noCloser: 'This library was built with the specific constraints of Agile Avatars in mind.',
                 lowImpact: 'The fallback would be to copy the code back into Agile Avatars. The cost is estimated to be low.'
@@ -45,6 +45,15 @@ module.exports = {
             usedFor: 'Presenting a color picker to change the color of a role.',
             comments: {
                 lowImpact: 'The cost of identifying and integrating an alternative color picker is estimated to be low.'
+            }
+        },
+        'c8': {
+            usedFor: 'Code coverage',
+            comments: {
+                lowImpact: 'To cost of identifying and integrating an alternative code coverage tool is estimated to be low.'                
+            },
+            alternativesConsidered: {
+                nyc: 'nyc was originally used for code coverage and was fine however c8 was chosen for leveraging [native coverage](https://nodejs.org/dist/latest-v10.x/docs/api/cli.html#cli_node_v8_coverage_dir) in recent versions of Node and V8'
             }
         },
         'ejs': {
@@ -69,7 +78,7 @@ module.exports = {
             }
         },
         'module-indexgen': {
-            usedFor: 'Generating index.js files.',
+            usedFor: 'Generating index.js files. Extracted from Agile Avatars.',
             comments: {
                 noCloser: 'This library was built with the specific constraints of Agile Avatars in mind.',
                 lowImpact: 'The fallback would be to either copy the code back into Agile Avatars, or to simply drop the dependency and edit index.js files manually. The cost is estimated to be low.'
