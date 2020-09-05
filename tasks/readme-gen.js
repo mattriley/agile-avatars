@@ -11,30 +11,36 @@ const depdoc = yaml.safeLoad(fs.readFileSync(process.cwd() + '/docs/dependencies
 
 const nodeVersion = fs.readFileSync('.nvmrc', 'utf-8').trim();
 
-const renderDependencies = key => {
-    const sections = Object.entries(package[key]).map(([name]) => {
-        const package = require(process.cwd() + `/node_modules/${name}/package.json`);
-        const header = `
+
+const renderDependency = name => {
+    const package = require(process.cwd() + `/node_modules/${name}/package.json`);
+    const header = `
 ### ${name}
 
 > ${package.description}\\
 ${package.homepage}
 
 `;
-        try {
-            if (depdoc.dependencies[name]) {
+    try {
+        if (depdoc.dependencies[name]) {
                 
-                const body = Object.entries(depdoc.dependencies[name].comments).map(([k, comment]) => {
-                    const constraint = depdoc.constraints[k];
-                    return `- __${constraint}__\\\n${comment}\n`;
-                }).join('\n');
-                return header + `${depdoc.dependencies[name]['used-for']}\n\n` + body;
-            } 
-            return header + fs.readFileSync(`docs/dependencies/${name}.md`, 'utf-8');
+            const body = Object.entries(depdoc.dependencies[name].comments).map(([k, comment]) => {
+                const constraint = depdoc.constraints[k];
+                return `- __${constraint}__\\\n${comment}\n`;
+            }).join('\n');
+            return header + `${depdoc.dependencies[name]['used-for']}\n\n` + body;
+        } 
+        return header + fs.readFileSync(`docs/dependencies/${name}.md`, 'utf-8');
             
-        } catch (err) {
-            return header;
-        }
+    } catch (err) {
+        return header;
+    }
+};
+
+
+const renderDependencies = key => {
+    const sections = Object.entries(package[key]).map(([name]) => {
+        return renderDependency(name);
     });
     return sections.join('\n');
 };
