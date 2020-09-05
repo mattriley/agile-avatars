@@ -60,6 +60,9 @@ module.exports = {
                 prettier: 'Prettier was originally used for code formatting but was dropped due to limited configurability.'
             }
         },
+        'husky': {
+            usedFor: 'Running pre-commit validation scripts.'
+        },
         'jsdom': {
             usedFor: 'Emulating a web browser so tests can be run with Node.js for speed.',
             comments: {

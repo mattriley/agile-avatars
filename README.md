@@ -572,7 +572,9 @@ Prettier was originally used for code formatting but was dropped due to limited 
 > Prevents bad commit or push (git hooks, pre-commit/precommit, pre-push/prepush, post-merge/postmerge and all that stuff...)\
 https://github.com/typicode/husky#readme
 
+#### Used for
 
+Running pre-commit validation scripts.
 
 
 
