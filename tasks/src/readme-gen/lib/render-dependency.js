@@ -9,16 +9,29 @@ module.exports = ({ depdoc, packageRoot }) => name => {
         `${package.homepage}`
     ];
 
+    const renderUsedForLines = dep => {
+        return [
+            '#### Used for',
+            '',
+            dep['used-for']
+        ];
+    };
+
     const renderCommentLines = dep => {
-        return Object.entries(dep.comments).map(([constraintKey, comment]) => {
+        const commentLines = Object.entries(dep.comments).map(([constraintKey, comment]) => {
             const constraint = depdoc.constraints[constraintKey];
             return `- __${constraint}__\\\n${comment}\n`;
         });
+        return [
+            '#### Comments',
+            '',
+            ...commentLines
+        ];
     };
 
     const dep = depdoc.dependencies[name];
-    const usedForLines = dep ? [dep['used-for']] : [];
-    const commentLines = dep ? renderCommentLines(dep) : [];
+    const usedForLines = dep?.['used-for'] ? renderUsedForLines(dep) : [];
+    const commentLines = dep?.comments ? renderCommentLines(dep) : [];
     return [headerLines, usedForLines, commentLines].map(s => s.join('\n')).join('\n\n');
 
 };

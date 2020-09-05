@@ -1,3 +1,0 @@
-#### Purpose
-
-Monitoring and alerting.

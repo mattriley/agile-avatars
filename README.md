@@ -422,7 +422,9 @@ Constraints:
 > Official Sentry SDK for browsers\
 https://github.com/getsentry/sentry-javascript/tree/master/packages/browser
 
+#### Used for
 
+Integration with [Sentry](https://sentry.io/) for monitoring and alerting.
 
 
 ### blueimp-md5
@@ -430,7 +432,11 @@ https://github.com/getsentry/sentry-javascript/tree/master/packages/browser
 > JavaScript MD5 implementation. Compatible with server-side environments like Node.js, module loaders like RequireJS, Browserify or webpack and all web browsers.\
 https://github.com/blueimp/JavaScript-MD5
 
+#### Used for
+
 Hashing of email addresses for use with the Gravatar service.
+
+#### Comments
 
 - __No alternative built into JavaScript exists__\
 JavaScript does not feature a built-in MD5 implementation.
@@ -452,7 +458,11 @@ The cost of identifying and integrating an alternative MD5 implementation is est
 > Lodash modular utilities.\
 https://lodash.com/
 
-Utility functions where there's no suitable built-in JavaScript alternative.
+#### Used for
+
+Utility functions for when there's no suitable built-in JavaScript alternative.
+
+#### Comments
 
 - __No alternative built into JavaScript exists__\
 Many lodash utility functions do have suitable built-in JavaScript alternatives. lodash is only used where this is not the case.
@@ -471,7 +481,11 @@ The cost of identifying and integrating an alternative utility library is estima
 > Module composition using partial function application\
 https://github.com/mattriley/node-module-composer
 
-Composing modules in the composition root.
+#### Used for
+
+Module composition / dependency injection.
+
+#### Comments
 
 - __No alternative that more closely matches the need exists__\
 This library was built with the specific constraints of Agile Avatars in mind.
@@ -481,7 +495,11 @@ This library was built with the specific constraints of Agile Avatars in mind.
 > A simple, easy to use vanilla JS color picker with alpha selection.\
 https://vanilla-picker.js.org
 
-Changing the color of roles.
+#### Used for
+
+Presenting a color picker to change the color of a role.
+
+#### Comments
 
 - __Low impact of material change__\
 The cost of identifying and integrating an alternative color picker is estimated to be low.
@@ -510,8 +528,14 @@ https://github.com/thlorenz/doctoc#readme
 > Embedded JavaScript templates\
 https://github.com/mde/ejs
 
+#### Used for
 
+Generating README from a template.
 
+#### Comments
+
+- __Low impact of material change__\
+The cost of identifying and integrating an alternative templating library is estimated to be low.
 
 ### eslint
 
@@ -566,8 +590,20 @@ https://github.com/mattriley/node-module-indexgen
 > Blazing fast, zero configuration web application bundler\
 https://github.com/parcel-bundler/parcel#readme
 
+#### Used for
 
+Bundling the application.
 
+#### Comments
+
+- __No alternative with fewer dependencies exists__\
+Parcel has many dependencies. An exception is made for ease of use.
+
+- __Low learning curve__\
+Designed to be easier to use than webpack.
+
+- __Low impact of material change__\
+The cost of identifying and integrating an alternative bundler is estimated to be low.
 
 ### tap-mocha-reporter
 

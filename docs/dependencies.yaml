@@ -11,6 +11,9 @@ constraints:
     low-impact: Low impact of material change
 
 dependencies:
+    '@sentry/browser':
+        used-for: Integration with [Sentry](https://sentry.io/) for monitoring and alerting.
+
     blueimp-md5:
         used-for: Hashing of email addresses for use with the Gravatar service.
         comments:
@@ -21,7 +24,7 @@ dependencies:
             low-impact: The cost of identifying and integrating an alternative MD5 implementation is estimated to be low.
 
     lodash:
-        used-for: Utility functions where there's no suitable built-in JavaScript alternative.
+        used-for: Utility functions for when there's no suitable built-in JavaScript alternative.
         comments:
             no-native: Many lodash utility functions do have suitable built-in JavaScript alternatives. lodash is only used where this is not the case.
             no-closer: Each lodash utility function does have a standalone package available on NPM. Given more than a couple of utility functions are being used, a single dependency on lodash is easier to manage.
@@ -29,11 +32,25 @@ dependencies:
             low-impact: The cost of identifying and integrating an alternative utility library is estimated to be low.
 
     module-composer:
-        used-for: Composing modules in the composition root.
+        used-for: Module composition / dependency injection.
         comments:
             no-closer: This library was built with the specific constraints of Agile Avatars in mind.
 
     vanilla-picker:
-        used-for: Changing the color of roles.
+        used-for: Presenting a color picker to change the color of a role.
         comments:
-            low-impact: The cost of identifying and integrating an alternative color picker is estimated to be low.                
+            low-impact: The cost of identifying and integrating an alternative color picker is estimated to be low.
+
+    ejs:
+        used-for: Generating README from a template.
+        comments:
+            low-impact: The cost of identifying and integrating an alternative templating library is estimated to be low.
+
+    parcel-bundler:
+        used-for: Bundling the application.
+        comments:
+            no-deps: Parcel has many dependencies. An exception is made for ease of use.
+            low-learning: Designed to be easier to use than webpack.
+            low-impact: The cost of identifying and integrating an alternative bundler is estimated to be low.
+
+
