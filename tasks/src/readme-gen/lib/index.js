@@ -4,5 +4,6 @@ module.exports = {
     renderDependencies: require('./render-dependencies'),
     renderDependencyConstraints: require('./render-dependency-constraints'),
     renderDependency: require('./render-dependency'),
-    renderJsFile: require('./render-js-file')
+    renderJsFile: require('./render-js-file'),
+    renderReadme: require('./render-readme')
 };
