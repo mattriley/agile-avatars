@@ -417,15 +417,12 @@ Constraints:
 
 ## Production dependencies
 
-
 ### @sentry/browser
 
 > Official Sentry SDK for browsers\
 https://github.com/getsentry/sentry-javascript/tree/master/packages/browser
 
-#### Purpose
 
-Monitoring and alerting.
 
 
 ### blueimp-md5
@@ -450,7 +447,6 @@ blueimp-md5 has zero dependencies.
 - __Low impact of material change__\
 The cost of identifying and integrating an alternative MD5 implementation is estimated to be low.
 
-
 ### lodash
 
 > Lodash modular utilities.\
@@ -470,7 +466,6 @@ lodash has zero dependencies.
 - __Low impact of material change__\
 The cost of identifying and integrating an alternative utility library is estimated to be low.
 
-
 ### module-composer
 
 > Module composition using partial function application\
@@ -481,21 +476,24 @@ Composing modules in the composition root.
 - __No alternative that more closely matches the need exists__\
 This library was built with the specific constraints of Agile Avatars in mind.
 
-
 ### vanilla-picker
 
 > A simple, easy to use vanilla JS color picker with alpha selection.\
 https://vanilla-picker.js.org
 
+Changing the color of roles.
+
+- __Low impact of material change__\
+The cost of identifying and integrating an alternative color picker is estimated to be low.
 
 
 ## Development dependencies
-
 
 ### c8
 
 > output coverage reports using Node.js' built in coverage\
 https://github.com/bcoe/c8#readme
+
 
 
 
@@ -506,18 +504,13 @@ https://github.com/thlorenz/doctoc#readme
 
 
 
+
 ### ejs
 
 > Embedded JavaScript templates\
 https://github.com/mde/ejs
 
-#### Purpose
 
-Generating `README.md` from a template.
-
-#### Contingency plan
-
-Change to one of the many other templating libraries available in JavaScript.
 
 
 ### eslint
@@ -525,19 +518,14 @@ Change to one of the many other templating libraries available in JavaScript.
 > An AST-based pattern checker for JavaScript.\
 https://eslint.org
 
-#### Purpose
 
-Identify problematic patterns found in JavaScript code and automatic code formatting.
-
-#### Alternatives considered
-
-Prettier was used for code formatting however the results were not satisfying.
 
 
 ### globby
 
 > User-friendly glob matching\
 https://github.com/sindresorhus/globby#readme
+
 
 
 
@@ -548,10 +536,12 @@ https://github.com/typicode/husky#readme
 
 
 
+
 ### js-yaml
 
 > YAML 1.2 parser and serializer\
 https://github.com/nodeca/js-yaml
+
 
 
 
@@ -560,13 +550,7 @@ https://github.com/nodeca/js-yaml
 > A JavaScript implementation of many web standards\
 https://github.com/jsdom/jsdom#readme
 
-#### Purpose
 
-Emulating a web browser for testing with Node.js.
-
-#### Implementation notes
-
-- I had originally used in conjunction with jsdom-global until I decided to strictly limit use of globals.
 
 
 ### module-indexgen
@@ -574,23 +558,16 @@ Emulating a web browser for testing with Node.js.
 > Generates index.js files\
 https://github.com/mattriley/node-module-indexgen
 
-#### Contingency plan
 
-Consider changing to one of the few other index.js file generators available, or simply remove this dependency and write require statements manually as is typical is most Node applications.
 
-#### Disclaimers
-
-- I am the author of this library.
-  
 
 ### parcel-bundler
 
 > Blazing fast, zero configuration web application bundler\
 https://github.com/parcel-bundler/parcel#readme
 
-#### Contingency plan
 
-Change to webpack.
+
 
 ### tap-mocha-reporter
 
@@ -599,10 +576,13 @@ https://github.com/isaacs/tap-mocha-reporter
 
 
 
+
 ### zora
 
 > tap test harness for nodejs and browsers\
 https://github.com/lorenzofox3/zora#readme
+
+
 
 
 

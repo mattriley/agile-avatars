@@ -35,5 +35,5 @@ dependencies:
 
     vanilla-picker:
         used-for: Changing the color of roles.
-        checklist:
+        comments:
             low-impact: The cost of identifying and integrating an alternative color picker is estimated to be low.                
