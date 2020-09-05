@@ -5,9 +5,9 @@ const package = require(process.cwd() + '/package.json');
 
 const renderJsFile = require('./readme-gen-src/render-js-file')({ fs });
 
-const yaml = require('js-yaml');
+const loadDepdoc = require('./readme-gen-src/load-depdoc')({ process, fs });
 
-const depdoc = yaml.safeLoad(fs.readFileSync(process.cwd() + '/docs/dependencies.yaml', 'utf8'));
+const depdoc = loadDepdoc();
 
 const nodeVersion = fs.readFileSync('.nvmrc', 'utf-8').trim();
 
