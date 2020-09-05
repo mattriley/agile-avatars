@@ -484,15 +484,12 @@ https://github.com/mattriley/node-module-composer
 
 #### Used for
 
-Module composition / dependency injection. Extracted from Agile Avatars.
+Module composition / dependency injection.
 
 #### Comments
 
 - __No alternative that more closely matches the need exists__\
-This library was built with the specific constraints of Agile Avatars in mind.
-
-- __Low impact of material change__\
-The fallback would be to copy the code back into Agile Avatars. The cost is estimated to be low.
+This library was extracted from Agile Avatars.
 
 
 
@@ -602,15 +599,12 @@ https://github.com/mattriley/node-module-indexgen
 
 #### Used for
 
-Generating index.js files. Extracted from Agile Avatars.
+Generating index.js files.
 
 #### Comments
 
 - __No alternative that more closely matches the need exists__\
-This library was built with the specific constraints of Agile Avatars in mind.
-
-- __Low impact of material change__\
-The fallback would be to either copy the code back into Agile Avatars, or to simply drop the dependency and edit index.js files manually. The cost is estimated to be low.
+This library was extracted from Agile Avatars.
 
 
 

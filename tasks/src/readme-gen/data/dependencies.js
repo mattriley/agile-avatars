@@ -33,10 +33,9 @@ module.exports = {
             }
         },
         'module-composer': {
-            usedFor: 'Module composition / dependency injection. Extracted from Agile Avatars.',
+            usedFor: 'Module composition / dependency injection.',
             comments: {
-                noCloser: 'This library was built with the specific constraints of Agile Avatars in mind.',
-                lowImpact: 'The fallback would be to copy the code back into Agile Avatars. The cost is estimated to be low.'
+                noCloser: 'This library was extracted from Agile Avatars.'
             }
         },
         'vanilla-picker': {
@@ -70,10 +69,9 @@ module.exports = {
             }
         },
         'module-indexgen': {
-            usedFor: 'Generating index.js files. Extracted from Agile Avatars.',
+            usedFor: 'Generating index.js files.',
             comments: {
-                noCloser: 'This library was built with the specific constraints of Agile Avatars in mind.',
-                lowImpact: 'The fallback would be to either copy the code back into Agile Avatars, or to simply drop the dependency and edit index.js files manually. The cost is estimated to be low.'
+                noCloser: 'This library was extracted from Agile Avatars.'
             }
         },
         'parcel-bundler': {
