@@ -3,7 +3,7 @@ module.exports = ({ depdoc, packageRoot }) => name => {
     const package = require(`${packageRoot}/node_modules/${name}/package.json`);
 
     const headerLines = [
-        `### ${name}`,
+        `### ❖ ${name}`,
         '',
         `> ${package.description}\\`,
         `${package.homepage}`

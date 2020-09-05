@@ -418,7 +418,7 @@ Constraints:
 
 ## Production dependencies
 
-### @sentry/browser
+### ❖ @sentry/browser
 
 > Official Sentry SDK for browsers\
 https://github.com/getsentry/sentry-javascript/tree/master/packages/browser
@@ -430,7 +430,7 @@ Integration with [Sentry](https://sentry.io/) for monitoring and alerting.
 
 
 
-### blueimp-md5
+### ❖ blueimp-md5
 
 > JavaScript MD5 implementation. Compatible with server-side environments like Node.js, module loaders like RequireJS, Browserify or webpack and all web browsers.\
 https://github.com/blueimp/JavaScript-MD5
@@ -455,7 +455,7 @@ blueimp-md5 has zero dependencies.
 
 
 
-### lodash
+### ❖ lodash
 
 > Lodash modular utilities.\
 https://lodash.com/
@@ -477,7 +477,7 @@ lodash has zero dependencies.
 
 
 
-### module-composer
+### ❖ module-composer
 
 > Module composition using partial function application\
 https://github.com/mattriley/node-module-composer
@@ -496,7 +496,7 @@ The fallback would be to copy the code back into Agile Avatars. The cost is esti
 
 
 
-### vanilla-picker
+### ❖ vanilla-picker
 
 > A simple, easy to use vanilla JS color picker with alpha selection.\
 https://vanilla-picker.js.org
@@ -511,7 +511,7 @@ Presenting a color picker to change the color of a role.
 
 ## Development dependencies
 
-### c8
+### ❖ c8
 
 > output coverage reports using Node.js' built in coverage\
 https://github.com/bcoe/c8#readme
@@ -527,7 +527,7 @@ Code coverage
 - __nyc__\
 nyc was originally used for code coverage and was fine however c8 was chosen for leveraging [native coverage](https://nodejs.org/dist/latest-v10.x/docs/api/cli.html#cli_node_v8_coverage_dir) in recent versions of Node and V8
 
-### doctoc
+### ❖ doctoc
 
 > Generates TOC for markdown files of local git repo.\
 https://github.com/thlorenz/doctoc#readme
@@ -539,7 +539,7 @@ Generating README table of contents.
 
 
 
-### ejs
+### ❖ ejs
 
 > Embedded JavaScript templates\
 https://github.com/mde/ejs
@@ -551,7 +551,7 @@ Generating README from a template.
 
 
 
-### eslint
+### ❖ eslint
 
 > An AST-based pattern checker for JavaScript.\
 https://eslint.org
@@ -567,7 +567,7 @@ Linting and code formatting.
 - __prettier__\
 Prettier was originally used for code formatting but was dropped due to limited configurability.
 
-### husky
+### ❖ husky
 
 > Prevents bad commit or push (git hooks, pre-commit/precommit, pre-push/prepush, post-merge/postmerge and all that stuff...)\
 https://github.com/typicode/husky#readme
@@ -577,7 +577,7 @@ https://github.com/typicode/husky#readme
 
 
 
-### jsdom
+### ❖ jsdom
 
 > A JavaScript implementation of many web standards\
 https://github.com/jsdom/jsdom#readme
@@ -593,7 +593,7 @@ There does not seem to be any viable replacement for JSDOM. The fallback would b
 
 
 
-### module-indexgen
+### ❖ module-indexgen
 
 > Generates index.js files\
 https://github.com/mattriley/node-module-indexgen
@@ -612,7 +612,7 @@ The fallback would be to either copy the code back into Agile Avatars, or to sim
 
 
 
-### parcel-bundler
+### ❖ parcel-bundler
 
 > Blazing fast, zero configuration web application bundler\
 https://github.com/parcel-bundler/parcel#readme
@@ -631,7 +631,7 @@ Designed to be easier to use than webpack.
 
 
 
-### tap-mocha-reporter
+### ❖ tap-mocha-reporter
 
 > Format a TAP stream using Mocha's set of reporters\
 https://github.com/isaacs/tap-mocha-reporter
@@ -641,7 +641,7 @@ https://github.com/isaacs/tap-mocha-reporter
 
 
 
-### zora
+### ❖ zora
 
 > tap test harness for nodejs and browsers\
 https://github.com/lorenzofox3/zora#readme
