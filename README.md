@@ -444,7 +444,7 @@ Hashing of email addresses for use with the Gravatar service.
 JavaScript does not feature a built-in MD5 implementation.
 
 - __No alternative built into Node.js exists__\
-The crypto module supports MD5. It doesn't seem possible to extract individual algorithms from crypto. The consequence is a minified bundle size of 431.78 KB compared with 4.86 KB for blueimp-md5 which is a significant difference.
+The crypto module supports MD5. It does not seem possible to extract individual algorithms from crypto. The consequence is a minified bundle size of 431.78 KB compared with 4.86 KB for blueimp-md5 which is a significant difference.
 
 - __No alternative that more closely matches the need exists__\
 According to [this issue](https://github.com/blueimp/JavaScript-MD5/issues/26), the original use case was to hash email addresses for Gravatar.
@@ -464,7 +464,7 @@ https://lodash.com/
 
 #### Used for
 
-Utility functions for when there's no suitable built-in JavaScript alternative.
+Utility functions for when there is no suitable built-in JavaScript alternative.
 
 #### Comments
 
@@ -583,16 +583,6 @@ https://github.com/typicode/husky#readme
 
 
 
-### js-yaml
-
-> YAML 1.2 parser and serializer\
-https://github.com/nodeca/js-yaml
-
-
-
-
-
-
 ### jsdom
 
 > A JavaScript implementation of many web standards\
@@ -605,7 +595,7 @@ Emulating a web browser so tests can be run with Node.js for speed.
 #### Comments
 
 - __Low impact of material change__\
-There doesn't seem to be any viable replacement for JSDOM. The fallback would be to run the tests in a browser. The cost is estimated to be low.
+There does not seem to be any viable replacement for JSDOM. The fallback would be to run the tests in a browser. The cost is estimated to be low.
 
 
 

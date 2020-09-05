@@ -17,7 +17,6 @@
         "ejs": "^3.1.5",
         "eslint": "^7.2.0",
         "husky": "^4.2.5",
-        "js-yaml": "^3.14.0",
         "jsdom": "^16.2.2",
         "module-indexgen": "^0.2.1",
         "parcel-bundler": "^1.12.4",

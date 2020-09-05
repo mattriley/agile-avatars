@@ -1,4 +1,4 @@
 module.exports = {
-    lib: require('./lib'),
-    startup: require('./startup')
+    data: require('./data'),
+    lib: require('./lib')
 };

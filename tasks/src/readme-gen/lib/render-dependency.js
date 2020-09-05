@@ -13,7 +13,7 @@ module.exports = ({ depdoc, packageRoot }) => name => {
         return [
             '#### Used for',
             '',
-            dep['used-for']
+            dep.usedFor
         ];
     };
 
@@ -30,7 +30,7 @@ module.exports = ({ depdoc, packageRoot }) => name => {
     };
 
     const renderAlternativesConsideredLines = dep => {
-        const lines = Object.entries(dep['alternatives-considered']).map(([name, comment]) => {
+        const lines = Object.entries(dep.alternativesConsidered).map(([name, comment]) => {
             return `- __${name}__\\\n${comment}\n`;
         });
         return [
@@ -41,9 +41,9 @@ module.exports = ({ depdoc, packageRoot }) => name => {
     };
 
     const dep = depdoc.dependencies[name];
-    const usedForLines = dep?.['used-for'] ? renderUsedForLines(dep) : [];
+    const usedForLines = dep?.usedFor ? renderUsedForLines(dep) : [];
     const commentLines = dep?.comments ? renderCommentLines(dep) : [];
-    const alternativesConsideredLines = dep?.['alternatives-considered'] ? renderAlternativesConsideredLines(dep) : [];
+    const alternativesConsideredLines = dep?.alternativesConsidered ? renderAlternativesConsideredLines(dep) : [];
     return [headerLines, usedForLines, commentLines, alternativesConsideredLines].map(s => s.join('\n')).join('\n\n');
 
 };
