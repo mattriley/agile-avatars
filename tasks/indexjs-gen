@@ -2,4 +2,6 @@
 
 # Generates index.js files.
 
-npx indexgen "$SRC" "$TEST_HELPERS" --watch 
+# npx indexgen "$SRC" "$TEST_HELPERS" --watch 
+
+npx indexgen "$SRC" "tasks/src" "$TEST_HELPERS" --watch 

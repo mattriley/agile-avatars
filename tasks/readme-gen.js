@@ -3,29 +3,25 @@ const ejs = require('ejs');
 const fs = require('fs');
 const package = require(process.cwd() + '/package.json');
 
-const renderJsFile = require('./readme-gen-src/render-js-file')({ fs });
+const composer = require('module-composer');
 
-const loadDepdoc = require('./readme-gen-src/load-depdoc')({ process, fs });
+const compose = composer({ lib: require('./src/readme-gen') });
+const lib = compose('lib', { process, fs });
 
-const depdoc = loadDepdoc();
+const depdoc = lib.loadDepdoc();
 
-const getNodeVersion = require('./readme-gen-src/get-node-version')({ fs });
-
-const nodeVersion = getNodeVersion();
-
-const renderDependency = require('./readme-gen-src/render-dependency')({ process, depdoc });
-
+const nodeVersion = lib.getNodeVersion();
 
 const renderDependencies = key => {
     const sections = Object.entries(package[key]).map(([name]) => {
-        return renderDependency(name);
+        return lib.renderDependency({ name, depdoc });
     });
     return sections.join('\n');
 };
 
 const data = {
     nodeVersion,
-    renderJsFile,
+    renderJsFile: lib.renderJsFile,
     dependencies: {
         constraints: Object.values(depdoc.constraints).map(desc => `- ${desc}`).join('\n'),
         production: renderDependencies('dependencies'),

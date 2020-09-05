@@ -1,4 +1,4 @@
-module.exports = ({ process, depdoc }) => name => {
+module.exports = ({ process }) => ({ name, depdoc }) => {
 
     const package = require(process.cwd() + `/node_modules/${name}/package.json`);
 
