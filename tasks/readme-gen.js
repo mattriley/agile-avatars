@@ -10,15 +10,7 @@ const depdoc = startup.loadDepdoc({ packageRoot, fs });
 const compose = composer(src);
 const lib = compose('lib', { packageRoot, package, depdoc, fs });
 
-const data = {
-    nodeVersion: lib.getNodeVersion(),
-    renderJsFile: lib.renderJsFile,
-    dependencies: {
-        constraints: lib.renderDependencyConstraints(),
-        production: lib.renderDependencies('dependencies'),
-        development: lib.renderDependencies('devDependencies')
-    }
-};
+const data = lib.getTemplateData();
 
 ejs.renderFile('README-TEMPLATE.md', data, {}, (err, str) => {
     if (err) throw err;
