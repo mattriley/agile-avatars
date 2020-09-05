@@ -5,22 +5,7 @@ const package = require(process.cwd() + '/package.json');
 
 const yaml = require('js-yaml');
 
-const mapping = {
-    'no-hype': 'Decision is not driven by hype or popularity',
-    'no-js-alternative': 'No suitable built-in JavaScript alternative exists',
-    'not-trivial': 'Not trivial to implement with vanilla JavaScript',
-    'no-node-alternative': 'No suitable built-in Node.js equivalent exists',
-    'no-closer-match': 'No alternative that more closely matches the need exists',
-    'no-fewer-deps': 'No alternative with fewer dependencies exists',
-    'widely-used': 'Widely used',
-    'usage-isolated': 'Usage is isolated',
-    'low-maintenance': 'Low maintenance',
-    'low-change': 'Low likelihood of changing in a material way',
-    'low-impact': 'Low impact of material change'
-};
-
-
-const doc = yaml.safeLoad(fs.readFileSync(process.cwd() + '/docs/dependencies.yaml', 'utf8'));
+const depdoc = yaml.safeLoad(fs.readFileSync(process.cwd() + '/docs/dependencies.yaml', 'utf8'));
 
 const nodeVersion = fs.readFileSync('.nvmrc', 'utf-8').trim();
 
@@ -35,16 +20,13 @@ ${package.homepage}
 
 `;
         try {
-            if (doc[name]) {
+            if (depdoc.dependencies[name]) {
                 
-                const body = Object.entries(mapping).map(([k, text]) => {
-                    const item = doc[name].checklist[k];
-                    const checkmark = item.checked ? '- [x]' : '- [ ]';
-                    // const checkmark = item.checked ? ':white_check_mark:' : ':warning:'; 
-                    const comment = item.comment ? `\\\n      ${item.comment}` : '';
-                    return `${checkmark} __${text}__${comment}\n`;
+                const body = Object.entries(depdoc.dependencies[name].comments).map(([k, comment]) => {
+                    const constraint = depdoc.constraints[k];
+                    return `- __${constraint}__\\\n${comment}\n`;
                 }).join('\n');
-                return header + `${doc[name]['used-for']}\n` + body;
+                return header + `${depdoc.dependencies[name]['used-for']}\n\n` + body;
             } 
             return header + fs.readFileSync(`docs/dependencies/${name}.md`, 'utf-8');
             
@@ -72,7 +54,11 @@ const renderJsFile = (path, opts = {}) => {
 const data = {
     nodeVersion,
     renderJsFile,
-    renderDependencies        
+    dependencies: {
+        constraints: Object.values(depdoc.constraints).map(desc => `- ${desc}`).join('\n'),
+        production: renderDependencies('dependencies'),
+        development: renderDependencies('devDependencies')
+    }
 };
 
 ejs.renderFile('README-TEMPLATE.md', data, {}, (err, str) => {

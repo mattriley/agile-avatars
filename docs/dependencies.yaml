@@ -1,124 +1,39 @@
-blueimp-md5:
-    used-for: |
-        Hashing of email addresses for use with the Gravatar service.
-    checklist:
-        no-hype:
-            checked: true
-            comment: blueimp-md5 is not the most widely used MD5 implementation in JavaScript. 
-        no-js-alternative:
-            checked: true
-            comment: JavaScript does not feature a built-in MD5 implementation.
-        not-trivial:
-            checked: true
-            comment: The MD5 algorithm is non-trivial and is a well solved problem.
-        no-node-alternative:
-            checked: true
-            comment: The crypto module supports MD5. It doesn't seem possible to extract individual algorithms from crypto. The consequence is a minified bundle size of 431.78 KB compared with 4.86 KB for blueimp-md5 which is a significant difference.
-        no-closer-match:
-            checked: true
-            comment: According to [this issue](https://github.com/blueimp/JavaScript-MD5/issues/26), the original use case was to hash email addresses for Gravatar.
-        no-fewer-deps:
-            checked: true
-            comment: blueimp-md5 has zero dependencies. md5 although more more widely used, has 3 dependencies.
-        widely-used:
-            checked: true
-            comment: blueimp-md5 is widely used at 565,584 weekly downloads. md5 is more widely used at 2,676,589 weekly downloads.
-        usage-isolated:
-            checked: true
-        low-maintenance:
-            checked: true
-        low-change:
-            checked: true
-        low-impact:
-            checked: true
-            comment: The cost of identifying and integrating an alternative MD5 implementation is low.
+constraints: 
+    no-hype: Not driven by hype or popularity
+    no-native: No alternative built into JavaScript exists
+    no-vanilla: Non-trivial to implement with vanilla JavaScript
+    no-node: No alternative built into Node.js exists
+    no-closer: No alternative that more closely matches the need exists
+    no-deps: No alternative with fewer dependencies exists
+    low-learning: Low learning curve
+    low-maintenance: Low maintenance
+    low-change: Low likelihood of changing in a material way
+    low-impact: Low impact of material change
 
-lodash:
-    used-for: |
-        Utility functions where there's no suitable built-in JavaScript alternative.
-    checklist:
-        no-hype:
-            checked: true
-        no-js-alternative:
-            checked: true
-            comment: Many lodash utility functions do have suitable built-in JavaScript alternatives. lodash is only used where this is not the case.
-        not-trivial:
-            checked: true
-            comment: Most of the utlity functions used are non-trivial.
-        no-node-alternative:
-            checked: true
-        no-closer-match:
-            checked: true
-            comment: Each lodash utility function does have a standalone package available on NPM. Given more than a couple of utility functions are being used, a single dependency on lodash is easier to manage.
-        no-fewer-deps:
-            checked: true
-            comment: lodash has zero dependencies.
-        widely-used:
-            checked: true
-            comment: lodash is widely used at 34,556,582 weekly downloads.
-        usage-isolated:
-            checked: true
-        low-maintenance:
-            checked: true
-        low-change:
-            checked: true
-        low-impact:
-            checked: true
-            comment: The cost of identifying and integrating an alternative utility library is low.
+dependencies:
+    blueimp-md5:
+        used-for: Hashing of email addresses for use with the Gravatar service.
+        comments:
+            no-native: JavaScript does not feature a built-in MD5 implementation.
+            no-node: The crypto module supports MD5. It doesn't seem possible to extract individual algorithms from crypto. The consequence is a minified bundle size of 431.78 KB compared with 4.86 KB for blueimp-md5 which is a significant difference.
+            no-closer: According to [this issue](https://github.com/blueimp/JavaScript-MD5/issues/26), the original use case was to hash email addresses for Gravatar.
+            no-deps: blueimp-md5 has zero dependencies.
+            low-impact: The cost of identifying and integrating an alternative MD5 implementation is estimated to be low.
 
-module-composer:
-    used-for: |
-            This library was extracted from Agile Avatars. It is used to compose modules.
-    checklist:
-        no-hype:
-            checked: true
-        no-js-alternative:
-            checked: true
-        not-trivial:
-            checked: true
-        no-node-alternative:
-            checked: true
-        no-closer-match: 
-            checked: true
-            comment: This library was built with the specific constraints of Agile Avatars in mind.
-        no-fewer-deps:
-            checked: true
-        widely-used:
-            checked: false
-        usage-isolated:
-            checked: true
-        low-maintenance:
-            checked: true
-        low-change:
-            checked: true
-        low-impact:
-            checked: true
+    lodash:
+        used-for: Utility functions where there's no suitable built-in JavaScript alternative.
+        comments:
+            no-native: Many lodash utility functions do have suitable built-in JavaScript alternatives. lodash is only used where this is not the case.
+            no-closer: Each lodash utility function does have a standalone package available on NPM. Given more than a couple of utility functions are being used, a single dependency on lodash is easier to manage.
+            no-deps: lodash has zero dependencies.
+            low-impact: The cost of identifying and integrating an alternative utility library is estimated to be low.
 
-vanilla-picker:
-    used-for: |
-        Used to change the role color.
-    checklist:
-        no-hype:
-            checked: true
-        no-js-alternative:
-            checked: true
-        not-trivial:
-            checked: true
-        no-node-alternative:
-            checked: true
-        no-closer-match: 
-            checked: true
-        no-fewer-deps:
-            checked: true
-        widely-used:
-            checked: true
-        usage-isolated:
-            checked: true
-        low-maintenance:
-            checked: true
-        low-change:
-            checked: true
-        low-impact:
-            checked: true
+    module-composer:
+        used-for: Composing modules in the composition root.
+        comments:
+            no-closer: This library was built with the specific constraints of Agile Avatars in mind.
 
-
+    vanilla-picker:
+        used-for: Changing the color of roles.
+        checklist:
+            low-impact: The cost of identifying and integrating an alternative color picker is estimated to be low.                

@@ -65,6 +65,9 @@ Lanches a new iTerm2 tab with 3 panes: empty command prompt, local dev server, i
 - No `..` in require paths in `src` and `tests`. Minimise `..` in paths in general.
 - Prefer dependencies that do one thing and do it well.
   - [Unix philosophy - Wikipedia](https://en.wikipedia.org/wiki/Unix_philosophy)
+- Dependencies are liabilities. Exercise due diligence.
+  - [Dependency Management Guidelines For Rails Teams - Brandon Dees](https://blog.engineyard.com/dependency-management-guidelines-for-rails-teams)
+  - [3 pitfalls of relying on third-party code libraries - Andy Henson](https://www.foxsoft.co.uk/3-pitfalls-of-relying-on-third-party-code-libraries/)
 - Layered architecture for separation of concerns.
   - [PresentationDomainDataLayering - Martin Fowler](https://martinfowler.com/bliki/PresentationDomainDataLayering.html)
 - Service functions are imperative shells.
@@ -399,6 +402,19 @@ Encourages:
 
 # Dependencies
 
+Constraints:
+
+- Not driven by hype or popularity
+- No alternative built into JavaScript exists
+- Non-trivial to implement with vanilla JavaScript
+- No alternative built into Node.js exists
+- No alternative that more closely matches the need exists
+- No alternative with fewer dependencies exists
+- Low learning curve
+- Low maintenance
+- Low likelihood of changing in a material way
+- Low impact of material change
+
 ## Production dependencies
 
 
@@ -419,35 +435,20 @@ https://github.com/blueimp/JavaScript-MD5
 
 Hashing of email addresses for use with the Gravatar service.
 
-- [x] __Decision is not driven by hype or popularity__\
-      blueimp-md5 is not the most widely used MD5 implementation in JavaScript.
+- __No alternative built into JavaScript exists__\
+JavaScript does not feature a built-in MD5 implementation.
 
-- [x] __No suitable built-in JavaScript alternative exists__\
-      JavaScript does not feature a built-in MD5 implementation.
+- __No alternative built into Node.js exists__\
+The crypto module supports MD5. It doesn't seem possible to extract individual algorithms from crypto. The consequence is a minified bundle size of 431.78 KB compared with 4.86 KB for blueimp-md5 which is a significant difference.
 
-- [x] __Not trivial to implement with vanilla JavaScript__\
-      The MD5 algorithm is non-trivial and is a well solved problem.
+- __No alternative that more closely matches the need exists__\
+According to [this issue](https://github.com/blueimp/JavaScript-MD5/issues/26), the original use case was to hash email addresses for Gravatar.
 
-- [x] __No suitable built-in Node.js equivalent exists__\
-      The crypto module supports MD5. It doesn't seem possible to extract individual algorithms from crypto. The consequence is a minified bundle size of 431.78 KB compared with 4.86 KB for blueimp-md5 which is a significant difference.
+- __No alternative with fewer dependencies exists__\
+blueimp-md5 has zero dependencies.
 
-- [x] __No alternative that more closely matches the need exists__\
-      According to [this issue](https://github.com/blueimp/JavaScript-MD5/issues/26), the original use case was to hash email addresses for Gravatar.
-
-- [x] __No alternative with fewer dependencies exists__\
-      blueimp-md5 has zero dependencies. md5 although more more widely used, has 3 dependencies.
-
-- [x] __Widely used__\
-      blueimp-md5 is widely used at 565,584 weekly downloads. md5 is more widely used at 2,676,589 weekly downloads.
-
-- [x] __Usage is isolated__
-
-- [x] __Low maintenance__
-
-- [x] __Low likelihood of changing in a material way__
-
-- [x] __Low impact of material change__\
-      The cost of identifying and integrating an alternative MD5 implementation is low.
+- __Low impact of material change__\
+The cost of identifying and integrating an alternative MD5 implementation is estimated to be low.
 
 
 ### lodash
@@ -457,33 +458,17 @@ https://lodash.com/
 
 Utility functions where there's no suitable built-in JavaScript alternative.
 
-- [x] __Decision is not driven by hype or popularity__
+- __No alternative built into JavaScript exists__\
+Many lodash utility functions do have suitable built-in JavaScript alternatives. lodash is only used where this is not the case.
 
-- [x] __No suitable built-in JavaScript alternative exists__\
-      Many lodash utility functions do have suitable built-in JavaScript alternatives. lodash is only used where this is not the case.
+- __No alternative that more closely matches the need exists__\
+Each lodash utility function does have a standalone package available on NPM. Given more than a couple of utility functions are being used, a single dependency on lodash is easier to manage.
 
-- [x] __Not trivial to implement with vanilla JavaScript__\
-      Most of the utlity functions used are non-trivial.
+- __No alternative with fewer dependencies exists__\
+lodash has zero dependencies.
 
-- [x] __No suitable built-in Node.js equivalent exists__
-
-- [x] __No alternative that more closely matches the need exists__\
-      Each lodash utility function does have a standalone package available on NPM. Given more than a couple of utility functions are being used, a single dependency on lodash is easier to manage.
-
-- [x] __No alternative with fewer dependencies exists__\
-      lodash has zero dependencies.
-
-- [x] __Widely used__\
-      lodash is widely used at 34,556,582 weekly downloads.
-
-- [x] __Usage is isolated__
-
-- [x] __Low maintenance__
-
-- [x] __Low likelihood of changing in a material way__
-
-- [x] __Low impact of material change__\
-      The cost of identifying and integrating an alternative utility library is low.
+- __Low impact of material change__\
+The cost of identifying and integrating an alternative utility library is estimated to be low.
 
 
 ### module-composer
@@ -491,30 +476,10 @@ Utility functions where there's no suitable built-in JavaScript alternative.
 > Module composition using partial function application\
 https://github.com/mattriley/node-module-composer
 
-This library was extracted from Agile Avatars. It is used to compose modules.
+Composing modules in the composition root.
 
-- [x] __Decision is not driven by hype or popularity__
-
-- [x] __No suitable built-in JavaScript alternative exists__
-
-- [x] __Not trivial to implement with vanilla JavaScript__
-
-- [x] __No suitable built-in Node.js equivalent exists__
-
-- [x] __No alternative that more closely matches the need exists__\
-      This library was built with the specific constraints of Agile Avatars in mind.
-
-- [x] __No alternative with fewer dependencies exists__
-
-- [ ] __Widely used__
-
-- [x] __Usage is isolated__
-
-- [x] __Low maintenance__
-
-- [x] __Low likelihood of changing in a material way__
-
-- [x] __Low impact of material change__
+- __No alternative that more closely matches the need exists__\
+This library was built with the specific constraints of Agile Avatars in mind.
 
 
 ### vanilla-picker
@@ -522,29 +487,6 @@ This library was extracted from Agile Avatars. It is used to compose modules.
 > A simple, easy to use vanilla JS color picker with alpha selection.\
 https://vanilla-picker.js.org
 
-Used to change the role color.
-
-- [x] __Decision is not driven by hype or popularity__
-
-- [x] __No suitable built-in JavaScript alternative exists__
-
-- [x] __Not trivial to implement with vanilla JavaScript__
-
-- [x] __No suitable built-in Node.js equivalent exists__
-
-- [x] __No alternative that more closely matches the need exists__
-
-- [x] __No alternative with fewer dependencies exists__
-
-- [x] __Widely used__
-
-- [x] __Usage is isolated__
-
-- [x] __Low maintenance__
-
-- [x] __Low likelihood of changing in a material way__
-
-- [x] __Low impact of material change__
 
 
 ## Development dependencies

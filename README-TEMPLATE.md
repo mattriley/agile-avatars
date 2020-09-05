@@ -50,6 +50,9 @@ Lanches a new iTerm2 tab with 3 panes: empty command prompt, local dev server, i
 - No `..` in require paths in `src` and `tests`. Minimise `..` in paths in general.
 - Prefer dependencies that do one thing and do it well.
   - [Unix philosophy - Wikipedia](https://en.wikipedia.org/wiki/Unix_philosophy)
+- Dependencies are liabilities. Exercise due diligence.
+  - [Dependency Management Guidelines For Rails Teams - Brandon Dees](https://blog.engineyard.com/dependency-management-guidelines-for-rails-teams)
+  - [3 pitfalls of relying on third-party code libraries - Andy Henson](https://www.foxsoft.co.uk/3-pitfalls-of-relying-on-third-party-code-libraries/)
 - Layered architecture for separation of concerns.
   - [PresentationDomainDataLayering - Martin Fowler](https://martinfowler.com/bliki/PresentationDomainDataLayering.html)
 - Service functions are imperative shells.
@@ -219,13 +222,17 @@ Encourages:
 
 # Dependencies
 
+Constraints:
+
+<%- dependencies.constraints %>
+
 ## Production dependencies
 
-<%- renderDependencies('dependencies') %>
+<%- dependencies.production %>
 
 ## Development dependencies
 
-<%- renderDependencies('devDependencies') %>
+<%- dependencies.development %>
 
 # Conventions
 
