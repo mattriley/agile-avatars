@@ -4,6 +4,7 @@
 
 const { JSDOM } = require('jsdom');
 const { createHarness } = require('zora');
+const path = require('path');
 const merge = require('lodash/merge');
 const composer = require('module-composer');
 const testHelpers = require('../test-helpers');
@@ -34,7 +35,7 @@ const runTests = filePath => {
     test(filePath, ({ only, skip, ...t }) => {
         const test = (...args) => { resetJsdom(); t.test(...args); };
         Object.assign(test, { only, skip });
-        require(filePath)({ test, boot, window, helpers });
+        require(path.resolve(filePath))({ test, boot, window, helpers });
     });
 };
 
