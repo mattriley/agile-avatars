@@ -1,14 +1,15 @@
-/* eslint-disable no-sync */
 const ejs = require('ejs');
 const fs = require('fs');
 const package = require(process.cwd() + '/package.json');
 
+const { startup, ...src } = require('./src/readme-gen');
+
+const depdoc = startup.loadDepdoc({ process, fs });
+
 const composer = require('module-composer');
 
-const compose = composer({ lib: require('./src/readme-gen') });
-const lib = compose('lib', { package, fs, process });
-
-const depdoc = lib.loadDepdoc();
+const compose = composer(src);
+const lib = compose('lib', { depdoc, package, fs, process });
 
 const nodeVersion = lib.getNodeVersion();
 
@@ -17,8 +18,8 @@ const data = {
     renderJsFile: lib.renderJsFile,
     dependencies: {
         constraints: Object.values(depdoc.constraints).map(desc => `- ${desc}`).join('\n'),
-        production: lib.renderDependencies({ packageKey: 'dependencies', depdoc }),
-        development: lib.renderDependencies({ packageKey: 'devDependencies', depdoc })
+        production: lib.renderDependencies('dependencies'),
+        development: lib.renderDependencies('devDependencies')
     }
 };
 
