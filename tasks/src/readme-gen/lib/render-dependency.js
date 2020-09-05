@@ -1,6 +1,6 @@
-module.exports = ({ depdoc, process }) => name => {
+module.exports = ({ depdoc, packageRoot }) => name => {
 
-    const package = require(process.cwd() + `/node_modules/${name}/package.json`);
+    const package = require(`${packageRoot}/node_modules/${name}/package.json`);
 
     const headerLines = [
         `### ${name}`,
@@ -20,4 +20,5 @@ module.exports = ({ depdoc, process }) => name => {
     const usedForLines = dep ? [dep['used-for']] : [];
     const commentLines = dep ? renderCommentLines(dep) : [];
     return [headerLines, usedForLines, commentLines].map(s => s.join('\n')).join('\n\n');
+
 };

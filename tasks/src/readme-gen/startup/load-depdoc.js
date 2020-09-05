@@ -1,9 +1,9 @@
 /* eslint-disable no-sync */
 const yaml = require('js-yaml');
 
-module.exports = ({ process, fs }) => {
+module.exports = ({ packageRoot, fs }) => {
 
-    const path = `${process.cwd()}/docs/dependencies.yaml`;
+    const path = `${packageRoot}/docs/dependencies.yaml`;
     return yaml.safeLoad(fs.readFileSync(path, 'utf8'));
 
 };
