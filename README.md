@@ -496,6 +496,9 @@ Module composition / dependency injection.
 - __No alternative that more closely matches the need exists__\
 This library was built with the specific constraints of Agile Avatars in mind.
 
+- __Low impact of material change__\
+The fallback would be to copy the code back into Agile Avatars. The cost is estimated to be low.
+
 
 
 ### vanilla-picker
@@ -604,8 +607,17 @@ There does not seem to be any viable replacement for JSDOM. The fallback would b
 > Generates index.js files\
 https://github.com/mattriley/node-module-indexgen
 
+#### Used for
 
+Generating index.js files.
 
+#### Comments
+
+- __No alternative that more closely matches the need exists__\
+This library was built with the specific constraints of Agile Avatars in mind.
+
+- __Low impact of material change__\
+The fallback would be to either copy the code back into Agile Avatars, or to simply drop the dependency and edit index.js files manually. The cost is estimated to be low.
 
 
 
