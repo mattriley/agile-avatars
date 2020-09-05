@@ -454,9 +454,6 @@ The crypto module supports MD5. It does not seem possible to extract individual 
 - __No alternative that more closely matches the need exists__\
 According to [this issue](https://github.com/blueimp/JavaScript-MD5/issues/26), the original use case was to hash email addresses for Gravatar.
 
-- __No alternative with fewer dependencies exists__\
-blueimp-md5 has zero dependencies.
-
 
 
 ### ❖ lodash
@@ -477,9 +474,6 @@ Many lodash utility functions do have suitable built-in JavaScript alternatives.
 
 - __No alternative that more closely matches the need exists__\
 Each lodash utility function does have a standalone package available on NPM. Given more than a couple of utility functions are being used, a single dependency on lodash is easier to manage.
-
-- __No alternative with fewer dependencies exists__\
-lodash has zero dependencies.
 
 
 
@@ -678,10 +672,6 @@ Formatting test output. Supports indented TAP output.
 
 Lightweight test harness optimised for speed and simplicity.
 
-#### Comments
-
-- __No alternative with fewer dependencies exists__\
-zora has zero dependencies.
 
 
 #### Alternatives considered

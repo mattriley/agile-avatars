@@ -20,16 +20,14 @@ module.exports = {
             comments: {
                 noNative: 'JavaScript does not feature a built-in MD5 implementation.',
                 noNode: 'The crypto module supports MD5. It does not seem possible to extract individual algorithms from crypto. The consequence is a minified bundle size of 431.78 KB compared with 4.86 KB for blueimp-md5 which is a significant difference.',
-                noCloser: 'According to [this issue](https://github.com/blueimp/JavaScript-MD5/issues/26), the original use case was to hash email addresses for Gravatar.',
-                noDeps: 'blueimp-md5 has zero dependencies.'
+                noCloser: 'According to [this issue](https://github.com/blueimp/JavaScript-MD5/issues/26), the original use case was to hash email addresses for Gravatar.'
             }
         },
         'lodash': {
             usedFor: 'Utility functions for when there is no suitable built-in JavaScript alternative.',
             comments: {
                 noNative: 'Many lodash utility functions do have suitable built-in JavaScript alternatives. lodash is only used where this is not the case.',
-                noCloser: 'Each lodash utility function does have a standalone package available on NPM. Given more than a couple of utility functions are being used, a single dependency on lodash is easier to manage.',
-                noDeps: 'lodash has zero dependencies.'
+                noCloser: 'Each lodash utility function does have a standalone package available on NPM. Given more than a couple of utility functions are being used, a single dependency on lodash is easier to manage.'
             }
         },
         'module-composer': {
@@ -86,9 +84,6 @@ module.exports = {
         },
         'zora': {
             usedFor: 'Lightweight test harness optimised for speed and simplicity.',
-            comments: {
-                noDeps: 'zora has zero dependencies.'
-            },
             alternativesConsidered: {
                 tape: 'tape was originally used however zora is newer and has some advantages over tape.'
             }
