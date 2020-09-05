@@ -58,6 +58,7 @@ Lanches a new iTerm2 tab with 3 panes: empty command prompt, local dev server, i
 
 - No languages that compile to JavaScript; No TypeScript. 
   - [You Might Not Need TypeScript (or Static Types) - Eric Elliott](https://medium.com/javascript-scene/you-might-not-need-typescript-or-static-types-aa7cb670a77b)
+  - [The Shocking Secret About Static Types](https://medium.com/javascript-scene/the-shocking-secret-about-static-types-514d39bf30a3)
 - No frameworks, view libraries, state management libraries; No Angular, React, Redux.
 - No globals. Including tests. Access to `window` strictly controlled.
 - No classes. Prefer partial application.
