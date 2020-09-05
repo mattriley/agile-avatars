@@ -423,7 +423,7 @@ Constraints:
 > Official Sentry SDK for browsers
 
 - Homepage: https://github.com/getsentry/sentry-javascript/tree/master/packages/browser
-- __4__ dependencies 
+- __4__ dependencies :white_check_mark:
 
 #### Used for
 
@@ -437,7 +437,7 @@ Integration with [Sentry](https://sentry.io/) for monitoring and alerting.
 > JavaScript MD5 implementation. Compatible with server-side environments like Node.js, module loaders like RequireJS, Browserify or webpack and all web browsers.
 
 - Homepage: https://github.com/blueimp/JavaScript-MD5
-- __0__ dependencies :white_check_mark:
+- __0__ dependencies :boom:
 
 #### Used for
 
@@ -464,7 +464,7 @@ blueimp-md5 has zero dependencies.
 > Lodash modular utilities.
 
 - Homepage: https://lodash.com/
-- __0__ dependencies :white_check_mark:
+- __0__ dependencies :boom:
 
 #### Used for
 
@@ -488,7 +488,7 @@ lodash has zero dependencies.
 > Composes 'modules' enabling coarse-grained module-level depenency injection
 
 - Homepage: https://github.com/mattriley/node-module-composer
-- __1__ dependency 
+- __1__ dependency :white_check_mark:
 
 #### Used for
 
@@ -506,7 +506,7 @@ This library was extracted from Agile Avatars.
 > A simple, easy to use vanilla JS color picker with alpha selection.
 
 - Homepage: https://vanilla-picker.js.org
-- __1__ dependency 
+- __1__ dependency :white_check_mark:
 
 #### Used for
 
@@ -541,7 +541,7 @@ nyc was originally used for code coverage and was fine however c8 was chosen for
 > Generates TOC for markdown files of local git repo.
 
 - Homepage: https://github.com/thlorenz/doctoc#readme
-- __6__ dependencies 
+- __6__ dependencies :white_check_mark:
 
 #### Used for
 
@@ -555,7 +555,7 @@ Generating README table of contents.
 > Embedded JavaScript templates
 
 - Homepage: https://github.com/mde/ejs
-- __1__ dependency 
+- __1__ dependency :white_check_mark:
 
 #### Used for
 
@@ -619,7 +619,7 @@ There does not seem to be any viable replacement for JSDOM. The fallback would b
 > Generates index.js files
 
 - Homepage: https://github.com/mattriley/node-module-indexgen
-- __5__ dependencies 
+- __5__ dependencies :white_check_mark:
 
 #### Used for
 
@@ -658,7 +658,7 @@ Designed to be easier to use than webpack.
 > Format a TAP stream using Mocha's set of reporters
 
 - Homepage: https://github.com/isaacs/tap-mocha-reporter
-- __8__ dependencies 
+- __8__ dependencies :white_check_mark:
 
 #### Used for
 
@@ -672,7 +672,7 @@ Formatting test output. Supports indented TAP output.
 > tap test harness for nodejs and browsers
 
 - Homepage: https://github.com/lorenzofox3/zora#readme
-- __0__ dependencies :white_check_mark:
+- __0__ dependencies :boom:
 
 #### Used for
 

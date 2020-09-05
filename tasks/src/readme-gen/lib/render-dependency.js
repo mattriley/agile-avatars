@@ -2,7 +2,7 @@ module.exports = ({ depdoc, packageRoot }) => name => {
 
     const package = require(`${packageRoot}/node_modules/${name}/package.json`);
     const numDependencies = Object.keys(package.dependencies ?? {}).length;
-    const icon = numDependencies === 0 ? ':white_check_mark:' : (numDependencies > 9 ? ':warning:' : '');
+    const icon = numDependencies === 0 ? ':boom:' : (numDependencies > 9 ? ':warning:' : ':white_check_mark:');
 
     const headerLines = [
         `### ❖ ${name}`,
