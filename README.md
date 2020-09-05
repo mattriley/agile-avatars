@@ -573,16 +573,6 @@ The cost of identifying and integrating an alternative linter is estimated to be
 - __prettier__\
 Prettier was originally used for code formatting but was dropped due to limited configurability.
 
-### globby
-
-> User-friendly glob matching\
-https://github.com/sindresorhus/globby#readme
-
-
-
-
-
-
 ### husky
 
 > Prevents bad commit or push (git hooks, pre-commit/precommit, pre-push/prepush, post-merge/postmerge and all that stuff...)\

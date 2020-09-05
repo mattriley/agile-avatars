@@ -4,8 +4,6 @@
 
 const { JSDOM } = require('jsdom');
 const { createHarness } = require('zora');
-const globby = require('globby');
-const path = require('path');
 const merge = require('lodash/merge');
 const composer = require('module-composer');
 const testHelpers = require('../test-helpers');
@@ -25,7 +23,7 @@ const boot = (args = {}) => {
     return bootOrig({ window, ...args, config });
 };
 
-const [filePattern] = process.argv.slice(2);
+const files = process.argv.slice(2);
 const runOnly = process.env.RUN_ONLY === 'true';
 const indent = process.env.INDENT === 'true';
 
@@ -33,9 +31,8 @@ const start = async () => {
     const testHarness = createHarness({ indent, runOnly });
 
     try {
-        const files = await globby(filePattern);
         files.forEach(f => {
-            const mod = require(path.resolve(process.cwd(), f));
+            const mod = require(f);
             const func = runOnly ? 'only' : 'test';
             testHarness[func](f, ({ only, skip, ...t }) => {
                 const test = (...args) => {

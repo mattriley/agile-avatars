@@ -3,4 +3,5 @@
 # Runs unit tests.
 
 export INDENT=true
-node ./tasks/test.js "$TESTS/**/*.test.js" | npx tap-mocha-reporter spec
+
+find "$(pwd)/$TESTS" -name "*.test.js" -print | xargs node "./tasks/test.js" | npx tap-mocha-reporter spec
