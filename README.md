@@ -453,9 +453,6 @@ According to [this issue](https://github.com/blueimp/JavaScript-MD5/issues/26), 
 - __No alternative with fewer dependencies exists__\
 blueimp-md5 has zero dependencies.
 
-- __Low impact of material change__\
-The cost of identifying and integrating an alternative MD5 implementation is estimated to be low.
-
 
 
 ### lodash
@@ -477,9 +474,6 @@ Each lodash utility function does have a standalone package available on NPM. Gi
 
 - __No alternative with fewer dependencies exists__\
 lodash has zero dependencies.
-
-- __Low impact of material change__\
-The cost of identifying and integrating an alternative utility library is estimated to be low.
 
 
 
@@ -511,10 +505,6 @@ https://vanilla-picker.js.org
 
 Presenting a color picker to change the color of a role.
 
-#### Comments
-
-- __Low impact of material change__\
-The cost of identifying and integrating an alternative color picker is estimated to be low.
 
 
 
@@ -530,10 +520,6 @@ https://github.com/bcoe/c8#readme
 
 Code coverage
 
-#### Comments
-
-- __Low impact of material change__\
-To cost of identifying and integrating an alternative code coverage tool is estimated to be low.
 
 
 #### Alternatives considered
@@ -546,7 +532,9 @@ nyc was originally used for code coverage and was fine however c8 was chosen for
 > Generates TOC for markdown files of local git repo.\
 https://github.com/thlorenz/doctoc#readme
 
+#### Used for
 
+Generating README table of contents.
 
 
 
@@ -560,10 +548,6 @@ https://github.com/mde/ejs
 
 Generating README from a template.
 
-#### Comments
-
-- __Low impact of material change__\
-The cost of identifying and integrating an alternative templating library is estimated to be low.
 
 
 
@@ -576,10 +560,6 @@ https://eslint.org
 
 Linting and code formatting.
 
-#### Comments
-
-- __Low impact of material change__\
-The cost of identifying and integrating an alternative linter is estimated to be low.
 
 
 #### Alternatives considered
@@ -648,9 +628,6 @@ Parcel has many dependencies. An exception is made for ease of use.
 
 - __Low learning curve__\
 Designed to be easier to use than webpack.
-
-- __Low impact of material change__\
-The cost of identifying and integrating an alternative bundler is estimated to be low.
 
 
 
