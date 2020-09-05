@@ -80,6 +80,18 @@ module.exports = {
                 noDeps: 'Parcel has many dependencies. An exception is made for ease of use.',
                 lowLearning: 'Designed to be easier to use than webpack.'
             }
+        },
+        'tap-mocha-reporter': {
+            usedFor: 'Formatting test output. Supports indented TAP output.'
+        },
+        'zora': {
+            usedFor: 'Lightweight test harness optimised for speed and simplicity.',
+            comments: {
+                noDeps: 'zora has zero dependencies.'
+            },
+            alternativesConsidered: {
+                tape: 'tape was originally used however zora is newer and has some advantages over tape.'
+            }
         }
     }
 };

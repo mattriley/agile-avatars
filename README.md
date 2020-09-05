@@ -632,7 +632,9 @@ Designed to be easier to use than webpack.
 > Format a TAP stream using Mocha's set of reporters\
 https://github.com/isaacs/tap-mocha-reporter
 
+#### Used for
 
+Formatting test output. Supports indented TAP output.
 
 
 
@@ -642,10 +644,20 @@ https://github.com/isaacs/tap-mocha-reporter
 > tap test harness for nodejs and browsers\
 https://github.com/lorenzofox3/zora#readme
 
+#### Used for
+
+Lightweight test harness optimised for speed and simplicity.
+
+#### Comments
+
+- __No alternative with fewer dependencies exists__\
+zora has zero dependencies.
 
 
+#### Alternatives considered
 
-
+- __tape__\
+tape was originally used however zora is newer and has some advantages over tape.
 
 
 # Conventions
