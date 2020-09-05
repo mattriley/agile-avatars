@@ -50,6 +50,14 @@ dependencies:
         comments:
             low-impact: The cost of identifying and integrating an alternative templating library is estimated to be low.
 
+    eslint:
+        used-for: Linting and code formatting.
+        comments:
+            low-impact: The cost of identifying and integrating an alternative linter is estimated to be low.
+        alternatives-considered:
+            prettier: Prettier was originally used for code formatting but was dropped due to limited configurability.
+
+
     jsdom:
         used-for: Emulating a web browser so tests can be run with Node.js for speed.
         comments:

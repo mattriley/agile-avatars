@@ -427,6 +427,8 @@ https://github.com/getsentry/sentry-javascript/tree/master/packages/browser
 Integration with [Sentry](https://sentry.io/) for monitoring and alerting.
 
 
+
+
 ### blueimp-md5
 
 > JavaScript MD5 implementation. Compatible with server-side environments like Node.js, module loaders like RequireJS, Browserify or webpack and all web browsers.\
@@ -453,6 +455,8 @@ blueimp-md5 has zero dependencies.
 - __Low impact of material change__\
 The cost of identifying and integrating an alternative MD5 implementation is estimated to be low.
 
+
+
 ### lodash
 
 > Lodash modular utilities.\
@@ -476,6 +480,8 @@ lodash has zero dependencies.
 - __Low impact of material change__\
 The cost of identifying and integrating an alternative utility library is estimated to be low.
 
+
+
 ### module-composer
 
 > Module composition using partial function application\
@@ -489,6 +495,8 @@ Module composition / dependency injection.
 
 - __No alternative that more closely matches the need exists__\
 This library was built with the specific constraints of Agile Avatars in mind.
+
+
 
 ### vanilla-picker
 
@@ -505,6 +513,8 @@ Presenting a color picker to change the color of a role.
 The cost of identifying and integrating an alternative color picker is estimated to be low.
 
 
+
+
 ## Development dependencies
 
 ### c8
@@ -515,10 +525,14 @@ https://github.com/bcoe/c8#readme
 
 
 
+
+
 ### doctoc
 
 > Generates TOC for markdown files of local git repo.\
 https://github.com/thlorenz/doctoc#readme
+
+
 
 
 
@@ -537,18 +551,34 @@ Generating README from a template.
 - __Low impact of material change__\
 The cost of identifying and integrating an alternative templating library is estimated to be low.
 
+
+
 ### eslint
 
 > An AST-based pattern checker for JavaScript.\
 https://eslint.org
 
+#### Used for
+
+Linting and code formatting.
+
+#### Comments
+
+- __Low impact of material change__\
+The cost of identifying and integrating an alternative linter is estimated to be low.
 
 
+#### Alternatives considered
+
+- __prettier__\
+Prettier was originally used for code formatting but was dropped due to limited configurability.
 
 ### globby
 
 > User-friendly glob matching\
 https://github.com/sindresorhus/globby#readme
+
+
 
 
 
@@ -561,10 +591,14 @@ https://github.com/typicode/husky#readme
 
 
 
+
+
 ### js-yaml
 
 > YAML 1.2 parser and serializer\
 https://github.com/nodeca/js-yaml
+
+
 
 
 
@@ -583,10 +617,14 @@ Emulating a web browser so tests can be run with Node.js for speed.
 - __Low impact of material change__\
 There doesn't seem to be any viable replacement for JSDOM. The fallback would be to run the tests in a browser. The cost is estimated to be low.
 
+
+
 ### module-indexgen
 
 > Generates index.js files\
 https://github.com/mattriley/node-module-indexgen
+
+
 
 
 
@@ -611,6 +649,8 @@ Designed to be easier to use than webpack.
 - __Low impact of material change__\
 The cost of identifying and integrating an alternative bundler is estimated to be low.
 
+
+
 ### tap-mocha-reporter
 
 > Format a TAP stream using Mocha's set of reporters\
@@ -619,10 +659,14 @@ https://github.com/isaacs/tap-mocha-reporter
 
 
 
+
+
 ### zora
 
 > tap test harness for nodejs and browsers\
 https://github.com/lorenzofox3/zora#readme
+
+
 
 
 
