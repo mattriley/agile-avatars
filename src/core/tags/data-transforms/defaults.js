@@ -1,8 +1,8 @@
-const defaults = require('lodash/defaults');
+const merge = require('lodash/merge');
 
 module.exports = () => tagData => {
 
     const defaultData = { instances: [], active: [], passive: [] };
-    return defaults(defaultData, tagData);
+    return merge(defaultData, tagData);
     
 };
