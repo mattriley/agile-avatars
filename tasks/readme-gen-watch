@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+npx chokidar "$TASK_HELPERS/readme-gen" -c "./task readme-gen"
