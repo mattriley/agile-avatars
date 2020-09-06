@@ -1,8 +1,6 @@
-const merge = require('lodash/merge');
-
-module.exports = () => tagData => {
+module.exports = ({ lib }) => (tagData = {}) => {
 
     const defaultData = { instances: [], active: [], passive: [] };
-    return merge(defaultData, tagData);
+    return lib.util.merge(defaultData, tagData);
     
 };

@@ -1,5 +1,3 @@
-const merge = require('lodash/merge');
-
 module.exports = ({ window, elements, lib }) => (args = {}) => {
 
     const defaults = {
@@ -7,7 +5,7 @@ module.exports = ({ window, elements, lib }) => (args = {}) => {
         onVisibilityChange: () => undefined
     };
 
-    const { title, content, actions, visible, onVisibilityChange } = merge(defaults, args);
+    const { title, content, actions, visible, onVisibilityChange } = lib.util.merge(defaults, args);
 
     const { el } = elements;
 
