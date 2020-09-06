@@ -1,9 +1,9 @@
-const pick = require('lodash/pick');
-
 module.exports = ({ core, config, settings, stores, services }) => () => {
 
     const tags = stores.tags.getArray();
-    const modeCounts = pick(settings.options.getState(), config.options.modes);
+
+    const options = settings.options.getState();
+    const modeCounts = Object.fromEntries(config.options.modes.map(mode => [mode, options[mode]]));
     const plans = core.tags.planTagInstanceAdjustment(tags, modeCounts);
 
     plans.forEach(plan => {
