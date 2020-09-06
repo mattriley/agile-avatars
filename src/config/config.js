@@ -69,7 +69,7 @@ module.exports = ({ io, window }) => {
         },
         defaultSettings: {
             app: {
-                modal: 'welcome',
+                modal: null,
                 nilRoleId: null
             },
             options: {

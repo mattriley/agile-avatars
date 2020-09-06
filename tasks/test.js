@@ -5,7 +5,6 @@
 const { JSDOM } = require('jsdom');
 const { createHarness } = require('zora');
 const path = require('path');
-const merge = require('lodash/merge');
 const composer = require('module-composer');
 const testHelpers = require('../test-helpers');
 const bootOrig = require('../boot');
@@ -15,13 +14,9 @@ window.fetch = () => undefined;
 const resetJsdom = () => { window.document.getElementsByTagName('html')[0].innerHTML = ''; };
 const helpers = composer({ helpers: testHelpers })('helpers', { window });
 
-const defaultConfig = { 
-    debounce: { adjustTagInstanceCounts: 0, sortTagList: 0 }, 
-    defaultSettings: { app: { modal: null } } 
-};
-
 const boot = (args = {}) => {
-    const config = merge({}, defaultConfig, args.config);
+    const defaultConfig = { debounce: { adjustTagInstanceCounts: 0, sortTagList: 0 } };
+    const config = Object.assign(defaultConfig, args.config);
     return bootOrig({ window, ...args, config });
 };
 

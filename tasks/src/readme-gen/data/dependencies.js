@@ -23,13 +23,6 @@ module.exports = {
                 noCloser: 'According to [this issue](https://github.com/blueimp/JavaScript-MD5/issues/26), the original use case was to hash email addresses for Gravatar.'
             }
         },
-        'lodash': {
-            usedFor: 'Utility functions for when there is no suitable built-in JavaScript alternative.',
-            comments: {
-                noNative: 'Many lodash utility functions do have suitable built-in JavaScript alternatives. lodash is only used where this is not the case.',
-                noCloser: 'Each lodash utility function does have a standalone package available on NPM. Given more than a couple of utility functions are being used, a single dependency on lodash is easier to manage.'
-            }
-        },
         'module-composer': {
             usedFor: 'Module composition / dependency injection.',
             comments: {
