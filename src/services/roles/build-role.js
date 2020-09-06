@@ -1,14 +1,10 @@
-const flow = require('lodash/flow');
-
-module.exports = ({ services, core }) => roleData => {
+module.exports = ({ services, core, lib }) => roleData => {
     
-    const randomColor = services.roles.randomColor();
-
     const pipeline = [
         core.roles.dataTransforms.roleName,
-        core.roles.dataTransforms.color(randomColor)
+        core.roles.dataTransforms.color(services.roles.randomColor())
     ];
 
-    return flow(pipeline)(roleData);
+    return lib.util.pipe(pipeline, roleData);
 
 };

@@ -1,6 +1,4 @@
-const flow = require('lodash/flow');
-
-module.exports = ({ core, services }) => tagData => {
+module.exports = ({ services, core, lib }) => tagData => {
 
     const pipeline = [
         core.tags.dataTransforms.defaults,
@@ -8,6 +6,6 @@ module.exports = ({ core, services }) => tagData => {
         services.tags.dataTransforms.roleName
     ];
 
-    return flow(pipeline)(tagData);
+    return lib.util.pipe(pipeline, tagData);
     
 };
