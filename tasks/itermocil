@@ -13,10 +13,10 @@ windows:
         - nvm use
       - commands:
         - nvm use
-        - ./tasks/start
+        - ./task start
       - commands:
         - nvm use
-        - ./tasks/indexjs-gen
+        - ./task indexjs-gen
 EOF
 
 itermocil

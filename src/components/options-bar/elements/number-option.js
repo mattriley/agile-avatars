@@ -1,6 +1,4 @@
-const upperFirst = require('lodash/upperFirst');
-
-module.exports = ({ elements, services, subscriptions, config }) => optionName => {
+module.exports = ({ elements, services, subscriptions, lib, config }) => optionName => {
 
     const { min, max, step } = config.options[optionName];
 
@@ -13,7 +11,7 @@ module.exports = ({ elements, services, subscriptions, config }) => optionName =
         $number.value = val;
     });
 
-    const labelText = upperFirst(optionName);
+    const labelText = lib.util.upperFirst(optionName);
     return elements.label(labelText, $number);
 
 };

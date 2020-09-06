@@ -1,8 +1,6 @@
-const upperFirst = require('lodash/upperFirst');
+module.exports = ({ lib }) => tagData => {
 
-module.exports = () => tagData => {
-
-    const tagName = upperFirst((tagData.tagName ?? '').trim());
+    const tagName = lib.util.upperFirst((tagData.tagName ?? '').trim());
     return { ...tagData, tagName };
     
 };
