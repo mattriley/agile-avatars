@@ -1,33 +1,20 @@
 #!/usr/bin/env bash
 
-# Minimum quality check for a commit.
-# NOTE: Ensure draw.io is on the PATH.
+set -e
 
-# set -e
-
-STAGED_FILES=$(git diff --name-only --staged)
-STAGED_DOCS=$(echo $STAGED_FILES | tr " " "\n" | grep -i "readme")
+STAGED_FILES=$(git diff --name-only --staged --diff-filter=d)
+STAGED_README=$(echo $STAGED_FILES | tr " " "\n" | grep -i "readme")
 STAGED_DRAWIO=$(echo $STAGED_FILES | tr " " "\n" | grep -i ".drawio$")
 
-if [ ! -z "$STAGED_DRAWIO" ]; then
-    while IFS= read -r SOURCE; do
-        DEST="${SOURCE%.*}.svg"
-        draw.io -x -f svg --crop -o $DEST $SOURCE
-    done <<< $STAGED_DRAWIO
-fi
-
-if [ -z "$STAGED_FILES" ]; then
-    echo "No staged files. Skipping pre-commit."
-    exit 0
-fi
-
-if [ "$STAGED_FILES" = "$STAGED_DOCS" ]; then
-    echo "Only docs are staged. Skipping lint and test."
-else
+if [ ! -z "$STAGED_FILES" ]; then
     ./tasks/lint
     ./tasks/cov-check
 fi
 
-if [ ! -z "$STAGED_DOCS" ]; then
-      ./tasks/readme-gen
+if [ ! -z "$STAGED_README" ]; then
+    ./tasks/readme-gen
+fi
+
+if [ ! -z "$STAGED_DRAWIO" ]; then
+    echo $STAGED_DRAWIO | xargs -n1 ./tasks/drawio-gen
 fi
