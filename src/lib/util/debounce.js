@@ -10,4 +10,5 @@ module.exports = (func, wait) => {
         timeout = setTimeout(next, wait);
     };
     
+    
 };
