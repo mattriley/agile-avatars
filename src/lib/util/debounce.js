@@ -1,7 +1,13 @@
-const debounce = require('lodash/debounce');
-
 module.exports = (func, wait) => {
 
-    return wait ? debounce(func, wait) : func;
+    if (!wait) return func;
+
+    let timeout = null;
+    
+    return (...args) => {
+        const next = () => func(...args);
+        clearTimeout(timeout);
+        timeout = setTimeout(next, wait);
+    };
     
 };
