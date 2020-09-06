@@ -11,4 +11,11 @@ export SRC="src"
 export TESTS="tests"
 export TEST_HELPERS="test-helpers"
 
-time "tasks/$1" "${@:2}"
+function task() {
+    "tasks/$1" "${@:2}"
+    echo
+    echo "exit code $?"
+}
+
+time task $@
+echo

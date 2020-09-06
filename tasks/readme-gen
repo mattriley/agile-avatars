@@ -1,7 +1,6 @@
 #!/usr/bin/env bash -i
 
 # Generates README.md
-# NOTE: Ensure draw.io is on the PATH.
 
 README="README.md"
 
@@ -10,9 +9,6 @@ node ./tasks/readme-gen.js > $README
 
 # Generate table of contents.
 npx doctoc --maxlevel 2 $README 
-
-# Export architecture diagram.
-draw.io -x -f svg --crop -o "docs/readme/architecture.svg" "docs/readme/architecture.drawio" 
 
 git add $README
 git add docs
