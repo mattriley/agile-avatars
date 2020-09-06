@@ -81,7 +81,7 @@ Lanches a new iTerm2 tab with 3 panes: empty command prompt, local dev server, i
 
 # Architecture
 
-![Architecture](docs/architecture.svg)
+![Architecture](docs/readme/architecture.svg)
 
 Omitted for brievity:
 - __Lib__: All depend on Lib except Config and IO.
@@ -453,27 +453,6 @@ The crypto module supports MD5. It does not seem possible to extract individual 
 
 - __No alternative that more closely matches the need exists__\
 According to [this issue](https://github.com/blueimp/JavaScript-MD5/issues/26), the original use case was to hash email addresses for Gravatar.
-
-
-
-### ❖ lodash
-
-> Lodash modular utilities.
-
-- Homepage: https://lodash.com/
-- __0__ dependencies :boom:
-
-#### Used for
-
-Utility functions for when there is no suitable built-in JavaScript alternative.
-
-#### Comments
-
-- __No alternative built into JavaScript exists__\
-Many lodash utility functions do have suitable built-in JavaScript alternatives. lodash is only used where this is not the case.
-
-- __No alternative that more closely matches the need exists__\
-Each lodash utility function does have a standalone package available on NPM. Given more than a couple of utility functions are being used, a single dependency on lodash is easier to manage.
 
 
 

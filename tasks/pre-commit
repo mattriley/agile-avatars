@@ -4,8 +4,8 @@
 
 set -e
 
-STAGED_FILES=$(git diff --name-only --staged | tr -d '[:space:]')
-STAGED_DOCS=$(echo $STAGED_FILES | grep .md$ | tr -d '[:space:]')
+STAGED_FILES=$(git diff --name-only --staged)
+STAGED_DOCS=$(echo $STAGED_FILES | tr " " "\n" | grep -i "readme")
 
 if [ -z "$STAGED_FILES" ]; then
     echo "No staged files. Skipping pre-commit."

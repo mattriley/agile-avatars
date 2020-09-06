@@ -66,7 +66,7 @@ Lanches a new iTerm2 tab with 3 panes: empty command prompt, local dev server, i
 
 # Architecture
 
-![Architecture](docs/architecture.svg)
+![Architecture](docs/readme/architecture.svg)
 
 Omitted for brievity:
 - __Lib__: All depend on Lib except Config and IO.

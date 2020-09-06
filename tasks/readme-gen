@@ -12,7 +12,7 @@ node ./tasks/readme-gen.js > $README
 npx doctoc --maxlevel 2 $README 
 
 # Export architecture diagram.
-draw.io -x -f svg --crop -o "docs/architecture.svg" "docs/architecture.drawio" 
+draw.io -x -f svg --crop -o "docs/readme/architecture.svg" "docs/readme/architecture.drawio" 
 
 git add $README
 git add docs
