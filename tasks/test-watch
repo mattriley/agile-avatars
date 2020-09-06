@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+npx chokidar "{$SRC,$TESTS,$TEST_HELPERS}/**/*.js" -c "./task test"

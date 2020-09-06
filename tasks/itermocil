@@ -13,6 +13,9 @@ windows:
         - nvm use
       - commands:
         - nvm use
+        - ./task test-watch
+      - commands:
+        - nvm use
         - ./task start
       - commands:
         - nvm use
