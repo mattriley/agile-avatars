@@ -456,6 +456,18 @@ According to [this issue](https://github.com/blueimp/JavaScript-MD5/issues/26), 
 
 
 
+### ❖ chokidar-cli
+
+> Ultra-fast cross-platform command line utility to watch file system changes.
+
+- Homepage: https://github.com/kimmobrunfeldt/chokidar-cli
+- __4__ dependencies :white_check_mark:
+
+
+
+
+
+
 ### ❖ module-composer
 
 > Composes 'modules' enabling coarse-grained module-level depenency injection

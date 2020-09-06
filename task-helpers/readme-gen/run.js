@@ -1,7 +1,7 @@
 const fs = require('fs');
 const ejs = require('ejs');
 const composer = require('module-composer');
-const { data, ...src } = require('./src/readme-gen');
+const { data, ...src } = require('./src');
 
 const packageRoot = process.cwd();
 const package = require(`${packageRoot}/package.json`);
