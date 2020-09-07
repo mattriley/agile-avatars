@@ -1,3 +1,5 @@
 #!/usr/bin/env bash
 
+export REPORTER="min"
+
 npx chokidar "{$SRC,$TESTS,$TEST_HELPERS}/**/*.js" -c "./task test"

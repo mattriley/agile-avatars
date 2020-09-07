@@ -58,3 +58,4 @@ module.exports = state => {
     return { manage, insert, remove, getArray, getState, setState, subscriptions };
 
 };
+

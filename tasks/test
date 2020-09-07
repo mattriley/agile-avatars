@@ -4,4 +4,6 @@
 
 export INDENT=true
 
-find "$TESTS" -name "*.test.js" -print | xargs node "./tasks/test.js" | npx tap-mocha-reporter spec
+: ${REPORTER:=spec}
+
+find "$TESTS" -name "*.test.js" -print | xargs node "./tasks/test.js" | npx tap-mocha-reporter $REPORTER
