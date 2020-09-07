@@ -1,12 +1,12 @@
 const EventEmitter = require('events');
 
-module.exports = localState => {
+module.exports = state => {
     let nextId = 1;
-    const funcIndex = {};
+    const operations = {};
     const collectionEmitter = new EventEmitter();
 
-    const manage = id => funcIndex[id] ?? { getState: () => null };
-    const getArray = () => Object.values(localState);
+    const manage = id => operations[id] ?? { getState: () => null };
+    const getArray = () => Object.values(state);
     const getState = id => manage(id).getState();
     const setState = (id, changes) => manage(id).setState(changes);
 
@@ -19,29 +19,29 @@ module.exports = localState => {
 
     const insert = (data, callback) => {
         const id = nextId++;
-        const state = { id, ...data };
+        const item = { id, ...data };
         const itemEmitter = new EventEmitter();
 
-        const getState = () => ({ ...state });
+        const getState = () => ({ ...item });
 
         const setState = changes => {
             Object.entries(changes).forEach(([key, val]) => {
-                if (state[key] === val) return;
-                state[key] = val;
-                const emit = emitter => emitter.emit(key, state[key], state);
+                if (item[key] === val) return;
+                item[key] = val;
+                const emit = emitter => emitter.emit(key, item[key], item);
                 [itemEmitter, collectionEmitter].forEach(emit);
             });
         };
 
         const onChange = (key, listener) => {
             itemEmitter.on(key, listener);
-            const invoke = () => listener(state[key], state);
+            const invoke = () => listener(item[key], item);
             invoke();
         };
 
         const subscriptions = { onChange };
-        localState[id] = state;  
-        funcIndex[id] = { getState, setState, subscriptions };
+        state[id] = item;  
+        operations[id] = { getState, setState, subscriptions };
 
         if (callback) callback(id);
         collectionEmitter.emit('firstInsert', id);
@@ -51,8 +51,8 @@ module.exports = localState => {
 
     const remove = id => {
         collectionEmitter.emit('beforeRemove', id);
-        delete funcIndex[id];
-        delete localState[id];
+        delete operations[id];
+        delete state[id];
     };
 
     return { manage, insert, remove, getArray, getState, setState, subscriptions };
