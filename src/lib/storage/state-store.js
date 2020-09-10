@@ -35,13 +35,12 @@ module.exports = state => {
 
         const onChange = (key, listener) => {
             itemEmitter.on(`change:${key}`, listener);
-            const invoke = () => listener(item[key], item);
-            invoke();
+            listener(item[key], item);
         };
 
         const subscriptions = { onChange };
-        state[id] = item;  
         operations[id] = { getState, setState, subscriptions };
+        state[id] = item;  
 
         if (callback) callback(id);
         collectionEmitter.emit('firstInsert', id);
