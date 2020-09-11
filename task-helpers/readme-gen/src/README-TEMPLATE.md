@@ -156,7 +156,24 @@ A plain object graph containing only primitive data types.
 
 # State management
 
+Avoiding state management libraries forces the need for a bespoke state management solution.
+No attempt is made to generify the state management solution for reuse by other applications; rather it is designed to evolve with the specific needs of the application.
+
+## Stores
+
+State is managed by a series of _state stores_. 
+
+A **state store** is collection of data items keyed by a unique identifier and managed using typical CRUD operations such as `insert`, `remove`, `getState`, `setState`.
+
 <%- renderJsFile('src/lib/storage/state-store.js', { open: false }) %>
+
+__Example: Inserting a role using `insert`__
+
+<%- renderJsFile('src/services/roles/insert-role.js') %>
+
+__Example: Changing a role name using `getState` and `setState`__
+
+<%- renderJsFile('src/services/tags/change-tag-instance-role.js') %>
 
 # Dependencies
 

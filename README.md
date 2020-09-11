@@ -28,6 +28,7 @@ DISCLAIMER: Some of the approaches used are intentionally unconventional. Any at
 - [Architecture](#architecture)
   - [Architectural components](#architectural-components)
 - [State management](#state-management)
+  - [Stores](#stores)
 - [Dependencies](#dependencies)
   - [Production dependencies](#production-dependencies)
   - [Development dependencies](#development-dependencies)
@@ -269,54 +270,62 @@ A plain object graph containing only primitive data types.
 
 # State management
 
+Avoiding state management libraries forces the need for a bespoke state management solution.
+No attempt is made to generify the state management solution for reuse by other applications; rather it is designed to evolve with the specific needs of the application.
+
+## Stores
+
+State is managed by a series of _state stores_. 
+
+A **state store** is collection of data items keyed by a unique identifier and managed using typical CRUD operations such as `insert`, `remove`, `getState`, `setState`.
+
 <details >
 <summary>src/lib/storage/state-store.js</summary>
 
 ```js
 const EventEmitter = require('events');
 
-module.exports = localState => {
+module.exports = (state, defaults = {}) => {
     let nextId = 1;
-    const funcIndex = {};
+    const operations = {};
     const collectionEmitter = new EventEmitter();
 
-    const manage = id => funcIndex[id] ?? { getState: () => null };
-    const getArray = () => Object.values(localState);
+    const manage = id => operations[id] ?? { getState: () => null };
+    const getArray = () => Object.values(state);
     const getState = id => manage(id).getState();
     const setState = (id, changes) => manage(id).setState(changes);
 
-    const onChange = (id, key, listener) => manage(id).subscriptions.onChange(key, listener);
-    const onChangeAny = (key, listener) => collectionEmitter.on(key, listener);
+    const onChange = (id, field, listener) => manage(id).subscriptions.onChange(field, listener);
+    const onChangeAny = (field, listener) => collectionEmitter.on(`change:${field}`, listener);
     const onInsert = listener => collectionEmitter.on('insert', listener);
     const onFirstInsert = listener => collectionEmitter.once('firstInsert', listener);
     const onBeforeRemove = listener => collectionEmitter.on('beforeRemove', listener);
     const subscriptions = { onChange, onChangeAny, onInsert, onFirstInsert, onBeforeRemove };
 
     const insert = (data, callback) => {
-        const id = nextId++;
-        const state = { id, ...data };
+        const id = data.id ?? nextId++;
+        const item = { id, ...data };
         const itemEmitter = new EventEmitter();
 
-        const getState = () => ({ ...state });
+        const getState = () => ({ ...item });
 
         const setState = changes => {
-            Object.entries(changes).forEach(([key, val]) => {
-                if (state[key] === val) return;
-                state[key] = val;
-                const emit = emitter => emitter.emit(key, state[key], state);
+            Object.entries(changes).forEach(([field, val]) => {
+                if (item[field] === val) return;
+                item[field] = val;
+                const emit = emitter => emitter.emit(`change:${field}`, item[field], item);
                 [itemEmitter, collectionEmitter].forEach(emit);
             });
         };
 
-        const onChange = (key, listener) => {
-            itemEmitter.on(key, listener);
-            const invoke = () => listener(state[key], state);
-            invoke();
+        const onChange = (field, listener) => {
+            itemEmitter.on(`change:${field}`, listener);
+            listener(item[field], item);
         };
 
         const subscriptions = { onChange };
-        localState[id] = state;  
-        funcIndex[id] = { getState, setState, subscriptions };
+        operations[id] = { getState, setState, subscriptions };
+        state[id] = item;  
 
         if (callback) callback(id);
         collectionEmitter.emit('firstInsert', id);
@@ -326,11 +335,47 @@ module.exports = localState => {
 
     const remove = id => {
         collectionEmitter.emit('beforeRemove', id);
-        delete funcIndex[id];
-        delete localState[id];
+        delete operations[id];
+        delete state[id];
     };
+    
+    Object.entries(defaults).map(([id, entry]) => ({ id, ...entry })).forEach(entry => insert(entry));
 
     return { manage, insert, remove, getArray, getState, setState, subscriptions };
+
+};
+```
+</details>
+
+__Example: Inserting a role using `insert`__
+
+<details open>
+<summary>src/services/roles/insert-role.js</summary>
+
+```js
+module.exports = ({ stores, services, subscriptions }) => roleData => {
+
+    const role = services.roles.buildRole(roleData);
+
+    return stores.roles.insert(role, roleId => {
+        subscriptions.roles.onChange(roleId, 'roleName', services.roles.setupRolePropagation(roleId));
+    });
+
+};
+```
+</details>
+
+__Example: Changing a role name using `getState` and `setState`__
+
+<details open>
+<summary>src/services/tags/change-tag-instance-role.js</summary>
+
+```js
+module.exports = ({ services, stores }) => (tagInstanceId, roleName) => {
+
+    const roleId = services.roles.findOrInsertRoleWithName(roleName);
+    const { tagId } = stores.tagInstances.getState(tagInstanceId);
+    stores.tags.setState(tagId, { roleId });
 
 };
 ```
