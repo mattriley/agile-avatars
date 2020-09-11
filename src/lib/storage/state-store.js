@@ -1,6 +1,6 @@
 const EventEmitter = require('events');
 
-module.exports = state => {
+module.exports = (state, defaults = {}) => {
     let nextId = 1;
     const operations = {};
     const collectionEmitter = new EventEmitter();
@@ -53,6 +53,8 @@ module.exports = state => {
         delete operations[id];
         delete state[id];
     };
+    
+    Object.entries(defaults).map(([id, entry]) => ({ id, ...entry })).forEach(entry => insert(entry));
 
     return { manage, insert, remove, getArray, getState, setState, subscriptions };
 
