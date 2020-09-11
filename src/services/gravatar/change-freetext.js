@@ -1,5 +1,5 @@
-module.exports = ({ settings }) => freetext => {
+module.exports = ({ stores }) => freetext => {
 
-    settings.gravatar.setState({ freetext });
+    stores.settings.setState('gravatar', { freetext });
 
 };

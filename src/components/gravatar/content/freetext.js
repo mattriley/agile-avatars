@@ -5,11 +5,11 @@ module.exports = ({ el, services, subscriptions, elements }) => () => {
             services.gravatar.changeFreetext($freetext.value);
         });
 
-    subscriptions.settings.gravatar.onChange('freetext', freetext => {
+    subscriptions.settings.onChange('gravatar', 'freetext', freetext => {
         $freetext.value = freetext;
     });
 
-    subscriptions.settings.gravatar.onChange('status', () => {
+    subscriptions.settings.onChange('gravatar', 'status', () => {
         $freetext.disabled = services.gravatar.status.is.working();
     });
 

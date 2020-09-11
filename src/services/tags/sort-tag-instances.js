@@ -1,4 +1,4 @@
-module.exports = ({ core, settings, stores }) => () => {
+module.exports = ({ core, stores }) => () => {
     
     const sorts = {
         orderAdded: stores.tags.getArray,
@@ -6,7 +6,7 @@ module.exports = ({ core, settings, stores }) => () => {
         name: () => core.tags.sortTagsByName(stores.tags.getArray())
     };
 
-    const { sort } = settings.options.getState();
+    const { sort } = stores.settings.getState('options');
     const tags = sorts[sort]();
     return core.tags.sortTagInstancesByTagThenMode(tags, stores.tagInstances.getState);
 

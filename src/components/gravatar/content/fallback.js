@@ -7,7 +7,7 @@ module.exports = ({ el, services, subscriptions, lib }) => fallback => {
         services.gravatar.changeFallback(fallback);
     });
 
-    subscriptions.settings.gravatar.onChange('fallback', selectedFallback => {
+    subscriptions.settings.onChange('gravatar', 'fallback', selectedFallback => {
         lib.ui.toggleBoolClass($fallback, 'selected', fallback === selectedFallback);
     });
 

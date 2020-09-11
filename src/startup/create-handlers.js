@@ -6,7 +6,7 @@ module.exports = ({ services, subscriptions, lib, config }) => {
     );
 
     config.options.modes.forEach(mode => {
-        subscriptions.settings.options.onChange(mode, adjustTagInstanceCounts);
+        subscriptions.settings.onChange('options', mode, adjustTagInstanceCounts);
     });
 
     subscriptions.tags.onInsert(adjustTagInstanceCounts);

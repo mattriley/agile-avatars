@@ -7,7 +7,7 @@ module.exports = ({ elements, services, subscriptions, lib, config }) => optionN
             services.settings.changeOption(optionName, e.target.value);
         });
 
-    subscriptions.settings.options.onChange(optionName, val => {
+    subscriptions.settings.onChange('options', optionName, val => {
         $number.value = val;
     });
 

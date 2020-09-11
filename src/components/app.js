@@ -17,7 +17,7 @@ module.exports = ({ el, components, subscriptions, lib }) => () => {
         ...$$modals
     );
 
-    subscriptions.settings.app.onChange('modal', modal => {
+    subscriptions.settings.onChange('app', 'modal', modal => {
         lib.ui.toggleBoolClass($container, 'modal', modal);
     });
 

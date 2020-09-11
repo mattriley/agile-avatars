@@ -1,5 +1,5 @@
-module.exports = ({ settings }) => (name, value) => {
+module.exports = ({ stores }) => (name, value) => {
 
-    settings.options.setState({ [name]: value });
+    stores.settings.setState('options', { [name]: value });
     
 };

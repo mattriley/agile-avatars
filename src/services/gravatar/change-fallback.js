@@ -1,5 +1,5 @@
-module.exports = ({ settings }) => fallback => {
+module.exports = ({ stores }) => fallback => {
 
-    settings.gravatar.setState({ fallback });
+    stores.settings.setState('gravatar', { fallback });
 
 };

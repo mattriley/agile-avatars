@@ -2,7 +2,15 @@ module.exports = ({ test, boot, window, helpers }) => {
 
     const setup = ({ sizeDefault }) => {
         const { components, services, config } = boot({ 
-            config: { defaultSettings: { options: { size: sizeDefault } } }
+            config: { 
+                storage: {
+                    defaults: {
+                        settings: { 
+                            options: { size: sizeDefault }
+                        }
+                    }
+                }
+            }
         });
         const $sizeInput = components.optionsBar.options.size().querySelector('input');
         const $tagList = components.tagList();

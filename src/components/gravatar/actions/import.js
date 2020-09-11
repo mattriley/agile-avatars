@@ -6,11 +6,11 @@ module.exports = ({ el, services, subscriptions, lib }) => () => {
             services.tags.insertGravatarBatchAsync(emails, fallback);
         });
 
-    subscriptions.settings.gravatar.onChange('status', () => {
+    subscriptions.settings.onChange('gravatar', 'status', () => {
         lib.ui.toggleBoolClass($import, 'visible', services.gravatar.status.is.ready());
     });
 
-    subscriptions.settings.gravatar.onChange('freetext', freetext => {
+    subscriptions.settings.onChange('gravatar', 'freetext', freetext => {
         $import.disabled = !freetext.trim();
     });
 

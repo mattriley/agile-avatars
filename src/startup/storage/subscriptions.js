@@ -1,11 +1,7 @@
-module.exports = ({ stores, settings }) => {
+module.exports = ({ stores }) => {
 
-    const getSub = targets => {
-        return Object.entries(targets).reduce((acc, [name, { subscriptions }]) => {
-            return Object.assign(acc, { [name]: subscriptions });
-        }, {});
-    };
-
-    return { ...getSub(stores), settings: getSub(settings) };
-
+    return Object.entries(stores).reduce((acc, [name, { subscriptions }]) => {
+        return Object.assign(acc, { [name]: subscriptions });
+    }, {});
+    
 };

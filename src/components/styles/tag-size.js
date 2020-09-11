@@ -2,7 +2,7 @@ module.exports = ({ el, subscriptions, config }) => () => {
 
     const $style = el('style');
 
-    subscriptions.settings.options.onChange('size', size => {
+    subscriptions.settings.onChange('options', 'size', size => {
         const width = size - (config.tags.imagePadding * 2);
         $style.textContent = `
             .tag-list { grid-template-columns: repeat(auto-fill, ${size}px); }

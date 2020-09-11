@@ -6,7 +6,13 @@ module.exports = ({ test, boot, helpers }) => {
         
         const { components, services } = boot({ 
             config: { 
-                defaultSettings: { options: { active: 0, passive: 0, [mode]: defaultValue } } 
+                storage: {
+                    defaults: {
+                        settings: { 
+                            options: { active: 0, passive: 0, [mode]: defaultValue } 
+                        }
+                    }
+                }
             }
         });
 

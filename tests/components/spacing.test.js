@@ -2,7 +2,15 @@ module.exports = ({ test, boot, window, helpers }) => {
 
     const setup = ({ spacingDefault }) => {
         const { components } = boot({ 
-            config: { defaultSettings: { options: { size: spacingDefault } } } 
+            config: { 
+                storage: {
+                    defaults: {
+                        settings: {
+                            options: { size: spacingDefault }
+                        }
+                    }
+                }
+            }
         });
         const $spacingInput = components.optionsBar.options.spacing().querySelector('input');
         const $tagList = components.tagList();

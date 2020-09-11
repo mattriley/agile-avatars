@@ -1,5 +1,5 @@
-module.exports = ({ settings }) => () => {
+module.exports = ({ stores }) => () => {
     
-    settings.app.setState({ modal: null });
+    stores.settings.setState('app', { modal: null });
 
 };

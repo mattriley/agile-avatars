@@ -10,7 +10,7 @@ module.exports = ({ el, elements, services, subscriptions, config }) => () => {
             services.settings.changeOption('sort', $keepSorted.value);
         });
 
-    subscriptions.settings.options.onChange('sort', sort => {
+    subscriptions.settings.onChange('options', 'sort', sort => {
         $keepSorted.value = sort;
     });
 

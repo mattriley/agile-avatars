@@ -11,17 +11,17 @@ module.exports = ({ window, ...overrides }) => {
     sentry.init(config.sentry);
         
     // Data layer
-    const { state, stores, settings, subscriptions } = startup.createStores({ lib, config });
+    const { state, stores, subscriptions } = startup.createStores({ lib, config });
         
     // Domain layer
     const core = compose('core', { lib, config });
-    const services = compose('services', { subscriptions, settings, stores, core, io, lib, config, sentry });
+    const services = compose('services', { subscriptions, stores, core, io, lib, config, sentry });
 
     // Presentation layer
     const { el, ...elements } = compose('elements', { lib, window });
     const components = compose('components', { el, elements, services, subscriptions, lib, config, window });
 
-    startup.insertNilRole({ config, settings, stores });
+    startup.insertNilRole({ config, stores });
     startup.createHandlers({ services, subscriptions, lib, config });
 
     return { components, elements, services, core, subscriptions, lib, config, state };

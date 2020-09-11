@@ -1,5 +1,5 @@
-module.exports = ({ settings }) => () => {
+module.exports = ({ stores }) => () => {
 
-    return settings.app.getState().nilRoleId;
+    return stores.settings.getState('app').nilRoleId;
     
 };

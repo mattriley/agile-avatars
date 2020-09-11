@@ -1,7 +1,7 @@
 module.exports = ({ elements, services, subscriptions }) => ({ name, title, content, actions }) => {
 
     const onVisibilityChange = callback => {
-        subscriptions.settings.app.onChange('modal', modal => {
+        subscriptions.settings.onChange('app', 'modal', modal => {
             const visible = modal === name;
             callback(visible);
         });

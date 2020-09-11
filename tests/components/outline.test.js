@@ -3,7 +3,13 @@ module.exports = ({ test, boot, window, helpers }) => {
     const setup = ({ outlineDefault }) => {
         const { components, services } = boot({ 
             config: { 
-                defaultSettings: { options: { outline: outlineDefault } } 
+                storage: {
+                    defaults: {
+                        settings: {
+                            options: { outline: outlineDefault }
+                        }
+                    }
+                }
             } 
         });
         const $checkbox = components.optionsBar.options.outline().querySelector('input');

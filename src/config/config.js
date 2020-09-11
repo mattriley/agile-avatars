@@ -65,28 +65,30 @@ module.exports = ({ io, window }) => {
         },
         storage: {
             stores: ['settings', 'roles', 'tags', 'tagInstances'],
-            settings: ['app', 'options', 'gravatar']
-        },
-        defaultSettings: {
-            app: {
-                modal: null,
-                nilRoleId: null
-            },
-            options: {
-                sort: 'orderAdded',
-                shape: 'circle',
-                active: 1,
-                passive: 0,
-                size: 175,
-                spacing: 4,
-                outline: true
-            },
-            gravatar: {
-                fallback: 'robohash',
-                freetext: '',
-                status: 'ready',
-                errorMessage: ''
-            }             
+            defaults: {
+                settings: {
+                    app: {
+                        modal: null,
+                        nilRoleId: null
+                    },
+                    options: {
+                        sort: 'orderAdded',
+                        shape: 'circle',
+                        active: 1,
+                        passive: 0,
+                        size: 175,
+                        spacing: 4,
+                        outline: true
+                    },
+                    gravatar: {
+                        fallback: 'robohash',
+                        freetext: '',
+                        status: 'ready',
+                        errorMessage: ''
+                    }    
+                }
+            }
         }
+        
     };
 };

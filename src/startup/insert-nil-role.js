@@ -1,6 +1,6 @@
-module.exports = ({ config, settings, stores }) => {
+module.exports = ({ config, stores }) => {
 
     const nilRoleId = stores.roles.insert(config.roles.nilRole);
-    settings.app.setState({ nilRoleId });
+    stores.settings.setState('app', { nilRoleId });
     
 };

@@ -7,11 +7,11 @@ module.exports = ({ el, services, subscriptions, lib }) => () => {
 
     const $error = el('div', 'error').append($errorMessage, $dismiss);
     
-    subscriptions.settings.gravatar.onChange('status', () => {
+    subscriptions.settings.onChange('gravatar', 'status', () => {
         lib.ui.toggleBoolClass($error, 'visible', services.gravatar.status.is.error());
     });
 
-    subscriptions.settings.gravatar.onChange('errorMessage', errorMessage => {
+    subscriptions.settings.onChange('gravatar', 'errorMessage', errorMessage => {
         $errorMessage.textContent = errorMessage;
     });
 

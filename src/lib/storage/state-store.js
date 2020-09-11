@@ -18,7 +18,7 @@ module.exports = state => {
     const subscriptions = { onChange, onChangeAny, onInsert, onFirstInsert, onBeforeRemove };
 
     const insert = (data, callback) => {
-        const id = nextId++;
+        const id = data.id ?? nextId++;
         const item = { id, ...data };
         const itemEmitter = new EventEmitter();
 

@@ -4,27 +4,27 @@ const STATUS = {
     error: 'error'
 };
 
-module.exports = ({ settings }) => {
+module.exports = ({ stores }) => {
 
     const is = Object.keys(STATUS).reduce((acc, status) => {
-        const func = () => settings.gravatar.getState().status === status;
+        const func = () => stores.settings.getState('gravatar').status === status;
         return Object.assign(acc, { [status]: func });
     }, {});
 
     const to = {
         ready: () => {
-            const { freetext } = settings.gravatar.getState();
-            settings.gravatar.setState({
+            const { freetext } = stores.settings.getState('gravatar');
+            stores.settings.setState('gravatar', {
                 status: STATUS.ready,
                 freetext: is.error() ? freetext : '',
                 errorMessage: ''
             });
         },
         working: () => {
-            settings.gravatar.setState({ status: STATUS.working });
+            stores.settings.setState('gravatar', { status: STATUS.working });
         },
         error: errorMessage => {
-            settings.gravatar.setState({ status: STATUS.error, errorMessage });
+            stores.settings.setState('gravatar', { status: STATUS.error, errorMessage });
         }
     };
    
