@@ -41,7 +41,7 @@ __iTerm2 automated window arrangement (macOS only)__
 
 - No languages that compile to JavaScript; No TypeScript. 
   - [You Might Not Need TypeScript (or Static Types) - Eric Elliott](https://medium.com/javascript-scene/you-might-not-need-typescript-or-static-types-aa7cb670a77b)
-  - [The Shocking Secret About Static Types](https://medium.com/javascript-scene/the-shocking-secret-about-static-types-514d39bf30a3)
+  - [The Shocking Secret About Static Types - Eric Elliott](https://medium.com/javascript-scene/the-shocking-secret-about-static-types-514d39bf30a3)
 - No frameworks, view libraries, state management libraries; No Angular, React, Redux.
 - No globals. Access to `window` strictly controlled.
 - No classes. Prefer partial application.
@@ -163,7 +163,7 @@ No attempt is made to generify the state management solution for reuse by other 
 
 State is managed by a series of _state stores_. 
 
-A **state store** is collection of data items keyed by a unique identifier and managed using typical CRUD operations such as `insert`, `remove`, `getState`, `setState`.
+A **state store** is collection of data items keyed by a unique identifier and managed using typical CRUD operations such as `insert`, `remove`, `getState` and `setState`.
 
 <%- renderJsFile('src/lib/storage/state-store.js', { open: false }) %>
 
@@ -173,7 +173,7 @@ __Example: Inserting a role using `insert`__
 
 __Example: Changing a role name using `getState` and `setState`__
 
-<%- renderJsFile('src/services/tags/change-tag-instance-role.js') %>
+<%- renderJsFile('src/services/roles/change-role-name.js) %>
 
 # Dependencies
 
