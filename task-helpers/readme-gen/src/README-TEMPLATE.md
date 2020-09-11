@@ -157,7 +157,7 @@ A plain object graph containing only primitive data types.
 # State management
 
 Avoiding state management libraries forces the need for a bespoke state management solution.
-No attempt is made to generify the state management solution for reuse by other applications; rather it is designed to evolve with the specific needs of the application.
+No attempt is made to generify the state management solution for reuse by other applications; rather it is designed to evolve with the specific needs of this application.
 
 ## Stores
 
@@ -173,7 +173,7 @@ __Example: Inserting a role using `insert`__
 
 __Example: Changing a role name using `getState` and `setState`__
 
-<%- renderJsFile('src/services/roles/change-role-name.js) %>
+<%- renderJsFile('src/services/roles/change-role-name.js') %>
 
 # Dependencies
 
