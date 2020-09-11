@@ -1,10 +1,12 @@
-const storage = require('./storage');
-
 module.exports = ({ lib, config }) => {
 
-    const state = {};
-    const stores = storage.stores({ state, lib, config });
-    const subscriptions = storage.subscriptions({ stores });
-    return { state, stores, subscriptions };
+    return config.storage.stores.reduce((acc, name) => {
+        const state = acc.state[name] = {};
+        const defaults = config.storage.defaults[name];
+        const { subscriptions, ...store } = lib.storage.stateStore(state, defaults);
+        acc.subscriptions[name] = subscriptions;
+        acc.stores[name] = store;        
+        return acc;
+    }, { state: {}, stores: {}, subscriptions: {} });
 
 };
