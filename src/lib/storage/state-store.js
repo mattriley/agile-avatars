@@ -10,8 +10,8 @@ module.exports = (state, defaults = {}) => {
     const getState = id => manage(id).getState();
     const setState = (id, changes) => manage(id).setState(changes);
 
-    const onChange = (id, key, listener) => manage(id).subscriptions.onChange(key, listener);
-    const onChangeAny = (key, listener) => collectionEmitter.on(`change:${key}`, listener);
+    const onChange = (id, field, listener) => manage(id).subscriptions.onChange(field, listener);
+    const onChangeAny = (field, listener) => collectionEmitter.on(`change:${field}`, listener);
     const onInsert = listener => collectionEmitter.on('insert', listener);
     const onFirstInsert = listener => collectionEmitter.once('firstInsert', listener);
     const onBeforeRemove = listener => collectionEmitter.on('beforeRemove', listener);
@@ -25,17 +25,17 @@ module.exports = (state, defaults = {}) => {
         const getState = () => ({ ...item });
 
         const setState = changes => {
-            Object.entries(changes).forEach(([key, val]) => {
-                if (item[key] === val) return;
-                item[key] = val;
-                const emit = emitter => emitter.emit(`change:${key}`, item[key], item);
+            Object.entries(changes).forEach(([field, val]) => {
+                if (item[field] === val) return;
+                item[field] = val;
+                const emit = emitter => emitter.emit(`change:${field}`, item[field], item);
                 [itemEmitter, collectionEmitter].forEach(emit);
             });
         };
 
-        const onChange = (key, listener) => {
-            itemEmitter.on(`change:${key}`, listener);
-            listener(item[key], item);
+        const onChange = (field, listener) => {
+            itemEmitter.on(`change:${field}`, listener);
+            listener(item[field], item);
         };
 
         const subscriptions = { onChange };
