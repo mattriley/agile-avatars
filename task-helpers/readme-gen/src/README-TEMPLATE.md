@@ -175,6 +175,22 @@ __Example: Changing a role name using `getState` and `setState`__
 
 <%- renderJsFile('src/services/roles/change-role-name.js') %>
 
+## Subscriptions
+
+State stores use the [observer pattern](https://en.wikipedia.org/wiki/Observer_pattern) to enable consumers to react to state changes by associating _listener_ functions to events such as `onInsert` and `onChange`.
+
+The observer pattern is easily implemented with Node's [EventEmitter](https://nodejs.org/api/events.html) which can be bundled directly into the application.
+
+During startup, subscription functions are extracted from the stores into a standalone _subscriptions_ object. This decouples subscribers (namely _services_ and _components_) from the stores making them agnostic of the data source. Although not a design goal for this application, this should allow the data source to change without impacting the subscribers provided the interface of the subscription functions do not change.
+
+__Example: Reacting to a new role using `onInsert` and `onFirstInsert`__
+
+<%- renderJsFile('src/components/role-list/role-list.js') %>
+
+__Example: Reacting to the change of a role name using `onChange`__
+
+<%- renderJsFile('src/components/role-list/role-customiser/master-role-name.js') %>
+
 # Dependencies
 
 Constraints:

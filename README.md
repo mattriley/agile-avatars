@@ -29,6 +29,7 @@ DISCLAIMER: Some of the approaches used are intentionally unconventional. Any at
   - [Architectural components](#architectural-components)
 - [State management](#state-management)
   - [Stores](#stores)
+  - [Subscriptions](#subscriptions)
 - [Dependencies](#dependencies)
   - [Production dependencies](#production-dependencies)
   - [Development dependencies](#development-dependencies)
@@ -377,6 +378,62 @@ module.exports = ({ services, stores }) => (roleId, roleName) => {
     const newState = services.roles.buildRole({ ...oldState, roleName });
     stores.roles.setState(roleId, newState);
     
+};
+```
+</details>
+
+## Subscriptions
+
+State stores use the [observer pattern](https://en.wikipedia.org/wiki/Observer_pattern) to enable consumers to react to state changes by associating _listener_ functions to events such as `onInsert` and `onChange`.
+
+The observer pattern is easily implemented with Node's [EventEmitter](https://nodejs.org/api/events.html) which can be bundled directly into the application.
+
+During startup, subscription functions are extracted from the stores into a standalone _subscriptions_ object. This decouples subscribers (namely _services_ and _components_) from the stores making them agnostic of the data source. Although not a design goal for this application, this should allow the data source to change without impacting the subscribers provided the interface of the subscription functions do not change.
+
+__Example: Reacting to a new role using `onInsert` and `onFirstInsert`__
+
+<details open>
+<summary>src/components/role-list/role-list.js</summary>
+
+```js
+module.exports = ({ el, roleList, subscriptions, lib }) => () => {
+
+    const $roleList = el('div', 'role-list visible-false');
+
+    subscriptions.roles.onInsert(roleId => {
+        const $role = roleList.roleCustomiser(roleId);
+        $roleList.append($role);
+    });
+
+    subscriptions.roles.onFirstInsert(() => {
+        lib.ui.toggleBoolClass($roleList, 'visible', true);
+    });
+
+    return $roleList;
+    
+};
+```
+</details>
+
+__Example: Reacting to the change of a role name using `onChange`__
+
+<details open>
+<summary>src/components/role-list/role-customiser/master-role-name.js</summary>
+
+```js
+module.exports = ({ elements, services, subscriptions }) => roleId => {
+
+    const $roleName = elements.editableSpan(`role-name role${roleId}`)
+        .addEventListener('change', () => {
+            services.roles.changeRoleName(roleId, $roleName.textContent);
+        });
+    
+    subscriptions.roles.onChange(roleId, 'roleName', roleName => {
+        $roleName.textContent = roleName;
+    });
+
+    return $roleName;
+
 };
 ```
 </details>
