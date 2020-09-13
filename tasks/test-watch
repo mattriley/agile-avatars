@@ -1,5 +1,3 @@
 #!/usr/bin/env bash
 
-export REPORTER="min"
-
-npx chokidar "{$SRC,$TESTS,$TEST_HELPERS}/**/*.js" -c "./task test"
+npx chokidar "{$SRC,$TESTS,$TEST_HELPERS}/**/*.js" -c "REPORTER=min ./task test"
