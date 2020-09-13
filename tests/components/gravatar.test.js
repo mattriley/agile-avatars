@@ -81,7 +81,8 @@ module.exports = ({ test, boot, window, helpers }) => {
         );  
     });
 
-    const successTestCase = async (t, { freetext }) => {
+    test('import gravatar successfully with email address', async t => {
+
         const { components } = boot({
             services: {
                 gravatar: {
@@ -95,7 +96,7 @@ module.exports = ({ test, boot, window, helpers }) => {
         const $import = $gravatar.querySelector('.import');
         const $tagList = components.tagList();
             
-        $freetext.value = freetext;
+        $freetext.value = 'foo@bar.com';
         helpers.dispatchEvent('input', $freetext);
         t.notOk($import.disabled);
     
@@ -110,15 +111,9 @@ module.exports = ({ test, boot, window, helpers }) => {
                 
             }
         );  
-    };
 
-    test('import gravatar successfully with email address', async t => {
-        await successTestCase(t, { freetext: 'foo@bar.com' });
     });
 
-    test('import gravatar successfully with username', async t => {
-        await successTestCase(t, { freetext: 'foo' });
-    });
 
     test('tag inserted from gravatar', async t => {
         const { components, subscriptions } = boot({
