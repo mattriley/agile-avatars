@@ -1,5 +1,7 @@
 module.exports = ({ test, boot }) => {
 
+    const { core } = boot();
+
     const digits = ['', '1', '1 '];
     const names = ['foo', 'bar/foo'];
     const roles = [undefined, '+dev'];
@@ -20,7 +22,6 @@ module.exports = ({ test, boot }) => {
     
     scenarios.forEach(scenario => {
         test(`parses file expression: ${scenario.expression}`, t => {
-            const { core } = boot();
             const tagData = core.tags.parseFileExpression(scenario.expression);
             t.equal(tagData.tagName, scenario.expected.tagName);
             t.equal(tagData.roleName, scenario.expected.roleName);

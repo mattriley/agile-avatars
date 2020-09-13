@@ -1,5 +1,7 @@
 module.exports = ({ test, boot }) => {
 
+    const { core } = boot();
+
     const emails = ['foo', 'foo@bar.com', 'foo+bar@qux.com'];
     const roles = [undefined, '+dev'];
     
@@ -14,7 +16,6 @@ module.exports = ({ test, boot }) => {
     
     scenarios.forEach(scenario => {
         test(`parses email expression: ${scenario.expression}`, t => {
-            const { core } = boot();
             const tagData = core.tags.parseEmailExpression(scenario.expression);
             t.equal(tagData.tagName, scenario.expected.tagName);
             t.equal(tagData.roleName, scenario.expected.roleName);
