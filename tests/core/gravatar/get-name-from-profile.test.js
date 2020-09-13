@@ -14,10 +14,4 @@ module.exports = ({ test, boot }) => {
         t.equal(name, 'display');
     });
 
-    test('return default name when both given and display name not present', t => {
-        const profile = {};
-        const name = core.gravatar.getNameFromProfile(profile, 'default');
-        t.equal(name, 'default');
-    });
-
 };
