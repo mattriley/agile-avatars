@@ -212,9 +212,22 @@ The intent with black box testing is to minimise the chances of tests breaking d
 
 Exceptions are made to the black box approach under certain conditions:
 
-- Combinatorial explosion. e.g. image file names, tag names entered directly on tags, and email addresses entered into gravatar are actually expressions which could be just a name (no email address), and are parsed to extract an optional role name with "+rolename". But + is also a valid character within an email address. So example inputs to be tested could be: foo, foo+role, foo@bar.com, foo@bar.com+role, foo+abc@bar.com+role. These combinations are tested at the service layer, closer to the implementation. The gravatar component uses an example input instead. 
-- Execution path will hit a system boundary (e.g. HTTP request to Gravatar). In this case, a stub is inserted in the layer below the presentation layer - the service layer. Another common approach is to stub the actual boundaries, i.e. the HTTP integration. I avoid this because that is a low level detail that should be a black box to a component test.
-- When it's helpful to narrow down failure feedback when execution path is too coarse. e.g. state-store evolved with the application rather than being built up-front. The state-store could be covered by the component tests but it's sufficiently complicated to justify it's own tests.
+1. Combinatorial explosion
+2. System boundary
+3. Narrow feedback
+
+
+### 1. Combinatorial explosion
+
+e.g. image file names, tag names entered directly on tags, and email addresses entered into gravatar are actually expressions which could be just a name (no email address), and are parsed to extract an optional role name with "+rolename". But + is also a valid character within an email address. So example inputs to be tested could be: foo, foo+role, foo@bar.com, foo@bar.com+role, foo+abc@bar.com+role. These combinations are tested at the service layer, closer to the implementation. The gravatar component uses an example input instead. 
+
+### 2. System boundary
+
+Execution path will hit a system boundary (e.g. HTTP request to Gravatar). In this case, a stub is inserted in the layer below the presentation layer - the service layer. Another common approach is to stub the actual boundaries, i.e. the HTTP integration. I avoid this because that is a low level detail that should be a black box to a component test.
+
+### 3. Narrow feedback
+
+When it's helpful to narrow down failure feedback when execution path is too coarse. e.g. state-store evolved with the application rather than being built up-front. The state-store could be covered by the component tests but it's sufficiently complicated to justify it's own tests.
 
 This testing approach supports classic TDD more so than mockist TDD.
 - [Mocks Aren't Stubs - Martin Fowler](https://martinfowler.com/articles/mocksArentStubs.html)
