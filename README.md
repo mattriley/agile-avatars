@@ -794,6 +794,10 @@ Actual image is rendered using CSS background-image as a performance optimisatio
 ```
 </details>
 
+### Async functions end with the word Async
+
+This just makes it easier to know when to use `await`.
+
 ### Functional programming
 
 - Prefer `const` over `let`, and avoid `var`.

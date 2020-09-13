@@ -258,6 +258,10 @@ Such comments are secondary to the code and so follow the code rather than prece
 
 <%- renderJsFile('src/components/tag-list/tag/components/tag-image.js', { includeFootnotes: true }) %>
 
+### Async functions end with the word Async
+
+This just makes it easier to know when to use `await`.
+
 ### Functional programming
 
 - Prefer `const` over `let`, and avoid `var`.
