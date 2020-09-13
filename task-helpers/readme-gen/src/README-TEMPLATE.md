@@ -198,6 +198,12 @@ EARLY DRAFT
 
 The application is tested from the outside-in, starting with the components. A component's behaviour is tested by the effect it has on other components, treating the low level details as a black box. These are "sociable" as opposed to "solitary" unit tests.
 
+__Example: Tips modal triggered by link in nav bar__
+
+This test creates a 'nav bar' and a 'tips modal'; clicks the 'tips link' in the nav bar; then asserts the tips modal has a class indicating it should be visible. The mechanics behind this interaction are a black box, making it resilient to implementation changes which enables merciless refactoring.
+
+<%- renderJsFile('tests/components/tips.test.js') %>
+
 Not every component is tested directly. Many low level components can be treated as a black box when exercised by a higher level component. 
 
 Components are not designed and tested as though they'll be soon extracted as a reusable component library. This means components can be tested under the conditions they're used by this application, rather than how they might hypothetically be used by unknown consumers. This reduces the testing burden by allowing us to make reasonable assumptions about interactions between components, validity of parameters/data used, etc.
