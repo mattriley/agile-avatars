@@ -85,7 +85,7 @@ module.exports = ({ test, boot, window, helpers }) => {
         const { components } = boot({
             services: {
                 gravatar: {
-                    fetchNameAsync: () => 'foo'
+                    fetchProfileAsync: () => ({ displayName: 'foo' })
                 }
             }
         });
@@ -124,7 +124,7 @@ module.exports = ({ test, boot, window, helpers }) => {
         const { components, subscriptions } = boot({
             services: {
                 gravatar: {
-                    fetchNameAsync: () => 'foo',
+                    fetchProfileAsync: () => ({ displayName: 'foo' }),
                     fetchImageAsync: () => new window.Blob(['BYTES'], { type: 'image/jpg' })
                 }
             }
