@@ -81,40 +81,6 @@ module.exports = ({ test, boot, window, helpers }) => {
         );  
     });
 
-    test('import gravatar successfully with email address', async t => {
-
-        const { components } = boot({
-            services: {
-                gravatar: {
-                    fetchProfileAsync: () => ({ displayName: 'foo' })
-                }
-            }
-        });
-    
-        const $gravatar = components.modals.gravatar();
-        const $freetext = $gravatar.querySelector('.freetext');
-        const $import = $gravatar.querySelector('.import');
-        const $tagList = components.tagList();
-            
-        $freetext.value = 'foo@bar.com';
-        helpers.dispatchEvent('input', $freetext);
-        t.notOk($import.disabled);
-    
-        await helpers.onTagListMutation(
-            $tagList,
-            () => {
-                helpers.dispatchEvent('click', $import);
-            },
-            tag1 => {
-                t.equal(tag1.getTagName(), 'Foo');
-                helpers.assertBoolClass(t, $gravatar, 'visible', false);
-                
-            }
-        );  
-
-    });
-
-
     test('tag inserted from gravatar', async t => {
         const { components, subscriptions } = boot({
             services: {
