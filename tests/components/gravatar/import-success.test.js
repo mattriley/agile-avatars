@@ -1,6 +1,6 @@
 module.exports = ({ test, boot, helpers }) => {
 
-    test('successful import', async t => {
+    test('import succeeds', async t => {
         const { components } = boot({
             services: {
                 gravatar: {
