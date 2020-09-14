@@ -1,5 +1,5 @@
 /* eslint-disable no-async-promise-executor */
-module.exports = ({ test, boot, window, helpers }) => {
+module.exports = async ({ test, boot, window, helpers }) => {
 
     test('launches gravatar', t => {
         const { components } = boot();
@@ -40,7 +40,7 @@ module.exports = ({ test, boot, window, helpers }) => {
         helpers.assertBoolClass(t, $monsterid, 'selected', true);
     });
 
-    test.skip('tag inserted from gravatar', async t => {
+    await test('tag inserted from gravatar', async t => {
         const { components } = boot({
             services: {
                 gravatar: {
