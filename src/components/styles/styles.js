@@ -1,4 +1,4 @@
-module.exports = ({ el, styles, subscriptions }) => () => {
+module.exports = ({ el, styles }) => () => {
 
     const $styles = el('div', { hidden: true }).append(
         styles.vanillaPicker(),
@@ -6,10 +6,10 @@ module.exports = ({ el, styles, subscriptions }) => () => {
         styles.tagSize(),
         styles.tagSpacing(),
         styles.tagOutline(),
-        styles.tagImage()
+        styles.tagImage(),
+        styles.roleColor()
     );
 
-    subscriptions.roles.onInsert(roleId => $styles.append(styles.role(roleId)));
 
     return $styles;
 
