@@ -9,16 +9,16 @@ module.exports = ({ test, boot }) => {
         return roles.flatMap(role => {
             return {
                 expression: email + (role ?? ''),
-                expected: { tagName: 'foo', roleName: role ? role.replace('+', '') : role }
+                expected: { username: 'foo', roleName: role ? role.replace('+', '') : role }
             };
         });
     });
     
     scenarios.forEach(scenario => {
         test(`parses email expression: ${scenario.expression}`, t => {
-            const tagData = core.tags.parseEmailExpression(scenario.expression);
-            t.equal(tagData.tagName, scenario.expected.tagName);
-            t.equal(tagData.roleName, scenario.expected.roleName);
+            const data = core.tags.parseEmailExpression(scenario.expression);
+            t.equal(data.username, scenario.expected.username);
+            t.equal(data.roleName, scenario.expected.roleName);
             
         });
     });
