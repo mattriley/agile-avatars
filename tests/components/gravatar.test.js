@@ -51,7 +51,7 @@ module.exports = async ({ test, boot, window, helpers }) => {
         }); 
         
 
-        window.document.body.append(components.styles());     
+        window.document.body.append(components.styles.tagImage());     
 
         await new Promise(async resolve => {
 

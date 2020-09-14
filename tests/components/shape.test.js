@@ -16,7 +16,7 @@ module.exports = ({ test, boot, window, helpers }) => {
     const shapeTestCase = (t, shapeName) => {
         const { components, services, config } = boot();
         const $shape = components.optionsBar.elements.shapeOption(shapeName);   
-        const $styles = components.styles();
+        const $styles = components.styles.tagShape();
         window.document.body.append($styles); 
         const $tagList = components.tagList();
         services.tags.insertTag(); 

@@ -14,7 +14,7 @@ module.exports = ({ test, boot, window, helpers }) => {
         });
         const $sizeInput = components.optionsBar.options.size().querySelector('input');
         const $tagList = components.tagList();
-        const $styles = components.styles();
+        const $styles = components.styles.tagSize();
         window.document.body.append($styles);            
         services.tags.insertTag();
         return { $tagList, $sizeInput, config };

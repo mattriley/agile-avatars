@@ -2,7 +2,7 @@ module.exports = ({ test, boot, window, helpers }) => {
 
     test('master role name reflects new color', t => {
         const { components, services } = boot();
-        const $styles = components.styles();
+        const $styles = components.styles.roleColor();
         window.document.body.append($styles); 
         
         const roleId = services.roles.insertRole({ roleName: 'foo' });        
@@ -26,7 +26,7 @@ module.exports = ({ test, boot, window, helpers }) => {
     test('role color change propagates to tags', t => {
         const { components, services } = boot();
 
-        const $styles = components.styles();
+        const $styles = components.styles.roleColor();
         window.document.body.append($styles); 
         
         const roleId = services.roles.insertRole({ roleName: 'foo' });   
