@@ -1,10 +1,11 @@
 module.exports = ({ el, components, subscriptions, lib }) => () => {
 
+    const $$styles = Object.values(components.styles).map(style => style());
     const $$modals = Object.values(components.modals).map(modal => modal());
 
     const $container = el('div', 'app').append(
         components.googleAnalytics(),
-        components.styles(), 
+        el('div', 'styles', { hidden: true }).append(...$$styles),
         components.header(), 
         components.dropzone().append(
             el('div', 'control-panel').append(
