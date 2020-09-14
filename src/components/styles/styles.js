@@ -5,11 +5,11 @@ module.exports = ({ el, styles, subscriptions }) => () => {
         styles.tagShape(),
         styles.tagSize(),
         styles.tagSpacing(),
-        styles.tagOutline()
+        styles.tagOutline(),
+        styles.tagImage()
     );
 
     subscriptions.roles.onInsert(roleId => $styles.append(styles.role(roleId)));
-    subscriptions.tags.onInsert(tagId => $styles.append(styles.tagImage(tagId)));
 
     return $styles;
 
