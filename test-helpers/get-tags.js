@@ -2,7 +2,7 @@ module.exports = ({ window, helpers }) => $tagList => {
 
     return Array.from($tagList.querySelectorAll('.tag')).map($tag => {        
         const $tagName = $tag.querySelector('.tag-name');
-        const $tagImage = $tagList.querySelector('.tag-image');
+        const $tagImage = $tag.querySelector('.tag-image');
         const $roleName = $tag.querySelector('.role-name');
 
         return {
