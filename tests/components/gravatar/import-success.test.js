@@ -1,13 +1,16 @@
-module.exports = ({ test, boot, helpers }) => {
+module.exports = async ({ test, boot, helpers, window }) => {
 
-    test('import succeeds', async t => {
+    await test('import succeeds', async t => {
         const { components } = boot({
             services: {
                 gravatar: {
-                    fetchProfileAsync: () => ({ displayName: 'foo' })
+                    fetchProfileAsync: () => ({ displayName: 'foo' }),
+                    fetchImageAsync: () => new window.Blob(['BYTES'], { type: 'image/jpg' })
                 }
             }
         });
+
+        window.document.body.append(components.styles.tagImage()); 
 
         const $gravatar = components.modals.gravatar();
         const $freetext = $gravatar.querySelector('.freetext');
@@ -23,9 +26,10 @@ module.exports = ({ test, boot, helpers }) => {
             () => {
                 helpers.dispatchEvent('click', $import);
             },
-            tag1 => {
+            async tag1 => {
                 t.equal(tag1.getTagName(), 'Foo');
-                helpers.assertBoolClass(t, $gravatar, 'visible', false);            
+                t.equal(await tag1.getImage(), 'url(data:image/jpg;base64,QllURVM=)');
+                helpers.assertBoolClass(t, $gravatar, 'visible', false); 
             }
         );  
     });

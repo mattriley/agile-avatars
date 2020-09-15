@@ -6,6 +6,7 @@ module.exports = ({ el, subscriptions }) => () => {
         const $style = el('style');
 
         subscriptions.tags.onChange(tagId, 'image', image => {
+            if (!image) return;
             $style.textContent = `.tag${tagId} .tag-image { background-image: url(${image}); }`;
         });
     
