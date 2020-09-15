@@ -1,5 +1,17 @@
 module.exports = ({ test, boot }) => {
 
+    test('fetch invoked with correct url', async t => {
+        await new Promise(resolve => {
+            const fetch = url => {
+                t.equal(url, 'https://secure.gravatar.com/f3ada405ce890b6f8204094deb12d8a8.json');
+                resolve();
+            };
+            const io = { fetch };
+            const { services } = boot({ io });
+            services.gravatar.fetchProfileAsync('foo@bar.com');
+        });
+    });
+
     test('return profile on successful response', async t => {
         const profile = { name: { givenName: 'given' }, displayName: 'display' };
         const json = { entry: [profile] };
