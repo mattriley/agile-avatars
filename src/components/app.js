@@ -4,8 +4,9 @@ module.exports = ({ el, components, subscriptions, lib }) => () => {
     const $$modals = Object.values(components.modals).map(modal => modal());
 
     const $container = el('div', 'app').append(
+        el('div', 'styles').append(...$$styles),
+        el('div', 'modals').append(...$$modals),
         components.googleAnalytics(),
-        el('div', 'styles', { hidden: true }).append(...$$styles),
         components.header(), 
         components.dropzone().append(
             el('div', 'control-panel').append(
@@ -14,8 +15,7 @@ module.exports = ({ el, components, subscriptions, lib }) => () => {
                 components.optionsBar()
             ),
             components.tagList()
-        ),
-        ...$$modals
+        )
     );
 
     subscriptions.settings.onChange('app', 'modal', modal => {
