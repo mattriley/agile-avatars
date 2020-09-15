@@ -1,11 +1,12 @@
 module.exports = ({ lib }) => expression => {
 
     const indexOfAt = expression.indexOf('@');
-    const [username] = (indexOfAt > -1 ? expression.substr(0, indexOfAt) : expression).split('+');
+    const isEmail = indexOfAt > -1;
+    const [username] = (isEmail ? expression.substr(0, indexOfAt) : expression).split('+');
     const lastIndexOfPlus = expression.lastIndexOf('+');
     const hasRole = lastIndexOfPlus > indexOfAt;        
-    const [email, roleName] = hasRole ? lib.util.splitAt(expression, lastIndexOfPlus, 1) : [expression];
-    const emailOrUsername = email ?? username;
+    const [emailOrUsername, roleName] = hasRole ? lib.util.splitAt(expression, lastIndexOfPlus, 1) : [expression];
+    const email = isEmail ? emailOrUsername : '';
     return { email, username, emailOrUsername, roleName };
 
 };

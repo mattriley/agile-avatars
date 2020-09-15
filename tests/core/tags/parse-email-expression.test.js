@@ -2,24 +2,25 @@ module.exports = ({ test, boot }) => {
 
     const { core } = boot();
 
-    const emails = ['foo', 'foo@bar.com', 'foo+bar@qux.com'];
-    const roles = [undefined, '+dev'];
-    
-    const scenarios = emails.flatMap(email => {
-        return roles.flatMap(role => {
-            return {
-                expression: email + (role ?? ''),
-                expected: { username: 'foo', roleName: role ? role.replace('+', '') : role }
-            };
+    test('email', t => {
+        const expression = 'foo+xzy@bar.com+dev';
+        const actual = core.tags.parseEmailExpression(expression);
+        t.equal(actual, { 
+            email: 'foo+xzy@bar.com',
+            username: 'foo',
+            emailOrUsername: 'foo+xzy@bar.com',
+            roleName: 'dev'
         });
     });
-    
-    scenarios.forEach(scenario => {
-        test(`parses email expression: ${scenario.expression}`, t => {
-            const data = core.tags.parseEmailExpression(scenario.expression);
-            t.equal(data.username, scenario.expected.username);
-            t.equal(data.roleName, scenario.expected.roleName);
-            
+
+    test('username', t => {
+        const expression = 'foo+dev';
+        const actual = core.tags.parseEmailExpression(expression);
+        t.equal(actual, { 
+            email: '',
+            username: 'foo',
+            emailOrUsername: 'foo',
+            roleName: 'dev'
         });
     });
 
