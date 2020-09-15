@@ -33,22 +33,17 @@ const runOnly = process.env.RUN_ONLY === 'true';
 const testHarness = createHarness({ indent, runOnly });
 const test = testHarness[runOnly ? 'only' : 'test'];
 
-const runTests = async filePath => {
-    await test(filePath, async ({ only, skip, ...t }) => {
-        const test = async (...args) => { await t.test(...args); };
+const runTests = filePath => {
+    test(filePath, ({ only, skip, ...t }) => {
+        const test = (...args) => t.test(...args);
         Object.assign(test, { only, skip });
-        await require(path.resolve(filePath))({ test, setup, ...args });
+        require(path.resolve(filePath))({ test, setup, ...args });
     });
 };
 
 const start = async () => {
     try {
-        await files.reduce(async (p, f) => {
-            await p;
-            return runTests(f);
-        }, Promise.resolve());
-
-        // files.forEach(runTests);
+        files.forEach(runTests);
         await testHarness.report();
     } catch (e) {
         console.error(e);

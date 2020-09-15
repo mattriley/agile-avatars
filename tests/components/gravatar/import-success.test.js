@@ -1,6 +1,8 @@
-module.exports = async ({ test, boot, helpers, window }) => {
+module.exports = ({ test, setup }) => {
 
-    await test('import succeeds', async t => {
+    test('import succeeds', async t => {
+        const { boot, helpers, window } = setup();
+
         const { components } = boot({
             services: {
                 gravatar: {
