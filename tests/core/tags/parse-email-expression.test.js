@@ -2,7 +2,7 @@ module.exports = ({ test, boot }) => {
 
     const { core } = boot();
 
-    test('email', t => {
+    test('email address', t => {
         const expression = 'foo+xzy@bar.com+dev';
         const actual = core.tags.parseEmailExpression(expression);
         t.equal(actual, { 
