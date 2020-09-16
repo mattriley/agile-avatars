@@ -491,7 +491,7 @@ Where the execution path will reach a system boundary, stub just short of the in
 
 __Example: Gravatar service functions stubbed__
 
-This test creates a 'gravatar modal' and a 'tag list'. Clicking the 'import button' a tag in the tag list using data fetched from Gravatar. The `fetchProfileAsync` and `fetchImageAsync` functions are stubbed to prevent the integration from occurring and to avoid coupling the test to the implementation details of the integration. 
+This test creates a 'gravatar modal' and a 'tag list'. Clicking the 'import button' will render a tag in the tag list using data fetched from Gravatar. The `fetchProfileAsync` and `fetchImageAsync` functions are stubbed to prevent the integration from occurring and to avoid coupling the test to the implementation details of the integration. 
 
 <details open>
 <summary>tests/components/gravatar/import-success.test.js</summary>
