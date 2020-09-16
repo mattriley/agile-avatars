@@ -14,24 +14,24 @@ module.exports = ({ test, setup }) => {
 
         window.document.body.append(components.styles.tagImage()); 
 
-        const $gravatar = components.modals.gravatar();
-        const $freetext = $gravatar.querySelector('.freetext');
-        const $import = $gravatar.querySelector('.import');
+        const $gravatarModal = components.modals.gravatar();
+        const $freetextField = $gravatarModal.querySelector('.freetext');
+        const $importButton = $gravatarModal.querySelector('.import');
         const $tagList = components.tagList();
         
-        $freetext.value = 'foo@bar.com';
-        helpers.dispatchEvent('input', $freetext);
-        t.equal($import.disabled, false);
+        $freetextField.value = 'foo@bar.com';
+        helpers.dispatchEvent('input', $freetextField);
+        t.equal($importButton.disabled, false);
 
         await helpers.onTagListMutation(
             $tagList,
             () => {
-                helpers.dispatchEvent('click', $import);
+                helpers.dispatchEvent('click', $importButton);
             },
             async tag1 => {
                 t.equal(tag1.getTagName(), 'Foo');
                 t.equal(await tag1.getImage(), 'url(data:image/jpg;base64,QllURVM=)');
-                helpers.assertBoolClass(t, $gravatar, 'visible', false); 
+                helpers.assertBoolClass(t, $gravatarModal, 'visible', false); 
             }
         );  
     });

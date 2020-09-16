@@ -9,34 +9,33 @@ module.exports = ({ test, boot, helpers }) => {
             }
         });
 
-        const $gravatar = components.modals.gravatar();
-        const $freetext = $gravatar.querySelector('.freetext');
-        const $import = $gravatar.querySelector('.import');
-        const $error = $gravatar.querySelector('.error');
+        const $gravatarModal = components.modals.gravatar();
+        const $freetextField = $gravatarModal.querySelector('.freetext');
+        const $importButton = $gravatarModal.querySelector('.import');
+        const $errorContainer = $gravatarModal.querySelector('.error');
         
         const freetext = 'foo@bar.com';
 
         await helpers.onMutation(
-            $gravatar,
+            $gravatarModal,
             () => {
-                $freetext.value = freetext;
-                helpers.dispatchEvent('input', $freetext);
-                t.notOk($import.disabled);
-                helpers.dispatchEvent('click', $import);
+                $freetextField.value = freetext;
+                helpers.dispatchEvent('input', $freetextField);
+                t.notOk($importButton.disabled);
+                helpers.dispatchEvent('click', $importButton);
             },
             () => {
-                const $errorMessage = $error.querySelector('.error-message');
-                const $dismiss = $error.querySelector('.dismiss');
-                helpers.assertBoolClass(t, $import, 'visible', false);
-                helpers.assertBoolClass(t, $error, 'visible', true);
+                const $errorMessage = $errorContainer.querySelector('.error-message');
+                const $dismiss = $errorContainer.querySelector('.dismiss');
+                helpers.assertBoolClass(t, $importButton, 'visible', false);
+                helpers.assertBoolClass(t, $errorContainer, 'visible', true);
                 t.equal($errorMessage.textContent, 'An error occurred. Please check your connection and try again.');                
                 helpers.dispatchEvent('click', $dismiss);
             },
             () => {
-                helpers.assertBoolClass(t, $import, 'visible', true);
-                helpers.assertBoolClass(t, $error, 'visible', false);
-                t.equal($freetext.value, freetext);                        
-                
+                helpers.assertBoolClass(t, $importButton, 'visible', true);
+                helpers.assertBoolClass(t, $errorContainer, 'visible', false);
+                t.equal($freetextField.value, freetext);                                        
             }
         );  
     });
