@@ -487,7 +487,56 @@ e.g. image file names, tag names entered directly on tags, and email addresses e
 
 ### 2. System boundary
 
-Execution path will hit a system boundary (e.g. HTTP request to Gravatar). In this case, a stub is inserted in the layer below the presentation layer - the service layer. Another common approach is to stub the actual boundaries, i.e. the HTTP integration. I avoid this because that is a low level detail that should be a black box to a component test.
+Where the execution path will reach a system boundary, stub just short of the integration to avoid coupling the test to the low level implementation details of the integration.
+
+__Example: Gravatar service functions stubbed__
+
+This test creates a 'gravatar modal' and a 'tag list'. Clicking the 'import button' a tag in the tag list using data fetched from Gravatar. The `fetchProfileAsync` and `fetchImageAsync` functions are stubbed to prevent the integration from occurring and to avoid coupling the test to the implementation details of the integration. 
+
+<details open>
+<summary>tests/components/gravatar/import-success.test.js</summary>
+
+```js
+module.exports = ({ test, setup }) => {
+
+    test('import success', async t => {
+        const { boot, helpers, window } = setup();
+
+        const { components } = boot({
+            services: {
+                gravatar: {
+                    fetchProfileAsync: () => ({ displayName: 'foo' }),
+                    fetchImageAsync: () => new window.Blob(['BYTES'], { type: 'image/jpg' })
+                }
+            }
+        });
+
+        window.document.body.append(components.styles.tagImage()); 
+
+        const $gravatarModal = components.modals.gravatar();
+        const $freetextField = $gravatarModal.querySelector('.freetext');
+        const $importButton = $gravatarModal.querySelector('.import');
+        const $tagList = components.tagList();
+        
+        $freetextField.value = 'foo@bar.com';
+        helpers.dispatchEvent('input', $freetextField);
+
+        await helpers.onTagListMutation(
+            $tagList,
+            () => {
+                helpers.dispatchEvent('click', $importButton);
+            },
+            async tag1 => {
+                t.equal(tag1.getTagName(), 'Foo');
+                t.equal(await tag1.getImage(), 'url(data:image/jpg;base64,QllURVM=)');
+                helpers.assertBoolClass(t, $gravatarModal, 'visible', false); 
+            }
+        );  
+    });
+
+};
+```
+</details>
 
 ### 3. Narrow feedback
 
