@@ -13,20 +13,18 @@ module.exports = ({ test, boot }) => {
         t.equal(actualProfile, profile);
     });
 
-    test('return default profile when email is null', async t => {
+    test('return empty profile when email is null', async t => {
         const { services } = boot();
-        const defaultProfile = { displayName: 'foo' };
-        const profile = await services.gravatar.fetchProfileAsync(null, defaultProfile);
-        t.equal(profile, defaultProfile);
+        const profile = await services.gravatar.fetchProfileAsync(null);
+        t.equal(profile, {});
     });
 
-    test('return default profile on 404 not found', async t => {
+    test('return empty profile on 404 not found', async t => {
         const fetch = () => ({ status: 404 });
         const io = { fetch };
         const { services } = boot({ io });
-        const defaultProfile = { displayName: 'foo' };
-        const profile = await services.gravatar.fetchProfileAsync('foo@bar.com', defaultProfile);
-        t.equal(profile, defaultProfile);
+        const profile = await services.gravatar.fetchProfileAsync('foo@bar.com');
+        t.equal(profile, {});
     });
 
     test('throw on unexpected response status', async t => {
