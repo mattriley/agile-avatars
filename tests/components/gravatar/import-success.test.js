@@ -1,6 +1,6 @@
 module.exports = ({ test, setup }) => {
 
-    test('import succeeds', async t => {
+    test('import success', async t => {
         const { boot, helpers, window } = setup();
 
         const { components } = boot({
@@ -21,7 +21,6 @@ module.exports = ({ test, setup }) => {
         
         $freetextField.value = 'foo@bar.com';
         helpers.dispatchEvent('input', $freetextField);
-        t.equal($importButton.disabled, false);
 
         await helpers.onTagListMutation(
             $tagList,

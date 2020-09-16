@@ -13,7 +13,7 @@ module.exports = ({ test, boot, helpers }) => {
         const { components } = boot();
         const $gravatar = components.modals.gravatar();
         const $importButton = $gravatar.querySelector('.import');
-        t.ok($importButton.disabled, true);        
+        t.equal($importButton.disabled, true);        
     });
 
     test('prevented from importing from gravatar with blank input', t => {
@@ -23,7 +23,7 @@ module.exports = ({ test, boot, helpers }) => {
         $freetext.textContent = '   \n   \n   ';
         helpers.dispatchEvent('input', $freetext);
         const $importButton = $gravatar.querySelector('.import');
-        t.ok($importButton.disabled);        
+        t.equal($importButton.disabled, true);
     });
 
     test('gravatar fallback changes', t => {

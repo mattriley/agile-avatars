@@ -1,6 +1,6 @@
 module.exports = ({ test, boot, helpers }) => {
 
-    test('import fails', async t => {
+    test('import failure', async t => {
         const { components } = boot({
             services: {
                 tags: {
