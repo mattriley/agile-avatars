@@ -680,7 +680,9 @@ nyc was originally used for code coverage and was fine however c8 was chosen for
 - Homepage: https://github.com/kimmobrunfeldt/chokidar-cli
 - __4__ dependencies :white_check_mark:
 
+#### Used for
 
+Running tests automatically on file change.
 
 
 

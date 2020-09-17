@@ -38,6 +38,9 @@ module.exports = {
                 nyc: 'nyc was originally used for code coverage and was fine however c8 was chosen for leveraging [native coverage](https://nodejs.org/dist/latest-v10.x/docs/api/cli.html#cli_node_v8_coverage_dir) in recent versions of Node and V8'
             }
         },
+        'chokidar-cli': {
+            usedFor: 'Running tests automatically on file change.'
+        },
         'doctoc': {
             usedFor: 'Generating README table of contents.'
         },
