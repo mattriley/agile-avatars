@@ -254,6 +254,16 @@ Constraints:
 
 <%- dependencies.constraints %>
 
+The following sections lists all dependencies, including:
+
+- Description and Homepage taken from package.json.
+- Number of production dependencies followed by:
+  - :boom: = 0 dependencies, :white_check_mark: = 1-9 dependencies, :warning: = 10+ dependencies
+  - NB: There's no science behind these numbers. This is simply a guide to help keep the number of dependencies low.
+  - NB: It would be even better to list the total number of dependencies in the entire dependency tree.
+- Description of what the dependency is used for.
+- Clarifying comments against the constraints listed above.
+  
 ## Production dependencies
 
 <%- dependencies.production %>
