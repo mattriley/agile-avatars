@@ -1,3 +1,3 @@
 module.exports = {
-    roleName: require('./role-name')
+    roleId: require('./role-id')
 };
