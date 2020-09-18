@@ -9,7 +9,7 @@ module.exports = ({ fs }) => (path, opts = {}) => {
         `<summary>${path}</summary>`,
         '',
         '```js',
-        (opts.includeFootnotes ? code : code.split('/*')[0]).trim(),
+        (opts.includeFootnotes ? code : code.split('/* FOOTNOTES')[0]).trim(),
         '```',
         '</details>'
     ].join('\n');

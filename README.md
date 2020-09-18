@@ -310,7 +310,13 @@ A single HTML file at `./public/index.html` loads `./public/app.js` using a `<sc
 <summary>public/app.js</summary>
 
 ```js
-require('./css
+require('./css/*.css');
+const boot = require('../boot');
+const agileavatars = boot({ window });
+const { components, services } = agileavatars;
+document.body.append(components.app());
+services.settings.changeModal('welcome');
+window.agileavatars = agileavatars;
 ```
 </details>
 
