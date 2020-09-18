@@ -262,9 +262,9 @@ A plain object graph containing only primitive data types.
 
 # Initialisation
 
-The application is 'initialised' by calling the function exported by `./boot.js`. This function has one required argument: `window`. The entire application depends on this given instance of `window` rather than depending on the global `window` object.
+The application is initialised by calling the function exported by `./boot.js`. This function has one required argument - `window`. The entire application depends on this given instance of `window` rather than depending on the global `window` object.
 
-Initialising the application involves loading configuration, composing modules/wiring dependencies, and invoking 'startup' procedures. Initialising the application does not 'launch' it; rather it simply returns initialised modules. This enables the application to be interacted with in a variety of ways.
+Initialising the application involves loading configuration, composing modules/wiring dependencies, and invoking startup procedures. Initialising the application does not launch it; rather it returns initialised modules for use by a consumer. This enables the application to be interacted with in a variety of ways.
 
 <details open>
 <summary>boot.js</summary>
@@ -304,7 +304,7 @@ module.exports = ({ window, ...overrides }) => {
 
 ## Launching the web application
 
-A single HTML file at `./public/index.html` loads `./public/app.js` using a `<script>` tag. `app.js` initialises the application, passing the global `window` object as an argument, and uses the returned `components` module to render the top level `app` component. The returned `services` module is also used to launch the `welcome` modal.
+A single HTML file at `./public/index.html` loads `./public/app.js` using a `<script>` tag. `app.js` initialises the application, passing the global `window` object as an argument, and uses the returned `components` module to render the top level `app` component. The returned `services` module is also used to launch the `welcome` modal. 
 
 <details open>
 <summary>public/app.js</summary>
@@ -318,6 +318,13 @@ document.body.append(components.app());
 ```
 </details>
 
+The initialisation output is also assigned to `window.agileavatars` for debugging purposes:
+
+![Modules displayed in the console](docs/console-modules.png)
+
+This can also be used to view the current state of the application:
+
+![State displayed in the console](docs/console-state.png)
 
 # State management
 
