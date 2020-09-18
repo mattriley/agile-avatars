@@ -319,11 +319,9 @@ document.body.append(components.app());
 </details>
 
 The initialisation output is also assigned to `window.agileavatars` for debugging purposes:
-
 ![Modules displayed in the console](docs/console-modules.png)
 
 This can also be used to view the current state of the application:
-
 ![State displayed in the console](docs/console-state.png)
 
 # State management

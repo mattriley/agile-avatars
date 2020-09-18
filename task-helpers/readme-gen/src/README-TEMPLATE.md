@@ -153,11 +153,9 @@ A single HTML file at `./public/index.html` loads `./public/app.js` using a `<sc
 <%- renderJsFile('public/app.js') %>
 
 The initialisation output is also assigned to `window.agileavatars` for debugging purposes:
-
 ![Modules displayed in the console](docs/console-modules.png)
 
 This can also be used to view the current state of the application:
-
 ![State displayed in the console](docs/console-state.png)
 
 # State management
