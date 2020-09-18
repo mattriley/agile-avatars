@@ -30,10 +30,11 @@ DISCLAIMER: Some of the approaches used are intentionally unconventional. Any at
   - [Stores](#stores)
   - [Subscriptions](#subscriptions)
 - [Testing](#testing)
+  - [Position](#position)
   - [Constraints](#constraints)
   - [Approach](#approach)
 - [Dependencies](#dependencies)
-  - [Position](#position)
+  - [Position](#position-1)
   - [Constraints](#constraints-1)
   - [Production dependencies](#production-dependencies)
   - [Development dependencies](#development-dependencies)
@@ -432,6 +433,15 @@ module.exports = ({ elements, services, subscriptions }) => roleId => {
 
 # Testing 
 
+## Position
+
+The position taken in this application is that tests should enable __Merciless Refactoring__. The constraints below are designed to enable the application to change significantly and rapidly.
+
+Further reading:
+- [Refactoring - Martin Fowler](https://martinfowler.com/tags/refactoring.html)
+- [Refactor Mercilessly - Ward Cunningham](https://wiki.c2.com/?RefactorMercilessly)
+- [Refactor Mercilessly - Don Wells](http://www.extremeprogramming.org/rules/refactor.html)
+
 ## Constraints
 
 - Unit test suite optimised for speed. Max 10 seconds.
@@ -477,14 +487,10 @@ The intent with black box testing is to minimise the chances of tests breaking d
 
 Exceptions are made to the black box approach under certain conditions:
 
-1. Combinatorial explosion
-2. System boundary
-3. Narrow feedback
+1. System boundary
+2. Narrow feedback
 
 
-### 1. Combinatorial explosion
-
-e.g. image file names, tag names entered directly on tags, and email addresses entered into gravatar are actually expressions which could be just a name (no email address), and are parsed to extract an optional role name with "+rolename". But + is also a valid character within an email address. So example inputs to be tested could be: foo, foo+role, foo@bar.com, foo@bar.com+role, foo+abc@bar.com+role. These combinations are tested at the service layer, closer to the implementation. The gravatar component uses an example input instead. 
 
 ### 2. System boundary
 
@@ -552,8 +558,6 @@ This testing approach supports classic TDD more so than mockist TDD.
 Links
 - [UnitTest - Martin Fowler](https://martinfowler.com/bliki/UnitTest.html)
   - [Solitary or Sociable?](https://martinfowler.com/bliki/UnitTest.html#SolitaryOrSociable)
-- [Refactor Mercilessly - Ward Cunningham](https://wiki.c2.com/?RefactorMercilessly)
-- [Merciless Refactoring - James Shore](https://www.jamesshore.com/v2/blog/2005/merciless-refactoring)
 
 
 # Dependencies
