@@ -14,6 +14,9 @@ module.exports = ({ test, boot, helpers }) => {
         const $importButton = $gravatarModal.querySelector('.import');
         const $errorContainer = $gravatarModal.querySelector('.error');
         
+        const assertImportButtonVisible = helpers.assertBoolClass(t, $importButton, 'visible');
+        const assertErrorContainerVisible = helpers.assertBoolClass(t, $errorContainer, 'visible');
+
         const freetext = 'foo@bar.com';
 
         await helpers.onMutation(
@@ -27,14 +30,14 @@ module.exports = ({ test, boot, helpers }) => {
             () => {
                 const $errorMessage = $errorContainer.querySelector('.error-message');
                 const $dismiss = $errorContainer.querySelector('.dismiss');
-                helpers.assertBoolClass(t, $importButton, 'visible', false);
-                helpers.assertBoolClass(t, $errorContainer, 'visible', true);
+                assertImportButtonVisible(false);
+                assertErrorContainerVisible(true);
                 t.equal($errorMessage.textContent, 'An error occurred. Please check your connection and try again.');                
                 helpers.dispatchEvent('click', $dismiss);
             },
             () => {
-                helpers.assertBoolClass(t, $importButton, 'visible', true);
-                helpers.assertBoolClass(t, $errorContainer, 'visible', false);
+                assertImportButtonVisible(true);
+                assertErrorContainerVisible(false);
                 t.equal($freetextField.value, freetext);                                        
             }
         );  

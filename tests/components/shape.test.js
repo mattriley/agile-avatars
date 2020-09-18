@@ -7,10 +7,10 @@ module.exports = ({ test, boot, window, helpers }) => {
         const $shape = components.optionsBar.elements.shapeOption(shapeName);   
         const $anotherShape = components.optionsBar.elements.shapeOption('foobar');
         helpers.dispatchEvent('click', $anotherShape);
-        helpers.assertBoolClass(t, $shape, 'selected', false);
+        const assertSelected = helpers.assertBoolClass(t, $shape, 'selected');
+        assertSelected(false);
         helpers.dispatchEvent('click', $shape);
-        helpers.assertBoolClass(t, $shape, 'selected', true);
-        
+        assertSelected(true);        
     };
 
     const shapeTestCase = (t, shapeName) => {
@@ -50,10 +50,10 @@ module.exports = ({ test, boot, window, helpers }) => {
         const $shape = components.optionsBar.elements.shapeOption(shapeName);   
         const $anotherShape = components.optionsBar.elements.shapeOption('foobar');
         helpers.dispatchEvent('click', $anotherShape);
-        helpers.assertBoolClass(t, $shape, 'selected', false);
+        const assertSelected = helpers.assertBoolClass(t, $shape, 'selected');
+        assertSelected(false);
         helpers.dispatchKeydown($shape, 'A');
-        helpers.assertBoolClass(t, $shape, 'selected', false);
-        
+        assertSelected(false);        
     });
 
 };

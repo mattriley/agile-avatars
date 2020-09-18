@@ -3,10 +3,11 @@ module.exports = ({ test, boot, helpers }) => {
     test('launches gravatar', t => {
         const { components } = boot();
         const $gravatarModal = components.modals.gravatar();
-        helpers.assertBoolClass(t, $gravatarModal, 'visible', false);
+        const assertVisible = helpers.assertBoolClass(t, $gravatarModal, 'visible');
+        assertVisible(false);
         const $gravatarLink = components.imageUploadOptions.gravatar();
         helpers.dispatchEvent('click', $gravatarLink);
-        helpers.assertBoolClass(t, $gravatarModal, 'visible', true);        
+        assertVisible(true);        
     });
 
     test('prevented from importing from gravatar with no input', t => {

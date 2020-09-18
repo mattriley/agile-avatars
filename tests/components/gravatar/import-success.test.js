@@ -18,6 +18,8 @@ module.exports = ({ test, setup }) => {
         const $freetextField = $gravatarModal.querySelector('.freetext');
         const $importButton = $gravatarModal.querySelector('.import');
         const $tagList = components.tagList();
+
+        const assertGravatarModalVisible = helpers.assertBoolClass(t, $gravatarModal, 'visible'); 
         
         $freetextField.value = 'foo@bar.com';
         helpers.dispatchEvent('input', $freetextField);
@@ -25,12 +27,12 @@ module.exports = ({ test, setup }) => {
         await helpers.onTagListMutation(
             $tagList,
             () => {
-                helpers.dispatchEvent('click', $importButton);
+                helpers.dispatchEvent('click', $importButton);                
             },
             async tag1 => {
                 t.equal(tag1.getTagName(), 'Foo');
                 t.equal(await tag1.getImage(), 'url(data:image/jpg;base64,QllURVM=)');
-                helpers.assertBoolClass(t, $gravatarModal, 'visible', false); 
+                assertGravatarModalVisible(false);
             }
         );  
     });

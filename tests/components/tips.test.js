@@ -4,8 +4,10 @@ module.exports = ({ test, boot, helpers }) => {
         const { components } = boot();
         const $tipsLink = components.header.navBar().querySelector('.tips');
         const $tipsModal = components.modals.tips('tips');
+        const assertVisible = helpers.assertBoolClass(t, $tipsModal, 'visible');
+        assertVisible(false);    
         helpers.dispatchEvent('click', $tipsLink);
-        helpers.assertBoolClass(t, $tipsModal, 'visible', true);        
+        assertVisible(true);       
     });
     
 };

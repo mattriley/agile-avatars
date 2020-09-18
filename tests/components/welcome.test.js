@@ -2,12 +2,14 @@ module.exports = ({ test, boot, helpers }) => {
 
     test('welcome modal dismissed by continue button', t => {
         const { components, services } = boot();
-        const $welcome = components.modals.welcome();
+        const $welcomeModal = components.modals.welcome();
+        const assertVisible = helpers.assertBoolClass(t, $welcomeModal, 'visible');
+        assertVisible(false);
         services.settings.changeModal('welcome');
-        const $dismiss = $welcome.querySelector('button');
+        assertVisible(true);
+        const $dismiss = $welcomeModal.querySelector('button');
         helpers.dispatchEvent('click', $dismiss);
-        helpers.assertBoolClass(t, $welcome, 'visible', false);  
-        
+        assertVisible(false);        
     });
 
 };
