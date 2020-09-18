@@ -312,11 +312,9 @@ A single HTML file at `./public/index.html` loads `./public/app.js` using a `<sc
 ```js
 require('./css/*.css');
 const boot = require('../boot');
-const agileavatars = boot({ window });
-const { components, services } = agileavatars;
-document.body.append(components.app());
+const { components, services } = window.agileavatars = boot({ window });
 services.settings.changeModal('welcome');
-window.agileavatars = agileavatars;
+document.body.append(components.app());
 ```
 </details>
 
