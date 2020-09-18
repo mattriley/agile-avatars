@@ -162,13 +162,19 @@ This can also be used to view the current state of the application:
 
 Rather than acting on individual files, tests act on the initialised instance of the application. 
 
-__Example: Options bar not visible until first tag inserted__
+__Example: A component test that depends on shared state__
 
 This test initialises the application by calling the `boot` function and uses the `components` module to create an 'options bar' which should initially be hidden. It then uses the `services` module to insert a tag which should cause the options bar to become visible. 
 
 <%- renderJsFile('tests/components/options-bar.test.js') %>
 
 NB: As mentioned previously, the `boot` function has 1 required argument - `window`. This version of the `boot` function is actually a wrapper that supplies an instance of `window` provided by [JSDOM](https://github.com/jsdom/jsdom) to the original `boot` function for testing purposes.
+
+__Example: A service test that depends on IO__
+
+This test initialises the application by calling the `boot` function, overriding the `random` function in the `io` module. Any arguments supplied to `boot` apart from `window` are taken as __module overrides__. This effectively enables the use of a __test double__ without the need for a library.
+
+<%- renderJsFile('tests/services/roles/random-color.test.js') %>
 
 # State management
 
