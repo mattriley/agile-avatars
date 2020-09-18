@@ -26,6 +26,8 @@ DISCLAIMER: Some of the approaches used may be unconventional. Any attempt to em
 - [Summary of technical constraints](#summary-of-technical-constraints)
 - [Architecture](#architecture)
   - [Architectural components](#architectural-components)
+- [Initialisation](#initialisation)
+  - [Launching the web application](#launching-the-web-application)
 - [State management](#state-management)
   - [Stores](#stores)
   - [Subscriptions](#subscriptions)
@@ -257,6 +259,61 @@ A plain object graph containing only utility functions without collaborators.
 ### Config
 
 A plain object graph containing only primitive data types.
+
+# Initialisation
+
+The application is 'initialised' by calling the function exported by `./boot.js`. This function has one required argument: `window`. The entire application depends on this given instance of `window` rather than depending on the global `window` object.
+
+Initialising the application involves loading configuration, composing modules/wiring dependencies, and invoking 'startup' procedures. Initialising the application does not 'launch' it; rather it simply returns initialised modules. This enables the application to be interacted with in a variety of ways.
+
+<details open>
+<summary>boot.js</summary>
+
+```js
+const sentry = require('@sentry/browser');
+const composer = require('module-composer');
+const { lib, startup, ...src } = require('./src');
+
+module.exports = ({ window, ...overrides }) => {
+
+    const compose = composer(src, { overrides });
+
+    const io = compose('io', { window });
+    const config = compose('config', { io, window });
+    sentry.init(config.sentry);
+        
+    // Data layer
+    const { state, stores, subscriptions } = startup.createStores({ lib, config });
+        
+    // Domain layer
+    const core = compose('core', { lib, config });
+    const services = compose('services', { subscriptions, stores, core, io, lib, config, sentry });
+
+    // Presentation layer
+    const { el, ...elements } = compose('elements', { lib, window });
+    const components = compose('components', { el, elements, services, subscriptions, lib, config, window });
+
+    startup.insertNilRole({ config, stores });
+    startup.createHandlers({ services, subscriptions, lib, config });
+
+    return { components, elements, services, core, subscriptions, lib, config, state };
+
+};
+```
+</details>
+
+## Launching the web application
+
+A single HTML file at `./public/index.html` loads `./public/app.js` using a `<script>` tag. `app.js` initialises the application, passing the global `window` object as an argument, and uses the returned `components` module to render the top level `app` component. The returned `services` module is also used to launch the `welcome` modal.
+
+<details open>
+<summary>public/app.js</summary>
+
+```js
+require('./css
+```
+</details>
+
 
 # State management
 
