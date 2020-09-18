@@ -33,6 +33,8 @@ DISCLAIMER: Some of the approaches used are intentionally unconventional. Any at
   - [Constraints](#constraints)
   - [Approach](#approach)
 - [Dependencies](#dependencies)
+  - [Position](#position)
+  - [Constraints](#constraints-1)
   - [Production dependencies](#production-dependencies)
   - [Development dependencies](#development-dependencies)
 - [Conventions](#conventions)
@@ -556,7 +558,18 @@ Links
 
 # Dependencies
 
-Constraints:
+## Position
+
+The position taken in this application is to view depenendencies as liabilities.
+That's not to say dependencies should be avoided at all costs.
+The constraints below are designed to minimise dependencies and encourage due diligence in cases where dependencies might be appropriate.
+
+Further reading:
+- [Unix philosophy - Wikipedia](https://en.wikipedia.org/wiki/Unix_philosophy)
+- [Dependency Management Guidelines For Rails Teams - Brandon Dees](https://blog.engineyard.com/dependency-management-guidelines-for-rails-teams)
+- [3 pitfalls of relying on third-party code libraries - Andy Henson](https://www.foxsoft.co.uk/3-pitfalls-of-relying-on-third-party-code-libraries/)
+
+## Constraints
 
 - Not driven by hype or popularity
 - No alternative built into JavaScript exists
@@ -568,12 +581,6 @@ Constraints:
 - Low maintenance
 - Low likelihood of changing in a material way
 - Low impact of material change
-
-- Prefer dependencies that do one thing and do it well.
-  - [Unix philosophy - Wikipedia](https://en.wikipedia.org/wiki/Unix_philosophy)
-- Dependencies are liabilities. Exercise due diligence.
-  - [Dependency Management Guidelines For Rails Teams - Brandon Dees](https://blog.engineyard.com/dependency-management-guidelines-for-rails-teams)
-  - [3 pitfalls of relying on third-party code libraries - Andy Henson](https://www.foxsoft.co.uk/3-pitfalls-of-relying-on-third-party-code-libraries/)
 
 The following sections lists all dependencies, including:
 
