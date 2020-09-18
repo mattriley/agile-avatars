@@ -140,13 +140,13 @@ A plain object graph containing only primitive data types.
 
 # Initialisation
 
-The application is initialised by calling the function exported by `./boot.js`. This function has one required argument - `window`. The entire application depends on this given instance of `window` rather than depending on the global `window` object.
+The application is initialised by calling the function exported by `./boot.js`. This function has 1 required argument - `window`. The entire application depends on this given instance of `window` rather than depending on the global `window` object.
 
 Initialising the application involves loading configuration, composing modules/wiring dependencies, and invoking startup procedures. Initialising the application does not launch it; rather it returns initialised modules for use by a consumer. This enables the application to be interacted with in a variety of ways.
 
 <%- renderJsFile('boot.js') %>
 
-## Launching the web application
+## Launching the application
 
 A single HTML file at `./public/index.html` loads `./public/app.js` using a `<script>` tag. `app.js` initialises the application, passing the global `window` object as an argument, and uses the returned `components` module to render the top level `app` component. The returned `services` module is also used to launch the `welcome` modal. 
 
@@ -157,6 +157,18 @@ The initialisation output is also assigned to `window.agileavatars` for debuggin
 
 This can also be used to view the current state of the application:
 ![State displayed in the console](docs/console-state.png)
+
+## Testing the application
+
+Rather than acting on individual files, tests act on the initialised instance of the application. 
+
+__Example: Options bar not visible until first tag inserted__
+
+This test initialises the application by calling the `boot` function and uses the `components` module to create an 'options bar' which should initially be hidden. It then uses the `services` module to insert a tag which should cause the options bar to become visible. 
+
+<%- renderJsFile('tests/components/options-bar.test.js') %>
+
+NB: As mentioned previously, the `boot` function has 1 required argument - `window`. This version of the `boot` function is actually a wrapper that supplies an instance of `window` provided by [JSDOM](https://github.com/jsdom/jsdom) to the original `boot` function for testing purposes.
 
 # State management
 
