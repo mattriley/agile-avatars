@@ -6,8 +6,8 @@ module.exports = ({ test, setup }) => {
         const { components } = boot({
             services: {
                 gravatar: {
-                    fetchProfileAsync: () => ({ displayName: 'foo' }),
-                    fetchImageAsync: () => new window.Blob(['BYTES'], { type: 'image/jpg' })
+                    fetchProfileAsync: () => Promise.resolve({ displayName: 'foo' }),
+                    fetchImageAsync: () => Promise.resolve(new window.Blob(['BYTES'], { type: 'image/jpg' }))
                 }
             }
         });
@@ -27,7 +27,8 @@ module.exports = ({ test, setup }) => {
         await helpers.onTagListMutation(
             $tagList,
             () => {
-                helpers.dispatchEvent('click', $importButton);                
+                helpers.dispatchEvent('click', $importButton);    
+
             },
             async tag1 => {
                 t.equal(tag1.getTagName(), 'Foo');

@@ -1,7 +1,8 @@
 module.exports = ({ core, lib }) => (roleData, randomColor) => {
     
     return lib.util.pipe(
-        core.roles.dataTransforms.roleName(roleData),
+        () => roleData,
+        core.roles.dataTransforms.roleName,
         core.roles.dataTransforms.roleColor(randomColor)
     );
 

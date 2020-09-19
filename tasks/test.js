@@ -42,14 +42,16 @@ const runTests = filePath => {
 };
 
 const start = async () => {
+    let uncaughtError = null;
+    
     try {
         files.forEach(runTests);
         await testHarness.report();
     } catch (e) {
         console.error(e);
-        process.exit(1);
+        uncaughtError = e;
     } finally {
-        process.exit(testHarness.pass ? 0 : 1);
+        process.exitCode = !testHarness.pass || uncaughtError ? 1 : 0;
     }
 };
 

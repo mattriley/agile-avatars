@@ -4,7 +4,7 @@ module.exports = ({ test, boot, helpers }) => {
         const { components } = boot({
             services: {
                 tags: {
-                    insertGravatarAsync: () => { throw new Error(); }
+                    insertGravatarAsync: () => Promise.reject(new Error())
                 }
             }
         });

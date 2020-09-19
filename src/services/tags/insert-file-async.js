@@ -1,7 +1,8 @@
 module.exports = ({ core, services, lib }) => file => {
 
     return lib.util.pipe(
-        core.tags.parseFileExpression(file.name),
+        () => file.name,
+        core.tags.parseFileExpression,
         services.tags.insertTag,
         services.tags.attachImageAsync(file)
     );
