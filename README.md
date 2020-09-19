@@ -23,7 +23,8 @@ DISCLAIMER: Some of the approaches used may be unconventional. Any attempt to em
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 - [Getting started](#getting-started)
-- [Summary of technical constraints](#summary-of-technical-constraints)
+- [Design goals](#design-goals)
+- [Technical constraints](#technical-constraints)
 - [Architecture](#architecture)
   - [Architectural components](#architectural-components)
 - [Initialisation](#initialisation)
@@ -60,7 +61,16 @@ __iTerm2 automated window arrangement (macOS only)__
 - Install iTermocil: `./task itermocil-install`
 - Launch window arrangement: `./task itermocil`
 
-# Summary of technical constraints
+# Design goals
+
+- Beginner friendly. Minimise prerequisite knowledge.
+- Reduce cognitive load. Simplicity. Minimalism. Organisation. Ability to maintain a mental model.
+- Low maintenance. Avoid dependencies that could impact the application in a material way.
+- Flexibility. Avoid dependencies that take over the control flow of the application.
+- Easy to change. Tests run fast. Tests are behavioural.
+- Functional leaning. Avoid strict functional programming.
+
+# Technical constraints
 
 - No languages that compile to JavaScript; No TypeScript. 
   - [You Might Not Need TypeScript (or Static Types) - Eric Elliott](https://medium.com/javascript-scene/you-might-not-need-typescript-or-static-types-aa7cb670a77b)
