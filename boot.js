@@ -15,7 +15,7 @@ module.exports = ({ window, ...overrides }) => {
         
     // Domain layer
     const core = compose('core', { lib, config });
-    const services = compose('services', { subscriptions, stores, core, io, lib, config, sentry });
+    const services = compose('services', { subscriptions, stores, core, io, lib, config });
 
     // Presentation layer
     const { el, ...elements } = compose('elements', { lib, window });

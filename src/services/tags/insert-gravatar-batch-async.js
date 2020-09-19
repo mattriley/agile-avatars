@@ -1,4 +1,4 @@
-module.exports = ({ services, config, sentry }) => async (emails, fallback) => {
+module.exports = ({ services, config }) => async (emails, fallback) => {
     
     try {
         services.gravatar.status.to.working();
@@ -7,8 +7,8 @@ module.exports = ({ services, config, sentry }) => async (emails, fallback) => {
         services.gravatar.status.to.ready();
         services.settings.clearModal();
     } catch (err) {
-        sentry.captureException(err);
         services.gravatar.status.to.error(config.gravatar.errorMessage);
+        throw err;
     }
 
 };
