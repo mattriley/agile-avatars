@@ -6,4 +6,6 @@ export INDENT=true
 
 : ${REPORTER:=spec}
 
-find "$TESTS" -name "*.test.js" -print | xargs node "./tasks/test.js" | npx tap-mocha-reporter $REPORTER
+find "$TESTS" -name "*.test.js" -print \
+    | xargs node --unhandled-rejections=none "./tasks/test.js" \
+    | npx tap-mocha-reporter $REPORTER
