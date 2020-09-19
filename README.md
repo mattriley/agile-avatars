@@ -43,6 +43,7 @@ DISCLAIMER: Some of the approaches used may be unconventional. Any attempt to em
   - [Production dependencies](#production-dependencies)
   - [Development dependencies](#development-dependencies)
 - [Conventions](#conventions)
+- [Observations](#observations)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -100,7 +101,7 @@ A familiar presentation/domain/data __layered architecture__ has been used to ma
 
 ## Modules
 
-During initialisation, all source files comprising a module are loaded and aggregated into a plain object graph. This is helpful for builing a mental model, shifting the reasoning about the design from files to modules. Each module has a clear purpose and dependencies between modules are explicitly defined. See [Initialisation](#initialisation) for more details.
+During initialisation, all source files comprising a module are loaded and aggregated into a plain object graph. This is helpful for shifting our mental model from files to modules. Each module has a clear purpose and relationships between modules are explicitly defined. See [Initialisation](#initialisation) for more details.
 
 ### Components
 
@@ -1022,3 +1023,9 @@ This just makes it easier to know when to use `await`.
 
 - Prefer `const` over `let`, and avoid `var`.
 - Prefer higher-order functions such as `filter`, `map`, `reduce`, over imperative looping statements.
+
+# Observations
+
+### No id required on elements. No need to query for elements.
+
+Because ultimately this approach uses `document.createElement` to create elements, and all interaction with elements are encapsulated within builder functions, we always have a direct reference to the element. This eliminates the need to assign an id, or lookup elements using `document.getElementById` or `document.querySelector` or some variation of these.
