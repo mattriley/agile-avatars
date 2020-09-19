@@ -1,12 +1,15 @@
-module.exports = ({ core, services }) => async (expression, defaultImage) => {
+module.exports = ({ core, services }) => (expression, defaultImage) => {
 
     const { email, username, emailOrUsername, roleName } = core.tags.parseEmailExpression(expression);
     
-    const profile = await services.gravatar.fetchProfileAsync(email);
-    const tagName = core.gravatar.getNameFromProfile(profile, username);
-    const tagId = services.tags.insertTag({ tagName, roleName });
+    const profilePromise = services.gravatar.fetchProfileAsync(email).then(profile => {
+        const tagName = core.gravatar.getNameFromProfile(profile, username);
+        return services.tags.insertTag({ tagName, roleName });
+    });
 
-    const imageBlob = await services.gravatar.fetchImageAsync(emailOrUsername, defaultImage);
-    return services.tags.attachImageAsync(imageBlob)(tagId);
+    return services.gravatar.fetchImageAsync(emailOrUsername, defaultImage).then(async imageBlob => {
+        const tagId = await profilePromise;
+        return services.tags.attachImageAsync(imageBlob)(tagId);
+    });
 
 };
