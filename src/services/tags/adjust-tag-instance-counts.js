@@ -1,6 +1,6 @@
 module.exports = ({ core, config, stores, services }) => () => {
 
-    const tags = stores.tags.getArray();
+    const tags = stores.tags.list();
 
     const options = stores.settings.find('options');
     const modeCounts = Object.fromEntries(config.options.modes.map(mode => [mode, options[mode]]));

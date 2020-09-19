@@ -1,9 +1,9 @@
 module.exports = ({ core, stores }) => () => {
     
     const sorts = {
-        orderAdded: stores.tags.getArray,
-        roleThenName: () => core.tags.sortTagsByRoleThenName(stores.tags.getArray(), stores.roles.find),
-        name: () => core.tags.sortTagsByName(stores.tags.getArray())
+        orderAdded: stores.tags.list,
+        roleThenName: () => core.tags.sortTagsByRoleThenName(stores.tags.list(), stores.roles.find),
+        name: () => core.tags.sortTagsByName(stores.tags.list())
     };
 
     const { sort } = stores.settings.find('options');

@@ -6,7 +6,7 @@ module.exports = (state, defaults = {}) => {
     const collectionEmitter = new EventEmitter();
 
     const manage = id => operations[id] ?? { find: () => null };
-    const getArray = () => Object.values(state);
+    const list = () => Object.values(state);
     const find = id => manage(id).find();
     const update = (id, changes) => manage(id).update(changes);
 
@@ -56,7 +56,7 @@ module.exports = (state, defaults = {}) => {
     
     Object.entries(defaults).map(([id, entry]) => ({ id, ...entry })).forEach(entry => insert(entry));
 
-    return { manage, insert, remove, getArray, find, update, subscriptions };
+    return { manage, insert, remove, list, find, update, subscriptions };
 
 };
 
