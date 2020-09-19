@@ -1,11 +1,9 @@
 module.exports = ({ core, services, lib }) => file => {
 
-    const pipeline = [
+    return lib.util.pipe(
         core.tags.parseFileExpression,
         services.tags.insertTag,
         services.tags.attachImageAsync(file)
-    ];
-
-    return lib.util.pipe(pipeline, file.name);
+    )(file.name);
     
 };
