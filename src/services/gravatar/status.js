@@ -14,17 +14,17 @@ module.exports = ({ stores }) => {
     const to = {
         ready: () => {
             const { freetext } = stores.settings.getState('gravatar');
-            stores.settings.setState('gravatar', {
+            stores.settings.update('gravatar', {
                 status: STATUS.ready,
                 freetext: is.error() ? freetext : '',
                 errorMessage: ''
             });
         },
         working: () => {
-            stores.settings.setState('gravatar', { status: STATUS.working });
+            stores.settings.update('gravatar', { status: STATUS.working });
         },
         error: errorMessage => {
-            stores.settings.setState('gravatar', { status: STATUS.error, errorMessage });
+            stores.settings.update('gravatar', { status: STATUS.error, errorMessage });
         }
     };
    

@@ -5,7 +5,7 @@ module.exports = ({ services, stores }) => tagInstanceData => {
     const tag = stores.tags.getState(tagId);
 
     const tagInstanceId = stores.tagInstances.insert(tagInstance, tagInstanceId => {
-        stores.tags.setState(tagId, {
+        stores.tags.update(tagId, {
             instances: tag.instances.concat(tagInstanceId),
             [mode]: tag[mode].concat(tagInstanceId)
         });

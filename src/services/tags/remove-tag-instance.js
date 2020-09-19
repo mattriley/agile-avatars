@@ -5,7 +5,7 @@ module.exports = ({ stores }) => tagInstanceId => {
 
     const notThis = id => id !== tagInstanceId;
 
-    stores.tags.setState(tagId, {
+    stores.tags.update(tagId, {
         instances: tag.instances.filter(notThis),
         [mode]: tag[mode].filter(notThis)
     });

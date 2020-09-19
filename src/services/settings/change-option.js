@@ -1,5 +1,5 @@
 module.exports = ({ stores }) => (name, value) => {
 
-    stores.settings.setState('options', { [name]: value });
+    stores.settings.update('options', { [name]: value });
     
 };

@@ -1,5 +1,5 @@
 module.exports = ({ stores }) => (roleId, color) => {
 
-    stores.roles.setState(roleId, { color });
+    stores.roles.update(roleId, { color });
 
 };

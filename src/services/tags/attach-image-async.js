@@ -6,6 +6,6 @@ module.exports = ({ stores, io }) => imageBlob => async tagId => {
         reader.readAsDataURL(imageBlob);
     });
 
-    stores.tags.setState(tagId, { image });
+    stores.tags.update(tagId, { image });
 
 };

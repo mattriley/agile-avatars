@@ -26,7 +26,7 @@ module.exports = ({ test, boot }) => {
         const store = lib.storage.stateStore({});
         const data = { foo: 'bar' };
         const id = store.insert(data);
-        store.setState(id, { foo: 'boo', baz: 'qux' });
+        store.update(id, { foo: 'boo', baz: 'qux' });
         const state = store.getState(id);
         t.same(state, { id: 1, foo: 'boo', baz: 'qux' });
         
@@ -106,7 +106,7 @@ module.exports = ({ test, boot }) => {
             
         });
 
-        store.setState(id, { foo: 'boo' });
+        store.update(id, { foo: 'boo' });
     });
 
 };

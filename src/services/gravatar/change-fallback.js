@@ -1,5 +1,5 @@
 module.exports = ({ stores }) => fallback => {
 
-    stores.settings.setState('gravatar', { fallback });
+    stores.settings.update('gravatar', { fallback });
 
 };
