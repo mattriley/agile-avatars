@@ -16,7 +16,7 @@ module.exports = ({ test, boot }) => {
         const store = lib.storage.stateStore({});
         const data = { foo: 'bar' };
         const id = store.insert(data);
-        const state = store.getState(id);
+        const state = store.find(id);
         t.same(state, { id: 1, foo: 'bar' });
         
     });
@@ -27,7 +27,7 @@ module.exports = ({ test, boot }) => {
         const data = { foo: 'bar' };
         const id = store.insert(data);
         store.update(id, { foo: 'boo', baz: 'qux' });
-        const state = store.getState(id);
+        const state = store.find(id);
         t.same(state, { id: 1, foo: 'boo', baz: 'qux' });
         
     });
@@ -37,7 +37,7 @@ module.exports = ({ test, boot }) => {
         const store = lib.storage.stateStore({});
 
         store.subscriptions.onInsert(id => {
-            const state = store.getState(id);
+            const state = store.find(id);
             t.same(state, { id: 1, foo: 'bar' });
             
         });
@@ -60,7 +60,7 @@ module.exports = ({ test, boot }) => {
         const data = { foo: 'bar' };
 
         store.insert(data, id => {
-            const state = store.getState(id);
+            const state = store.find(id);
             t.same(state, { id: 1, foo: 'bar' });
             callbackInvoked = true;
         });
@@ -72,7 +72,7 @@ module.exports = ({ test, boot }) => {
         const data = { foo: 'bar' };
         const id = store.insert(data);
         store.remove(id);
-        const state = store.getState(id);
+        const state = store.find(id);
         t.equal(state, null);
         
     });
@@ -82,7 +82,7 @@ module.exports = ({ test, boot }) => {
         const store = lib.storage.stateStore({});
 
         store.subscriptions.onBeforeRemove(id => {
-            const state = store.getState(id);
+            const state = store.find(id);
             t.same(state, { id: 1, foo: 'bar' });
             
         });
@@ -101,7 +101,7 @@ module.exports = ({ test, boot }) => {
         const id = store.insert(data);
 
         store.subscriptions.onChangeAny('foo', () => {
-            const state = store.getState(id);
+            const state = store.find(id);
             t.same(state, { id: 1, foo: 'boo' });
             
         });

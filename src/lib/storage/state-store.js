@@ -5,9 +5,9 @@ module.exports = (state, defaults = {}) => {
     const operations = {};
     const collectionEmitter = new EventEmitter();
 
-    const manage = id => operations[id] ?? { getState: () => null };
+    const manage = id => operations[id] ?? { find: () => null };
     const getArray = () => Object.values(state);
-    const getState = id => manage(id).getState();
+    const find = id => manage(id).find();
     const update = (id, changes) => manage(id).update(changes);
 
     const onChange = (id, field, listener) => manage(id).subscriptions.onChange(field, listener);
@@ -22,7 +22,7 @@ module.exports = (state, defaults = {}) => {
         const item = { id, ...data };
         const itemEmitter = new EventEmitter();
 
-        const getState = () => ({ ...item });
+        const find = () => ({ ...item });
 
         const update = changes => {
             Object.entries(changes).forEach(([field, val]) => {
@@ -39,7 +39,7 @@ module.exports = (state, defaults = {}) => {
         };
 
         const subscriptions = { onChange };
-        operations[id] = { getState, update, subscriptions };
+        operations[id] = { find, update, subscriptions };
         state[id] = item;  
 
         if (callback) callback(id);
@@ -56,7 +56,7 @@ module.exports = (state, defaults = {}) => {
     
     Object.entries(defaults).map(([id, entry]) => ({ id, ...entry })).forEach(entry => insert(entry));
 
-    return { manage, insert, remove, getArray, getState, update, subscriptions };
+    return { manage, insert, remove, getArray, find, update, subscriptions };
 
 };
 

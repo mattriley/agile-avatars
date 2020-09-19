@@ -7,13 +7,13 @@ const STATUS = {
 module.exports = ({ stores }) => {
 
     const is = Object.keys(STATUS).reduce((acc, status) => {
-        const func = () => stores.settings.getState('gravatar').status === status;
+        const func = () => stores.settings.find('gravatar').status === status;
         return Object.assign(acc, { [status]: func });
     }, {});
 
     const to = {
         ready: () => {
-            const { freetext } = stores.settings.getState('gravatar');
+            const { freetext } = stores.settings.find('gravatar');
             stores.settings.update('gravatar', {
                 status: STATUS.ready,
                 freetext: is.error() ? freetext : '',

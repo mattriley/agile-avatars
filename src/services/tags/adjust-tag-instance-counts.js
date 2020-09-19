@@ -2,7 +2,7 @@ module.exports = ({ core, config, stores, services }) => () => {
 
     const tags = stores.tags.getArray();
 
-    const options = stores.settings.getState('options');
+    const options = stores.settings.find('options');
     const modeCounts = Object.fromEntries(config.options.modes.map(mode => [mode, options[mode]]));
     const plans = core.tags.planTagInstanceAdjustment(tags, modeCounts);
 

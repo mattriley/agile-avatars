@@ -1,7 +1,7 @@
 module.exports = ({ stores }) => tagInstanceId => {
 
-    const { tagId, mode } = stores.tagInstances.getState(tagInstanceId);
-    const tag = stores.tags.getState(tagId);
+    const { tagId, mode } = stores.tagInstances.find(tagInstanceId);
+    const tag = stores.tags.find(tagId);
 
     const notThis = id => id !== tagInstanceId;
 

@@ -2,12 +2,12 @@ module.exports = ({ core, stores }) => () => {
     
     const sorts = {
         orderAdded: stores.tags.getArray,
-        roleThenName: () => core.tags.sortTagsByRoleThenName(stores.tags.getArray(), stores.roles.getState),
+        roleThenName: () => core.tags.sortTagsByRoleThenName(stores.tags.getArray(), stores.roles.find),
         name: () => core.tags.sortTagsByName(stores.tags.getArray())
     };
 
-    const { sort } = stores.settings.getState('options');
+    const { sort } = stores.settings.find('options');
     const tags = sorts[sort]();
-    return core.tags.sortTagInstancesByTagThenMode(tags, stores.tagInstances.getState);
+    return core.tags.sortTagInstancesByTagThenMode(tags, stores.tagInstances.find);
 
 };
