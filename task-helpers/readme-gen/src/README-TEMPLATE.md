@@ -353,9 +353,10 @@ This just makes it easier to know when to use `await`.
 
 - Prefer `const` over `let`, and avoid `var`.
 - Prefer higher-order functions such as `filter`, `map`, `reduce`, over imperative looping statements.
+- Separate pure from impure functions.
 
 # Observations
 
-### No `id` required on elements. No need to query for elements.
+### No id required on elements. No need to query for elements.
 
 Because ultimately this approach uses `document.createElement` to create elements, and all interaction with elements are encapsulated within builder functions, we always have a direct reference to the element. This eliminates the need to assign an id, or lookup elements using `document.getElementById` or `document.querySelector` or some variation of these.

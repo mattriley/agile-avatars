@@ -1023,6 +1023,7 @@ This just makes it easier to know when to use `await`.
 
 - Prefer `const` over `let`, and avoid `var`.
 - Prefer higher-order functions such as `filter`, `map`, `reduce`, over imperative looping statements.
+- Separate pure from impure functions.
 
 # Observations
 
