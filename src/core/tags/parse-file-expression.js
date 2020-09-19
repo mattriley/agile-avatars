@@ -1,4 +1,4 @@
-module.exports = () => expression => {
+module.exports = () => expression => () => {
 
     const [tagName, roleName] = expression
         .split('/')
