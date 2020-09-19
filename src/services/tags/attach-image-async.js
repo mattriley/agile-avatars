@@ -1,4 +1,4 @@
-module.exports = ({ stores, io }) => async (tagId, imageBlob) => {
+module.exports = ({ stores, io }) => imageBlob => async tagId => {
     
     const image = await new Promise(resolve => {
         const reader = io.createFileReader();

@@ -7,6 +7,6 @@ module.exports = ({ core, services }) => async (expression, defaultImage) => {
     const tagId = services.tags.insertTag({ tagName, roleName });
 
     const imageBlob = await services.gravatar.fetchImageAsync(emailOrUsername, defaultImage);
-    return services.tags.attachImageAsync(tagId, imageBlob);
+    return services.tags.attachImageAsync(imageBlob)(tagId);
 
 };

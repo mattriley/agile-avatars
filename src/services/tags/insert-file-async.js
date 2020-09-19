@@ -1,7 +1,11 @@
-module.exports = ({ core, services }) => file => {
+module.exports = ({ core, services, lib }) => file => {
 
-    const tagData = core.tags.parseFileExpression(file.name);
-    const tagId = services.tags.insertTag(tagData);
-    return services.tags.attachImageAsync(tagId, file);
+    const pipeline = [
+        core.tags.parseFileExpression,
+        services.tags.insertTag,
+        services.tags.attachImageAsync(file)
+    ];
+
+    return lib.util.pipe(pipeline, file.name);
     
 };
