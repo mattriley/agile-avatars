@@ -1,5 +1,4 @@
 module.exports = {
-    buildRole: require('./build-role'),
     changeRoleColor: require('./change-role-color'),
     changeRoleName: require('./change-role-name'),
     findOrInsertRoleWithName: require('./find-or-insert-role-with-name'),

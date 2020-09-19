@@ -1,4 +1,4 @@
 module.exports = {
-    color: require('./color'),
+    roleColor: require('./role-color'),
     roleName: require('./role-name')
 };
