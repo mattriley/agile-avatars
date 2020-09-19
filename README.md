@@ -26,7 +26,7 @@ DISCLAIMER: Some of the approaches used may be unconventional. Any attempt to em
 - [Design goals](#design-goals)
 - [Technical constraints](#technical-constraints)
 - [Architecture](#architecture)
-  - [Architectural components](#architectural-components)
+  - [Modules](#modules)
 - [Initialisation](#initialisation)
   - [Launching the application](#launching-the-application)
   - [Testing the application](#testing-the-application)
@@ -98,11 +98,13 @@ Omitted for brievity:
 
 A familiar presentation/domain/data __layered architecture__ has been used to manage __separation of concerns__. This is a common approach to modularise backend applications and therefore I hypothesise this design will be more approachable for backend developers.
 
-## Architectural components
+## Modules
+
+During initialisation, all source files comprising a module are loaded and aggregated into a plain object graph. This is helpful for builing a mental model, shifting the reasoning about the design from files to modules. Each module has a clear purpose and dependencies between modules are explicitly defined. See [Initialisation](#initialisation) for more details.
 
 ### Components
 
-A plain object graph containing only _component builder functions_.
+An aggregation of _component builder functions_.
 
 A __component builder function__ returns an object deriving [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) using closures to react to both user interaction and state changes (via subscriptions), may self-mutate, and interact with services.
 
@@ -146,7 +148,7 @@ module.exports = ({ el, header }) => () => {
 
 ### Elements
 
-A plain object graph containing only _element builder functions_.
+An aggregation of _element builder functions_.
 
 An __element builder function__ returns an object deriving [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) using closures to react to user interaction, and may self-mutate.
 
@@ -180,7 +182,7 @@ module.exports = ({ window, elements }) => className => {
 
 ### Services
 
-A plain object graph containing only _service functions_.
+An aggregation of _service functions_.
 
 A __service function__ orchestrates domain logic and IO including state changes.
 
@@ -208,7 +210,7 @@ module.exports = ({ core, services, stores }) => (tagInstanceId, expression) => 
 
 ### Core
 
-A plain object graph containing only _pure functions_.
+An aggregation of _pure functions_.
 
 From [Wikipedia](https://en.wikipedia.org/wiki/Pure_function):
 > In computer programming, a __pure function__ is a function that has the following properties:
@@ -232,7 +234,7 @@ module.exports = () => expression => {
 
 ### IO
 
-A plain object graph containing only functions that that depend on or act on the environment. 
+An aggregation of functions that depend on or act on the environment. 
 
 <details open>
 <summary>src/io/io.js</summary>
@@ -253,23 +255,23 @@ module.exports = ({ window }) => {
 
 ### Subscriptions
 
-A plain object graph containing only _subscription functions_.
+An aggregation of _subscription functions_.
 
 A __subscription function__ enables a listener to be notified of state changes.
 
 ### Stores
 
-A plain object graph containing only instances of _state stores_.
+An aggregation of _state stores_.
 
-A __state store__ encapsulates state mutations and notifications.
+A __state store__ encapsulates state mutations and subscriptions for state changes.
 
 ### Lib
 
-A plain object graph containing only utility functions without collaborators.
+An aggregation of utility functions.
 
 ### Config
 
-A plain object graph containing only primitive data types.
+A plain object graph of configuration data.
 
 # Initialisation
 
