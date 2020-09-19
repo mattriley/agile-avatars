@@ -151,19 +151,19 @@ A plain object graph of configuration data.
 
 # Initialisation
 
-The application is initialised by calling the function exported by `./boot.js`. This function has 1 required argument - `window`. The entire application depends on this given instance of `window` rather than depending on the global `window` object.
+The application is initialised by invoking the function exported by `./boot.js`. This `boot` function has 1 required argument - `window`. The entire application depends on this supplied instance of `window` rather than depending on the global `window` object.
 
-Initialising the application involves loading configuration, composing modules/wiring dependencies, and invoking startup procedures. Initialising the application does not launch it; rather it returns initialised modules for use by a consumer. This enables the application to be interacted with in a variety of ways.
+Initialisation involves loading configuration, composing modules, and invoking startup procedures. Initialising the application does not launch it; rather it returns initialised modules for use by a consumer. This enables the application to be interacted with in a variety of ways.
 
 <%- renderJsFile('boot.js') %>
 
 ## Launching the application
 
-A single HTML file at `./public/index.html` loads `./public/app.js` using a `<script>` tag. `app.js` initialises the application, passing the global `window` object as an argument, and uses the returned `components` module to render the top level `app` component. The returned `services` module is also used to launch the `welcome` modal. 
+A single HTML file at `./public/index.html` loads `./public/app.js` using a `<script>` tag. `app.js` initialises the application and supplies the global `window` object as an argument. Once initialised, the `components` module is used to create the top level `app` component and appends it to the DOM. The `services` module is also used to activate the `welcome` modal. 
 
 <%- renderJsFile('public/app.js') %>
 
-The initialisation output is also assigned to `window.agileavatars` for debugging purposes:
+The initialised application is also assigned to `window.agileavatars` for debugging purposes:
 ![Modules displayed in the console](docs/console-modules.png)
 
 This can also be used to view the current state of the application:
@@ -171,7 +171,7 @@ This can also be used to view the current state of the application:
 
 ## Testing the application
 
-Rather than acting on individual files, tests act on the initialised instance of the application. 
+Rather than acting on individual files, tests act on the initialised application. 
 
 __Example: A component test that depends on shared state__
 
