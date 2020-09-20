@@ -1,3 +1,4 @@
 module.exports = {
-    buildRole: require('./build-role')
+    buildRole: require('./build-role'),
+    randomColor: require('./random-color')
 };

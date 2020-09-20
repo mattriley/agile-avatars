@@ -1,8 +1,6 @@
-module.exports = ({ stores, services, subscriptions, core }) => roleData => {
+module.exports = ({ core, services, subscriptions, stores, io }) => roleData => {
 
-    const randomColor = services.roles.randomColor();
-    
-    const role = core.roles.buildRole(roleData, randomColor);
+    const role = core.roles.buildRole(roleData, io.random());
 
     return stores.roles.insert(role, roleId => {
         subscriptions.roles.onChange(roleId, 'roleName', services.roles.setupRolePropagation(roleId));

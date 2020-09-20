@@ -6,6 +6,5 @@ module.exports = {
     getRole: require('./get-role'),
     insertRole: require('./insert-role'),
     isNilRole: require('./is-nil-role'),
-    randomColor: require('./random-color'),
     setupRolePropagation: require('./setup-role-propagation')
 };
