@@ -183,9 +183,7 @@ NB: As mentioned previously, the `boot` function has 1 required argument - `wind
 
 __Example: A service test that depends on IO__
 
-This test initialises the application by calling the `boot` function, overriding the `random` function in the `io` module. Any arguments supplied to `boot` apart from `window` are taken as __module overrides__. This effectively enables the use of a __test double__ without the need for a library.
-
-<%- renderJsFile('tests/services/roles/random-color.test.js') %>
+TODO
 
 # State management
 
