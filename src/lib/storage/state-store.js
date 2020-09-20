@@ -1,13 +1,14 @@
 const EventEmitter = require('events');
 
-module.exports = (state, defaults = {}) => {
+module.exports = (defaults = {}) => {
     let nextId = 1;
-    const operations = {};
+    const state = new Map();
+    const funcs = new Map();
     const collectionEmitter = new EventEmitter();
-
-    const manage = id => operations[id] ?? { find: () => null };
-    const list = () => Object.values(state);
-    const find = id => manage(id).find();
+    
+    const manage = id => funcs.get(id) ?? { get: () => null };
+    const list = () => [...state.values()];
+    const find = id => manage(id).get();
     const update = (id, changes) => manage(id).update(changes);
 
     const onChange = (id, field, listener) => manage(id).subscriptions.onChange(field, listener);
@@ -22,7 +23,7 @@ module.exports = (state, defaults = {}) => {
         const item = { id, ...data };
         const itemEmitter = new EventEmitter();
 
-        const find = () => ({ ...item });
+        const get = () => ({ ...item });
 
         const update = changes => {
             Object.entries(changes).forEach(([field, val]) => {
@@ -39,8 +40,8 @@ module.exports = (state, defaults = {}) => {
         };
 
         const subscriptions = { onChange };
-        operations[id] = { find, update, subscriptions };
-        state[id] = item;  
+        funcs.set(id, { get, update, subscriptions });
+        state.set(id, item);
 
         if (callback) callback(id);
         collectionEmitter.emit('firstInsert', id);
@@ -50,13 +51,13 @@ module.exports = (state, defaults = {}) => {
 
     const remove = id => {
         collectionEmitter.emit('beforeRemove', id);
-        delete operations[id];
-        delete state[id];
+        funcs.delete(id);
+        state.delete(id);
     };
     
     Object.entries(defaults).map(([id, entry]) => ({ id, ...entry })).forEach(entry => insert(entry));
 
-    return { manage, insert, remove, list, find, update, subscriptions };
+    return { insert, remove, list, find, update, subscriptions };
 
 };
 

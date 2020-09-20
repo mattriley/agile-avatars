@@ -1,12 +1,15 @@
 module.exports = ({ lib, config }) => {
 
-    return config.storage.stores.reduce((acc, name) => {
-        const state = acc.state[name] = {};
+    const { stores, subscriptions } = config.storage.stores.reduce((acc, name) => {
         const defaults = config.storage.defaults[name];
-        const { subscriptions, ...store } = lib.storage.stateStore(state, defaults);
+        const { subscriptions, ...store } = lib.storage.stateStore(defaults);
         acc.subscriptions[name] = subscriptions;
-        acc.stores[name] = store;        
+        acc.stores[name] = store;    
         return acc;
-    }, { state: {}, stores: {}, subscriptions: {} });
+    }, { stores: {}, subscriptions: {} });
+
+    const getState = () => lib.util.mapValues(stores, store => store.list());
+
+    return { stores, subscriptions, getState };
 
 };

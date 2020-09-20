@@ -11,7 +11,7 @@ module.exports = ({ window, ...overrides }) => {
     sentry.init(config.sentry);
         
     // Data layer
-    const { state, stores, subscriptions } = startup.createStores({ lib, config });
+    const { stores, subscriptions, getState } = startup.createStores({ lib, config });
         
     // Domain layer
     const core = compose('core', { lib, config });
@@ -24,6 +24,6 @@ module.exports = ({ window, ...overrides }) => {
     startup.insertNilRole({ config, stores });
     startup.createHandlers({ services, subscriptions, lib, config });
 
-    return { components, elements, services, core, subscriptions, lib, config, state };
+    return { components, elements, services, core, subscriptions, stores, lib, config, getState };
 
 };
