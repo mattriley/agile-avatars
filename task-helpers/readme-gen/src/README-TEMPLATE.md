@@ -196,7 +196,7 @@ No attempt is made to generify the state management solution for reuse by other 
 
 State is managed by a series of _state stores_. 
 
-A **state store** is collection of data items keyed by a unique identifier and managed using typical CRUD operations such as `insert`, `remove`, `getState` and `setState`.
+A **state store** is collection of data items keyed by a unique identifier and managed using typical CRUD operations such as `insert`, `find`, `update`, `remove`.
 
 <%- renderJsFile('src/lib/storage/state-store.js', { open: false }) %>
 
@@ -204,7 +204,7 @@ __Example: Inserting a role using `insert`__
 
 <%- renderJsFile('src/services/roles/insert-role.js') %>
 
-__Example: Changing a role name using `getState` and `setState`__
+__Example: Changing a role name using `find` and `update`__
 
 <%- renderJsFile('src/services/roles/change-role-name.js') %>
 

@@ -198,11 +198,11 @@ module.exports = ({ core, services, stores }) => (tagInstanceId, expression) => 
     const { tagId } = services.tags.getTagInstance(tagInstanceId);
     const { tagName, roleName } = core.tags.parseTagExpression(expression);
 
-    stores.tags.setState(tagId, { tagName });
+    stores.tags.update(tagId, { tagName });
 
     if (roleName) {
         const roleId = services.roles.findOrInsertRoleWithName(roleName);
-        stores.tags.setState(tagId, { roleId });
+        stores.tags.update(tagId, { roleId });
     }
     
 };
@@ -297,7 +297,7 @@ module.exports = ({ window, ...overrides }) => {
     sentry.init(config.sentry);
         
     // Data layer
-    const { state, stores, subscriptions } = startup.createStores({ lib, config });
+    const { stores, subscriptions, getState } = startup.createStores({ lib, config });
         
     // Domain layer
     const core = compose('core', { lib, config });
@@ -310,7 +310,7 @@ module.exports = ({ window, ...overrides }) => {
     startup.insertNilRole({ config, stores });
     startup.createHandlers({ services, subscriptions, lib, config });
 
-    return { components, elements, services, core, subscriptions, lib, config, state };
+    return { components, elements, services, core, io, subscriptions, stores, lib, config, getState };
 
 };
 ```
@@ -397,7 +397,7 @@ No attempt is made to generify the state management solution for reuse by other 
 
 State is managed by a series of _state stores_. 
 
-A **state store** is collection of data items keyed by a unique identifier and managed using typical CRUD operations such as `insert`, `remove`, `getState` and `setState`.
+A **state store** is collection of data items keyed by a unique identifier and managed using typical CRUD operations such as `insert`, `find`, `update`, `remove`.
 
 <details >
 <summary>src/lib/storage/state-store.js</summary>
@@ -405,15 +405,16 @@ A **state store** is collection of data items keyed by a unique identifier and m
 ```js
 const EventEmitter = require('events');
 
-module.exports = (state, defaults = {}) => {
+module.exports = (defaults = {}) => {
     let nextId = 1;
-    const operations = {};
+    const state = new Map();
+    const funcs = new Map();
     const collectionEmitter = new EventEmitter();
-
-    const manage = id => operations[id] ?? { getState: () => null };
-    const getArray = () => Object.values(state);
-    const getState = id => manage(id).getState();
-    const setState = (id, changes) => manage(id).setState(changes);
+    
+    const manage = id => funcs.get(id) ?? { get: () => null };
+    const list = () => [...state.values()];
+    const find = id => manage(id).get();
+    const update = (id, changes) => manage(id).update(changes);
 
     const onChange = (id, field, listener) => manage(id).subscriptions.onChange(field, listener);
     const onChangeAny = (field, listener) => collectionEmitter.on(`change:${field}`, listener);
@@ -427,9 +428,9 @@ module.exports = (state, defaults = {}) => {
         const item = { id, ...data };
         const itemEmitter = new EventEmitter();
 
-        const getState = () => ({ ...item });
+        const get = () => ({ ...item });
 
-        const setState = changes => {
+        const update = changes => {
             Object.entries(changes).forEach(([field, val]) => {
                 if (item[field] === val) return;
                 item[field] = val;
@@ -444,8 +445,8 @@ module.exports = (state, defaults = {}) => {
         };
 
         const subscriptions = { onChange };
-        operations[id] = { getState, setState, subscriptions };
-        state[id] = item;  
+        funcs.set(id, { get, update, subscriptions });
+        state.set(id, item);
 
         if (callback) callback(id);
         collectionEmitter.emit('firstInsert', id);
@@ -455,13 +456,13 @@ module.exports = (state, defaults = {}) => {
 
     const remove = id => {
         collectionEmitter.emit('beforeRemove', id);
-        delete operations[id];
-        delete state[id];
+        funcs.delete(id);
+        state.delete(id);
     };
     
     Object.entries(defaults).map(([id, entry]) => ({ id, ...entry })).forEach(entry => insert(entry));
 
-    return { manage, insert, remove, getArray, getState, setState, subscriptions };
+    return { insert, remove, list, find, update, subscriptions };
 
 };
 ```
@@ -473,9 +474,11 @@ __Example: Inserting a role using `insert`__
 <summary>src/services/roles/insert-role.js</summary>
 
 ```js
-module.exports = ({ stores, services, subscriptions }) => roleData => {
+module.exports = ({ stores, services, subscriptions, core }) => roleData => {
 
-    const role = services.roles.buildRole(roleData);
+    const randomColor = services.roles.randomColor();
+    
+    const role = core.roles.buildRole(roleData, randomColor);
 
     return stores.roles.insert(role, roleId => {
         subscriptions.roles.onChange(roleId, 'roleName', services.roles.setupRolePropagation(roleId));
@@ -485,17 +488,17 @@ module.exports = ({ stores, services, subscriptions }) => roleData => {
 ```
 </details>
 
-__Example: Changing a role name using `getState` and `setState`__
+__Example: Changing a role name using `find` and `update`__
 
 <details open>
 <summary>src/services/roles/change-role-name.js</summary>
 
 ```js
-module.exports = ({ services, stores }) => (roleId, roleName) => {
+module.exports = ({ core, stores }) => (roleId, roleName) => {
 
-    const oldState = stores.roles.getState(roleId);
-    const newState = services.roles.buildRole({ ...oldState, roleName });
-    stores.roles.setState(roleId, newState);
+    const oldState = stores.roles.find(roleId);
+    const newState = core.roles.buildRole({ ...oldState, roleName });
+    stores.roles.update(roleId, newState);
     
 };
 ```
@@ -641,8 +644,8 @@ module.exports = ({ test, setup }) => {
         const { components } = boot({
             services: {
                 gravatar: {
-                    fetchProfileAsync: () => ({ displayName: 'foo' }),
-                    fetchImageAsync: () => new window.Blob(['BYTES'], { type: 'image/jpg' })
+                    fetchProfileAsync: () => Promise.resolve({ displayName: 'foo' }),
+                    fetchImageAsync: () => Promise.resolve(new window.Blob(['BYTES'], { type: 'image/jpg' }))
                 }
             }
         });
@@ -662,7 +665,8 @@ module.exports = ({ test, setup }) => {
         await helpers.onTagListMutation(
             $tagList,
             () => {
-                helpers.dispatchEvent('click', $importButton);                
+                helpers.dispatchEvent('click', $importButton);    
+
             },
             async tag1 => {
                 t.equal(tag1.getTagName(), 'Foo');
