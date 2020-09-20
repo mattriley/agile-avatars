@@ -1,5 +1,6 @@
 module.exports = {
     dataTransforms: require('./data-transforms'),
+    buildTag: require('./build-tag'),
     parseEmailExpression: require('./parse-email-expression'),
     parseFileExpression: require('./parse-file-expression'),
     parseTagExpression: require('./parse-tag-expression'),

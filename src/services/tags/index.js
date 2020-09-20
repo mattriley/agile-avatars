@@ -3,7 +3,6 @@ module.exports = {
     adjustTagInstanceCounts: require('./adjust-tag-instance-counts'),
     attachImageAsync: require('./attach-image-async'),
     buildTagInstance: require('./build-tag-instance'),
-    buildTag: require('./build-tag'),
     changeTagInstanceName: require('./change-tag-instance-name'),
     changeTagInstanceRole: require('./change-tag-instance-role'),
     getTagInstance: require('./get-tag-instance'),

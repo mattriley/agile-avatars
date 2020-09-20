@@ -1,10 +1,22 @@
-module.exports = ({ services, stores, subscriptions }) => tagData => {
+module.exports = ({ core, services, stores, subscriptions, lib }) => tagData => {
 
-    const tag = services.tags.buildTag(tagData);
+    const assignRoleId = ({ roleName, ...tagData }) => {
+        const roleId = tagData.roleId ?? services.roles.findOrInsertRoleWithName(roleName);
+        return { roleId, ...tagData };
+    };
 
-    return stores.tags.insert(tag, tagId => {
-        subscriptions.tags.onChange(tagId, 'tagName', services.tags.setupTagPropagation(tagId));
-        subscriptions.tags.onChange(tagId, 'roleId', services.tags.setupRolePropagation(tagId));
-    });
-    
+    const insertTag = tag => {
+        return stores.tags.insert(tag, tagId => {
+            subscriptions.tags.onChange(tagId, 'tagName', services.tags.setupTagPropagation(tagId));
+            subscriptions.tags.onChange(tagId, 'roleId', services.tags.setupRolePropagation(tagId));
+        });
+    };
+
+    return lib.util.pipe(
+        () => tagData ?? {},
+        assignRoleId,
+        core.tags.buildTag,
+        insertTag
+    );
+
 };
