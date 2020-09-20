@@ -1,7 +1,6 @@
-module.exports = ({ core, services, stores }) => roleName => {
+module.exports = ({ services, stores }) => (roleName = '') => {
     
-    const roleData = core.roles.dataTransforms.roleName({ roleName });    
-    const existingRole = stores.roles.list().find(role => roleData.roleName === role.roleName);
-    return existingRole ? existingRole.id : services.roles.insertRole(roleData);
+    const existingRole = stores.roles.list().find(role => roleName.toUpperCase() === role.roleName.toUpperCase());
+    return existingRole ? existingRole.id : services.roles.insertRole({ roleName });
 
 };

@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-set -e
-
 STAGED_FILES=$(git diff --name-only --staged --diff-filter=d)
 STAGED_DRAWIO=$(echo $STAGED_FILES | tr " " "\n" | grep -i ".drawio$")
 
