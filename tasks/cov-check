@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-set -e
-
 # Runs unit tests and checks coverage.
 
 npx c8 \

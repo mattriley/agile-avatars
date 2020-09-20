@@ -14,8 +14,9 @@ export TASK_HELPERS="task-helpers"
 
 function task() {
     "tasks/$1" "${@:2}"
+    EXIT_CODE=$?
     echo
-    echo "exit code $?"
+    echo "exit code $EXIT_CODE"
 }
 
 time task $@
