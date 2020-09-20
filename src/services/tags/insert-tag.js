@@ -13,7 +13,7 @@ module.exports = ({ core, services, stores, subscriptions, lib }) => tagData => 
     };
 
     return lib.util.pipe(
-        () => tagData ?? {},
+        tagData ?? {},
         assignRoleId,
         core.tags.buildTag,
         insertTag
