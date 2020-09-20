@@ -1,9 +1,6 @@
-module.exports = ({ core, lib }) => tagData => {
+module.exports = ({ lib }) => tagData => {
 
-    return lib.util.pipe(
-        () => tagData,
-        core.tags.dataTransforms.defaults,
-        core.tags.dataTransforms.tagName
-    );
+    const tagName = lib.util.upperFirst((tagData.tagName ?? '').trim());
+    return { ...tagData, tagName, instances: [], active: [], passive: [] };
     
 };
