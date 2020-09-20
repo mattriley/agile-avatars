@@ -1,11 +1,7 @@
 module.exports = ({ window, elements, lib }) => (args = {}) => {
 
-    const defaults = {
-        visible: false,
-        onVisibilityChange: () => undefined
-    };
-
-    const { title, content, actions, visible, onVisibilityChange } = lib.util.merge(defaults, args);
+    const defaults = { visible: false, onVisibilityChange: () => undefined };
+    const { title, content, actions, visible, onVisibilityChange } = { ...defaults, ...args };
 
     const { el } = elements;
 
