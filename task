@@ -21,3 +21,4 @@ function task() {
 
 time task $@
 echo
+exit $EXIT_CODE
