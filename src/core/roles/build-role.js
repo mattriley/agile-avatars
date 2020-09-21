@@ -1,9 +1,14 @@
-module.exports = ({ core, config }) => (roleData, randomNumber) => {
+module.exports = ({ core, lib }) => (roleData, randomNumber) => {
     
-    const roleName = (roleData.roleName ?? '').trim().toUpperCase();
-    const presetColor = config.roles.presetColors[roleData.roleName];
-    const randomColor = core.roles.randomColor(randomNumber);
-    const color = presetColor ?? roleData.color ?? randomColor;
-    return { ...roleData, roleName, color };
+    const transformRoleName = roleData => {
+        const roleName = (roleData.roleName ?? '').trim().toUpperCase();
+        return { ...roleData, roleName };
+    };
+
+    return lib.util.pipe(
+        roleData,
+        transformRoleName,
+        core.roles.assignColor(randomNumber)
+    );
 
 };
