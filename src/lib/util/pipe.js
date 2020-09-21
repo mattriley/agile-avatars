@@ -1,1 +1,1 @@
-module.exports = (...fns) => fns.reduce((v, f) => (typeof f === 'function' ? f(v) : f), undefined);
+module.exports = (f1, ...fx) => fx.reduce((v, f) => f(v), typeof f1 === 'function' ? f1() : f1);
