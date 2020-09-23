@@ -6,7 +6,6 @@ module.exports = ({ el, components, subscriptions, lib }) => () => {
     const $container = el('div', 'app').append(
         el('div', 'styles').append(...$$styles),
         el('div', 'modals').append(...$$modals),
-        // components.googleAnalytics(),
         components.header(), 
         components.dropzone().append(
             el('div', 'control-panel').append(
