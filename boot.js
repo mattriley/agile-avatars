@@ -9,6 +9,8 @@ module.exports = ({ window, ...overrides }) => {
     const io = compose('io', { window });
     const config = compose('config', { io, window });
     sentry.init(config.sentry);
+
+    startup.createGtag({ config, window });
         
     // Data layer
     const { stores, subscriptions, getState } = startup.createStores({ lib, config });
@@ -24,6 +26,6 @@ module.exports = ({ window, ...overrides }) => {
     startup.insertNilRole({ config, stores });
     startup.createHandlers({ services, subscriptions, lib, config });
 
-    return { components, elements, services, core, io, subscriptions, stores, lib, config, getState };
+    return { components, elements, services, core, io, subscriptions, stores, lib, startup, config, getState };
 
 };

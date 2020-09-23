@@ -10,7 +10,6 @@ module.exports = {
     tips: require('./tips'),
     app: require('./app'),
     dropzone: require('./dropzone'),
-    googleAnalytics: require('./google-analytics'),
     modal: require('./modal'),
     vanillaPicker: require('./vanilla-picker')
 };
