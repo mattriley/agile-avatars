@@ -127,7 +127,7 @@ Inspired by [Functional Core, Imperative Shell](https://www.destroyallsoftware.c
 
 An aggregation of functions that depend on or act on the environment. 
 
-<%- renderJsFile('src/io/io.js') %>
+
 
 ### Subscriptions
 
