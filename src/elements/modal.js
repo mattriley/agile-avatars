@@ -9,17 +9,15 @@ module.exports = ({ window, elements, lib }) => (args = {}) => {
         $overlay.dispatchEvent(new window.CustomEvent('dismiss'));
     };
 
-    const $dismiss = el('span', 'dismiss')
-        .addEventListener('click', dismiss);
+    const $dismiss = el('span', 'dismiss').addEventListener('click', dismiss);
 
-    const $title = el('div', `modal-title visible-${Boolean(title)}`)
-        .append(title, $dismiss);
+    const $title = el('div', 'modal-title').append(title, $dismiss);
+    lib.ui.toggleBoolClass($title, 'visible', Boolean(title));
     
-    const $content = el('div', 'modal-content')
-        .append(content);
+    const $content = el('div', 'modal-content').append(content);
 
-    const $actions = el('div', `modal-actions visible-${Boolean(actions)}`)
-        .append(actions);
+    const $actions = el('div', 'modal-actions').append(actions);
+    lib.ui.toggleBoolClass($actions, 'visible', Boolean(actions));
 
     const $prompt = el('div', 'modal-prompt')
         .append($title, $content, $actions)
