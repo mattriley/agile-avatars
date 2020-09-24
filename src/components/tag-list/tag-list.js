@@ -1,4 +1,4 @@
-module.exports = ({ el, tagList, services, subscriptions, lib, config }) => () => {
+module.exports = ({ el, tagList, services, subscriptions, util, config }) => () => {
     
     const $$tags = new Map();
 
@@ -22,7 +22,7 @@ module.exports = ({ el, tagList, services, subscriptions, lib, config }) => () =
         });
     };
 
-    const delayedSort = lib.util.debounce(
+    const delayedSort = util.debounce(
         sort, 
         config.debounce.sortTagList
     );

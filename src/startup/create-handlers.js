@@ -1,6 +1,6 @@
-module.exports = ({ services, subscriptions, lib, config }) => {
+module.exports = ({ services, subscriptions, util, config }) => {
 
-    const adjustTagInstanceCounts = lib.util.debounce(
+    const adjustTagInstanceCounts = util.debounce(
         services.tags.adjustTagInstanceCounts, 
         config.debounce.adjustTagInstanceCounts
     );

@@ -1,4 +1,4 @@
-module.exports = ({ core, services, stores, subscriptions, lib }) => tagData => {
+module.exports = ({ core, services, stores, subscriptions, util }) => tagData => {
 
     const assignRoleId = ({ roleName, ...tagData }) => {
         const roleId = tagData.roleId ?? services.roles.findOrInsertRoleWithName(roleName);
@@ -12,6 +12,6 @@ module.exports = ({ core, services, stores, subscriptions, lib }) => tagData => 
         });
     };
 
-    return lib.util.pipe(assignRoleId, core.tags.buildTag, insertTag)(tagData ?? {});
+    return util.pipe(assignRoleId, core.tags.buildTag, insertTag)(tagData ?? {});
 
 };

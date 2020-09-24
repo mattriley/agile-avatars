@@ -1,11 +1,11 @@
-module.exports = ({ core, lib }) => (roleData, randomNumber) => {
+module.exports = ({ core, util }) => (roleData, randomNumber) => {
     
     const transformRoleName = roleData => {
         const roleName = (roleData.roleName ?? '').trim().toUpperCase();
         return { ...roleData, roleName };
     };
 
-    return lib.util.pipe(
+    return util.pipe(
         transformRoleName,
         core.roles.assignColor(randomNumber)
     )(roleData);

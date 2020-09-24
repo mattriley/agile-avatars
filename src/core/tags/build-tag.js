@@ -1,6 +1,6 @@
-module.exports = ({ lib }) => tagData => {
+module.exports = ({ util }) => tagData => {
 
-    const tagName = lib.util.upperFirst((tagData.tagName ?? '').trim());
+    const tagName = util.upperFirst((tagData.tagName ?? '').trim());
     return { ...tagData, tagName, instances: [], active: [], passive: [] };
     
 };

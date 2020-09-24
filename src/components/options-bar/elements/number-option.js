@@ -1,4 +1,4 @@
-module.exports = ({ elements, services, subscriptions, lib, config }) => optionName => {
+module.exports = ({ elements, services, subscriptions, util, config }) => optionName => {
 
     const { min, max, step } = config.options[optionName];
 
@@ -11,7 +11,7 @@ module.exports = ({ elements, services, subscriptions, lib, config }) => optionN
         $number.value = val;
     });
 
-    const labelText = lib.util.upperFirst(optionName);
+    const labelText = util.upperFirst(optionName);
     return elements.label(labelText, $number);
 
 };
