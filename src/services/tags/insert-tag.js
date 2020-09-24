@@ -12,11 +12,6 @@ module.exports = ({ core, services, stores, subscriptions, lib }) => tagData => 
         });
     };
 
-    return lib.util.pipe(
-        tagData ?? {},
-        assignRoleId,
-        core.tags.buildTag,
-        insertTag
-    );
+    return lib.util.pipe(assignRoleId, core.tags.buildTag, insertTag)(tagData ?? {});
 
 };

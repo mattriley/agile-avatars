@@ -14,8 +14,6 @@ module.exports = ({ test, boot, window, helpers }) => {
         });
         const $spacingInput = components.optionsBar.options.spacing().querySelector('input');
         const $tagList = components.tagList();
-        // const $styles = components.styles.tagSpacing();
-        // window.document.body.append($styles);    
         return { $tagList, $spacingInput };
     };
 

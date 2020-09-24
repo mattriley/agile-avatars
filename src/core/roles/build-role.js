@@ -6,9 +6,8 @@ module.exports = ({ core, lib }) => (roleData, randomNumber) => {
     };
 
     return lib.util.pipe(
-        roleData,
         transformRoleName,
         core.roles.assignColor(randomNumber)
-    );
+    )(roleData);
 
 };
