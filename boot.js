@@ -1,6 +1,6 @@
 const sentry = require('@sentry/browser');
 const composer = require('module-composer');
-const { util, lib, startup, ...src } = require('./src');
+const { lib: { util, ...lib }, startup, ...src } = require('./src');
 
 module.exports = ({ window, ...overrides }) => {
 
