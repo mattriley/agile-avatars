@@ -1,3 +1,6 @@
 module.exports = {
-    io: require('./io')
+    date: require('./date'),
+    fetch: require('./fetch'),
+    random: require('./random'),
+    readAsDataUrlAsync: require('./read-as-data-url-async')
 };
