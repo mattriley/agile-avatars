@@ -5,7 +5,6 @@ module.exports = {
     modals: require('./modals'),
     optionsBar: require('./options-bar'),
     roleList: require('./role-list'),
-    styles: require('./styles'),
     tagList: require('./tag-list'),
     tips: require('./tips'),
     app: require('./app'),

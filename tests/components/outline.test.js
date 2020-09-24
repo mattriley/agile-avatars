@@ -1,4 +1,4 @@
-module.exports = ({ test, boot, window, helpers }) => {
+module.exports = ({ test, boot, helpers }) => {
 
     const setup = ({ outlineDefault }) => {
         const { components, services } = boot({ 
@@ -14,8 +14,6 @@ module.exports = ({ test, boot, window, helpers }) => {
         });
         const $checkbox = components.optionsBar.options.outline().querySelector('input');
         const $tagList = components.tagList();
-        const $styles = components.styles.tagOutline();
-        window.document.body.append($styles);    
         services.tags.insertTag();
         return { $tagList, $checkbox, helpers };
     };

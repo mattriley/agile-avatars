@@ -6,5 +6,6 @@ module.exports = {
     io: require('./io'),
     lib: require('./lib'),
     services: require('./services'),
-    startup: require('./startup')
+    startup: require('./startup'),
+    styles: require('./styles')
 };

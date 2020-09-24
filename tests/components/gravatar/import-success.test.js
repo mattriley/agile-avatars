@@ -12,7 +12,7 @@ module.exports = ({ test, setup }) => {
             }
         });
 
-        window.document.body.append(components.styles.tagImage()); 
+        // window.document.body.append(components.styles.tagImage()); 
 
         const $gravatarModal = components.modals.gravatar();
         const $freetextField = $gravatarModal.querySelector('.freetext');

@@ -296,8 +296,6 @@ module.exports = ({ window, ...overrides }) => {
     const config = compose('config', { io, window });
     sentry.init(config.sentry);
 
-    const gtag = startup.createGtag({ config, window });
-        
     // Data layer
     const { stores, subscriptions, getState } = startup.createStores({ lib, config });
         
@@ -306,9 +304,12 @@ module.exports = ({ window, ...overrides }) => {
     const services = compose('services', { subscriptions, stores, core, io, lib, config });
 
     // Presentation layer
+    const gtag = startup.createGtag({ config, window });
     const { el, ...elements } = compose('elements', { lib, window });
     const components = compose('components', { el, elements, services, subscriptions, lib, config, gtag, window });
+    const styles = compose('styles', { el, subscriptions, config });
 
+    startup.createStyleManager({ styles, subscriptions, lib, window });
     startup.insertNilRole({ config, stores });
     startup.createHandlers({ services, subscriptions, lib, config });
 
@@ -633,7 +634,7 @@ module.exports = ({ test, setup }) => {
             }
         });
 
-        window.document.body.append(components.styles.tagImage()); 
+        // window.document.body.append(components.styles.tagImage()); 
 
         const $gravatarModal = components.modals.gravatar();
         const $freetextField = $gravatarModal.querySelector('.freetext');
