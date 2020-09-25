@@ -20,7 +20,7 @@ module.exports = ({ window, ...overrides }) => {
     const components = compose('components', { el, elements, services, subscriptions, lib, util, config, gtag, window });
     const styles = compose('styles', { el, subscriptions, config });
 
-    const app = { components, elements, styles, subscriptions, services, core, io, stores, util, config, window, getState };
+    const app = { components, elements, styles, services, subscriptions, stores, core, io, util, config, window, getState };
 
     const startup = compose('startup', app);
     startup.configureSentry();
