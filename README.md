@@ -275,9 +275,11 @@ const { storage, util, ...src } = require('./src');
 module.exports = ({ window, ...overrides }) => {
 
     const compose = composer(src, { overrides });
+
+    // Configure
     const io = compose('io', { window });
     const config = compose('config', { io, window });
-    const { gtag } = compose('vendor', { config, window });
+    const { gtag, vendorComponents } = compose('vendor', { config, window });
 
     // Data
     const stores = compose('stores', { storage, config });
@@ -290,7 +292,7 @@ module.exports = ({ window, ...overrides }) => {
     // Presentation
     const { el, ...ui } = compose('ui', { config, window });
     const elements = compose('elements', { el, ui, window });
-    compose('components', { el, elements, services, subscriptions, ui, util, config, gtag, window });
+    compose('components', { el, elements, services, subscriptions, ui, util, config, gtag, vendorComponents });
     compose('styles', { el, subscriptions, config });
 
     // Startup

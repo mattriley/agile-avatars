@@ -9,6 +9,5 @@ module.exports = {
     tips: require('./tips'),
     app: require('./app'),
     dropzone: require('./dropzone'),
-    modal: require('./modal'),
-    vanillaPicker: require('./vanilla-picker')
+    modal: require('./modal')
 };
