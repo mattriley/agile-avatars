@@ -12,5 +12,6 @@ module.exports = {
     styles: require('./styles'),
     subscriptions: require('./subscriptions'),
     ui: require('./ui'),
-    util: require('./util')
+    util: require('./util'),
+    vendor: require('./vendor')
 };

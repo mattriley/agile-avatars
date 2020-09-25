@@ -6,6 +6,7 @@ module.exports = ({ window, ...overrides }) => {
     const compose = composer(src, { overrides });
     const io = compose('io', { window });
     const config = compose('config', { io, window });
+    const { gtag } = compose('vendor', { config, window });
 
     // Data
     const stores = compose('stores', { storage, config });
@@ -16,7 +17,7 @@ module.exports = ({ window, ...overrides }) => {
     const services = compose('services', { subscriptions, stores, core, io, util, config });
         
     // Presentation
-    const { el, gtag, ...ui } = compose('ui', { config, window });
+    const { el, ...ui } = compose('ui', { config, window });
     const elements = compose('elements', { el, ui, window });
     compose('components', { el, elements, services, subscriptions, ui, util, config, gtag, window });
     compose('styles', { el, subscriptions, config });
@@ -27,7 +28,6 @@ module.exports = ({ window, ...overrides }) => {
     const app = { ...compose.modules, util, window };
 
     const startup = compose('startup', app);
-    startup.configureSentry();
     startup.createStyleManager();
     startup.insertNilRole();
     startup.createHandlers();

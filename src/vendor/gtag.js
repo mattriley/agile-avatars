@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-module.exports = ({ config, window }) => () => {
+module.exports = ({ config, window }) => {
 
     const { date, trackingId, enabled } = config.googleAnalytics;
 
