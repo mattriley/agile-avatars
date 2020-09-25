@@ -1,6 +1,6 @@
 const sentry = require('@sentry/browser');
 const composer = require('module-composer');
-const { lib: { util, ...lib }, startup, ...src } = require('./src');
+const { util, startup, ...src } = require('./src');
 
 module.exports = ({ window, ...overrides }) => {
 
@@ -32,6 +32,6 @@ module.exports = ({ window, ...overrides }) => {
     startup.insertNilRole({ config, stores });
     startup.createHandlers({ services, subscriptions, util, config });
 
-    return { ...presentation, ...domain, ...data, io, stores, lib, util, startup, config, src };
+    return { ...presentation, ...domain, ...data, io, stores, util, startup, config, src };
 
 };

@@ -3,7 +3,7 @@ module.exports = {
     data: require('./data'),
     domain: require('./domain'),
     io: require('./io'),
-    lib: require('./lib'),
     startup: require('./startup'),
-    ui: require('./ui')
+    ui: require('./ui'),
+    util: require('./util')
 };

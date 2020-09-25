@@ -1,7 +1,7 @@
 module.exports = ({ test, boot }) => {
 
     const { src } = boot();
-    const { stateStore } = src.data.lib;
+    const { stateStore } = src.data;
 
     test('insert increments id by 1', t => {
         const store = stateStore({});
