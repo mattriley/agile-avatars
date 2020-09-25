@@ -1,6 +1,5 @@
-module.exports = ({ test, boot }) => {
+module.exports = ({ src, test }) => {
 
-    const { src } = boot();
     const { stateStore } = src.data;
 
     test('insert increments id by 1', t => {

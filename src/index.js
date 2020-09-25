@@ -1,9 +1,8 @@
 module.exports = {
-    config: require('./config'),
     data: require('./data'),
     domain: require('./domain'),
-    io: require('./io'),
-    startup: require('./startup'),
+    modules: require('./modules'),
     ui: require('./ui'),
-    util: require('./util')
+    util: require('./util'),
+    boot: require('./boot')
 };

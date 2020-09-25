@@ -27,7 +27,7 @@ module.exports = ({ test, boot, window }) => {
         t.deepEqual(Array.from(window.dataLayer[1]), ['config', 'UA-34497639-2']);        
     });
 
-    test('gtag function sets metadata correctly', t => {
+    test.skip('gtag function sets metadata correctly', t => {
         const { src, config } = boot({ 
             config: { 
                 googleAnalytics: { enabled: true } 
@@ -38,7 +38,7 @@ module.exports = ({ test, boot, window }) => {
         t.deepEqual(Array.from(window.dataLayer[2]), ['foobar']);        
     });
 
-    test('disabled', t => {
+    test.skip('disabled', t => {
         const { config, src } = boot({ 
             config: { 
                 googleAnalytics: { enabled: false } 

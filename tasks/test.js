@@ -7,7 +7,7 @@ const { createHarness } = require('zora');
 const path = require('path');
 const composer = require('module-composer');
 const testHelpers = require('../test-helpers');
-const bootOrig = require('../boot');
+const src = require('../src');
 
 const setup = () => {
     const { window } = new JSDOM('', { url: 'https://localhost/' });
@@ -19,10 +19,10 @@ const setup = () => {
         resetJsdom(); 
         const defaultConfig = { debounce: { adjustTagInstanceCounts: 0, sortTagList: 0 } };
         const config = Object.assign(defaultConfig, args.config);
-        return bootOrig({ window, ...args, config });
+        return src.boot({ window, ...args, config });
     };
 
-    return { boot, window, helpers };
+    return { src, boot, window, helpers };
 };
 
 const args = setup();
