@@ -1,4 +1,4 @@
-module.exports = ({ optionsBar, elements, subscriptions, lib, config }) => () => {
+module.exports = ({ optionsBar, elements, subscriptions, ui, config }) => () => {
     
     const $optionsBar = elements.layout({
         layout: config.options.layout, 
@@ -8,7 +8,7 @@ module.exports = ({ optionsBar, elements, subscriptions, lib, config }) => () =>
     $optionsBar.className = 'options-bar visible-false';
 
     subscriptions.tags.onFirstInsert(() => {
-        lib.toggleBoolClass($optionsBar, 'visible', true);
+        ui.toggleBoolClass($optionsBar, 'visible', true);
     });
 
     return $optionsBar;

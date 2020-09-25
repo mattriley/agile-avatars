@@ -16,9 +16,9 @@ module.exports = ({ window, ...overrides }) => {
     const services = compose('services', { subscriptions, stores, core, io, util, config });
         
     // Presentation
-    const { el, gtag, ...lib } = compose('lib', { config, window });
-    const elements = compose('elements', { el, lib, window });
-    compose('components', { el, elements, services, subscriptions, lib, util, config, gtag, window });
+    const { el, gtag, ...ui } = compose('ui', { config, window });
+    const elements = compose('elements', { el, ui, window });
+    compose('components', { el, elements, services, subscriptions, ui, util, config, gtag, window });
     compose('styles', { el, subscriptions, config });
 
     // Startup

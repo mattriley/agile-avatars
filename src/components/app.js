@@ -1,4 +1,4 @@
-module.exports = ({ el, components, subscriptions, lib }) => () => {
+module.exports = ({ el, components, subscriptions, ui }) => () => {
 
     // const $$styles = Object.values(components.styles).map(style => style());
     const $$modals = Object.values(components.modals).map(modal => modal());
@@ -18,7 +18,7 @@ module.exports = ({ el, components, subscriptions, lib }) => () => {
     );
 
     subscriptions.settings.onChange('app', 'modal', modal => {
-        lib.toggleBoolClass($container, 'modal', modal);
+        ui.toggleBoolClass($container, 'modal', modal);
     });
 
     return $container;

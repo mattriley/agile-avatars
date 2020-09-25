@@ -1,4 +1,4 @@
-module.exports = ({ el, subscriptions, services, lib, config }) => shapeName => {
+module.exports = ({ el, subscriptions, services, ui, config }) => shapeName => {
     
     const $shape = el('span', 'shape-option', {
         title: `Change shape to ${shapeName}`,
@@ -16,7 +16,7 @@ module.exports = ({ el, subscriptions, services, lib, config }) => shapeName => 
     $shape.style.borderRadius = `${borderRadius}%`;
 
     subscriptions.settings.onChange('options', 'shape', selectedShape => {
-        lib.toggleBoolClass($shape, 'selected', shapeName === selectedShape);
+        ui.toggleBoolClass($shape, 'selected', shapeName === selectedShape);
     });
 
     return $shape;
