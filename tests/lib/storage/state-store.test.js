@@ -1,6 +1,6 @@
 module.exports = ({ src, test }) => {
 
-    const { stateStore } = src.data;
+    const { stateStore } = src.storage;
 
     test('insert increments id by 1', t => {
         const store = stateStore({});
