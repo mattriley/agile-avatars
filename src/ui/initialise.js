@@ -1,5 +1,11 @@
 const composer = require('module-composer');
-const modules = require('./modules');
+
+const modules = {
+    components: require('./components'),
+    elements: require('./elements'),
+    styles: require('./styles'),
+    lib: require('./lib')
+};
 
 module.exports = ({ services, subscriptions, util, config, window, overrides }) => {
 

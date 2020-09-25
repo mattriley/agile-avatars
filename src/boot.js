@@ -1,6 +1,11 @@
 const composer = require('module-composer');
-const modules = require('./modules');
 const util = require('./util');
+
+const modules = {
+    config: require('./config'),
+    io: require('./io'),
+    startup: require('./startup')
+};
 
 const layers = {
     data: require('./data'),
