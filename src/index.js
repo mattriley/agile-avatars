@@ -3,6 +3,7 @@ module.exports = {
     config: require('./config'),
     core: require('./core'),
     data: require('./data'),
+    diagnostics: require('./diagnostics'),
     elements: require('./elements'),
     io: require('./io'),
     lib: require('./lib'),

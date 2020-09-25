@@ -8,7 +8,7 @@ module.exports = ({ window, ...overrides }) => {
     const config = compose('config', { io, window });
 
     // Data
-    const { stores, subscriptions, getState } = src.data.createStores({ util, config });
+    const { stores, subscriptions } = src.data.createStores({ util, config });
 
     // Domain
     const core = compose('core', { util, config });
@@ -20,7 +20,10 @@ module.exports = ({ window, ...overrides }) => {
     compose('components', { el, elements, services, subscriptions, lib, util, config, gtag, window });
     compose('styles', { el, subscriptions, config });
 
-    const app = { ...compose.modules, stores, subscriptions, getState, util, window };
+    // Startup
+    compose('diagnostics', { stores, util });
+
+    const app = { ...compose.modules, stores, subscriptions, util, window };
 
     const startup = compose('startup', app);
     startup.configureSentry();

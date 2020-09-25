@@ -1,6 +1,6 @@
 const stateStore = require('./state-store');
 
-module.exports = ({ util, config }) => {
+module.exports = ({ config }) => {
 
     const { stores, subscriptions } = config.storage.stores.reduce((acc, name) => {
         const defaults = config.storage.defaults[name];
@@ -10,8 +10,6 @@ module.exports = ({ util, config }) => {
         return acc;
     }, { stores: {}, subscriptions: {} });
 
-    const getState = () => util.mapValues(stores, store => store.list());
-
-    return { stores, subscriptions, getState };
+    return { stores, subscriptions };
 
 };
