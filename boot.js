@@ -17,10 +17,10 @@ module.exports = ({ window, ...overrides }) => {
     // Presentation
     const { el, gtag, ...lib } = compose('lib', { config, window });
     const elements = compose('elements', { el, lib, window });
-    const components = compose('components', { el, elements, services, subscriptions, lib, util, config, gtag, window });
-    const styles = compose('styles', { el, subscriptions, config });
+    compose('components', { el, elements, services, subscriptions, lib, util, config, gtag, window });
+    compose('styles', { el, subscriptions, config });
 
-    const app = { components, elements, styles, services, subscriptions, stores, core, io, util, config, window, getState };
+    const app = { ...compose.modules, stores, subscriptions, getState, util, window };
 
     const startup = compose('startup', app);
     startup.configureSentry();
