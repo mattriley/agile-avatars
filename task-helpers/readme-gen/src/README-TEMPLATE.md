@@ -196,7 +196,7 @@ State is managed by a series of _state stores_.
 
 A **state store** is collection of data items keyed by a unique identifier and managed using typical CRUD operations such as `insert`, `find`, `update`, `remove`.
 
-<%- renderJsFile('src/lib/storage/state-store.js', { open: false }) %>
+<%- renderJsFile('src/storage/state-store.js', { open: false }) %>
 
 __Example: Inserting a role using `insert`__
 
