@@ -1,6 +1,6 @@
 const sentry = require('@sentry/browser');
 
-module.exports = ({ config }) => {
+module.exports = ({ config }) => () => {
 
     sentry.init(config.sentry);
 

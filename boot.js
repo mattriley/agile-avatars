@@ -1,5 +1,5 @@
 const composer = require('module-composer');
-const { util, startup, ...src } = require('./src');
+const { util, ...src } = require('./src');
 
 module.exports = ({ window, ...overrides }) => {
 
@@ -23,14 +23,15 @@ module.exports = ({ window, ...overrides }) => {
     const domain = composeDomain(data.stores, data.subscriptions);
     const presentation = composePresentation(domain.services, data.subscriptions);
 
-    const { styles } = presentation;
-    const { services } = domain;
-    const { stores, subscriptions } = data;
-    startup.configureSentry({ config });
-    startup.createStyleManager({ styles, subscriptions, util, window });
-    startup.insertNilRole({ config, stores });
-    startup.createHandlers({ services, subscriptions, util, config });
+    const app = { ...presentation, ...domain, ...data, io, util, config, src, window };
 
-    return { ...presentation, ...domain, ...data, io, stores, util, startup, config, src };
+    const startup = compose('startup', app);
+
+    startup.configureSentry();
+    startup.createStyleManager();
+    startup.insertNilRole();
+    startup.createHandlers();
+
+    return app;
 
 };

@@ -1,4 +1,4 @@
-module.exports = ({ styles, subscriptions, util, window }) => {
+module.exports = ({ styles, subscriptions, util, window }) => () => {
 
     const { tagImage, roleColor, ...rest } = styles;
 
