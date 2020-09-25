@@ -2,4 +2,4 @@
 
 # Runs ESLint. 
 
-npx eslint "*.js" "$SRC" "$TESTS" "$TEST_HELPERS" $@
+npx eslint "$SRC" "$TESTS" "$TEST_HELPERS" $@
