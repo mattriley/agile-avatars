@@ -8,7 +8,7 @@ module.exports = ({ window, ...overrides }) => {
     const config = compose('config', { io, window });
 
     // Data
-    const { stores, subscriptions, getState } = src.data.initialise({ util, config });
+    const { stores, subscriptions, getState } = src.data.createStores({ util, config });
 
     // Domain
     const core = compose('core', { util, config });

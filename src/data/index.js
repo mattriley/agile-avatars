@@ -1,4 +1,4 @@
 module.exports = {
-    initialise: require('./initialise'),
+    createStores: require('./create-stores'),
     stateStore: require('./state-store')
 };
