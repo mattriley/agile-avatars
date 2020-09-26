@@ -7,10 +7,11 @@
     "dependencies": {
         "@sentry/browser": "^5.24.2",
         "blueimp-md5": "^2.18.0",
-        "module-composer": "^0.4.3",
+        "module-composer": "^0.4.4",
         "vanilla-picker": "github:mattriley/vanilla-picker"
     },
     "devDependencies": {
+        "@mermaid-js/mermaid-cli": "^8.8.0",
         "c8": "^7.3.1",
         "chokidar-cli": "^2.1.0",
         "doctoc": "^1.4.0",

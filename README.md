@@ -297,7 +297,8 @@ module.exports = ({ window, ...overrides }) => {
     compose('components', { el, elements, services, subscriptions, ui, util, config, gtag, vendorComponents });
     
     // Startup
-    compose('diagnostics', { stores, util });
+    const rels = compose.getRelationships();
+    compose('diagnostics', { stores, util, rels });
     const startup = compose('startup', { styles, subscriptions, services, stores, util, config, window });
     startup();
 
@@ -775,6 +776,18 @@ Presenting a color picker to change the color of a role.
 
 
 ## Development dependencies
+
+### ❖ @mermaid-js/mermaid-cli
+
+> Command-line interface for mermaid
+
+- Homepage: https://github.com/mermaid-js/mermaid-cli#readme
+- __3__ dependencies :white_check_mark:
+
+
+
+
+
 
 ### ❖ c8
 
