@@ -1,8 +1,8 @@
-module.exports = ({ el, services, gtag }) => () => {
+module.exports = ({ el, services, vendor }) => () => {
 
     return el('a', { textContent: 'Import images from Gravatar' })
         .addEventListener('click', () => {
-            gtag('event', 'gravatar-clicked');
+            vendor.gtag('event', 'gravatar-clicked');
             services.settings.changeModal('gravatar');
         });
 

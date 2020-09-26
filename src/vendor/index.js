@@ -1,5 +1,5 @@
 module.exports = {
-    vendorComponents: require('./vendor-components'),
+    components: require('./components'),
     gtag: require('./gtag'),
     sentry: require('./sentry')
 };

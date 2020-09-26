@@ -9,7 +9,7 @@ module.exports = ({ window, ...overrides }) => {
     // Configure
     const io = compose('io', { window });
     const config = compose('config', { io, window });
-    const { gtag, vendorComponents } = compose('vendor', { config, window });
+    const vendor = compose('vendor', { config, window });
 
     // Data
     const stores = compose('stores', { storage, config });
@@ -23,7 +23,7 @@ module.exports = ({ window, ...overrides }) => {
     const { el, ...ui } = compose('ui', { config, window });
     const styles = compose('styles', { el, subscriptions, config });
     const elements = compose('elements', { el, ui, window });
-    compose('components', { el, elements, services, subscriptions, ui, util, config, gtag, vendorComponents });
+    compose('components', { el, elements, services, subscriptions, ui, util, config, vendor });
     
     // Startup    
     compose('diagnostics', { stores, util });

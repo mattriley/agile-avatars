@@ -12,9 +12,9 @@ module.exports = ({ test, boot, window }) => {
         
     // });
 
-    test.skip('tracking metadata set correctly', t => {
+    test('tracking metadata set correctly', t => {
         const date = new Date(1590969600000);
-        const { src, config } = boot({ 
+        boot({ 
             config: { 
                 googleAnalytics: { enabled: true } 
             },
@@ -22,29 +22,26 @@ module.exports = ({ test, boot, window }) => {
                 date: () => date
             }
         });
-        src.ui.modules.lib.gtag({ config, window });
         t.deepEqual(Array.from(window.dataLayer[0]), ['js', date]);
         t.deepEqual(Array.from(window.dataLayer[1]), ['config', 'UA-34497639-2']);        
     });
 
-    test.skip('gtag function sets metadata correctly', t => {
-        const { src, config } = boot({ 
+    test('gtag function sets metadata correctly', t => {
+        const { vendor } = boot({ 
             config: { 
                 googleAnalytics: { enabled: true } 
             }
         });
-        src.ui.modules.lib.gtag({ config, window });
-        window.gtag('foobar');
+        vendor.gtag('foobar');
         t.deepEqual(Array.from(window.dataLayer[2]), ['foobar']);        
     });
 
-    test.skip('disabled', t => {
-        const { config, src } = boot({ 
+    test('disabled', t => {
+        boot({ 
             config: { 
                 googleAnalytics: { enabled: false } 
             }
         });
-        src.ui.modules.lib.gtag({ config, window });
         t.equal(window['ga-disable-UA-34497639-2'], true);        
     });
 

@@ -1,8 +1,8 @@
-module.exports = ({ el, vendorComponents, services }) => roleId => {
+module.exports = ({ el, services, vendor }) => roleId => {
 
     const role = services.roles.getRole(roleId);
 
-    return vendorComponents.vanillaPicker({
+    return vendor.components.vanillaPicker({
         parent: el('div', 'color-picker'),
         color: role.color,
         onChange: e => services.roles.changeRoleColor(roleId, e.hex)
