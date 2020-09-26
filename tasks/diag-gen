@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-npx mmdc -i docs/modules.mmd -o docs/modules.svg

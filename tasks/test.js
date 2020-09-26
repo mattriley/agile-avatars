@@ -12,7 +12,6 @@ const bootOrig = require('../boot');
 
 const setup = () => {
     const { window } = new JSDOM('', { url: 'https://localhost/' });
-    window.fetch = () => undefined;
     const resetJsdom = () => { window.document.getElementsByTagName('html')[0].innerHTML = ''; };
     const helpers = composer({ helpers: testHelpers })('helpers', { window });
 

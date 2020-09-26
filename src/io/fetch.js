@@ -1,1 +1,1 @@
-module.exports = ({ window }) => window.fetch.bind(window);
+module.exports = ({ window }) => window.fetch?.bind(window);

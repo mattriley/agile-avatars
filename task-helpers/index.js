@@ -1,3 +1,4 @@
 module.exports = {
-    readmeGen: require('./readme-gen')
+    readmeGen: require('./readme-gen'),
+    diagramGen: require('./diagram-gen')
 };
