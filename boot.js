@@ -1,5 +1,6 @@
 const composer = require('module-composer');
-const { storage, util, ...src } = require('./src');
+const src = require('./src');
+const { storage, util } = src;
 
 module.exports = ({ window, ...overrides }) => {
 
@@ -20,17 +21,15 @@ module.exports = ({ window, ...overrides }) => {
         
     // Presentation
     const { el, ...ui } = compose('ui', { config, window });
+    const styles = compose('styles', { el, subscriptions, config });
     const elements = compose('elements', { el, ui, window });
     compose('components', { el, elements, services, subscriptions, ui, util, config, gtag, vendorComponents });
-    compose('styles', { el, subscriptions, config });
-
+    
     // Startup
     compose('diagnostics', { stores, util });
-
-    const app = { ...compose.modules, util, window };
-    const startup = compose('startup', app);
+    const startup = compose('startup', { styles, subscriptions, services, stores, util, config, window });
     startup();
 
-    return app;
+    return compose.getModules();
 
 };
