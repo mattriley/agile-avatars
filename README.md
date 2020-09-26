@@ -299,11 +299,8 @@ module.exports = ({ window, ...overrides }) => {
     compose('diagnostics', { stores, util });
 
     const app = { ...compose.modules, util, window };
-
     const startup = compose('startup', app);
-    startup.createStyleManager();
-    startup.insertNilRole();
-    startup.createHandlers();
+    startup();
 
     return app;
 
