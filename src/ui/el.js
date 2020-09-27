@@ -1,13 +1,12 @@
-module.exports = ({ window }) => (tagName, maybeClassNameOrProps, maybeProps = {}) => {
+module.exports = ({ window }) => (tagName, ...opts) => { 
 
-    const className = typeof maybeClassNameOrProps === 'string' ? maybeClassNameOrProps : undefined;
-    const props = maybeClassNameOrProps && !className ? maybeClassNameOrProps : maybeProps;
-    if (className) Object.assign(props, { className });
     const el = window.document.createElement(tagName);
-    const appendOrig = el.append.bind(el);
-    const append = (...args) => { appendOrig(...args); return el; };
-    const addEventListenerOrig = el.addEventListener.bind(el);
-    const addEventListener = (...args) => { addEventListenerOrig(...args); return el; };
-    return Object.assign(el, { append, addEventListener }, props);
+    const props = opts.map(opt => (typeof opt === 'string' ? { className: opt } : opt));
+    const funcs = ['append', 'addEventListener'].map(name => {
+        const orig = el[name].bind(el);
+        const func = (...args) => { orig(...args); return el; };
+        return { [name]: func };
+    });
+    return Object.assign(el, ...props, ...funcs);
 
 };

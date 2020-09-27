@@ -187,25 +187,25 @@ TODO
 
 # View rendering
 
-View rendering is achieved primarily using the DOM API (e.g. `document.createElement`), and by exception using HTML strings (e.g. `element.innerHTML`).
+View rendering is achieved primarily using the DOM API - `document.createElement()`, and by exception using HTML strings - `element.innerHTML`.
 
-## DOM API (document.createElement)
+## DOM API - document.createElement()
 
-Elements are created and managed using the DOM API. This usually involves:
+Creating elements with the DOM API usually involves:
 
-- Creating an element, e.g. `document.createElement('div')`
-- Assigning a class name, e.g. `element.className = 'myclass'`
-- Assigning values to properties, e.g. `element.prop1 = 'foo'`
-- Appending child elements, e.g. `element.append(child1, child2)`
-- Adding event listeners, e.g. `element.addEventListener('click', handler)`
+- Creating an element, `document.createElement('div')`
+- Assigning a class name, `element.className = 'myclass'`
+- Assigning properties, `element.prop1 = 'foo'`
+- Appending child elements, `element.append(child1, child2)`
+- Adding event listeners, `element.addEventListener('click', clickHandler)`
 
-This approach is sometimes criticised as verbose. While the verbosity itself didn't bother me, I did notice a pattern emerge which lead me to the creation of a helper function, `el`.
+This approach is sometimes criticised as verbose. While I only considered the verbosity a minor concern, I did notice a pattern emerge which lead me to the creation of a helper function, `el()`.
 
-## The `el` element builder function
+### Creating elements with el()
 
-The `el` function takes a tag name, and optional class name, and optional properties object. Because the native `append` and `addEventListener` functions return undefined, the `el` function overrides them to return the element instead to enable function chaining.
+`el()` takes a tag name, an optional class name, and optional properties object. Because the native `append()` and `addEventListener()` functions return undefined, `el()` overrides them to return the element instead to enable function chaining.
 
-__Example: Usage of the `el` function__
+__Example: Usage of el()__
 
 ```js
 const $div = el('div', 'myclass', { prop1: 'foo', prop2: 'bar' })
@@ -214,7 +214,7 @@ const $div = el('div', 'myclass', { prop1: 'foo', prop2: 'bar' })
     .addEventListener('click', clickHandler);
 ```
 
-The equivalent without the `el` function:
+The equivalent without `el()`:
 
 ```js
 const $div = document.createElement('div');
@@ -226,17 +226,23 @@ $div.addEventListener('focus', focusHandler);
 $div.addEventListener('click', clickHandler);
 ```
 
-__The `el` function__
+__el() implementation__
 
 <%- renderJsFile('src/ui/el.js') %>
 
-## HTML strings (element.innerHTML)
+### Observations
+
+#### No id required on elements. No need to query for elements.
+
+Because ultimately this approach uses `document.createElement` to create elements, and all interaction with elements are encapsulated within builder functions, we always have a direct reference to the element. This eliminates the need to assign an id, or lookup elements using `document.getElementById` or `document.querySelector` or some variation of these.
+
+## HTML strings - element.innerHTML
 
 `element.innerHTML` is used by exception, where HTML is used primarily for marking up blocks of content.
 
-__Example: Usage of `innerHTML` for content__
+__Example: Usage of innerHTML for content__
 
-This example uses the `el` function to create an element, but assigns a HTML string to `innerHTML` rather than appending child elements.
+This example uses `el()` to create an element, but assigns a HTML string to `innerHTML` rather than appending child elements.
 
 <%- renderJsFile('src/components/tips/naming.js') %>
 
@@ -253,11 +259,11 @@ A **state store** is collection of data items keyed by a unique identifier and m
 
 <%- renderJsFile('src/storage/state-store.js', { open: false }) %>
 
-__Example: Inserting a role using `insert`__
+__Example: Inserting a role using insert()__
 
 <%- renderJsFile('src/services/roles/insert-role.js') %>
 
-__Example: Changing a role name using `find` and `update`__
+__Example: Changing a role name using find() and update()__
 
 <%- renderJsFile('src/services/roles/change-role-name.js') %>
 
@@ -269,11 +275,11 @@ The observer pattern is easily implemented with Node's [EventEmitter](https://no
 
 During startup, subscription functions are extracted from the stores into a standalone _subscriptions_ object. This decouples subscribers (namely _services_ and _components_) from the stores making them agnostic of the data source. Although not a design goal for this application, this should allow the data source to change without impacting the subscribers provided the interface of the subscription functions do not change.
 
-__Example: Reacting to a new role using `onInsert` and `onFirstInsert`__
+__Example: Reacting to a new role using onInsert() and onFirstInsert()__
 
 <%- renderJsFile('src/components/role-list/role-list.js') %>
 
-__Example: Reacting to the change of a role name using `onChange`__
+__Example: Reacting to the change of a role name using onChange()__
 
 <%- renderJsFile('src/components/role-list/role-customiser/master-role-name.js') %>
 
@@ -385,6 +391,8 @@ The following sections lists all dependencies, including:
 
 # Conventions
 
+## Code
+
 ### Prefix $ to variables storing HTML element and $$ for collections of HTML elements
 
 I generally prefer to avoid variable prefixes but I've found these prefixes help in a couple of ways:
@@ -408,8 +416,9 @@ This just makes it easier to know when to use `await`.
 - Prefer higher-order functions such as `filter`, `map`, `reduce`, over imperative looping statements.
 - Separate pure from impure functions.
 
-# Observations
+## Documentation
 
-### No id required on elements. No need to query for elements.
-
-Because ultimately this approach uses `document.createElement` to create elements, and all interaction with elements are encapsulated within builder functions, we always have a direct reference to the element. This eliminates the need to assign an id, or lookup elements using `document.getElementById` or `document.querySelector` or some variation of these.
+- Append `()` to function names to make it obvious we are referring to a function, e.g. `func()`
+- Avoid using code style in headings, e.g. __About func()__, not __About `func()`__
+- Prefix ❖ to lists of level 3 heading to make them stand out as bullet items
+- Wherever possible render actual source files for example code.
