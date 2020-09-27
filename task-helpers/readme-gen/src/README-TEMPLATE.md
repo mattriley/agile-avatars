@@ -185,6 +185,61 @@ __Example: A service test that depends on IO__
 
 TODO
 
+# View rendering
+
+View rendering is achieved primarily using the DOM API (e.g. `document.createElement`), and by exception using HTML strings (e.g. `element.innerHTML`).
+
+## DOM API (document.createElement)
+
+Elements are created and managed using the DOM API. This usually involves:
+
+- Creating an element, e.g. `document.createElement('div')`
+- Assigning a class name, e.g. `element.className = 'myclass'`
+- Assigning values to properties, e.g. `element.prop1 = 'foo'`
+- Appending child elements, e.g. `element.append(child1, child2)`
+- Adding event listeners, e.g. `element.addEventListener('click', handler)`
+
+This approach is sometimes criticised as verbose. While the verbosity itself didn't bother me, I did notice a pattern emerge which lead me to the creation of a helper function, `el`.
+
+## The `el` element builder function
+
+The `el` function takes a tag name, and optional class name, and optional properties object. Because the native `append` and `addEventListener` functions return undefined, the `el` function overrides them to return the element instead to enable function chaining.
+
+__Example: Usage of the `el` function__
+
+```js
+const $div = el('div', 'myclass', { prop1: 'foo', prop2: 'bar' })
+    .append(child1, child2)
+    .addEventListener('focus', focusHandler)
+    .addEventListener('click', clickHandler);
+```
+
+The equivalent without the `el` function:
+
+```js
+const $div = document.createElement('div');
+$div.className = 'myclass';
+$div.prop1 = 'foo';
+$div.prop2 = 'bar';
+$div.append(child1, child2);
+$div.addEventListener('focus', focusHandler);
+$div.addEventListener('click', clickHandler);
+```
+
+__The `el` function__
+
+<%- renderJsFile('src/ui/el.js') %>
+
+## HTML strings (element.innerHTML)
+
+`element.innerHTML` is used by exception, where HTML is used primarily for marking up blocks of content.
+
+__Example: Usage of `innerHTML` for content__
+
+This example uses the `el` function to create an element, but assigns a HTML string to `innerHTML` rather than appending child elements.
+
+<%- renderJsFile('src/components/tips/naming.js') %>
+
 # State management
 
 Avoiding state management libraries forces the need for a bespoke state management solution.
