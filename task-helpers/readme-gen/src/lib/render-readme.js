@@ -1,8 +1,11 @@
 const path = require('path');
 
-module.exports = ({ lib, ejs }) => cb => {
+module.exports = ({ lib, ejs }) => async cb => {
 
-    const data = lib.getTemplateData();
+    const modules = await lib.getModules();
+
+    const data = { modules, ...lib.getTemplateData() };
+    
 
     const templatePath = path.join(__dirname, '..', 'README-TEMPLATE.md');
 

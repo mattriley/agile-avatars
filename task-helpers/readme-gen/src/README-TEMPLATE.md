@@ -1,6 +1,5 @@
 # Agile Avatars
 
-
 WORK IN PROGRESS.
 
 Source code for [agileavatars.com](https://agileavatars.com). An experiment in frameworkless/vanilla JavaScript.
@@ -68,86 +67,13 @@ __iTerm2 automated window arrangement (macOS only)__
 
 ![Architecture](docs/architecture.svg)
 
-Omitted for brievity:
-- __Lib__: All depend on Lib except Config and IO.
-- __Config__: All depend on Config except Elements and Lib.
-
 A familiar presentation/domain/data __layered architecture__ has been used to manage __separation of concerns__. This is a common approach to modularise backend applications and therefore I hypothesise this design will be more approachable for backend developers.
 
 ## Modules
 
 During initialisation, all source files comprising a module are loaded and aggregated into a plain object graph. This is helpful for shifting our mental model from files to modules. Each module has a clear purpose and relationships between modules are explicitly defined. See [Initialisation](#initialisation) for more details.
 
-### Components
-
-An aggregation of _component builder functions_.
-
-A __component builder function__ returns an object deriving [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) using closures to react to both user interaction and state changes (via subscriptions), may self-mutate, and interact with services.
-
-<%- renderJsFile('src/components/tag-list/tag/components/tag-name.js') %>
-
-Because component builder functions simply return native HTML elements, they can easily be appended to create component hierarchies.
-
-<%- renderJsFile('src/components/header/header.js') %>
-
-### Elements
-
-An aggregation of _element builder functions_.
-
-An __element builder function__ returns an object deriving [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) using closures to react to user interaction, and may self-mutate.
-
-Elements are 'fundamental' components. Unlike components, they cannot react to state changes or interact with services. For this reason, elements tend to be lower level, generic, and reusable.
-
-<%- renderJsFile('src/elements/editable-span.js') %>
-
-### Services
-
-An aggregation of _service functions_.
-
-A __service function__ orchestrates domain logic and IO including state changes.
-
-Inspired by [Functional Core, Imperative Shell](https://www.destroyallsoftware.com/screencasts/catalog/functional-core-imperative-shell), __services__ comprise the 'imperative shell'.
-
-<%- renderJsFile('src/services/tags/change-tag-name.js') %>
-
-### Core
-
-An aggregation of _pure functions_.
-
-From [Wikipedia](https://en.wikipedia.org/wiki/Pure_function):
-> In computer programming, a __pure function__ is a function that has the following properties:
-> 1. Its return value is the same for the same arguments (no variation with local static variables, non-local variables, mutable reference arguments or input streams from I/O devices).
-> 2. Its evaluation has no side effects (no mutation of local static variables, non-local variables, mutable reference arguments or I/O streams).
-
-Inspired by [Functional Core, Imperative Shell](https://www.destroyallsoftware.com/screencasts/catalog/functional-core-imperative-shell), __core__ comprises the 'functional core'.
-
-<%- renderJsFile('src/core/tags/parse-tag-expression.js') %>
-
-### IO
-
-An aggregation of functions that depend on or act on the environment. 
-
-
-
-### Subscriptions
-
-An aggregation of _subscription functions_.
-
-A __subscription function__ enables a listener to be notified of state changes.
-
-### Stores
-
-An aggregation of _state stores_.
-
-A __state store__ encapsulates state mutations and subscriptions for state changes.
-
-### Lib
-
-An aggregation of utility functions.
-
-### Config
-
-A plain object graph of configuration data.
+<%- modules %>
 
 # Initialisation
 
