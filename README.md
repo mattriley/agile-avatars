@@ -27,6 +27,8 @@ DISCLAIMER: Some of the approaches used may be unconventional. Any attempt to em
 - [Architecture](#architecture)
   - [Modules](#modules)
 - [Initialisation](#initialisation)
+  - [Booting the application with boot()](#booting-the-application-with-boot)
+  - [Generating a dependency diagram](#generating-a-dependency-diagram)
   - [Launching the application](#launching-the-application)
   - [Testing the application](#testing-the-application)
 - [View rendering](#view-rendering)
@@ -275,9 +277,11 @@ A __subscription function__ enables a listener to be notified of state changes.
 
 # Initialisation
 
-The application is initialised by invoking the function exported by `./boot.js`. This `boot` function has 1 required argument - `window`. The entire application depends on this supplied instance of `window` rather than depending on the global `window` object.
+Initialisation involves loading configuration, composing modules, and invoking startup procedures. Initialising the application does not launch it; rather it returns initialised modules for use by a consumer. This enables the application to be interacted with in a variety of ways including launching the application, testing the application, and generating a dependency diagram.
 
-Initialisation involves loading configuration, composing modules, and invoking startup procedures. Initialising the application does not launch it; rather it returns initialised modules for use by a consumer. This enables the application to be interacted with in a variety of ways.
+## Booting the application with boot()
+
+The application is initialised by invoking the function exported by `./boot.js`. `boot()` must be supplied a `window` object. The entire application depends on this supplied instance of `window` rather than depending on the global `window` object.
 
 <details open>
 <summary>boot.js</summary>
@@ -321,9 +325,19 @@ module.exports = ({ window, ...overrides }) => {
 ```
 </details>
 
+`module-composer` is a small, single-file library that enables module composition using partial function application. Originally part of Agile Avatars but extracted as a separate library because I've found it useful in other projects. See [module-composer](#-module-composer) in the [Dependencies](#dependencies) section.
+
+`boot.js` is also useful as a single place to go to control and understand how the application "hangs together", helping to reduce cognitive load.
+
+## Generating a dependency diagram
+
+An interesting side-effect of managing dependencies this way is that it became trivial to generate a dependency diagram. This is achived by invoking `boot()` and using a data structure provided by `module-composer` that describes the dependencies to generate a [mermaid.js](https://github.com/mermaid-js/mermaid) definition file, and using [mermaid-cli](https://github.com/mermaid-js/mermaid-cli) to generate an SVG. See [mermaid-cli](#-mermaid-jsmermaid-cli) in the [Dependencies](#dependencies) section.
+
+![Dependencies](docs/modules.svg)
+
 ## Launching the application
 
-A single HTML file at `./public/index.html` loads `./public/app.js` using a `<script>` tag. `app.js` initialises the application and supplies the global `window` object as an argument. Once initialised, the `components` module is used to create the top level `app` component and appends it to the DOM. The `services` module is also used to activate the `welcome` modal. 
+A single HTML file at `./public/index.html` loads `./public/app.js` using a `<script>` tag. `app.js` initialises the application by invoking `boot()`, supplying the global `window` object as an argument. Once initialised, the `components` module is used to create the top level `app` component and appends it to the DOM. The `services` module is also used to activate the `welcome` modal. 
 
 <details open>
 <summary>public/app.js</summary>
@@ -349,7 +363,7 @@ Rather than acting on individual files, tests act on the initialised application
 
 __Example: A component test that depends on shared state__
 
-This test initialises the application by calling the `boot` function and uses the `components` module to create an 'options bar' which should initially be hidden. It then uses the `services` module to insert a tag which should cause the options bar to become visible. 
+This test initialises the application by invoking `boot()` and uses the `components` module to create an 'options bar' which should initially be hidden. It then uses the `services` module to insert a tag which should cause the options bar to become visible. 
 
 <details open>
 <summary>tests/components/options-bar.test.js</summary>
@@ -370,7 +384,7 @@ module.exports = ({ test, boot, helpers }) => {
 ```
 </details>
 
-NB: As mentioned previously, the `boot` function has 1 required argument - `window`. This version of the `boot` function is actually a wrapper that supplies an instance of `window` provided by [JSDOM](https://github.com/jsdom/jsdom) to the original `boot` function for testing purposes.
+NB: As mentioned previously, `boot()` has 1 required argument - `window`. This version of `boot()` is actually a wrapper that supplies an instance of `window` provided by [JSDOM](https://github.com/jsdom/jsdom) to the original `boot` function for testing purposes.
 
 __Example: A service test that depends on IO__
 

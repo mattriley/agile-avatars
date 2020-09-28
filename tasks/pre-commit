@@ -3,3 +3,4 @@
 ./tasks/lint
 ./tasks/cov-check
 ./tasks/readme-gen
+./tasks/diagram-gen
