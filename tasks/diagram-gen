@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-SOURCE="docs/modules.mmd"
-DEST="docs/modules.svg"
-
-node "task-helpers/diagram-gen.js" > "$SOURCE"
-npx mmdc -i "$SOURCE" -o "$DEST"

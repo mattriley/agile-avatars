@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+SOURCE="$1"
+DEST="${SOURCE%.*}.svg"
+npx mmdc -i "$SOURCE" -o "$DEST"
+git add $DEST
