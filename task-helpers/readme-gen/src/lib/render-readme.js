@@ -7,7 +7,7 @@ module.exports = ({ lib, ejs }) => async cb => {
     const data = { modules, ...lib.getTemplateData() };
     
 
-    const templatePath = path.join(__dirname, '..', 'README-TEMPLATE.md');
+    const templatePath = path.join(process.cwd(), 'README-TEMPLATE.md');
 
     ejs.renderFile(templatePath, data, {}, (err, str) => {
         if (err) throw err;
