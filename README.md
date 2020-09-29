@@ -277,7 +277,17 @@ A __subscription function__ enables a listener to be notified of state changes.
 
 # Initialisation
 
-Initialisation involves loading configuration, composing modules, and invoking startup procedures. Initialising the application does not launch it; rather it returns initialised modules for use by a consumer. This enables the application to be interacted with in a variety of ways including launching the application, testing the application, and understanding the application.
+Initialisation is the process of making the application ready to launch and involves: 
+
+- Loading configuration,
+- Composing modules,
+- Invoking startup procedures, and
+- Returning the initialised modules / the integrated application.
+
+Launching the application involves invoking the _root_ component (which in turn invokes many other subcomponents) and appending it to the DOM. Separating the concern of initialising from launching provides:
+
+- A means of understanding how the application "hangs together".
+- A means of testing isolated behaviours in an integrated setting.
 
 ## Initialising the application with boot()
 
