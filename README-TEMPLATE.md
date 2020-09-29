@@ -87,9 +87,9 @@ The application is initialised by invoking the function exported by `./boot.js`.
 
 `module-composer` is a small, single-file library that enables module composition using partial function application. Originally part of Agile Avatars but extracted as a separate library because I've found it useful in other projects. See [module-composer](#-module-composer) in the [Dependencies](#dependencies) section.
 
-__Source code for `module-composer`__
+__Source code for module-composer__
 
-<%- renderJsFile('node_modules/module-composer/index.js', { open: false }) %>
+<%- renderJsFile('node_modules/module-composer/src/module-composer.js', { open: false }) %>
 
 ## Understanding the application
 
