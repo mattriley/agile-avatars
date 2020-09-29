@@ -77,9 +77,9 @@ During initialisation, all source files comprising a module are loaded and aggre
 
 # Initialisation
 
-Initialisation involves loading configuration, composing modules, and invoking startup procedures. Initialising the application does not launch it; rather it returns initialised modules for use by a consumer. This enables the application to be interacted with in a variety of ways including launching the application, testing the application, and generating a dependency diagram.
+Initialisation involves loading configuration, composing modules, and invoking startup procedures. Initialising the application does not launch it; rather it returns initialised modules for use by a consumer. This enables the application to be interacted with in a variety of ways including launching the application, testing the application, and understanding the application.
 
-## Booting the application with boot()
+## Initialising the application with boot()
 
 The application is initialised by invoking the function exported by `./boot.js`. `boot()` must be supplied a `window` object. The entire application depends on this supplied instance of `window` rather than depending on the global `window` object.
 
@@ -87,9 +87,13 @@ The application is initialised by invoking the function exported by `./boot.js`.
 
 `module-composer` is a small, single-file library that enables module composition using partial function application. Originally part of Agile Avatars but extracted as a separate library because I've found it useful in other projects. See [module-composer](#-module-composer) in the [Dependencies](#dependencies) section.
 
-`boot.js` is also useful as a single place to go to control and understand how the application "hangs together", helping to reduce cognitive load.
+__Source code for `module-composer`__
 
-## Generating a dependency diagram
+<%- renderJsFile('node_modules/module-composer/index.js', { open: false }) %>
+
+## Understanding the application
+
+`boot.js` is also useful as a single place to go to control and understand how the application "hangs together", helping to reduce cognitive load.
 
 An interesting side-effect of managing dependencies this way is that it became trivial to generate a dependency diagram. This is achived by invoking `boot()` and using a data structure provided by `module-composer` that describes the dependencies to generate a [mermaid.js](https://github.com/mermaid-js/mermaid) definition file, and using [mermaid-cli](https://github.com/mermaid-js/mermaid-cli) to generate an SVG. See [mermaid-cli](#-mermaid-jsmermaid-cli) in the [Dependencies](#dependencies) section.
 
