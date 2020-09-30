@@ -71,7 +71,9 @@ With the plethora of frontend architectural styles in use today, this applicatio
 
 ## Modules
 
-During initialisation, all source files comprising a module are loaded and aggregated into a plain object graph. This is helpful for shifting our mental model from files to modules. Each module has a clear purpose and relationships between modules are explicitly defined. See [Initialisation](#initialisation) for more details.
+The application is composed of architectural components called modules. Each directory under `src` is a module, with `components` and `services` being examples. Modules __do not__ reference other modules using file references. Rather, the application begins with an initialisation process where modules are composed using a functional programming technique called partial function application. See [Initialisation](#initialisation) for more details.
+
+Following is a complete list of modules.
 
 <%- modules %>
 
