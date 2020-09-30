@@ -67,7 +67,7 @@ __iTerm2 automated window arrangement (macOS only)__
 
 ![Architecture](docs/architecture.svg)
 
-A familiar presentation/domain/data __layered architecture__ has been used to manage __separation of concerns__. This is a common approach to modularise backend applications and therefore I hypothesise this design will be more approachable for backend developers.
+With the plethora of frontend architectural styles in use today, this application takes a "back to basics" approach with a classic layered architecture. My hypothesis is that the simplicity and familiarity of this architectural style would be approachable for a wide audience including backend developers with limited exposure to frontend development.
 
 ## Modules
 
