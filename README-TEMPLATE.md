@@ -251,6 +251,7 @@ Further reading:
 
 ## Constraints
 
+- The application can be tested without bundling or transpiling.
 - Unit test suite optimised for speed. Max 10 seconds.
   - [TDD test suites should run in 10 seconds or less - Mark Seemann](https://blog.ploeh.dk/2012/05/24/TDDtestsuitesshouldrunin10secondsorless/)
 - No BDD style assertion libraries, e.g. expect. Used assert instead.
