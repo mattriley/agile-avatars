@@ -2,8 +2,8 @@ module.exports = ({ window }) => {
 
     return {
         date: () => new window.Date(),
-        fetch: window.fetch?.bind(window),
-        random: window.Math?.random,
+        fetch: (...args) => window.fetch(...args),
+        random: () => window.Math.random,
         readAsDataUrlAsync: blob => {
             return new Promise(resolve => {
                 const reader = new window.FileReader();
