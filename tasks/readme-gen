@@ -2,16 +2,4 @@
 
 # Generates README.md
 
-README="README.md"
-
-# Generate README.md from ejs template.
-node ./task-helpers/readme-gen/run.js > $README
-
-# Generate table of contents.
-npx doctoc --maxlevel 2 $README 
-
-node "task-helpers/diagram-gen.js" > "docs/modules.mmd"
-./tasks/diagram-gen-staged
-
-git add $README
-git add docs
+./node_modules/agileavatars-docgen/tasks/readme-gen

@@ -11,18 +11,14 @@
         "vanilla-picker": "github:mattriley/vanilla-picker"
     },
     "devDependencies": {
-        "@mermaid-js/mermaid-cli": "^8.8.0",
+        "agileavatars-docgen": "file:../agileavatars-docgen",
         "c8": "^7.3.1",
         "chokidar-cli": "^2.1.0",
-        "doctoc": "^1.4.0",
-        "ejs": "^3.1.5",
-        "eslint": "^7.9.0",
-        "globby": "^11.0.1",
+        "eslint": "^7.10.0",
         "husky": "^4.3.0",
         "jsdom": "^16.2.2",
         "module-indexgen": "^0.2.1",
         "parcel-bundler": "^1.12.4",
-        "sloc": "^0.2.1",
         "tap-mocha-reporter": "^5.0.1",
         "zora": "^4.0.0"
     },

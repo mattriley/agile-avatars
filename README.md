@@ -21,37 +21,6 @@ DISCLAIMER: Some of the approaches used may be unconventional. Any attempt to em
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-- [Getting started](#getting-started)
-- [Design goals](#design-goals)
-- [Technical constraints](#technical-constraints)
-- [Architecture](#architecture)
-  - [Modules](#modules)
-- [Initialisation](#initialisation)
-  - [Initialising the application with boot()](#initialising-the-application-with-boot)
-  - [Understanding the application](#understanding-the-application)
-  - [Launching the application](#launching-the-application)
-  - [Testing the application](#testing-the-application)
-- [View rendering](#view-rendering)
-  - [DOM API - document.createElement()](#dom-api---documentcreateelement)
-  - [HTML strings - element.innerHTML](#html-strings---elementinnerhtml)
-- [State management](#state-management)
-  - [Stores](#stores)
-  - [Subscriptions](#subscriptions)
-- [Testing](#testing)
-  - [Position](#position)
-  - [Constraints](#constraints)
-  - [Approach](#approach)
-- [Dependencies](#dependencies)
-  - [Position](#position-1)
-  - [Constraints](#constraints-1)
-  - [Production dependencies](#production-dependencies)
-  - [Development dependencies](#development-dependencies)
-- [Conventions](#conventions)
-  - [Code](#code)
-  - [Documentation](#documentation)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
 # Getting started
 
 __Prerequisites__
@@ -1186,6 +1155,18 @@ Lightweight test harness optimised for speed and simplicity.
 
 - __tape__\
 tape was originally used however zora is newer and has some advantages over tape.
+
+### ❖ agileavatars-docgen
+
+> undefined
+
+- Homepage: undefined
+- __8__ dependencies :white_check_mark:
+
+
+
+
+
 
 
 # Conventions

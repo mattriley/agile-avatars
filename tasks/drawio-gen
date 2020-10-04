@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-
-SOURCE="$1"
-DEST="${SOURCE%.*}.svg"
-draw.io -x -f svg --crop -o $DEST $SOURCE
-git add $DEST
