@@ -328,8 +328,7 @@ module.exports = ({ window, ...overrides }) => {
     
     // Startup    
     compose('diagnostics', { stores, util });
-    const startup = compose('startup', { styles, subscriptions, services, stores, util, config, window });
-    startup();
+    compose('startup', { styles, subscriptions, services, stores, util, config, window });
 
     return compose.getModules();
 
@@ -414,7 +413,8 @@ A single HTML file at `./public/index.html` loads `./public/app.js` using a `<sc
 ```js
 require('./css/*.css');
 const boot = require('../boot');
-const { components, services } = window.agileavatars = boot({ window });
+const { components, services, startup } = window.agileavatars = boot({ window });
+startup();
 services.settings.changeModal('welcome');
 document.body.append(components.app());
 ```

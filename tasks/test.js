@@ -19,7 +19,9 @@ const setup = () => {
         resetJsdom(); 
         const defaultConfig = { debounce: { adjustTagInstanceCounts: 0, sortTagList: 0 } };
         const config = Object.assign(defaultConfig, args.config);
-        return bootOrig({ window, ...args, config });
+        const app = bootOrig({ window, ...args, config });
+        app.startup();
+        return app;
     };
 
     return { src, boot, window, helpers };

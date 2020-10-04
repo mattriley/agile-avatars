@@ -27,8 +27,7 @@ module.exports = ({ window, ...overrides }) => {
     
     // Startup    
     compose('diagnostics', { stores, util });
-    const startup = compose('startup', { styles, subscriptions, services, stores, util, config, window });
-    startup();
+    compose('startup', { styles, subscriptions, services, stores, util, config, window });
 
     return compose.getModules();
 
