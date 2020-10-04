@@ -1,4 +1,4 @@
-module.exports = ({ io, window }) => {
+module.exports = ({ window }) => {
 
     const meta = name => window.document?.querySelector(`meta[name=${name}]`)?.getAttribute('content');
 
@@ -7,7 +7,6 @@ module.exports = ({ io, window }) => {
 
     return {
         googleAnalytics: {         
-            date: io.date(),
             trackingId: 'UA-34497639-2',
             enabled: !isLocalhost
         },
