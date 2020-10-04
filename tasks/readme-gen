@@ -2,4 +2,4 @@
 
 # Generates README.md
 
-./node_modules/agileavatars-docgen/bin/agileavatars-readmegen
+./node_modules/agileavatars-docgen/bin/readme-gen "$(pwd)"

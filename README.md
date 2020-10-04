@@ -974,7 +974,7 @@ Presenting a color picker to change the color of a role.
 
 > undefined
 
-- Homepage: https://github.com/mattriley/agileavatars-docgen#readme
+- Homepage: undefined
 - __9__ dependencies :white_check_mark:
 
 
