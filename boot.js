@@ -7,8 +7,8 @@ module.exports = ({ window, ...overrides }) => {
     const compose = composer(src, { overrides });
 
     // Configure
-    const io = compose('io', { window });
-    const config = compose('config', { window });
+    const config = compose('config');
+    const io = compose('io', { window });    
     const vendor = compose('vendor', { config, io, window });
 
     // Data

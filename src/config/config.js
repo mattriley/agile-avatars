@@ -1,16 +1,15 @@
-module.exports = ({ window }) => {
+module.exports = () => {
 
     const maxImageSize = 600;
-    const isLocalhost = (/localhost/).test(window.location?.host);
 
     return {
         googleAnalytics: {         
             trackingId: 'UA-34497639-2',
-            enabled: !isLocalhost
+            enabled: true
         },
         sentry: {
             dsn: 'https://63594154fcf34c34966aec13b15e2821@o418187.ingest.sentry.io/5320412',
-            enabled: !isLocalhost
+            enabled: true
         },
         app: {
             name: 'Agile Avatars',
