@@ -2,4 +2,4 @@
 
 # Generates README.md
 
-./node_modules/agileavatars-docgen/tasks/readme-gen
+./node_modules/agileavatars-docgen/bin/agileavatars-readmegen
