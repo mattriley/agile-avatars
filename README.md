@@ -939,12 +939,12 @@ Presenting a color picker to change the color of a role.
 
 ## Development dependencies
 
-### ❖ @mermaid-js/mermaid-cli
+### ❖ agileavatars-docgen
 
-> Command-line interface for mermaid
+> undefined
 
-- Homepage: https://github.com/mermaid-js/mermaid-cli#readme
-- __3__ dependencies :white_check_mark:
+- Homepage: undefined
+- __8__ dependencies :white_check_mark:
 
 
 
@@ -983,34 +983,6 @@ Running tests automatically on file change.
 
 
 
-### ❖ doctoc
-
-> Generates TOC for markdown files of local git repo.
-
-- Homepage: https://github.com/thlorenz/doctoc#readme
-- __6__ dependencies :white_check_mark:
-
-#### Used for
-
-Generating README table of contents.
-
-
-
-
-### ❖ ejs
-
-> Embedded JavaScript templates
-
-- Homepage: https://github.com/mde/ejs
-- __1__ dependency :white_check_mark:
-
-#### Used for
-
-Generating README from a template.
-
-
-
-
 ### ❖ eslint
 
 > An AST-based pattern checker for JavaScript.
@@ -1028,18 +1000,6 @@ Linting and code formatting.
 
 - __prettier__\
 Prettier was originally used for code formatting but was dropped due to limited configurability.
-
-### ❖ globby
-
-> User-friendly glob matching
-
-- Homepage: https://github.com/sindresorhus/globby#readme
-- __6__ dependencies :white_check_mark:
-
-
-
-
-
 
 ### ❖ husky
 
@@ -1112,18 +1072,6 @@ Designed to be easier to use than webpack.
 
 
 
-### ❖ sloc
-
-> sloc is a simple tool to count SLOC (source lines of code)
-
-- Homepage: https://github.com/flosse/sloc#readme
-- __4__ dependencies :white_check_mark:
-
-
-
-
-
-
 ### ❖ tap-mocha-reporter
 
 > Format a TAP stream using Mocha's set of reporters
@@ -1155,18 +1103,6 @@ Lightweight test harness optimised for speed and simplicity.
 
 - __tape__\
 tape was originally used however zora is newer and has some advantages over tape.
-
-### ❖ agileavatars-docgen
-
-> undefined
-
-- Homepage: undefined
-- __8__ dependencies :white_check_mark:
-
-
-
-
-
 
 
 # Conventions
