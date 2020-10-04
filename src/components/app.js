@@ -1,10 +1,9 @@
-module.exports = ({ el, components, subscriptions, ui }) => () => {
+module.exports = ({ el, components, subscriptions, ui, vendor }) => () => {
 
-    // const $$styles = Object.values(components.styles).map(style => style());
     const $$modals = Object.values(components.modals).map(modal => modal());
 
     const $container = el('div', 'app').append(
-        // el('div', 'styles').append(...$$styles),
+        vendor.components.gtagScript(),
         el('div', 'modals').append(...$$modals),
         components.header(), 
         components.dropzone().append(

@@ -1,9 +1,9 @@
 module.exports = ({ io, window }) => {
 
-    const meta = name => window.document.querySelector(`meta[name=${name}]`)?.getAttribute('content');
+    const meta = name => window.document?.querySelector(`meta[name=${name}]`)?.getAttribute('content');
 
     const maxImageSize = 600;
-    const isLocalhost = (/localhost/).test(window.location.host);
+    const isLocalhost = (/localhost/).test(window.location?.host);
 
     return {
         googleAnalytics: {         
