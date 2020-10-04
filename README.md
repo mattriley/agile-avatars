@@ -739,6 +739,7 @@ Further reading:
 
 ## Constraints
 
+- The application can be tested without bundling or transpiling.
 - Unit test suite optimised for speed. Max 10 seconds.
   - [TDD test suites should run in 10 seconds or less - Mark Seemann](https://blog.ploeh.dk/2012/05/24/TDDtestsuitesshouldrunin10secondsorless/)
 - No BDD style assertion libraries, e.g. expect. Used assert instead.
@@ -1059,6 +1060,18 @@ Linting and code formatting.
 - __prettier__\
 Prettier was originally used for code formatting but was dropped due to limited configurability.
 
+### ❖ globby
+
+> User-friendly glob matching
+
+- Homepage: https://github.com/sindresorhus/globby#readme
+- __6__ dependencies :white_check_mark:
+
+
+
+
+
+
 ### ❖ husky
 
 > Prevents bad commit or push (git hooks, pre-commit/precommit, pre-push/prepush, post-merge/postmerge and all that stuff...)
@@ -1127,6 +1140,18 @@ Parcel has many dependencies. An exception is made for ease of use.
 
 - __Low learning curve__\
 Designed to be easier to use than webpack.
+
+
+
+### ❖ sloc
+
+> sloc is a simple tool to count SLOC (source lines of code)
+
+- Homepage: https://github.com/flosse/sloc#readme
+- __4__ dependencies :white_check_mark:
+
+
+
 
 
 
