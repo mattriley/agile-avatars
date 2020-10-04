@@ -3,7 +3,7 @@ module.exports = () => {
     const maxImageSize = 600;
 
     return {
-        googleAnalytics: {         
+        gtag: {         
             trackingId: 'UA-34497639-2',
             enabled: true
         },

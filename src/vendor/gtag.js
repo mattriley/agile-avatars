@@ -2,7 +2,7 @@
 
 module.exports = ({ config, io, window }) => {
 
-    const { trackingId, enabled } = config.googleAnalytics;
+    const { trackingId, enabled } = config.gtag;
 
     const initalise = () => {
         window.dataLayer = [];

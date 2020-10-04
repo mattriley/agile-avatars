@@ -417,7 +417,7 @@ const boot = require('../boot');
 const isLocalhost = (/localhost/).test(window.location.host);
 
 const config = { 
-    googleAnalytics: { enabled: !isLocalhost },
+    gtag: { enabled: !isLocalhost },
     sentry: { enabled: !isLocalhost }
 };
 

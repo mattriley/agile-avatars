@@ -17,7 +17,7 @@ module.exports = ({ test, setup }) => {
         const { boot, window } = setup();
         const { vendor } = boot({ 
             config: { 
-                googleAnalytics: { enabled: true } 
+                gtag: { enabled: true } 
             },
             io: {
                 date: () => date
@@ -32,7 +32,7 @@ module.exports = ({ test, setup }) => {
         const { boot, window } = setup();
         const { vendor } = boot({ 
             config: { 
-                googleAnalytics: { enabled: true } 
+                gtag: { enabled: true } 
             }
         });
         vendor.gtag('foobar');
@@ -43,7 +43,7 @@ module.exports = ({ test, setup }) => {
         const { boot, window } = setup();
         const { vendor } = boot({ 
             config: { 
-                googleAnalytics: { enabled: false } 
+                gtag: { enabled: false } 
             }
         });
         vendor.gtag('foobar');
