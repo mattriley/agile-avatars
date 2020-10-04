@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-
-# Generates index.js files.
-
-npx indexgen "$SRC" "$TEST_HELPERS" "$TASK_HELPERS" --watch 

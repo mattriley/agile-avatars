@@ -10,7 +10,7 @@ export PUBLIC_IMAGES="$PUBLIC/img"
 export SRC="src"
 export TESTS="tests"
 export TEST_HELPERS="test-helpers"
-export TASK_HELPERS="task-helpers"
+export INDEXGEN_PATHS="$SRC $TEST_HELPERS"
 
 function task() {
     "tasks/$1" "${@:2}"

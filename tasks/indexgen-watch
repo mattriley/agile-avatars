@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+# Generates index.js files.
+
+npx indexgen $INDEXGEN_PATHS --watch 

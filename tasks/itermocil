@@ -11,6 +11,7 @@ windows:
     panes:
       - commands:
         - nvm use
+        - code .
       - commands:
         - nvm use
         - ./task test-watch
@@ -19,7 +20,7 @@ windows:
         - ./task start
       - commands:
         - nvm use
-        - ./task indexjs-gen
+        - ./task indexgen-watch
 EOF
 
 itermocil
