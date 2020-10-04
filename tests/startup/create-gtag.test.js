@@ -1,4 +1,4 @@
-module.exports = ({ test, boot, window }) => {
+module.exports = ({ test, setup }) => {
 
     // test('script tag initialised correctly', t => {
     //     const { components } = boot({ 
@@ -14,7 +14,8 @@ module.exports = ({ test, boot, window }) => {
 
     test('tracking metadata set correctly', t => {
         const date = new Date(1590969600000);
-        boot({ 
+        const { boot, window } = setup();
+        const { vendor } = boot({ 
             config: { 
                 googleAnalytics: { enabled: true } 
             },
@@ -22,11 +23,13 @@ module.exports = ({ test, boot, window }) => {
                 date: () => date
             }
         });
+        vendor.gtag('foobar');
         t.deepEqual(Array.from(window.dataLayer[0]), ['js', date]);
         t.deepEqual(Array.from(window.dataLayer[1]), ['config', 'UA-34497639-2']);        
     });
 
     test('gtag function sets metadata correctly', t => {
+        const { boot, window } = setup();
         const { vendor } = boot({ 
             config: { 
                 googleAnalytics: { enabled: true } 
@@ -37,11 +40,13 @@ module.exports = ({ test, boot, window }) => {
     });
 
     test('disabled', t => {
-        boot({ 
+        const { boot, window } = setup();
+        const { vendor } = boot({ 
             config: { 
                 googleAnalytics: { enabled: false } 
             }
         });
+        vendor.gtag('foobar');
         t.equal(window['ga-disable-UA-34497639-2'], true);        
     });
 
