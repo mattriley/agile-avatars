@@ -984,7 +984,7 @@ Presenting a color picker to change the color of a role.
 > undefined
 
 - Homepage: undefined
-- __8__ dependencies :white_check_mark:
+- __0__ dependencies :boom:
 
 
 
