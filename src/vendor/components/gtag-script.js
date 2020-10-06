@@ -1,8 +1,9 @@
-module.exports = ({ config, window }) => () => {
+module.exports = ({ el, config }) => () => {
 
     const { trackingId } = config.gtag;
-    const script = window.document.createElement('script');
-    script.src = `https://www.googletagmanager.com/gtag/js?id=${trackingId}`;
-    return script;
+    
+    return el('script', {
+        src: `https://www.googletagmanager.com/gtag/js?id=${trackingId}`
+    });
     
 };

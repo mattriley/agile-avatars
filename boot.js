@@ -9,8 +9,7 @@ module.exports = ({ window, ...overrides }) => {
     // Configure
     const config = compose('config');
     const io = compose('io', { window });    
-    const vendor = compose('vendor', { config, io, window });
-
+    
     // Data
     const stores = compose('stores', { storage, config });
     const subscriptions = compose('subscriptions', { stores, util });
@@ -20,14 +19,15 @@ module.exports = ({ window, ...overrides }) => {
     const services = compose('services', { subscriptions, stores, core, io, util, config });
         
     // Presentation
-    const { el, ...ui } = compose('ui', { config, window });
+    const { el, ...dom } = compose('dom', { window });
+    const vendor = compose('vendor', { el, config, dom, io, window });
     const styles = compose('styles', { el, subscriptions, config });
-    const elements = compose('elements', { el, ui, window });
-    compose('components', { el, elements, services, subscriptions, ui, util, config, vendor });
+    const elements = compose('elements', { el, dom });
+    compose('components', { el, elements, vendor, services, subscriptions, dom, util, config });
     
     // Startup    
     compose('diagnostics', { stores, util });
-    compose('startup', { styles, subscriptions, services, stores, util, config, window });
+    compose('startup', { styles, subscriptions, services, stores, dom, util, config });
 
     return compose.getModules();
 

@@ -1,4 +1,4 @@
-module.exports = ({ el, roleList, subscriptions, ui }) => () => {
+module.exports = ({ el, roleList, subscriptions, dom }) => () => {
 
     const $roleList = el('div', 'role-list visible-false');
 
@@ -8,7 +8,7 @@ module.exports = ({ el, roleList, subscriptions, ui }) => () => {
     });
 
     subscriptions.roles.onFirstInsert(() => {
-        ui.toggleBoolClass($roleList, 'visible', true);
+        dom.toggleBoolClass($roleList, 'visible', true);
     });
 
     return $roleList;

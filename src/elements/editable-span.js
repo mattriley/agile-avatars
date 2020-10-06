@@ -1,6 +1,6 @@
-module.exports = ({ el, window }) => className => {
+module.exports = ({ el, dom }) => className => {
 
-    const dispatchChange = () => $span.dispatchEvent(new window.Event('change'));
+    const dispatchChange = () => $span.dispatchEvent(dom.createEvent('change'));
 
     const $span = el('span', className)
         .addEventListener('blur', () => {

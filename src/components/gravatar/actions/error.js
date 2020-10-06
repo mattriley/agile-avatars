@@ -1,4 +1,4 @@
-module.exports = ({ el, services, subscriptions, ui }) => () => {
+module.exports = ({ el, services, subscriptions, dom }) => () => {
 
     const $errorMessage = el('div', 'error-message');
     
@@ -8,7 +8,7 @@ module.exports = ({ el, services, subscriptions, ui }) => () => {
     const $error = el('div', 'error').append($errorMessage, $dismiss);
     
     subscriptions.settings.onChange('gravatar', 'status', () => {
-        ui.toggleBoolClass($error, 'visible', services.gravatar.status.is.error());
+        dom.toggleBoolClass($error, 'visible', services.gravatar.status.is.error());
     });
 
     subscriptions.settings.onChange('gravatar', 'errorMessage', errorMessage => {
