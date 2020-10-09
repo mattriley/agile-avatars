@@ -10,6 +10,11 @@
     padding: 10px 0;
 }
 
+/* Prevent passive tag image appearing above colour picker (filter affects stacking context) */
+.control-panel {    
+    z-index: 7;
+}
+
 /* Stick to top of screen while scrolling */
 .control-panel {        
     position: sticky;
