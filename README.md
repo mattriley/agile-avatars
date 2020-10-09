@@ -572,6 +572,41 @@ module.exports = ({ el }) => () => {
 
 # State management
 
+State management in an interesting problem to solve in this application because it's non-trivial.
+
+![UI Components](readme-docs/ui-components.png)
+
+Here's some examples:
+
+Inserting a file (dropping, choosing, or Gravatar):
+- Parses the file name to extract a tag name and optional role name.
+- Renders a new 'master role badge' in the 'roles list' if it doesn't already exist.
+- Renders multiple tag instances with the same image, name and role based on the values of the active and passive fields.
+
+Changing the name of a role in the role list:
+- Updates the role name of all tag instances referencing that role.
+
+Changing the colour of a role in the role list:
+- Updates the colour of the master role badge being updated.
+- Updates the colour of the role and border colour of the image of all tag instances referencing that role.
+
+Changing the role name of a tag instance:
+- Renders a new role in the role list if it doesn't already exist.
+- Updates the role name of all tag instances referencing that role.
+- Updates the colour of the role and border colour of the image of all tag instances referencing that role.
+
+Changing the name of a tag instance:
+- Updates the name of all other instances of that tag.
+
+In addition to changing tag names, role names and colours, the control panel affects tag instances:
+- Changing the number of active and passive instances
+- Changing the shape between circle and square
+- Changing the size
+- Changing the spacing
+- Changing the sort order
+
+
+
 Avoiding state management libraries forces the need for a bespoke state management solution.
 No attempt is made to generify the state management solution for reuse by other applications; rather it is designed to evolve with the specific needs of this application.
 
