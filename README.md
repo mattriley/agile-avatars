@@ -44,8 +44,13 @@ DISCLAIMER: Some of the approaches used may be unconventional. Any attempt to em
 - [Dependencies](#dependencies)
   - [Position](#position-1)
   - [Constraints](#constraints-1)
-  - [Production dependencies](#production-dependencies)
-  - [Development dependencies](#development-dependencies)
+  - [List of production dependencies](#list-of-production-dependencies)
+  - [List of development dependencies](#list-of-development-dependencies)
+- [Functional programming](#functional-programming)
+  - [Immutability](#immutability)
+  - [Higher-order functions](#higher-order-functions)
+  - [Pure functions](#pure-functions)
+  - [Pipe](#pipe)
 - [Conventions](#conventions)
   - [Code](#code)
   - [Documentation](#documentation)
@@ -82,6 +87,7 @@ __iTerm2 automated window arrangement (macOS only)__
   - [You Might Not Need TypeScript (or Static Types) - Eric Elliott](https://medium.com/javascript-scene/you-might-not-need-typescript-or-static-types-aa7cb670a77b)
   - [The Shocking Secret About Static Types - Eric Elliott](https://medium.com/javascript-scene/the-shocking-secret-about-static-types-514d39bf30a3)
 - No frameworks, view libraries, state management libraries; No Angular, React, Redux.
+- No functional programming libraries. e.g. [Rambda.js](https://github.com/ramda/ramda), [Immutable.js](https://github.com/immutable-js/immutable-js)
 - No globals. Access to `window` strictly controlled.
 - No classes. Prefer partial application.
   - [Curry and Function Composition - Eric Elliott](https://medium.com/javascript-scene/curry-and-function-composition-2c208d774983)
@@ -110,7 +116,7 @@ Following is a complete list of modules.
 
 An aggregation of _component builder functions_.
 
-A __component builder function__ returns an object deriving [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) using closures to react to both user interaction and state changes (via subscriptions), may self-mutate, and interact with services.
+A __component builder function__ returns an object deriving [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) set up to react to both user interaction and state changes (via subscriptions), may self-mutate, and interact with services.
 
 <details open>
 <summary>src/components/tag-list/tag/components/tag-name.js</summary>
@@ -155,7 +161,7 @@ module.exports = ({ el, header }) => () => {
 
 ### ❖ core
 
-An aggregation of _pure functions_.
+An aggregation of _pure domain functions_.
 
 From [Wikipedia](https://en.wikipedia.org/wiki/Pure_function):
 > In computer programming, a __pure function__ is a function that has the following properties:
@@ -187,7 +193,7 @@ module.exports = () => expression => {
 
 An aggregation of _element builder functions_.
 
-An __element builder function__ returns an object deriving [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) using closures to react to user interaction, and may self-mutate.
+An __element builder function__ returns an object deriving [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) set up to react to user interaction, and may self-mutate.
 
 Elements are 'fundamental' components. Unlike components, they cannot react to state changes or interact with services. For this reason, elements tend to be lower level, generic, and reusable.
 
@@ -894,6 +900,8 @@ Further reading:
 - Low likelihood of changing in a material way
 - Low impact of material change
 
+Production dependencies need to be carefully considered in order to keep the bundle size small. We can be more liberal with development dependencies as they don't impact the bundle size.
+
 The following sections lists all dependencies, including:
 
 - Description and Homepage taken from package.json.
@@ -904,7 +912,7 @@ The following sections lists all dependencies, including:
 - Description of what the dependency is used for.
 - Clarifying comments against the constraints listed above.
   
-## Production dependencies
+## List of production dependencies
 
 ### ❖ @sentry/browser
 
@@ -977,7 +985,7 @@ Presenting a color picker to change the color of a role.
 
 
 
-## Development dependencies
+## List of development dependencies
 
 ### ❖ agileavatars-docgen
 
@@ -1145,6 +1153,135 @@ Lightweight test harness optimised for speed and simplicity.
 tape was originally used however zora is newer and has some advantages over tape.
 
 
+# Functional programming
+
+Although strict functional design is not a design goal, there are certain functional principles which are easily applied in vanilla JavaScript and should be within grasp of the average developer.
+
+## Immutability
+
+Care should be taken to avoid mutation but this is not strictly enforced. 
+
+Mutation should be intentional and well controlled.
+
+Avoid introducing libraries that enforce immutability. While it's tempting to introduce a library like [Immutable.js](https://github.com/immutable-js/immutable-js) to enforce immutability, adding a library also adds another level of complexity and cognative load to the developer experience. Sometimes such libraries are used as "guardrails" to enforce immutability in teams where there are concerns around code quality, but at the same time, this can limit the developer's ability to make mistakes and learn to truly understand and value immutability.
+
+As a rule of thumb, prefer `const` over `let`, and avoid `var`.
+
+While this will not guarantee immutability, it will challenge people to think about it. If `let` is seen as a smell, it may drive refactoring toward `const` which will likely result in a better design. An example would be recognising the `let` in a `for` loop as a smell, triggering a refactor toward a higher-order function.
+
+## Higher-order functions
+
+Prefer higher-order functions such as `filter`, `map`, `reduce`, over imperative looping statements.
+
+__Example: Usage of reduce()__
+
+This function transforms a list of store names into an object of store name -> store. This could also be done with a `for` loop. Reduce hides the low level implementation details of iteration. It also removes the need for intermedite variables such as loop counters. 
+
+The `acc` variable is intentionally mutated given the scope of the mutation is small and isolated within the reduce function. An immutable equivalent could be `{ ...acc, [name]: store }`.
+
+<details open>
+<summary>src/stores/stores.js</summary>
+
+```js
+module.exports = ({ storage, config }) => {
+
+    return config.storage.stores.reduce((acc, name) => {
+        const defaults = config.storage.defaults[name];
+        const store = storage.stateStore(defaults);
+        return Object.assign(acc, { [name]: store });
+    }, {});
+
+};
+```
+</details>
+
+__Further reading__
+
+- [Reduce (Composing Software) - Eric Elliot](https://medium.com/javascript-scene/reduce-composing-software-fe22f0c39a1d)
+- [Array.prototype.reduce() - MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce)
+
+## Pure functions
+
+As much as possible, pure functions are separated from impure functions. To make the distinction clear, pure domain functions are kept in the `core` module. Pure functions can be reasoned about and tested in isolation without having to manage side effects.
+
+__Example: Usage of a pure function__
+
+This function orchestrates pure and impure functions making it impure. However because the implementation of `parseFileExpression` has been extracted as a pure function.
+
+<details open>
+<summary>src/services/tags/insert-file-async.js</summary>
+
+```js
+module.exports = ({ core, services, util }) => file => {
+
+    return util.pipe(
+        core.tags.parseFileExpression,
+        services.tags.insertTag,
+        services.tags.attachImageAsync(file)
+    )(file.name);
+    
+};
+```
+</details>
+
+__Source code for parseFileExpression()__
+
+<details open>
+<summary>src/core/tags/parse-file-expression.js</summary>
+
+```js
+module.exports = () => expression => {
+
+    const [tagName, roleName] = expression
+        .split('/')
+        .pop()
+        .match(/^(\d+)?(.+)/)[2]
+        .split('.')[0]
+        .split('+')
+        .map(s => s.trim());
+        
+    return { tagName, roleName };
+
+};
+```
+</details>
+
+
+## Pipe
+
+Where possible, use `pipe` to avoid nesting function calls and intermediate variables.
+
+__Example: Usage of pipe when inserting a file__
+
+<details open>
+<summary>src/services/tags/insert-file-async.js</summary>
+
+```js
+module.exports = ({ core, services, util }) => file => {
+
+    return util.pipe(
+        core.tags.parseFileExpression,
+        services.tags.insertTag,
+        services.tags.attachImageAsync(file)
+    )(file.name);
+    
+};
+```
+</details>
+
+__Source code for pipe()__
+
+<details open>
+<summary>src/util/pipe.js</summary>
+
+```js
+module.exports = (...funcs) => initial => funcs.reduce((v, f) => f(v), initial);
+```
+</details>
+
+Once the [pipeline operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Pipeline_operator) is officially supported in JavaScript, we can remove the custom implementation.
+
+
 # Conventions
 
 ## Code
@@ -1182,11 +1319,6 @@ Actual image is rendered using CSS background-image as a performance optimisatio
 
 This just makes it easier to know when to use `await`.
 
-### Functional programming
-
-- Prefer `const` over `let`, and avoid `var`.
-- Prefer higher-order functions such as `filter`, `map`, `reduce`, over imperative looping statements.
-- Separate pure from impure functions.
 
 ## Documentation
 
