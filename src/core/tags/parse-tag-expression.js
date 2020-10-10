@@ -1,6 +1,6 @@
 module.exports = () => expression => {
 
-    const [tagName, roleName] = expression.split('+').map(s => s.trim());        
+    const [tagName, roleName] = expression.split('+').map(s => s.trim()); 
     return { tagName, roleName };
 
 };

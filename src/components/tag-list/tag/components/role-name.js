@@ -5,7 +5,7 @@ module.exports = ({ elements, services, subscriptions }) => tagInstanceId => {
             services.tags.changeTagRole(tagInstanceId, $roleName.textContent);
         });
 
-    subscriptions.tagInstances.onChange(tagInstanceId, 'roleName', roleName => {
+    subscriptions.tagInstances.onChange(tagInstanceId, 'roleName', roleName => { 
         $roleName.textContent = roleName;
     });
 
