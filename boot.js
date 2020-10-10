@@ -22,7 +22,7 @@ module.exports = ({ window, ...overrides }) => {
     const { el, ...dom } = compose('dom', { window });
     const vendor = compose('vendor', { el, config, dom, io, window });
     const styles = compose('styles', { el, subscriptions, config });
-    const elements = compose('elements', { el, dom });
+    const elements = compose('elements', { el, dom, util });
     compose('components', { el, elements, vendor, services, subscriptions, dom, util, config });
     
     // Startup    

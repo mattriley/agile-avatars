@@ -32,7 +32,7 @@ module.exports = () => {
             shapeRadius: { circle: 50, square: 0 },
             active: { min: 0, max: 999, step: 1 },
             passive: { min: 0, max: 999, step: 1 },
-            size: { min: 1, max: maxImageSize, step: 10 },
+            size: { min: 100, max: maxImageSize, step: 10 },
             spacing: { min: 0, max: 10, step: 1 },
             sort: {
                 orderAdded: 'Order added',
@@ -72,7 +72,7 @@ module.exports = () => {
                         shape: 'circle',
                         active: 1,
                         passive: 0,
-                        size: 175,
+                        size: 170,
                         spacing: 4,
                         outline: true
                     },

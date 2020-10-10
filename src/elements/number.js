@@ -1,17 +1,27 @@
-module.exports = ({ el }) => ({ min, max, step }) => {
+module.exports = ({ el, dom, util }) => ({ min, max, step }) => {
 
-    const isEmpty = () => $number.value === '';
+    const intValue = () => parseInt($number.value);
 
-    const onChangeInternal = cancel => () => {
-        if (cancel()) return;
-        const val = isEmpty() ? $number.min : parseInt($number.value);
-        const newVal = val < min ? min : val > max ? max : val;
-        $number.value = newVal;
+    const adjustValue = util.pipe(
+        val => (isNaN(val) ? min : val),
+        val => (val < min ? min : val),
+        val => (val > max ? max : val)
+    );
+
+    const onInput = () => {
+        const val = intValue();
+        const adjustedVal = adjustValue(val);
+        if (val === adjustedVal) $number.dispatchEvent(dom.createEvent('change'));
+    };
+
+    const onBlur = () => {
+        $number.value = adjustValue(intValue());
+        onInput();
     };
 
     const $number = el('input', { type: 'number', min, max, step })
-        .addEventListener('input', onChangeInternal(isEmpty))
-        .addEventListener('blur', onChangeInternal(() => false));
+        .addEventListener('input', onInput)
+        .addEventListener('blur', onBlur);
     
     return $number;
     

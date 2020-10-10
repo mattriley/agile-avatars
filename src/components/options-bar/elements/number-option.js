@@ -3,7 +3,7 @@ module.exports = ({ elements, services, subscriptions, util, config }) => option
     const { min, max, step } = config.options[optionName];
 
     const $number = elements.number({ min, max, step })
-        .addEventListener('input', e => {
+        .addEventListener('change', e => {
             services.settings.changeOption(optionName, parseInt(e.target.value));
         });
 

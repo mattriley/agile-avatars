@@ -6,7 +6,6 @@ module.exports = ({ test, boot, helpers }) => {
         $input.value = '';
         helpers.dispatchEvent('blur', $input);
         t.equal($input.value, '1');
-        
     });
 
     test('empty remains empty on input', t => {
@@ -15,7 +14,6 @@ module.exports = ({ test, boot, helpers }) => {
         $input.value = '';
         helpers.dispatchEvent('input', $input);
         t.equal($input.value, '');
-        
     });
 
     test('minimum is accepted', t => {
@@ -25,7 +23,6 @@ module.exports = ({ test, boot, helpers }) => {
         $input.value = newValue;
         helpers.dispatchEvent('input', $input);
         t.equal($input.value, newValue.toString());
-        
     });
 
     test('maxium is accepted', t => {
@@ -35,34 +32,30 @@ module.exports = ({ test, boot, helpers }) => {
         $input.value = newValue;
         helpers.dispatchEvent('input', $input);
         t.equal($input.value, newValue.toString());
-        
     });
 
     test('minimum enforced', t => {
         const { elements } = boot();
         const $input = elements.number({ min: 1, max: 9, step: 1 });
         $input.value = 0;
-        helpers.dispatchEvent('input', $input);
+        helpers.dispatchEvent('blur', $input);
         t.equal($input.value, '1');
-        
     });
 
     test('maximum enforced', t => {
         const { elements } = boot();
         const $input = elements.number({ min: 1, max: 9, step: 1 });
         $input.value = 10;
-        helpers.dispatchEvent('input', $input);
+        helpers.dispatchEvent('blur', $input);
         t.equal($input.value, '9');
-        
     });        
 
     test('decimal ignored', t => {
         const { elements } = boot();
         const $input = elements.number({ min: 1, max: 9, step: 1 });
         $input.value = 2.5;
-        helpers.dispatchEvent('input', $input);
+        helpers.dispatchEvent('blur', $input);
         t.equal($input.value, '2');
-        
     });
 
 };
