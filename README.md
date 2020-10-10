@@ -28,9 +28,11 @@ DISCLAIMER: Some of the approaches used may be unconventional. Any attempt to em
 - [Technical constraints](#technical-constraints)
 - [Architecture](#architecture)
   - [Modules](#modules)
+  - [List of modules](#list-of-modules)
 - [Initialisation](#initialisation)
   - [Initialising the application with boot()](#initialising-the-application-with-boot)
   - [Understanding the application](#understanding-the-application)
+  - [Managing coupling](#managing-coupling)
   - [Launching the application](#launching-the-application)
   - [Testing the application](#testing-the-application)
 - [View rendering](#view-rendering)
@@ -112,7 +114,7 @@ With the plethora of frontend architectural styles in use today, this applicatio
 
 The application is composed of architectural components called modules. Each directory under `src` is a module, with `components` and `services` being examples. Modules __do not__ reference other modules using file references. Rather, the application begins with an initialisation process where modules are composed using a functional programming technique called partial function application. See [Initialisation](#initialisation) for more details.
 
-Following is a complete list of modules.
+## List of modules
 
 ### ❖ components
 
@@ -289,10 +291,9 @@ A __subscription function__ enables a listener to be notified of state changes.
 
 Initialisation is the process of making the application ready to launch and involves: 
 
-- Loading configuration,
-- Composing modules,
-- Invoking startup procedures, and
-- Returning the initialised modules / the integrated application.
+- Loading configuration.
+- Composing modules.
+- Returning the composed modules / the integrated application.
 
 Launching the application involves invoking the _root_ component (which in turn invokes many other subcomponents) and appending it to the DOM. Separating the concern of initialising from launching provides:
 
@@ -410,6 +411,16 @@ const override = (obj, overrides) => {
 An interesting side-effect of managing dependencies this way is that it became trivial to generate a dependency diagram. This is achived by invoking `boot()` and using a data structure provided by `module-composer` that describes the dependencies to generate a [mermaid.js](https://github.com/mermaid-js/mermaid) definition file, and using [mermaid-cli](https://github.com/mermaid-js/mermaid-cli) to generate an SVG. See [mermaid-cli](#-mermaid-jsmermaid-cli) in the [Dependencies](#dependencies) section.
 
 ![Dependencies](readme-docs/modules.svg)
+
+## Managing coupling
+
+Another benefit of `boot.js` is that it becomes trivial to identify inappropriate coupling. For example passing `io` which is impure to `core` which is meant to be pure.
+
+And because all relative files are loaded by `index.js` files, a simple search can be done to identify any inappropriate file references, e.g.
+
+```sh
+grep --exclude="index.js" -rnw "./src" -e "require('."
+```
 
 ## Launching the application
 
@@ -1357,8 +1368,10 @@ This just makes it easier to know when to use `await`.
 
 ## Documentation
 
-- Append `()` to function names to make it obvious we are referring to a function, e.g. `func()`
-- Avoid using code style in headings, e.g. __About func()__, not __About `func()`__
-- Prefix ❖ to lists of level 3 heading to make them stand out as bullet items
+- Table of contents limited to headings 1 and 2.
+- Headings for "lists" should begin with __List of__.
+- Headings for "list items" should begin with ❖ and be level 3 or higher to avoid the table of contents.
+- Append `()` to function names to make it obvious we are referring to a function, e.g. `func()`.
+- Avoid using code style in headings, e.g. __About func()__, not __About `func()`__.
 - Wherever possible render actual source files for example code.
 
