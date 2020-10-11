@@ -171,8 +171,21 @@ Modules are composed (collaborators are resolved) during [initialisation](#initi
 This design has some interesting implications:
 
 - Any source file is only referenced and loaded once in the entire application making it easier to move files around.
+
 - In general, `index.js` files don't have a clear responsibility, sometimes even containing important implementation details that can be hard to find given any Node.js project will have many of them. This design ensures `index.js` files have a clear responsibility of their own and don't contain important implementation details that would be better extracted and named appropriately.
-- Because files should only be loaded by `index.js`, it becomes trival to identify inappropriate file references, for example, direct file references to collaborators with a simple find command: `grep --exclude="index.js" -rnw "./src" -e "require('."`. This could even be run as a pre-commit check.
+
+- Because files should only be loaded by `index.js`, it becomes trival to identify inappropriate file references. The following task is run during pre-commit and fails if any inappropriate file references are found:
+  
+<details open>
+<summary>tasks/check-coupling</summary>
+
+```js
+#!/usr/bin/env bash
+
+! grep --exclude="index.js" -rnw "$SRC" -e "require('."
+```
+</details>
+
 - The approach to `index.js` forms a pattern which can be automated with code generation. See [module-indexgen](https://github.com/mattriley/agileavatars#-module-indexgen) in the list of development dependencies.
 
 ## List of modules
