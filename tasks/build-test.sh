@@ -1,5 +1,3 @@
-#!/usr/bin/env bash
-
 PROFILE="test"
 PROFILE_OUTPUT="$BUILD_OUTPUT/$PROFILE"
 rm -rf "$PROFILE_OUTPUT"

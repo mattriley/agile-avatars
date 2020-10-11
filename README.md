@@ -177,11 +177,9 @@ This design has some interesting implications:
 - Because files should only be loaded by `index.js`, it becomes trival to identify inappropriate file references. The following task is run during pre-commit and fails if any inappropriate file references are found:
   
 <details open>
-<summary>tasks/check-coupling</summary>
+<summary>tasks/check-coupling.sh</summary>
 
 ```sh
-#!/usr/bin/env bash
-
 ! grep --exclude="index.js" -rnw "$SRC" -e "require('."
 ```
 </details>

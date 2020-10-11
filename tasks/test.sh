@@ -1,7 +1,3 @@
-#!/usr/bin/env bash
-
-# Runs unit tests.
-
 export INDENT=true
 
 : ${REPORTER:=spec}

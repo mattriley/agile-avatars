@@ -1,8 +1,3 @@
-#!/usr/bin/env bash
-
-# Launches an iTerm window arrangement from the current working directory using itermocil.
-# https://github.com/TomAnthony/itermocil
-
 cat > "iTermocil.yml" <<EOF
 windows:
   - name: $PROJECT_NAME

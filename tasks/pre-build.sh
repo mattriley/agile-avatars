@@ -1,11 +1,7 @@
-#!/usr/bin/env bash
-
-# Generates index.html and copies images.
-
 PROFILE="$1"
 PROFILE_OUTPUT="$BUILD_OUTPUT/$PROFILE"
 
 rm -rf "$PROFILE_OUTPUT"
 mkdir -p "$PROFILE_OUTPUT"
 cp -r "$PUBLIC_IMAGES" "$PROFILE_OUTPUT/"
-tasks/indexhtml-gen
+tasks/indexhtml-gen.sh

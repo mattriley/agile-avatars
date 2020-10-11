@@ -1,3 +1,1 @@
-#!/usr/bin/env bash
-
 npx chokidar $TEST_WATCH_PATTERN -c "REPORTER=min ./task test"

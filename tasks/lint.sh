@@ -1,5 +1,1 @@
-#!/usr/bin/env bash
-
-# Runs ESLint. 
-
 npx eslint "$SRC" "$TESTS" "$TEST_HELPERS" $@

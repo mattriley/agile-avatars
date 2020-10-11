@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-
-# Runs unit tests and reports coverage.
-
-npx c8 \
-    --all \
-    --include "$SRC" \
-    --reporter=text-summary \
-    ./tasks/test

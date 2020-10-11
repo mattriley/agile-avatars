@@ -1,7 +1,3 @@
-#!/usr/bin/env bash
-
-# Runs unit tests and checks coverage.
-
 npx c8 \
     --check-coverage \
     --all \
@@ -12,4 +8,4 @@ npx c8 \
     --lines 98 \
     --functions 98 \
     --statements 98 \
-    ./tasks/test
+    ./tasks/test.sh

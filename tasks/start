@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-./tasks/build-dev --open

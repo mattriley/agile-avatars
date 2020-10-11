@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-
-# Runs unit tests marked `only`.
-
-export RUN_ONLY=true
-./tasks/test

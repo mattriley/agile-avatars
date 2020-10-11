@@ -1,3 +1,1 @@
-#!/usr/bin/env bash
-
 ! grep --exclude="index.js" -rnw "$SRC" -e "require('."

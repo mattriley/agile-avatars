@@ -1,13 +1,9 @@
-#!/usr/bin/env bash
-
-# Runs unit tests with coverage and opens the coverage report.
-
 npx c8 \
     --all \
     --include "$SRC" \
     --reporter=text-summary \
     --reporter=html \
-    ./tasks/test
+    ./tasks/test.sh
 
 
 open "coverage/index.html"

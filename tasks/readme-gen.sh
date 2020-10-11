@@ -1,5 +1,1 @@
-#!/usr/bin/env bash
-
-# Generates README.md
-
 ./node_modules/agileavatars-docgen/bin/readme-gen "$(pwd)"
