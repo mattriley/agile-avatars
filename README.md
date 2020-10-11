@@ -112,7 +112,68 @@ With the plethora of frontend architectural styles in use today, this applicatio
 
 ## Modules
 
-The application is composed of architectural components called modules. Each directory under `src` is a module, with `components` and `services` being examples. Modules __do not__ reference other modules using file references. Rather, the application begins with an initialisation process where modules are composed using a functional programming technique called partial function application. See [Initialisation](#initialisation) for more details.
+The application is composed of architectural components called modules. Each module has a separate responsibility and may be composed with collaborating modules.
+
+On the file system, a module is simply a directory of sources files that follow some simple rules:
+
+- Each file and subdirectory (i.e. nested `index.js`) is loaded by `index.js` in the same directory.
+- Each `index.js` exports an aggregate object of all files and directories loaded.
+- Each file exports a function, so file names tend to be function names.
+- Where a module is to be composed with collaborating modules, exported functions must be curried to first accept the collaborators.
+
+__Example: Root index.js for components module__
+
+<details open>
+<summary>src/components/index.js</summary>
+
+```js
+module.exports = {
+    gravatar: require('./gravatar'),
+    header: require('./header'),
+    imageUploadOptions: require('./image-upload-options'),
+    modals: require('./modals'),
+    optionsBar: require('./options-bar'),
+    roleList: require('./role-list'),
+    tagList: require('./tag-list'),
+    tips: require('./tips'),
+    app: require('./app'),
+    dropzone: require('./dropzone'),
+    modal: require('./modal')
+};
+```
+</details>
+
+__Example: Curried function accepting collaborators__
+
+<details open>
+<summary>src/components/tag-list/tag/components/tag-name.js</summary>
+
+```js
+module.exports = ({ elements, services, subscriptions }) => tagInstanceId => {
+
+    const $tagName = elements.editableSpan('tag-name')
+        .addEventListener('change', () => {
+            services.tags.changeTagName(tagInstanceId, $tagName.textContent);
+        });
+
+    subscriptions.tagInstances.onChange(tagInstanceId, 'tagName', tagName => {
+        $tagName.textContent = tagName;
+    });
+
+    return $tagName;
+
+};
+```
+</details>
+
+Modules are composed (collaborators are resolved) during [initialisation](#initialisation). 
+
+This design has some interesting implications:
+
+- Any source file is only referenced and loaded once in the entire application making it easier to move files around.
+- In general, `index.js` files don't have a clear responsibility, sometimes even containing important implementation details that can be hard to find given any Node.js project will have many of them. This design ensures `index.js` files have a clear responsibility of their own and don't contain important implementation details that would be better extracted and named appropriately.
+- Because files should only be loaded by `index.js`, it becomes trival to identify inappropriate file references, for example, direct file references to collaborators with a simple find command: `grep --exclude="index.js" -rnw "./src" -e "require('."`. This could even be run as a pre-commit check.
+- The approach to `index.js` forms a pattern which can be automated with code generation. See [module-indexgen](https://github.com/mattriley/agileavatars#-module-indexgen) in the list of development dependencies.
 
 ## List of modules
 
