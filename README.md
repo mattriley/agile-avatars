@@ -175,7 +175,6 @@ This design has some interesting implications:
 - In general, `index.js` files don't have a clear responsibility, sometimes even containing important implementation details that can be hard to find given any Node.js project will have many of them. This design ensures `index.js` files have a clear responsibility of their own and don't contain important implementation details that would be better extracted and named appropriately.
 
 - Because files should only be loaded by `index.js`, it becomes trival to identify inappropriate file references. The following task is run during pre-commit and fails if any inappropriate file references are found:
-  
 <details open>
 <summary>tasks/check-coupling</summary>
 
