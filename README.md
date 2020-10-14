@@ -257,10 +257,11 @@ module.exports = () => expression => {
 
 ### ❖ diagnostics
 
+Provides diagnostic functions such as the ability to dump state to the console.
 
 ### ❖ dom
 
-
+Provides common DOM functions to UI modules (components, elements, vendor)
 ### ❖ elements
 
 An aggregation of _element builder functions_.
@@ -354,6 +355,9 @@ A __subscription function__ enables a listener to be notified of state changes.
 ### ❖ vendor
 
 
+### ❖ vendor-components
+
+
 
 # Initialisation
 
@@ -398,10 +402,11 @@ module.exports = ({ window, ...overrides }) => {
         
     // Presentation
     const { el, ...dom } = compose('dom', { window });
-    const vendor = compose('vendor', { el, config, dom, io, window });
+    const vendor = compose('vendor', { io, config, window });
+    const vendorComponents = compose('vendorComponents', { el, config, window });
     const styles = compose('styles', { el, subscriptions, config });
     const elements = compose('elements', { el, dom, util });
-    compose('components', { el, elements, vendor, services, subscriptions, dom, util, config });
+    compose('components', { el, elements, vendorComponents, vendor, services, subscriptions, dom, util, config });
     
     // Startup    
     compose('diagnostics', { stores, util });
