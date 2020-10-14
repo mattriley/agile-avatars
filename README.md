@@ -190,7 +190,11 @@ This design has some interesting implications:
 
 Provides _component builder functions_.
 
-A __component builder function__ returns an element set up to react to both user interaction and state changes (via subscriptions), and interacts with services.
+A __component builder function__ returns an element that reacts to state changes and effects user events by invoking services.
+
+__Example: A component builder function__
+
+This component reacts both to state changes and user events.
 
 <details open>
 <summary>src/components/tag-list/tag/components/tag-name.js</summary>
@@ -213,7 +217,7 @@ module.exports = ({ elements, services, subscriptions }) => tagInstanceId => {
 ```
 </details>
 
-Because component builder functions simply return native HTML elements, they can easily be appended to create component hierarchies.
+__Example: Component composition__
 
 <details open>
 <summary>src/components/header/header.js</summary>
@@ -242,7 +246,7 @@ From [Wikipedia](https://en.wikipedia.org/wiki/Pure_function):
 > 1. Its return value is the same for the same arguments (no variation with local static variables, non-local variables, mutable reference arguments or input streams from I/O devices).
 > 2. Its evaluation has no side effects (no mutation of local static variables, non-local variables, mutable reference arguments or I/O streams).
 
-Inspired by [Functional Core, Imperative Shell](https://www.destroyallsoftware.com/screencasts/catalog/functional-core-imperative-shell), __core__ comprises the 'functional core'.
+__Example: A pure domain function__
 
 <details open>
 <summary>src/core/tags/parse-tag-expression.js</summary>
@@ -259,19 +263,19 @@ module.exports = () => expression => {
 
 ### ❖ diagnostics
 
-Provides _diagnostic functions_ such as the ability to dump state to the console.
+Provides diagnostic functions such as the ability to dump state to the console.
 
 ### ❖ dom
 
-Provides _common DOM functions_ to the view modules (elements, components, vendorComponents) while preventing direct access to `window`.
+Provides common functions to the view modules (elements, components, vendorComponents) while preventing direct access to `window`.
 
 ### ❖ elements
 
 Provides _element builder functions_.
 
-An __element builder function__ returns an element set up to react to user interaction.
+An __element builder function__ returns an element that can react to user events. Unlike components, they cannot react to state changes or invoke services. Elements are lower level and may be reused by multiple components.
 
-Elements are 'fundamental' components. Unlike components, they cannot react to state changes or interact with services. For this reason, elements tend to be lower level, generic, and reusable.
+__Example: An element builder function__
 
 <details open>
 <summary>src/elements/editable-span.js</summary>
@@ -301,7 +305,7 @@ module.exports = ({ el, dom }) => className => {
 
 ### ❖ io
 
-Provides _IO functions_ that depend on or act on the environment. 
+Provides IO functions to service modules (services, vendorServices) while preventing direct access to `window`.
 
 ### ❖ services
 
@@ -309,7 +313,7 @@ Provides _service functions_.
 
 A __service function__ orchestrates domain logic and IO including state changes.
 
-Inspired by [Functional Core, Imperative Shell](https://www.destroyallsoftware.com/screencasts/catalog/functional-core-imperative-shell), __services__ comprise the 'imperative shell'.
+__Example: A service function__
 
 <details open>
 <summary>src/services/tags/change-tag-name.js</summary>
@@ -333,11 +337,11 @@ module.exports = ({ core, services, stores }) => (tagInstanceId, expression) => 
 
 ### ❖ startup
 
-Provides _startup functions_ that should be called before the application is mounted.
+Provides startup functions which are required to initialise the application.
 
 ### ❖ storage
 
-Provides the 'infrastructure code' for the state stores.
+Provides the infrastructure code for the state stores.
 
 ### ❖ stores
 
@@ -349,7 +353,9 @@ A __state store__ encapsulates state mutations and subscriptions for state chang
 
 Provides _style builder functions_.
 
-A __style builder function__ returns a style element set up to react to state changes (via subscriptions).
+A __style builder function__ returns a style element that can react to state changes.
+
+__Example: A style builder function__
 
 <details open>
 <summary>src/styles/role-color.js</summary>
@@ -381,10 +387,10 @@ A __subscription function__ enables a listener to be notified of state changes.
 ### ❖ util
 
 
-### ❖ vendor
-
-
 ### ❖ vendor-components
+
+
+### ❖ vendor-services
 
 
 
@@ -428,14 +434,14 @@ module.exports = ({ window, ...overrides }) => {
     // Domain
     const core = compose('core', { util, config });
     const services = compose('services', { subscriptions, stores, core, io, util, config });
+    const vendorServices = compose('vendorServices', { io, config, window });
         
     // Presentation
-    const { el, ...dom } = compose('dom', { window });
-    const vendor = compose('vendor', { io, config, window });
-    const vendorComponents = compose('vendorComponents', { el, config, window });
+    const { el, ...dom } = compose('dom', { window });        
     const styles = compose('styles', { el, subscriptions, config });
     const elements = compose('elements', { el, dom, util });
-    compose('components', { el, elements, vendorComponents, vendor, services, subscriptions, dom, util, config });
+    const vendorComponents = compose('vendorComponents', { el, config, window });
+    compose('components', { el, elements, vendorComponents, vendorServices, services, subscriptions, dom, util, config });
     
     // Startup    
     compose('diagnostics', { stores, util });

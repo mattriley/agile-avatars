@@ -17,14 +17,14 @@ module.exports = ({ window, ...overrides }) => {
     // Domain
     const core = compose('core', { util, config });
     const services = compose('services', { subscriptions, stores, core, io, util, config });
+    const vendorServices = compose('vendorServices', { io, config, window });
         
     // Presentation
-    const { el, ...dom } = compose('dom', { window });
-    const vendor = compose('vendor', { io, config, window });
-    const vendorComponents = compose('vendorComponents', { el, config, window });
+    const { el, ...dom } = compose('dom', { window });        
     const styles = compose('styles', { el, subscriptions, config });
     const elements = compose('elements', { el, dom, util });
-    compose('components', { el, elements, vendorComponents, vendor, services, subscriptions, dom, util, config });
+    const vendorComponents = compose('vendorComponents', { el, config, window });
+    compose('components', { el, elements, vendorComponents, vendorServices, services, subscriptions, dom, util, config });
     
     // Startup    
     compose('diagnostics', { stores, util });

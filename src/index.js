@@ -14,5 +14,5 @@ module.exports = {
     subscriptions: require('./subscriptions'),
     util: require('./util'),
     vendorComponents: require('./vendor-components'),
-    vendor: require('./vendor')
+    vendorServices: require('./vendor-services')
 };
