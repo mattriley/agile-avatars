@@ -1,3 +1,5 @@
+#!/bin/bash
+
 cat > "iTermocil.yml" <<EOF
 windows:
   - name: $PROJECT_NAME
