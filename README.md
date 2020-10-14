@@ -190,7 +190,7 @@ This design has some interesting implications:
 
 Provides _component builder functions_.
 
-A __component builder function__ returns an object deriving [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) set up to react to both user interaction and state changes (via subscriptions), may self-mutate, and interact with services.
+A __component builder function__ returns an element set up to react to both user interaction and state changes (via subscriptions), and interacts with services.
 
 <details open>
 <summary>src/components/tag-list/tag/components/tag-name.js</summary>
@@ -269,7 +269,7 @@ Provides _common DOM functions_ to the view modules (elements, components, vendo
 
 Provides _element builder functions_.
 
-An __element builder function__ returns an object deriving [HTMLElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) set up to react to user interaction, and may self-mutate.
+An __element builder function__ returns an element set up to react to user interaction.
 
 Elements are 'fundamental' components. Unlike components, they cannot react to state changes or interact with services. For this reason, elements tend to be lower level, generic, and reusable.
 
@@ -333,9 +333,11 @@ module.exports = ({ core, services, stores }) => (tagInstanceId, expression) => 
 
 ### ❖ startup
 
+Provides _startup functions_ that should be called before the application is mounted.
 
 ### ❖ storage
 
+Provides the 'infrastructure code' for the state stores.
 
 ### ❖ stores
 
@@ -345,6 +347,30 @@ A __state store__ encapsulates state mutations and subscriptions for state chang
 
 ### ❖ styles
 
+Provides _style builder functions_.
+
+A __style builder function__ returns a style element set up to react to state changes (via subscriptions).
+
+<details open>
+<summary>src/styles/role-color.js</summary>
+
+```js
+module.exports = ({ el, subscriptions }) => roleId => {
+
+    const $style = el('style');
+
+    subscriptions.roles.onChange(roleId, 'color', color => {
+        $style.textContent = `
+                .role${roleId} .tag-image { border-color: ${color}; }            
+                .role${roleId} .role-name { background-color: ${color}; }
+            `;
+    });
+    
+    return $style;
+
+};
+```
+</details>
 
 ### ❖ subscriptions
 
