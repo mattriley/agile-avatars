@@ -392,6 +392,39 @@ A __subscription function__ enables a listener to be notified of state changes.
 
 ### ❖ vendor-services
 
+Provides vendor (third party) services including `gtag` and `sentry`. These are separated from the services module because they have different dependencies. The services module avoids a direct dependency on `window` by design but some vendor services may require direct access to `window` which cannot be avoided.
+
+__Example: gtag (Google's Global Site Tag)__
+
+`gtag` depends on `window` for global variables.
+
+<details open>
+<summary>src/vendor-services/gtag.js</summary>
+
+```js
+/* eslint-disable */
+
+module.exports = ({ config, io, window }) => {
+
+    const { trackingId, enabled } = config.gtag;
+
+    const initalise = () => {
+        window.dataLayer = [];
+        window[`ga-disable-${trackingId}`] = !enabled;
+        gtag('js', io.date());
+        gtag('config', trackingId);        
+    }
+
+    function gtag () { 
+        if (!window.dataLayer) initalise();
+        window.dataLayer.push(arguments); 
+    } 
+    
+    return gtag;
+    
+};
+```
+</details>
 
 
 # Initialisation
