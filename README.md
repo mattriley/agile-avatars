@@ -190,11 +190,17 @@ This design has some interesting implications:
 
 Provides _component builder functions_.
 
-A __component builder function__ returns an element that reacts to state changes and effects user events by invoking services.
+A __component builder function__ returns a native HTML element that may react to state changes and invoke services.
 
-__Example: A component builder function__
+__Example: The tag name component__
 
-This component reacts both to state changes and user events.
+The tag name component renders the tag name for a given tag instance. A 'tag' is composed of an image, a name, and a role. Multiple 'instances' of a tag may be rendered at a time depending on the numbers specified in the 'active' and 'passive' fields.
+
+The tag name component accepts the ID of a tag instance and returns a [content editable](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Editable_content) span allowing the user to edit the tag name. When changed, the `changeTagName` service function is invoked with the new tag name.
+
+`changeTagName` updates the state of the underlying tag, which triggers a propagation of the new tag name to all other instances of the tag.
+
+The tag name component subscribes to tag name change events and updates the span with the new tag name.
 
 <details open>
 <summary>src/components/tag-list/tag/components/tag-name.js</summary>
