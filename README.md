@@ -192,6 +192,10 @@ Provides _component builder functions_.
 
 A __component builder function__ returns a native HTML element that may react to state changes and invoke services.
 
+Components are only concerned with presentation and any effects are handed off to services. Stores are not directly accessible to prevent bypassing services. window is also not directly accessible, but is indirectly accessible via the dom module which exposes lower level presentation concerns. 
+
+Technically, window is global in browser environments and is therefore difficult to prevent access to. In order to detect inappropriate access, the unit tests do not expose it globally, causing any code that references it in a global context to fail.
+
 __Example: The tag name component__
 
 The _tag name_ component renders the tag name for a given _tag instance_. A _tag_ is composed of an image, a name, and a role. Multiple _instances_ of a tag may be rendered at a time depending on the numbers specified in the _active_ and _passive_ fields.
