@@ -194,7 +194,7 @@ A __component builder function__ returns a native HTML element that may react to
 
 __Example: The tag name component__
 
-The tag name component renders the tag name for a given tag instance. A 'tag' is composed of an image, a name, and a role. Multiple 'instances' of a tag may be rendered at a time depending on the numbers specified in the 'active' and 'passive' fields.
+The _tag name_ component renders the tag name for a given _tag instance_. A _tag_ is composed of an image, a name, and a role. Multiple _instances_ of a tag may be rendered at a time depending on the numbers specified in the _active_ and _passive_ fields.
 
 The tag name component accepts the ID of a tag instance and returns a [content editable](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Editable_content) span allowing the user to edit the tag name. When changed, the `changeTagName` service function is invoked with the new tag name.
 
@@ -224,6 +224,10 @@ module.exports = ({ elements, services, subscriptions }) => tagInstanceId => {
 </details>
 
 __Example: Component composition__
+
+Because components return native HTML elements, they are easily appended to create composites.
+
+The _header_ component is composed of a _title bar_ and a _nav bar_ component.
 
 <details open>
 <summary>src/components/header/header.js</summary>
