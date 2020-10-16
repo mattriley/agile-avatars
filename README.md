@@ -357,6 +357,8 @@ Modules that produce side effects are not accessible to core to help prevent acc
 
 The util module provides lower level pure functions and is accessible to core as purity can be maintained.
 
+Config is also accessible to core. Technically, config could be mutated, producing side effects putting the purity of core at risk. This could be prevented by making config immutable by deeply "freezing" the object. I'm drawing a line here and choosing not to force immutability, but to treat objects as immutable; to avoid mutation of objects as a convention.
+
 __Example: A pure function__
 
 `parseEmailExpression` is a pure function. Amongst other properties of pure functions, its return value is the same for the same arguments, and its evaluation has no side effects.
