@@ -351,21 +351,30 @@ module.exports = {
 
 Provides _pure domain functions_.
 
-From [Wikipedia](https://en.wikipedia.org/wiki/Pure_function):
-> In computer programming, a __pure function__ is a function that has the following properties:
-> 1. Its return value is the same for the same arguments (no variation with local static variables, non-local variables, mutable reference arguments or input streams from I/O devices).
-> 2. Its evaluation has no side effects (no mutation of local static variables, non-local variables, mutable reference arguments or I/O streams).
+The name _core_ comes from [Functional Core, Imperative Shell](https://www.destroyallsoftware.com/screencasts/catalog/functional-core-imperative-shell) and provides a home for [pure functions](#pure-functions) and are accessed by services. Without core, services would be interlaced with pure and impure functions, making them harder to test and reason about.
 
-__Example: A pure domain function__
+Modules that produce side effects are not accessible to core to help prevent accidental side effects. 
+
+The util module provides lower level pure functions and is accessible to core as purity can be maintained.
+
+__Example: A pure function__
+
+`parseEmailExpression` is a pure function. Amongst other properties of pure functions, its return value is the same for the same arguments, and its evaluation has no side effects.
 
 <details open>
-<summary>src/core/tags/parse-tag-expression.js</summary>
+<summary>src/core/tags/parse-email-expression.js</summary>
 
 ```js
-module.exports = () => expression => {
+module.exports = ({ util }) => expression => {
 
-    const [tagName, roleName] = expression.split('+').map(s => s.trim()); 
-    return { tagName, roleName };
+    const indexOfAt = expression.indexOf('@');
+    const isEmail = indexOfAt > -1;
+    const [username] = (isEmail ? expression.substr(0, indexOfAt) : expression).split('+');
+    const lastIndexOfPlus = expression.lastIndexOf('+');
+    const hasRole = lastIndexOfPlus > indexOfAt;        
+    const [emailOrUsername, roleName] = hasRole ? util.splitAt(expression, lastIndexOfPlus, 1) : [expression];
+    const email = isEmail ? emailOrUsername : '';
+    return { email, username, emailOrUsername, roleName };
 
 };
 ```
@@ -1500,6 +1509,11 @@ __Further reading__
 ## Pure functions
 
 As much as possible, pure functions are separated from impure functions. To make the distinction clear, pure domain functions are kept in the `core` module. Pure functions can be reasoned about and tested in isolation without having to manage side effects.
+
+From [Wikipedia](https://en.wikipedia.org/wiki/Pure_function):
+> In computer programming, a __pure function__ is a function that has the following properties:
+> 1. Its return value is the same for the same arguments (no variation with local static variables, non-local variables, mutable reference arguments or input streams from I/O devices).
+> 2. Its evaluation has no side effects (no mutation of local static variables, non-local variables, mutable reference arguments or I/O streams).
 
 __Example: Usage of a pure function__
 
