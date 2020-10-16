@@ -382,6 +382,24 @@ module.exports = ({ util }) => expression => {
 ```
 </details>
 
+__Example: Accessing config__
+
+`buildImageUrl` accesses config for the domain and image size to request from Gravatar. These values are known at initialisation time and remain constant, while email and defaultImage will change per request. 
+
+<details open>
+<summary>src/core/gravatar/build-image-url.js</summary>
+
+```js
+module.exports = ({ core, config }) => (email, defaultImage) => {
+
+    const { domain, size } = config.gravatar;
+    const emailHash = core.gravatar.hashEmail(email);
+    return `${domain}/avatar/${emailHash}?r=g&s=${size}&d=${defaultImage}`;
+    
+};
+```
+</details>
+
 ### ❖ diagnostics
 
 Provides diagnostic functions such as the ability to dump state to the console.
