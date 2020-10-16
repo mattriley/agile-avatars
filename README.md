@@ -41,6 +41,8 @@ DISCLAIMER: Some of the approaches used may be unconventional. Any attempt to em
 - [State management](#state-management)
   - [Stores](#stores)
   - [Subscriptions](#subscriptions)
+- [Deglobalising window](#deglobalising-window)
+  - [Detecting inappropriate access to window](#detecting-inappropriate-access-to-window)
 - [Testing](#testing)
   - [Position](#position)
   - [Constraints](#constraints)
@@ -75,6 +77,7 @@ __Tasks__
 __iTerm2 automated window arrangement (macOS only)__
 - Install iTermocil: `./task itermocil-install`
 - Launch window arrangement: `./task itermocil`
+
 
 # Design goals
 
@@ -406,13 +409,13 @@ Provides diagnostic functions such as the ability to dump state to the console.
 
 ### ❖ dom
 
-Provides common functions to the view modules (elements, components, vendorComponents) while preventing direct access to `window`.
+Provides low-level presentation functions to the view modules (elements, components, vendorComponents) while preventing direct access to `window`.
 
 ### ❖ elements
 
 Provides _element builder functions_.
 
-An __element builder function__ returns an element that can react to user events. Unlike components, they cannot react to state changes or invoke services. Elements are lower level and may be reused by multiple components.
+An __element builder function__ returns a native HTML element. Unlike components, they cannot react to state changes or invoke services. Elements are lower level and may be reused by multiple components.
 
 __Example: An element builder function__
 
@@ -564,6 +567,7 @@ module.exports = ({ config, io, window }) => {
 };
 ```
 </details>
+
 
 
 # Initialisation
@@ -767,6 +771,7 @@ __Example: A service test that depends on IO__
 
 TODO
 
+
 # View rendering
 
 View rendering is achieved primarily using the DOM API - `document.createElement()`, and by exception using HTML strings - `element.innerHTML`.
@@ -862,6 +867,7 @@ module.exports = ({ el }) => () => {
 };
 ```
 </details>
+
 
 # State management
 
@@ -1067,6 +1073,28 @@ module.exports = ({ elements, services, subscriptions }) => roleId => {
 </details>
 
 
+# Deglobalising window
+
+window is a global [God object](https://en.wikipedia.org/wiki/God_object) and poses challenges with dependency management because you can do anything with it, anywhere, anytime. 
+
+A typical example might be using fetch to make an API request within a component, rather than from within a service.
+
+window broadly covers 2 concerns - presentation and IO.
+
+In order to separate these concerns, two low-level modules have been created to encapsulate window around each concern.
+
+__dom__
+
+Provides low-level presentation functions to the 'view' modules. For example, the helper function `el` is exposed via dom, and because services cannot access dom, services cannot create html elements.
+
+__io__
+
+Provides low-level IO functions to 'service' modules. For example, `fetch` is exposed via io, and because components cannot access io, components cannot use fetch.
+
+## Detecting inappropriate access to window
+
+Although the dom and io wrapper modules limit access to window, that still doesn't prevent direct access to window. In order to detect inappropriate access, window is not made globally available in the unit tests. This is possible because the unit tests run on Node.js instead of a browser environment. JSDOM is used to emulate a browser and create a window object, but the window object is not automatically made global. This means any code referencing the global window object or properties of it will fail. I was initially using `jsdom-global` to make the window object global until I realised I was mistakenly accessing global variables. 
+
 # Testing 
 
 ## Position
@@ -1198,6 +1226,7 @@ This testing approach supports classic TDD more so than mockist TDD.
 Links
 - [UnitTest - Martin Fowler](https://martinfowler.com/bliki/UnitTest.html)
   - [Solitary or Sociable?](https://martinfowler.com/bliki/UnitTest.html#SolitaryOrSociable)
+
 
 
 # Dependencies
@@ -1479,6 +1508,7 @@ Lightweight test harness optimised for speed and simplicity.
 tape was originally used however zora is newer and has some advantages over tape.
 
 
+
 # Functional programming
 
 Although strict functional design is not a design goal, there are certain functional principles which are easily applied in vanilla JavaScript and should be within grasp of the average developer.
@@ -1613,6 +1643,7 @@ module.exports = (...funcs) => initial => funcs.reduce((v, f) => f(v), initial);
 Once the [pipeline operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Pipeline_operator) is officially supported in JavaScript, we can remove the custom implementation.
 
 
+
 # Conventions
 
 ## Code
@@ -1659,4 +1690,5 @@ This just makes it easier to know when to use `await`.
 - Append `()` to function names to make it obvious we are referring to a function, e.g. `func()`.
 - Avoid using code style in headings, e.g. __About func()__, not __About `func()`__.
 - Wherever possible render actual source files for example code.
+
 
