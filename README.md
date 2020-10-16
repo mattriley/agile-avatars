@@ -407,10 +407,6 @@ module.exports = ({ core, config }) => (email, defaultImage) => {
 
 Provides diagnostic functions such as the ability to dump state to the console.
 
-### ❖ dom
-
-Provides low-level presentation functions to the view modules (elements, components, vendorComponents) while preventing direct access to `window`.
-
 ### ❖ elements
 
 Provides _element builder functions_.
@@ -423,9 +419,9 @@ __Example: An element builder function__
 <summary>src/elements/editable-span.js</summary>
 
 ```js
-module.exports = ({ el, dom }) => className => {
+module.exports = ({ el, ui }) => className => {
 
-    const dispatchChange = () => $span.dispatchEvent(dom.createEvent('change'));
+    const dispatchChange = () => $span.dispatchEvent(ui.createEvent('change'));
 
     const $span = el('span', className)
         .addEventListener('blur', () => {
@@ -526,6 +522,10 @@ Provides _subscription functions_.
 
 A __subscription function__ enables a listener to be notified of state changes.
 
+### ❖ ui
+
+Provides low-level presentation functions to the view modules (elements, components, vendorComponents) while preventing direct access to `window`.
+
 ### ❖ util
 
 
@@ -613,15 +613,15 @@ module.exports = ({ window, ...overrides }) => {
     const vendorServices = compose('vendorServices', { io, config, window });
         
     // Presentation
-    const { el, ...dom } = compose('dom', { window });        
+    const { el, ...ui } = compose('ui', { window });        
     const styles = compose('styles', { el, subscriptions, config });
-    const elements = compose('elements', { el, dom, util });
+    const elements = compose('elements', { el, ui, util });
     const vendorComponents = compose('vendorComponents', { el, config, window });
-    compose('components', { el, elements, vendorComponents, vendorServices, services, subscriptions, dom, util, config });
+    compose('components', { el, elements, vendorComponents, vendorServices, services, subscriptions, ui, util, config });
     
     // Startup    
     compose('diagnostics', { stores, util });
-    compose('startup', { styles, subscriptions, services, stores, dom, util, config });
+    compose('startup', { styles, subscriptions, services, stores, ui, util, config });
 
     return compose.getModules();
 
@@ -816,12 +816,12 @@ $div.addEventListener('click', clickHandler);
 __el() implementation__
 
 <details open>
-<summary>src/dom/el.js</summary>
+<summary>src/ui/el.js</summary>
 
 ```js
-module.exports = ({ dom }) => (tagName, ...opts) => { 
+module.exports = ({ ui }) => (tagName, ...opts) => { 
 
-    const el = dom.getDocument().createElement(tagName);
+    const el = ui.getDocument().createElement(tagName);
     const props = opts.map(opt => (typeof opt === 'string' ? { className: opt } : opt));
     const funcs = ['append', 'addEventListener'].map(name => {
         const orig = el[name].bind(el);
@@ -1030,7 +1030,7 @@ __Example: Reacting to a new role using onInsert() and onFirstInsert()__
 <summary>src/components/role-list/role-list.js</summary>
 
 ```js
-module.exports = ({ el, roleList, subscriptions, dom }) => () => {
+module.exports = ({ el, roleList, subscriptions, ui }) => () => {
 
     const $roleList = el('div', 'role-list visible-false');
 
@@ -1040,7 +1040,7 @@ module.exports = ({ el, roleList, subscriptions, dom }) => () => {
     });
 
     subscriptions.roles.onFirstInsert(() => {
-        dom.toggleBoolClass($roleList, 'visible', true);
+        ui.toggleBoolClass($roleList, 'visible', true);
     });
 
     return $roleList;
@@ -1083,9 +1083,9 @@ window broadly covers 2 concerns - presentation and IO.
 
 In order to separate these concerns, two low-level modules have been created to encapsulate window around each concern.
 
-__dom__
+__ui__
 
-Provides low-level presentation functions to the 'view' modules. For example, the helper function `el` is exposed via dom, and because services cannot access dom, services cannot create html elements.
+Provides low-level presentation functions to the 'view' modules. For example, the helper function `el` is exposed via ui, and because services cannot access ui, services cannot create html elements.
 
 __io__
 
@@ -1093,7 +1093,7 @@ Provides low-level IO functions to 'service' modules. For example, `fetch` is ex
 
 ## Detecting inappropriate access to window
 
-Although the dom and io wrapper modules limit access to window, that still doesn't prevent direct access to window. In order to detect inappropriate access, window is not made globally available in the unit tests. This is possible because the unit tests run on Node.js instead of a browser environment. JSDOM is used to emulate a browser and create a window object, but the window object is not automatically made global. This means any code referencing the global window object or properties of it will fail. I was initially using `jsdom-global` to make the window object global until I realised I was mistakenly accessing global variables. 
+Although the ui and io wrapper modules limit access to window, that still doesn't prevent direct access to window. In order to detect inappropriate access, window is not made globally available in the unit tests. This is possible because the unit tests run on Node.js instead of a browser environment. JSDOM is used to emulate a browser and create a window object, but the window object is not automatically made global. This means any code referencing the global window object or properties of it will fail. I was initially using `jsdom-global` to make the window object global until I realised I was mistakenly accessing global variables. 
 
 # Testing 
 
