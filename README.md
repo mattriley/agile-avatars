@@ -35,14 +35,14 @@ DISCLAIMER: Some of the approaches used may be unconventional. Any attempt to em
   - [Managing coupling](#managing-coupling)
   - [Launching the application](#launching-the-application)
   - [Testing the application](#testing-the-application)
-- [View rendering](#view-rendering)
-  - [DOM API - document.createElement()](#dom-api---documentcreateelement)
-  - [HTML strings - element.innerHTML](#html-strings---elementinnerhtml)
+- [Dependency management](#dependency-management)
+  - [Deglobalising window](#deglobalising-window)
 - [State management](#state-management)
   - [Stores](#stores)
   - [Subscriptions](#subscriptions)
-- [Deglobalising window](#deglobalising-window)
-  - [Detecting inappropriate access to window](#detecting-inappropriate-access-to-window)
+- [View rendering](#view-rendering)
+  - [DOM API - document.createElement()](#dom-api---documentcreateelement)
+  - [HTML strings - element.innerHTML](#html-strings---elementinnerhtml)
 - [Testing](#testing)
   - [Position](#position)
   - [Constraints](#constraints)
@@ -772,102 +772,29 @@ __Example: A service test that depends on IO__
 TODO
 
 
-# View rendering
+# Dependency management
 
-View rendering is achieved primarily using the DOM API - `document.createElement()`, and by exception using HTML strings - `element.innerHTML`.
+## Deglobalising window
 
-## DOM API - document.createElement()
+window is a global [God object](https://en.wikipedia.org/wiki/God_object) and poses challenges with dependency management because you can do anything with it, anywhere, anytime. 
 
-Creating elements with the DOM API usually involves:
+A typical example might be using fetch to make an API request within a component, rather than from within a service.
 
-- Creating an element, `document.createElement('div')`
-- Assigning a class name, `element.className = 'myclass'`
-- Assigning properties, `element.prop1 = 'foo'`
-- Appending child elements, `element.append(child1, child2)`
-- Adding event listeners, `element.addEventListener('click', clickHandler)`
+window broadly covers 2 concerns - presentation and IO.
 
-This approach is sometimes criticised as verbose. While I only considered the verbosity a minor concern, I did notice a pattern emerge which lead me to the creation of a helper function, `el()`.
+In order to separate these concerns, two low-level modules have been created to encapsulate window around each concern.
 
-### Creating elements with el()
+__ui__
 
-`el()` takes a tag name, an optional class name, and optional properties object. Because the native `append()` and `addEventListener()` functions return undefined, `el()` overrides them to return the element instead to enable function chaining.
+Provides low-level presentation functions to the 'view' modules. For example, the helper function `el` is exposed via ui, and because services cannot access ui, services cannot create html elements.
 
-__Example: Usage of el()__
+__io__
 
-```js
-const $div = el('div', 'myclass', { prop1: 'foo', prop2: 'bar' })
-    .append(child1, child2)
-    .addEventListener('focus', focusHandler)
-    .addEventListener('click', clickHandler);
-```
+Provides low-level IO functions to 'service' modules. For example, `fetch` is exposed via io, and because components cannot access io, components cannot use fetch.
 
-The equivalent without `el()`:
+### Detecting inappropriate access to window
 
-```js
-const $div = document.createElement('div');
-$div.className = 'myclass';
-$div.prop1 = 'foo';
-$div.prop2 = 'bar';
-$div.append(child1, child2);
-$div.addEventListener('focus', focusHandler);
-$div.addEventListener('click', clickHandler);
-```
-
-__el() implementation__
-
-<details open>
-<summary>src/ui/el.js</summary>
-
-```js
-module.exports = ({ ui }) => (tagName, ...opts) => { 
-
-    const el = ui.getDocument().createElement(tagName);
-    const props = opts.map(opt => (typeof opt === 'string' ? { className: opt } : opt));
-    const funcs = ['append', 'addEventListener'].map(name => {
-        const orig = el[name].bind(el);
-        const func = (...args) => { orig(...args); return el; };
-        return { [name]: func };
-    });
-    return Object.assign(el, ...props, ...funcs);
-
-};
-```
-</details>
-
-### Observations
-
-#### No id required on elements. No need to query for elements.
-
-Because ultimately this approach uses `document.createElement` to create elements, and all interaction with elements are encapsulated within builder functions, we always have a direct reference to the element. This eliminates the need to assign an id, or lookup elements using `document.getElementById` or `document.querySelector` or some variation of these.
-
-## HTML strings - element.innerHTML
-
-`element.innerHTML` is used by exception, where HTML is used primarily for marking up blocks of content.
-
-__Example: Usage of innerHTML for content__
-
-This example uses `el()` to create an element, but assigns a HTML string to `innerHTML` rather than appending child elements.
-
-<details open>
-<summary>src/components/tips/naming.js</summary>
-
-```js
-module.exports = ({ el }) => () => {
-    
-    return el('div', {
-        title: 'Naming',
-        innerHTML: `
-            <p>
-                Prefer <mark>short names</mark> and <mark>abbreviated roles</mark>. 
-                Less is more. Use just enough detail to identify people at a glance.
-                Avoid full names and position titles if possible.
-            </p>`
-    });
-
-};
-```
-</details>
-
+Although the ui and io wrapper modules limit access to window, that still doesn't prevent direct access to window. In order to detect inappropriate access, window is not made globally available in the unit tests. This is possible because the unit tests run on Node.js instead of a browser environment. JSDOM is used to emulate a browser and create a window object, but the window object is not automatically made global. This means any code referencing the global window object or properties of it will fail. I was initially using `jsdom-global` to make the window object global until I realised I was mistakenly accessing global variables. 
 
 # State management
 
@@ -1073,27 +1000,102 @@ module.exports = ({ elements, services, subscriptions }) => roleId => {
 </details>
 
 
-# Deglobalising window
+# View rendering
 
-window is a global [God object](https://en.wikipedia.org/wiki/God_object) and poses challenges with dependency management because you can do anything with it, anywhere, anytime. 
+View rendering is achieved primarily using the DOM API - `document.createElement()`, and by exception using HTML strings - `element.innerHTML`.
 
-A typical example might be using fetch to make an API request within a component, rather than from within a service.
+## DOM API - document.createElement()
 
-window broadly covers 2 concerns - presentation and IO.
+Creating elements with the DOM API usually involves:
 
-In order to separate these concerns, two low-level modules have been created to encapsulate window around each concern.
+- Creating an element, `document.createElement('div')`
+- Assigning a class name, `element.className = 'myclass'`
+- Assigning properties, `element.prop1 = 'foo'`
+- Appending child elements, `element.append(child1, child2)`
+- Adding event listeners, `element.addEventListener('click', clickHandler)`
 
-__ui__
+This approach is sometimes criticised as verbose. While I only considered the verbosity a minor concern, I did notice a pattern emerge which lead me to the creation of a helper function, `el()`.
 
-Provides low-level presentation functions to the 'view' modules. For example, the helper function `el` is exposed via ui, and because services cannot access ui, services cannot create html elements.
+### Creating elements with el()
 
-__io__
+`el()` takes a tag name, an optional class name, and optional properties object. Because the native `append()` and `addEventListener()` functions return undefined, `el()` overrides them to return the element instead to enable function chaining.
 
-Provides low-level IO functions to 'service' modules. For example, `fetch` is exposed via io, and because components cannot access io, components cannot use fetch.
+__Example: Usage of el()__
 
-## Detecting inappropriate access to window
+```js
+const $div = el('div', 'myclass', { prop1: 'foo', prop2: 'bar' })
+    .append(child1, child2)
+    .addEventListener('focus', focusHandler)
+    .addEventListener('click', clickHandler);
+```
 
-Although the ui and io wrapper modules limit access to window, that still doesn't prevent direct access to window. In order to detect inappropriate access, window is not made globally available in the unit tests. This is possible because the unit tests run on Node.js instead of a browser environment. JSDOM is used to emulate a browser and create a window object, but the window object is not automatically made global. This means any code referencing the global window object or properties of it will fail. I was initially using `jsdom-global` to make the window object global until I realised I was mistakenly accessing global variables. 
+The equivalent without `el()`:
+
+```js
+const $div = document.createElement('div');
+$div.className = 'myclass';
+$div.prop1 = 'foo';
+$div.prop2 = 'bar';
+$div.append(child1, child2);
+$div.addEventListener('focus', focusHandler);
+$div.addEventListener('click', clickHandler);
+```
+
+__el() implementation__
+
+<details open>
+<summary>src/ui/el.js</summary>
+
+```js
+module.exports = ({ ui }) => (tagName, ...opts) => { 
+
+    const el = ui.getDocument().createElement(tagName);
+    const props = opts.map(opt => (typeof opt === 'string' ? { className: opt } : opt));
+    const funcs = ['append', 'addEventListener'].map(name => {
+        const orig = el[name].bind(el);
+        const func = (...args) => { orig(...args); return el; };
+        return { [name]: func };
+    });
+    return Object.assign(el, ...props, ...funcs);
+
+};
+```
+</details>
+
+### Observations
+
+#### No id required on elements. No need to query for elements.
+
+Because ultimately this approach uses `document.createElement` to create elements, and all interaction with elements are encapsulated within builder functions, we always have a direct reference to the element. This eliminates the need to assign an id, or lookup elements using `document.getElementById` or `document.querySelector` or some variation of these.
+
+## HTML strings - element.innerHTML
+
+`element.innerHTML` is used by exception, where HTML is used primarily for marking up blocks of content.
+
+__Example: Usage of innerHTML for content__
+
+This example uses `el()` to create an element, but assigns a HTML string to `innerHTML` rather than appending child elements.
+
+<details open>
+<summary>src/components/tips/naming.js</summary>
+
+```js
+module.exports = ({ el }) => () => {
+    
+    return el('div', {
+        title: 'Naming',
+        innerHTML: `
+            <p>
+                Prefer <mark>short names</mark> and <mark>abbreviated roles</mark>. 
+                Less is more. Use just enough detail to identify people at a glance.
+                Avoid full names and position titles if possible.
+            </p>`
+    });
+
+};
+```
+</details>
+
 
 # Testing 
 
