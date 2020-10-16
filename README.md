@@ -351,7 +351,7 @@ module.exports = {
 
 Provides _pure domain functions_.
 
-The name _core_ comes from [Functional Core, Imperative Shell](https://www.destroyallsoftware.com/screencasts/catalog/functional-core-imperative-shell) and provides a home for [pure functions](#pure-functions) and are accessed by services. Without core, services would be interlaced with pure and impure functions, making them harder to test and reason about.
+The name "core" comes from [Functional Core, Imperative Shell](https://www.destroyallsoftware.com/screencasts/catalog/functional-core-imperative-shell) providing a home for [pure functions](#pure-functions) which are accessed by services. Without core, services would be interlaced with pure and impure functions, making them harder to test and reason about.
 
 Modules that produce side effects are not accessible to core to help prevent accidental side effects. 
 
