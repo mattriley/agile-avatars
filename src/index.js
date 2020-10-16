@@ -3,7 +3,6 @@ module.exports = {
     config: require('./config'),
     core: require('./core'),
     diagnostics: require('./diagnostics'),
-    dom: require('./dom'),
     elements: require('./elements'),
     io: require('./io'),
     services: require('./services'),
@@ -12,6 +11,7 @@ module.exports = {
     stores: require('./stores'),
     styles: require('./styles'),
     subscriptions: require('./subscriptions'),
+    ui: require('./ui'),
     util: require('./util'),
     vendorComponents: require('./vendor-components'),
     vendorServices: require('./vendor-services')

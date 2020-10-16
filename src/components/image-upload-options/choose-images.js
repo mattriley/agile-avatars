@@ -21,7 +21,7 @@ module.exports = ({ el, services }) => () => {
 
 /* FOOTNOTES
 
-- Interestingly, file input can be triggered which detached from the DOM.
+- Interestingly, file input can be triggered which detached from the ui.
 - File input is assigned to click event to make it accessible to tests via event propagation.
 
 */

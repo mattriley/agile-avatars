@@ -20,15 +20,15 @@ module.exports = ({ window, ...overrides }) => {
     const vendorServices = compose('vendorServices', { io, config, window });
         
     // Presentation
-    const { el, ...dom } = compose('dom', { window });        
+    const { el, ...ui } = compose('ui', { window });        
     const styles = compose('styles', { el, subscriptions, config });
-    const elements = compose('elements', { el, dom, util });
+    const elements = compose('elements', { el, ui, util });
     const vendorComponents = compose('vendorComponents', { el, config, window });
-    compose('components', { el, elements, vendorComponents, vendorServices, services, subscriptions, dom, util, config });
+    compose('components', { el, elements, vendorComponents, vendorServices, services, subscriptions, ui, util, config });
     
     // Startup    
     compose('diagnostics', { stores, util });
-    compose('startup', { styles, subscriptions, services, stores, dom, util, config });
+    compose('startup', { styles, subscriptions, services, stores, ui, util, config });
 
     return compose.getModules();
 

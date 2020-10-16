@@ -1,4 +1,4 @@
-module.exports = ({ el, tagList, services, subscriptions, dom, util, config }) => () => {
+module.exports = ({ el, tagList, services, subscriptions, ui, util, config }) => () => {
     
     const $$tags = new Map();
 
@@ -17,7 +17,7 @@ module.exports = ({ el, tagList, services, subscriptions, dom, util, config }) =
     });
 
     const sort = () => {
-        const $active = dom.getDocument().activeElement;
+        const $active = ui.getDocument().activeElement;
         services.tags.sortTagInstances().forEach(tagInstance => {
             $tags.append($$tags.get(tagInstance.id));
         });

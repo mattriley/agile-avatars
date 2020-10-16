@@ -1,4 +1,4 @@
-module.exports = ({ el, dom, util }) => ({ min, max, step }) => {
+module.exports = ({ el, ui, util }) => ({ min, max, step }) => {
 
     const intValue = () => parseInt($number.value);
 
@@ -11,7 +11,7 @@ module.exports = ({ el, dom, util }) => ({ min, max, step }) => {
     const onInput = () => {
         const val = intValue();
         const adjustedVal = adjustValue(val);
-        if (val === adjustedVal) $number.dispatchEvent(dom.createEvent('change'));
+        if (val === adjustedVal) $number.dispatchEvent(ui.createEvent('change'));
     };
 
     const onBlur = () => {
