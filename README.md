@@ -23,9 +23,9 @@ DISCLAIMER: Some of the approaches used may be unconventional. Any attempt to em
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-- [Getting started](#getting-started)
-- [Design goals](#design-goals)
-- [Technical constraints](#technical-constraints)
+- [Getting Started](#getting-started)
+- [Design Goals](#design-goals)
+- [Technical Constraints](#technical-constraints)
 - [Architecture](#architecture)
   - [Modules](#modules)
   - [List of modules](#list-of-modules)
@@ -35,12 +35,12 @@ DISCLAIMER: Some of the approaches used may be unconventional. Any attempt to em
   - [Managing coupling](#managing-coupling)
   - [Launching the application](#launching-the-application)
   - [Testing the application](#testing-the-application)
-- [Dependency management](#dependency-management)
+- [Dependency Management](#dependency-management)
   - [Deglobalising window](#deglobalising-window)
-- [State management](#state-management)
+- [State Management](#state-management)
   - [Stores](#stores)
   - [Subscriptions](#subscriptions)
-- [View rendering](#view-rendering)
+- [View Rendering](#view-rendering)
   - [DOM API - document.createElement()](#dom-api---documentcreateelement)
   - [HTML strings - element.innerHTML](#html-strings---elementinnerhtml)
 - [Testing](#testing)
@@ -52,7 +52,7 @@ DISCLAIMER: Some of the approaches used may be unconventional. Any attempt to em
   - [Constraints](#constraints-1)
   - [List of production dependencies](#list-of-production-dependencies)
   - [List of development dependencies](#list-of-development-dependencies)
-- [Functional programming](#functional-programming)
+- [Functional Programming](#functional-programming)
   - [Immutability](#immutability)
   - [Higher-order functions](#higher-order-functions)
   - [Pure functions](#pure-functions)
@@ -63,7 +63,7 @@ DISCLAIMER: Some of the approaches used may be unconventional. Any attempt to em
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-# Getting started
+# Getting Started
 
 __Prerequisites__
 - Install Node 14.4.0 or install [nvm](https://github.com/nvm-sh/nvm) and run `nvm install`
@@ -79,7 +79,7 @@ __iTerm2 automated window arrangement (macOS only)__
 - Launch window arrangement: `./task itermocil`
 
 
-# Design goals
+# Design Goals
 
 - Beginner friendly. Minimise prerequisite knowledge.
 - Reduce cognitive load. Simplicity. Minimalism. Organisation. Ability to maintain a mental model.
@@ -88,7 +88,7 @@ __iTerm2 automated window arrangement (macOS only)__
 - Easy to change. Tests run fast. Tests are behavioural.
 - Functional leaning. Avoid strict functional programming.
 
-# Technical constraints
+# Technical Constraints
 
 - No languages that compile to JavaScript; No TypeScript. 
   - [You Might Not Need TypeScript (or Static Types) - Eric Elliott](https://medium.com/javascript-scene/you-might-not-need-typescript-or-static-types-aa7cb670a77b)
@@ -772,31 +772,41 @@ __Example: A service test that depends on IO__
 TODO
 
 
-# Dependency management
+# Dependency Management
+
+In my experience, one of the biggest causes of cognitive load is _misplaced responsibilities_ which are essentially violations of the _single responsibility principle_ and _principle of least astonishment_. A good design is one that allows you to make reasonable assumptions about how the application hangs together without having to wade through code to validate it. This problem often manifests during estimation - you imagine the effort involved in implementing a new freature, but it never quite turns out how you imagined it.
+
+Of all the fancy tools and frameworks available for state management, view rendering, etc. none of these really solve the basic problem of where to put things. As an example, it's still too easy to make an API request from a React component, even when your trying to use Redux Saga to separate those concerns. It's also kind of funny that we now need yet another library to help manage this. It's turtles all the way down.
+
+Possibly the biggest reason for this is window. window is a global [God object](https://en.wikipedia.org/wiki/God_object) that makes it too easy to misplace responsibilities. For example, this makes the fetch API available globally, making to easy to make an API request from a React component.
 
 ## Deglobalising window
 
-window is a global [God object](https://en.wikipedia.org/wiki/God_object) and poses challenges with dependency management because you can do anything with it, anywhere, anytime. 
+One way of increasing the chances of well placed responsibilities is to constrain the functionality available to any particular module to prevent the misplaced responsibility from occurring. 
 
-A typical example might be using fetch to make an API request within a component, rather than from within a service.
+### io
 
-window broadly covers 2 concerns - presentation and IO.
+To achieve this, a new module is introduced to house the concern of IO. The io module wraps window and exposes only the io operations required by this application. So in this case io exposes fetch. Now, we can reason about the application like this - does it make sense for components to access io? The answer is obviously no, because we want to avoid components making API requests. The module responsible to carrying out such requests is services - so services may have access to io. Components may then trigger API requests indirectly through services.
 
-In order to separate these concerns, two low-level modules have been created to encapsulate window around each concern.
+MAYBE INSERT A DEPENDENCY OR SEQUENCE DIAGRAM HERE.
 
-__ui__
+### ui
 
-Provides low-level presentation functions to the 'view' modules. For example, the helper function `el` is exposed via ui, and because services cannot access ui, services cannot create html elements.
+Likewise, the reverse is also a concern. We don't want the services module accessing presentation concerns via the window object such as accessing the DOM and creating elements. To prevent this, a new module is introduce to hosue the low level presentation concerns. The ui module wraps the window and exposes only the ui operations required by this application. Now, we can reason able the application like this - does it make sense for services to access ui?  The answer is obviously no. So we allow components to access ui, and we disallow access from services.
 
-__io__
+MAYBE INSERT A DEPENDENCY OR SEQUENCE DIAGRAM HERE.
 
-Provides low-level IO functions to 'service' modules. For example, `fetch` is exposed via io, and because components cannot access io, components cannot use fetch.
+
+While these modules help to separate responsibilities, it still doesn't stop the window object from being global and making easy to circumvent this structure. This is not a problem we can solve directly.
+
+The solution here is to turn to detection rather than prevention. 
 
 ### Detecting inappropriate access to window
 
-Although the ui and io wrapper modules limit access to window, that still doesn't prevent direct access to window. In order to detect inappropriate access, window is not made globally available in the unit tests. This is possible because the unit tests run on Node.js instead of a browser environment. JSDOM is used to emulate a browser and create a window object, but the window object is not automatically made global. This means any code referencing the global window object or properties of it will fail. I was initially using `jsdom-global` to make the window object global until I realised I was mistakenly accessing global variables. 
+In order to detect inappropriate access, window is not made globally available in the unit tests. This is possible because the unit tests run on Node.js instead of a browser environment. JSDOM is used to emulate a browser and create a window object, but the window object is not automatically made global. This means any code referencing the global window object or properties of it will fail. I was initially using `jsdom-global` to make the window object global until I realised I was mistakenly accessing global variables. 
 
-# State management
+
+# State Management
 
 State management in an interesting problem to solve in this application because it's non-trivial.
 
@@ -1000,7 +1010,7 @@ module.exports = ({ elements, services, subscriptions }) => roleId => {
 </details>
 
 
-# View rendering
+# View Rendering
 
 View rendering is achieved primarily using the DOM API - `document.createElement()`, and by exception using HTML strings - `element.innerHTML`.
 
@@ -1511,7 +1521,7 @@ tape was originally used however zora is newer and has some advantages over tape
 
 
 
-# Functional programming
+# Functional Programming
 
 Although strict functional design is not a design goal, there are certain functional principles which are easily applied in vanilla JavaScript and should be within grasp of the average developer.
 
