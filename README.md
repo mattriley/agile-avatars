@@ -30,13 +30,14 @@ DISCLAIMER: Some of the approaches used may be unconventional. Any attempt to em
   - [Modules](#modules)
   - [List of modules](#list-of-modules)
 - [Initialisation](#initialisation)
-  - [Initialising the application with boot()](#initialising-the-application-with-boot)
-  - [Understanding the application](#understanding-the-application)
-  - [Managing coupling](#managing-coupling)
   - [Launching the application](#launching-the-application)
   - [Testing the application](#testing-the-application)
 - [Dependency Management](#dependency-management)
   - [Deglobalising window](#deglobalising-window)
+  - [Initialisation](#initialisation-1)
+  - [Initialising the application with boot()](#initialising-the-application-with-boot)
+  - [Understanding the architecture](#understanding-the-architecture)
+  - [Detecting inappropriate coupling](#detecting-inappropriate-coupling)
 - [State Management](#state-management)
   - [Stores](#stores)
   - [Subscriptions](#subscriptions)
@@ -175,16 +176,6 @@ This design has some interesting implications:
 
 - Any source file is only referenced and loaded once in the entire application making it easier to move files around.
 - In general, `index.js` files don't have a clear responsibility, sometimes even containing important implementation details that can be hard to find given any Node.js project will have many of them. This design ensures `index.js` files have a clear responsibility of their own and don't contain important implementation details that would be better extracted and named appropriately.
-- Because files should only be loaded by `index.js`, it becomes trival to identify inappropriate file references. The following task is run during pre-commit and fails if any inappropriate file references are found:
-    <details open>
-    <summary>tasks/check-coupling</summary>
-    
-    ```
-    #!/bin/bash
-
-! grep --exclude="index.js" -rnw "$SRC" -e "require('."
-    ```
-    </details>
 - The approach to `index.js` forms a pattern which can be automated with code generation. See [module-indexgen](https://github.com/mattriley/agileavatars#-module-indexgen) in the list of development dependencies.
 
 ## List of modules
@@ -572,6 +563,104 @@ module.exports = ({ config, io, window }) => {
 
 # Initialisation
 
+    
+## Launching the application
+
+A single HTML file at `./public/index.html` loads `./public/app.js` using a `<script>` tag. `app.js` initialises the application by invoking `boot()`, supplying the global `window` object as an argument. Once initialised, the `components` module is used to create the top level `app` component and appends it to the DOM. The `services` module is also used to activate the `welcome` modal. 
+
+<details open>
+<summary>public/app.js</summary>
+
+```js
+require('./css/*.css');
+const boot = require('../boot');
+
+const isLocalhost = (/localhost/).test(window.location.host);
+
+const config = { 
+    gtag: { enabled: !isLocalhost },
+    sentry: { enabled: !isLocalhost }
+};
+
+const { components, services, startup } = window.agileavatars = boot({ window, config });
+
+startup();
+services.settings.changeModal('welcome');
+document.body.append(components.app());
+```
+</details>
+
+The initialised application is also assigned to `window.agileavatars` for debugging purposes:
+![Modules displayed in the console](readme-docs/console-modules.png)
+
+This can also be used to view the current state of the application:
+![State displayed in the console](readme-docs/console-state.png)
+
+## Testing the application
+
+Rather than acting on individual files, tests act on the initialised application. 
+
+__Example: A component test that depends on shared state__
+
+This test initialises the application by invoking `boot()` and uses the `components` module to create an 'options bar' which should initially be hidden. It then uses the `services` module to insert a tag which should cause the options bar to become visible. 
+
+<details open>
+<summary>tests/components/options-bar.test.js</summary>
+
+```js
+module.exports = ({ test, boot, helpers }) => {
+    
+    test('options bar not visible until first tag inserted', t => {
+        const { components, services } = boot();
+        const $optionsBar = components.optionsBar();
+        const assertVisible = helpers.assertBoolClass(t, $optionsBar, 'visible');
+        assertVisible(false);    
+        services.tags.insertTag();
+        assertVisible(true);
+    });
+
+};
+```
+</details>
+
+NB: As mentioned previously, `boot()` has 1 required argument - `window`. This version of `boot()` is actually a wrapper that supplies an instance of `window` provided by [JSDOM](https://github.com/jsdom/jsdom) to the original `boot` function for testing purposes.
+
+__Example: A service test that depends on IO__
+
+TODO
+
+
+# Dependency Management
+
+In my experience, one of the biggest causes of cognitive load is _misplaced responsibilities_ which are essentially violations of the _single responsibility principle_ and _principle of least astonishment_. A good design is one that allows you to make reasonable assumptions about how the application hangs together without having to wade through code to validate it. This problem often manifests during estimation - you imagine the effort involved in implementing a new freature, but it never quite turns out how you imagined it.
+
+Of all the fancy tools and frameworks available for state management, view rendering, etc. none of these really solve the basic problem of where to put things. As an example, it's still too easy to make an API request from a React component, even when your trying to use Redux Saga to separate those concerns. It's also kind of funny that we now need yet another library to help manage this. It's turtles all the way down.
+
+Possibly the biggest reason for this is window. window is a global [God object](https://en.wikipedia.org/wiki/God_object) that makes it too easy to misplace responsibilities. For example, this makes the fetch API available globally, making to easy to make an API request from a React component.
+
+## Deglobalising window
+
+One way of increasing the chances of well placed responsibilities is to constrain the functionality available to any particular module to prevent the misplaced responsibility from occurring. 
+
+### io
+
+To achieve this, a new module is introduced to house the concern of IO. The io module wraps window and exposes only the io operations required by this application. So in this case io exposes fetch. Now, we can reason about the application like this - does it make sense for components to access io? The answer is obviously no, because we want to avoid components making API requests. The module responsible to carrying out such requests is services - so services may have access to io. Components may then trigger API requests indirectly through services.
+
+### ui
+
+Likewise, the reverse is also a concern. We don't want the services module accessing presentation concerns via the window object such as accessing the DOM and creating elements. To prevent this, a new module is introduce to hosue the low level presentation concerns. The ui module wraps the window and exposes only the ui operations required by this application. Now, we can reason able the application like this - does it make sense for services to access ui?  The answer is obviously no. So we allow components to access ui, and we disallow access from services.
+
+
+While these modules help to separate responsibilities, it still doesn't stop the window object from being global and making easy to circumvent this structure. This is not a problem we can solve directly.
+
+The solution here is to turn to detection rather than prevention. 
+
+### Detecting inappropriate access to window
+
+In order to detect inappropriate access, window is not made globally available in the unit tests. This is possible because the unit tests run on Node.js instead of a browser environment. JSDOM is used to emulate a browser and create a window object, but the window object is not automatically made global. This means any code referencing the global window object or properties of it will fail. I was initially using `jsdom-global` to make the window object global until I realised I was mistakenly accessing global variables. 
+
+## Initialisation
+
 Initialisation is the process of making the application ready to launch and involves: 
 
 - Loading configuration.
@@ -688,7 +777,7 @@ const override = (obj, overrides) => {
 ```
 </details>
 
-## Understanding the application
+## Understanding the architecture
 
 `boot.js` is also useful as a single place to go to control and understand how the application "hangs together", helping to reduce cognitive load.
 
@@ -696,114 +785,41 @@ An interesting side-effect of managing dependencies this way is that it became t
 
 ![Dependencies](readme-docs/modules.svg)
 
-## Managing coupling
+Here's another view generated from the same data:
+
+Modules | components | startup | services | vendor<br>services | vendor<br>components | styles | diagnostics | elements | ui | core | subscriptions | stores | io | window | config
+--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---:
+components | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
+startup | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
+services | ✅ | ✅ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
+vendorServices | ✅ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
+vendorComponents | ✅ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
+styles | ❌ | ✅ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
+diagnostics | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
+elements | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
+ui | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
+core | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌
+subscriptions | ✅ | ✅ | ✅ | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌
+stores | ❌ | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ | ✅ | n/a | ❌ | ❌ | ❌
+io | ❌ | ❌ | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | n/a | ❌ | ❌
+window | ❌ | ❌ | ❌ | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ | ✅ | n/a | ❌
+config | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ | ❌ | ✅ | ❌ | ❌ | n/a
+
+## Detecting inappropriate coupling
 
 Another benefit of `boot.js` is that it becomes trivial to identify inappropriate coupling. For example passing `io` which is impure to `core` which is meant to be pure.
 
-And because all relative files are loaded by `index.js` files, a simple search can be done to identify any inappropriate file references, e.g.
+And because all relative files are loaded by `index.js` files, a simple search can be done to identify any inappropriate file references. The following task is run during pre-commit and fails if any inappropriate file references are found:
 
-```sh
-grep --exclude="index.js" -rnw "./src" -e "require('."
-```
-
-## Launching the application
-
-A single HTML file at `./public/index.html` loads `./public/app.js` using a `<script>` tag. `app.js` initialises the application by invoking `boot()`, supplying the global `window` object as an argument. Once initialised, the `components` module is used to create the top level `app` component and appends it to the DOM. The `services` module is also used to activate the `welcome` modal. 
-
-<details open>
-<summary>public/app.js</summary>
-
-```js
-require('./css/*.css');
-const boot = require('../boot');
-
-const isLocalhost = (/localhost/).test(window.location.host);
-
-const config = { 
-    gtag: { enabled: !isLocalhost },
-    sentry: { enabled: !isLocalhost }
-};
-
-const { components, services, startup } = window.agileavatars = boot({ window, config });
-
-startup();
-services.settings.changeModal('welcome');
-document.body.append(components.app());
-```
-</details>
-
-The initialised application is also assigned to `window.agileavatars` for debugging purposes:
-![Modules displayed in the console](readme-docs/console-modules.png)
-
-This can also be used to view the current state of the application:
-![State displayed in the console](readme-docs/console-state.png)
-
-## Testing the application
-
-Rather than acting on individual files, tests act on the initialised application. 
-
-__Example: A component test that depends on shared state__
-
-This test initialises the application by invoking `boot()` and uses the `components` module to create an 'options bar' which should initially be hidden. It then uses the `services` module to insert a tag which should cause the options bar to become visible. 
-
-<details open>
-<summary>tests/components/options-bar.test.js</summary>
-
-```js
-module.exports = ({ test, boot, helpers }) => {
+    <details open>
+    <summary>tasks/check-coupling</summary>
     
-    test('options bar not visible until first tag inserted', t => {
-        const { components, services } = boot();
-        const $optionsBar = components.optionsBar();
-        const assertVisible = helpers.assertBoolClass(t, $optionsBar, 'visible');
-        assertVisible(false);    
-        services.tags.insertTag();
-        assertVisible(true);
-    });
+    ```
+    #!/bin/bash
 
-};
-```
-</details>
-
-NB: As mentioned previously, `boot()` has 1 required argument - `window`. This version of `boot()` is actually a wrapper that supplies an instance of `window` provided by [JSDOM](https://github.com/jsdom/jsdom) to the original `boot` function for testing purposes.
-
-__Example: A service test that depends on IO__
-
-TODO
-
-
-# Dependency Management
-
-In my experience, one of the biggest causes of cognitive load is _misplaced responsibilities_ which are essentially violations of the _single responsibility principle_ and _principle of least astonishment_. A good design is one that allows you to make reasonable assumptions about how the application hangs together without having to wade through code to validate it. This problem often manifests during estimation - you imagine the effort involved in implementing a new freature, but it never quite turns out how you imagined it.
-
-Of all the fancy tools and frameworks available for state management, view rendering, etc. none of these really solve the basic problem of where to put things. As an example, it's still too easy to make an API request from a React component, even when your trying to use Redux Saga to separate those concerns. It's also kind of funny that we now need yet another library to help manage this. It's turtles all the way down.
-
-Possibly the biggest reason for this is window. window is a global [God object](https://en.wikipedia.org/wiki/God_object) that makes it too easy to misplace responsibilities. For example, this makes the fetch API available globally, making to easy to make an API request from a React component.
-
-## Deglobalising window
-
-One way of increasing the chances of well placed responsibilities is to constrain the functionality available to any particular module to prevent the misplaced responsibility from occurring. 
-
-### io
-
-To achieve this, a new module is introduced to house the concern of IO. The io module wraps window and exposes only the io operations required by this application. So in this case io exposes fetch. Now, we can reason about the application like this - does it make sense for components to access io? The answer is obviously no, because we want to avoid components making API requests. The module responsible to carrying out such requests is services - so services may have access to io. Components may then trigger API requests indirectly through services.
-
-MAYBE INSERT A DEPENDENCY OR SEQUENCE DIAGRAM HERE.
-
-### ui
-
-Likewise, the reverse is also a concern. We don't want the services module accessing presentation concerns via the window object such as accessing the DOM and creating elements. To prevent this, a new module is introduce to hosue the low level presentation concerns. The ui module wraps the window and exposes only the ui operations required by this application. Now, we can reason able the application like this - does it make sense for services to access ui?  The answer is obviously no. So we allow components to access ui, and we disallow access from services.
-
-MAYBE INSERT A DEPENDENCY OR SEQUENCE DIAGRAM HERE.
-
-
-While these modules help to separate responsibilities, it still doesn't stop the window object from being global and making easy to circumvent this structure. This is not a problem we can solve directly.
-
-The solution here is to turn to detection rather than prevention. 
-
-### Detecting inappropriate access to window
-
-In order to detect inappropriate access, window is not made globally available in the unit tests. This is possible because the unit tests run on Node.js instead of a browser environment. JSDOM is used to emulate a browser and create a window object, but the window object is not automatically made global. This means any code referencing the global window object or properties of it will fail. I was initially using `jsdom-global` to make the window object global until I realised I was mistakenly accessing global variables. 
+! grep --exclude="index.js" -rnw "$SRC" -e "require('."
+    ```
+    </details>
 
 
 # State Management
