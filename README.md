@@ -668,7 +668,7 @@ module.exports = ({ window, ...overrides }) => {
         
     // Presentation
     const { el, ...ui } = compose('ui', { window });        
-    const styles = compose('styles', { el, subscriptions, config });
+    const styles = compose('styles', { el, ui, subscriptions, config });
     const elements = compose('elements', { el, ui, util });
     const vendorComponents = compose('vendorComponents', { el, config, window });
     compose('components', { el, elements, vendorComponents, vendorServices, services, subscriptions, ui, util, config });
@@ -752,22 +752,22 @@ An interesting side-effect of managing dependencies this way is that it became t
 
 Here's another view generated from the same data:
 
-Modules | components | startup | services | vendor<br>services | vendor<br>components | styles | diagnostics | elements | ui | core | subscriptions | stores | io | window | config
+Modules | components | startup | services | styles | vendor<br>services | vendor<br>components | diagnostics | elements | ui | core | subscriptions | stores | io | window | config
 --- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---:
 components | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
 startup | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
 services | ✅ | ✅ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
-vendorServices | ✅ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
-vendorComponents | ✅ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
-styles | ❌ | ✅ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
+styles | ❌ | ✅ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
+vendorServices | ✅ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
+vendorComponents | ✅ | ❌ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
 diagnostics | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
 elements | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
-ui | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
+ui | ✅ | ✅ | ❌ | ✅ | ❌ | ❌ | ❌ | ✅ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
 core | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌
-subscriptions | ✅ | ✅ | ✅ | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌
+subscriptions | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌
 stores | ❌ | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ | ✅ | n/a | ❌ | ❌ | ❌
-io | ❌ | ❌ | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | n/a | ❌ | ❌
-window | ❌ | ❌ | ❌ | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ | ✅ | n/a | ❌
+io | ❌ | ❌ | ✅ | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | n/a | ❌ | ❌
+window | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ | ✅ | n/a | ❌
 config | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ | ❌ | ✅ | ❌ | ❌ | n/a
 
 ## Detecting inappropriate coupling

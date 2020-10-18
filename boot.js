@@ -21,10 +21,10 @@ module.exports = ({ window, ...overrides }) => {
         
     // Presentation
     const { el, ...ui } = compose('ui', { window });        
-    const styles = compose('styles', { el, subscriptions, config });
+    const styles = compose('styles', { el, ui, subscriptions, config });
     const elements = compose('elements', { el, ui, util });
-    const vendorComponents = compose('vendorComponents', { el, config, window });
-    compose('components', { el, elements, vendorComponents, vendorServices, services, subscriptions, ui, util, config });
+    const vendorComponents = compose('vendorComponents', { el, ui, config, window });
+    compose('components', { el, ui, elements, vendorComponents, vendorServices, services, subscriptions, util, config });
     
     // Startup    
     compose('diagnostics', { stores, util });
