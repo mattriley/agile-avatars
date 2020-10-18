@@ -27,14 +27,12 @@ DISCLAIMER: Some of the approaches used may be unconventional. Any attempt to em
 - [Design Goals](#design-goals)
 - [Technical Constraints](#technical-constraints)
 - [Architecture](#architecture)
-  - [Modules](#modules)
+- [Mount Process](#mount-process)
+- [Modules](#modules)
   - [List of modules](#list-of-modules)
-- [Initialisation](#initialisation)
-  - [Launching the application](#launching-the-application)
-  - [Testing the application](#testing-the-application)
 - [Dependency Management](#dependency-management)
   - [Deglobalising window](#deglobalising-window)
-  - [Initialisation](#initialisation-1)
+  - [Initialisation](#initialisation)
   - [Initialising the application with boot()](#initialising-the-application-with-boot)
   - [Understanding the architecture](#understanding-the-architecture)
   - [Detecting inappropriate coupling](#detecting-inappropriate-coupling)
@@ -114,7 +112,43 @@ With the plethora of frontend architectural styles in use today, this applicatio
 
 ![Architecture](readme-docs/architecture.svg)
 
-## Modules
+
+
+# Mount Process
+
+
+A single HTML file at `./public/index.html` loads `./public/app.js` using a `<script>` tag. `app.js` initialises the application by invoking `boot()`, supplying the global `window` object as an argument. Once initialised, the `components` module is used to create the top level `app` component and appends it to the DOM. The `services` module is also used to activate the `welcome` modal. 
+
+<details open>
+<summary>public/app.js</summary>
+
+```js
+require('./css/*.css');
+const boot = require('../boot');
+
+const isLocalhost = (/localhost/).test(window.location.host);
+
+const config = { 
+    gtag: { enabled: !isLocalhost },
+    sentry: { enabled: !isLocalhost }
+};
+
+const { components, services, startup } = window.agileavatars = boot({ window, config });
+
+startup();
+services.settings.changeModal('welcome');
+document.body.append(components.app());
+```
+</details>
+
+The initialised application is also assigned to `window.agileavatars` for debugging purposes:
+![Modules displayed in the console](readme-docs/console-modules.png)
+
+This can also be used to view the current state of the application:
+![State displayed in the console](readme-docs/console-state.png)
+
+
+# Modules
 
 The application is composed of architectural components called modules. Each module has a separate responsibility and may be composed with collaborating modules.
 
@@ -559,75 +593,6 @@ module.exports = ({ config, io, window }) => {
 ```
 </details>
 
-
-
-# Initialisation
-
-    
-## Launching the application
-
-A single HTML file at `./public/index.html` loads `./public/app.js` using a `<script>` tag. `app.js` initialises the application by invoking `boot()`, supplying the global `window` object as an argument. Once initialised, the `components` module is used to create the top level `app` component and appends it to the DOM. The `services` module is also used to activate the `welcome` modal. 
-
-<details open>
-<summary>public/app.js</summary>
-
-```js
-require('./css/*.css');
-const boot = require('../boot');
-
-const isLocalhost = (/localhost/).test(window.location.host);
-
-const config = { 
-    gtag: { enabled: !isLocalhost },
-    sentry: { enabled: !isLocalhost }
-};
-
-const { components, services, startup } = window.agileavatars = boot({ window, config });
-
-startup();
-services.settings.changeModal('welcome');
-document.body.append(components.app());
-```
-</details>
-
-The initialised application is also assigned to `window.agileavatars` for debugging purposes:
-![Modules displayed in the console](readme-docs/console-modules.png)
-
-This can also be used to view the current state of the application:
-![State displayed in the console](readme-docs/console-state.png)
-
-## Testing the application
-
-Rather than acting on individual files, tests act on the initialised application. 
-
-__Example: A component test that depends on shared state__
-
-This test initialises the application by invoking `boot()` and uses the `components` module to create an 'options bar' which should initially be hidden. It then uses the `services` module to insert a tag which should cause the options bar to become visible. 
-
-<details open>
-<summary>tests/components/options-bar.test.js</summary>
-
-```js
-module.exports = ({ test, boot, helpers }) => {
-    
-    test('options bar not visible until first tag inserted', t => {
-        const { components, services } = boot();
-        const $optionsBar = components.optionsBar();
-        const assertVisible = helpers.assertBoolClass(t, $optionsBar, 'visible');
-        assertVisible(false);    
-        services.tags.insertTag();
-        assertVisible(true);
-    });
-
-};
-```
-</details>
-
-NB: As mentioned previously, `boot()` has 1 required argument - `window`. This version of `boot()` is actually a wrapper that supplies an instance of `window` provided by [JSDOM](https://github.com/jsdom/jsdom) to the original `boot` function for testing purposes.
-
-__Example: A service test that depends on IO__
-
-TODO
 
 
 # Dependency Management
@@ -1187,7 +1152,7 @@ Exceptions are made to the black box approach under certain conditions:
 
 
 
-### 2. System boundary
+### System boundary
 
 Where the execution path will reach a system boundary, stub just short of the integration to avoid coupling the test to the low level implementation details of the integration.
 
@@ -1241,7 +1206,7 @@ module.exports = ({ test, setup }) => {
 ```
 </details>
 
-### 3. Narrow feedback
+### Narrow feedback
 
 When it's helpful to narrow down failure feedback when execution path is too coarse. e.g. state-store evolved with the application rather than being built up-front. The state-store could be covered by the component tests but it's sufficiently complicated to justify it's own tests.
 
@@ -1256,6 +1221,33 @@ Links
   - [Solitary or Sociable?](https://martinfowler.com/bliki/UnitTest.html#SolitaryOrSociable)
 
 
+
+Rather than acting on individual files, tests act on the initialised application. 
+
+__Example: A component test that depends on shared state__
+
+This test initialises the application by invoking `boot()` and uses the `components` module to create an 'options bar' which should initially be hidden. It then uses the `services` module to insert a tag which should cause the options bar to become visible. 
+
+<details open>
+<summary>tests/components/options-bar.test.js</summary>
+
+```js
+module.exports = ({ test, boot, helpers }) => {
+    
+    test('options bar not visible until first tag inserted', t => {
+        const { components, services } = boot();
+        const $optionsBar = components.optionsBar();
+        const assertVisible = helpers.assertBoolClass(t, $optionsBar, 'visible');
+        assertVisible(false);    
+        services.tags.insertTag();
+        assertVisible(true);
+    });
+
+};
+```
+</details>
+
+NB: As mentioned previously, `boot()` has 1 required argument - `window`. This version of `boot()` is actually a wrapper that supplies an instance of `window` provided by [JSDOM](https://github.com/jsdom/jsdom) to the original `boot` function for testing purposes.
 
 # Dependencies
 
