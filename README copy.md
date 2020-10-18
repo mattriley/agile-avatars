@@ -747,21 +747,9 @@ const override = (obj, overrides) => {
 
 `boot.js` is also useful as a single place to go to control and understand how the application "hangs together", helping to reduce cognitive load.
 
-An interesting side-effect of managing dependencies this way is that it became trivial to generate a dependency diagram.
+An interesting side-effect of managing dependencies this way is that it became trivial to generate a dependency diagram. This is achived by invoking `boot()` and using a data structure provided by `module-composer` that describes the dependencies to generate a [mermaid.js](https://github.com/mermaid-js/mermaid) definition file, and using [mermaid-cli](https://github.com/mermaid-js/mermaid-cli) to generate an SVG. See [mermaid-cli](#-mermaid-jsmermaid-cli) in the [Dependencies](#dependencies) section.
 
 ![Dependencies](readme-docs/modules.svg)
-
-*Some modules have been omitted for brevity.  
-*It's very difficult preventing arrows from overlapping!
-
-<details>
-    <summary>How is this diagram generated?</summary>
-    
-
-This is achived by invoking `boot()` and using a data structure provided by `module-composer` that describes the dependencies to generate a [mermaid.js](https://github.com/mermaid-js/mermaid) definition file, and using [mermaid-cli](https://github.com/mermaid-js/mermaid-cli) to generate an SVG. See [mermaid-cli](#-mermaid-jsmermaid-cli) in the [Dependencies](#dependencies) section.
-
-</details>
-
 
 Here's another view generated from the same data:
 
