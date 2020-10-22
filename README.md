@@ -71,10 +71,8 @@ __Prerequisites__
 __Tasks__
 - Run the tests: `./task test`
 - Start local dev server: `./task start`
-- See all available dev tasks: `ls ./tasks`
-
-__iTerm2 automated window arrangement (macOS only)__
-- Launch window arrangement: `./task itermocil`
+- Launch iTerm2 window arrangement (macOS only): `./task itermocil`
+- See all available tasks: `ls ./tasks`
 
 
 # Design Goals
