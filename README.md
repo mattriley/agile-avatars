@@ -116,7 +116,7 @@ Install iTermocil and launch the pre-configured layout: `./task itermocil`
 
 With the plethora of frontend architectural styles in use today, this application takes a "back to basics" approach with a classic layered architecture. My hypothesis is that the simplicity and familiarity of this architectural style would be approachable for a wide audience including backend developers with limited exposure to frontend development.
 
-![Architecture](readme-docs/architecture.svg)
+<span style="display:block;text-align:center">![Architecture](readme-docs/architecture.svg)</span>
 
 *Some modules have been omitted for brevity.
 
@@ -755,7 +755,7 @@ const override = (obj, overrides) => {
 
 An interesting side-effect of managing dependencies this way is that it became trivial to generate a dependency diagram.
 
-![Dependencies](readme-docs/modules.svg)
+<span style="display:block;text-align:center">![Dependencies](readme-docs/modules.svg)</span>
 
 *Some modules have been omitted for brevity.  
 *It's very difficult preventing arrows from overlapping!
