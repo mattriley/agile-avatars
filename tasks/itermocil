@@ -1,5 +1,7 @@
 #!/bin/bash
 
+./tasks/itermocil-install
+
 cat > "iTermocil.yml" <<EOF
 windows:
   - name: $PROJECT_NAME

@@ -74,7 +74,6 @@ __Tasks__
 - See all available dev tasks: `ls ./tasks`
 
 __iTerm2 automated window arrangement (macOS only)__
-- Install iTermocil: `./task itermocil-install`
 - Launch window arrangement: `./task itermocil`
 
 
