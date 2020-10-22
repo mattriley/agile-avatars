@@ -64,15 +64,24 @@ DISCLAIMER: Some of the approaches used may be unconventional. Any attempt to em
 
 # Getting Started
 
-__Prerequisites__
+### Prerequisites
+
 - Install Node 14.4.0 or install [nvm](https://github.com/nvm-sh/nvm) and run `nvm install`
 - Install dependencies: `npm install`
 
-__Tasks__
+### Tasks
+
 - Run the tests: `./task test`
-- Start local dev server: `./task start`
-- Launch iTerm2 window arrangement (macOS only): `./task itermocil`
-- See all available tasks: `ls ./tasks`
+- Start dev server: `./task serve`
+- List all tasks: `ls ./tasks`
+
+### iTerm2 pre-configured layout (macOS only)
+
+[iTermocil](https://github.com/TomAnthony/itermocil) allows you to setup pre-configured layouts of windows and panes in [iTerm2](https://www.iterm2.com/).
+
+Install iTermocil and launch the pre-configured layout: `./task itermocil`
+
+![iTerm2 pre-configured layout](readme-docs/itermocil.png)
 
 
 # Design Goals

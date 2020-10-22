@@ -10,16 +10,19 @@ windows:
     panes:
       - commands:
         - nvm use
-        - code .
+        - clear
       - commands:
         - nvm use
+        - clear
         - ./task test-watch
       - commands:
         - nvm use
-        - ./task start
+        - clear
+        - ./task indexgen-watch        
       - commands:
         - nvm use
-        - ./task indexgen-watch
+        - clear
+        - ./task serve
 EOF
 
 itermocil

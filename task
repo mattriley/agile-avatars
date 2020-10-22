@@ -14,6 +14,7 @@ export TEST_WATCH_PATTERN="{$SRC,$TESTS,$TEST_HELPERS}/**/*.js"
 export INDEXGEN_PATHS="$SRC $TEST_HELPERS"
 
 function task() {
+    echo "$1 started"
     "tasks/$1" "${@:2}"
     EXIT_CODE=$?
     echo
