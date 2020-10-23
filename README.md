@@ -9,6 +9,7 @@ Source code for [agileavatars.com](https://agileavatars.com). An experiment in f
 ![Status](https://img.shields.io/uptimerobot/status/m783034155-295e5fbc9fd4a0e3a54363a5)
 ![30 days](https://img.shields.io/uptimerobot/ratio/m783034155-295e5fbc9fd4a0e3a54363a5)
 
+
 > Agile Avatars makes it quick and easy to know who's working on what with great looking avatars for your agile board. No more fiddling with Word or Google Docs making sure everything aligns just right. Simply drag and drop your images, make some adjustments, print, and laminate!
 
 <p align="center">
@@ -64,7 +65,6 @@ DISCLAIMER: Some of the approaches used may be unconventional. Any attempt to em
   - [Code](#code)
   - [Documentation](#documentation)
 - [References](#references)
-- [References](#references-1)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -101,19 +101,19 @@ Install iTermocil and launch the pre-configured layout: `./task itermocil`
 
 # Technical Constraints
 
-❌ No languages that compile to JavaScript, e.g. TypeScript.
-❌ No frameworks, e.g. Angular, Vue.
-❌ No view rendering libraries, e.g. React.
-❌ No CSS-in-JS libraries, e.g. Styled Components.
-❌ No CSS pre-processors, e.g. SASS, SCSS.
-❌ No state management libraries, e.g. Flux, Redux.
-❌ No functional programming libraries, e.g. Rambda, Immutable.
-❌ No general purpose utility libraries, e.g. Lodash, Underscore.
-❌ No BDD-style assertion libraries, e.g. Chai's _should_ or _expect_ interfaces.
-❌ No mocking libraries, e.g. Sinon.
-❌ No task runners, e.g. Grunt, Gulp.
-❌ No globals. Access to _window_ strictly controlled.
-❌ No classes/prototypes.
+❌ No languages that compile to JavaScript, e.g. TypeScript.  
+❌ No frameworks, e.g. Angular, Vue.  
+❌ No view rendering libraries, e.g. React.  
+❌ No CSS-in-JS libraries, e.g. Styled Components.  
+❌ No CSS pre-processors, e.g. SASS, SCSS.  
+❌ No state management libraries, e.g. Flux, Redux.  
+❌ No functional programming libraries, e.g. Rambda, Immutable.  
+❌ No general purpose utility libraries, e.g. Lodash, Underscore.  
+❌ No BDD-style assertion libraries, e.g. Chai's _should_ or _expect_ interfaces.  
+❌ No mocking libraries, e.g. Sinon.  
+❌ No task runners, e.g. Grunt, Gulp.  
+❌ No globals. Access to _window_ strictly controlled.  
+❌ No classes/prototypes.  
 
 # Architecture
 
@@ -1753,8 +1753,6 @@ This just makes it easier to know when to use `await`.
 - Avoid using code style in headings, e.g. __About func()__, not __About `func()`__.
 - Wherever possible render actual source files for example code.
 
-
-# References
 
 # References
 
