@@ -5,10 +5,7 @@ const { storage, util } = src;
 module.exports = ({ window, ...overrides }) => {
 
     const compose = composer(src, { overrides });
-
-    // Configure
     const config = compose('config');
-    const io = compose('io', { window });    
     
     // Data
     const stores = compose('stores', { storage, config });
@@ -16,6 +13,7 @@ module.exports = ({ window, ...overrides }) => {
 
     // Domain
     const core = compose('core', { util, config });
+    const io = compose('io', { window });
     const services = compose('services', { subscriptions, stores, core, io, util, config });
     const vendorServices = compose('vendorServices', { io, config, window });
         
