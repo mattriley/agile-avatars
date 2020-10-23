@@ -11,7 +11,9 @@ Source code for [agileavatars.com](https://agileavatars.com). An experiment in f
 
 > Agile Avatars makes it quick and easy to know who's working on what with great looking avatars for your agile board. No more fiddling with Word or Google Docs making sure everything aligns just right. Simply drag and drop your images, make some adjustments, print, and laminate!
 
-![Demo](./readme-docs/demo.gif)
+<p align="center">
+  <img src="https://github.com/mattriley/agileavatars/raw/master/readme-docs/demo.gif" />
+</p>
 
 This is a hobby project I decided to double as an experiment in developing a web application in JavaScript without the aid of a framework like React or Angular. Such an approach is often referred to as frameworkless, or vanilla JavaScript.
 
