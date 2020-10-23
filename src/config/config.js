@@ -1,7 +1,7 @@
 module.exports = ({ window }) => {
 
     const maxImageSize = 600;
-    const isLocalhost = (/localhost/).test(window.location.host);
+    const isLocalhost = (/localhost/).test(window?.location.host);
 
     return {
         gtag: {         

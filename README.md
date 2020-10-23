@@ -146,19 +146,8 @@ A single HTML file at `./public/index.html` loads `./public/app.js` using a `<sc
 ```js
 require('./css/*.css');
 const boot = require('../boot');
-
-const isLocalhost = (/localhost/).test(window.location.host);
-
-const config = { 
-    gtag: { enabled: !isLocalhost },
-    sentry: { enabled: !isLocalhost }
-};
-
-const { components, services, startup } = window.agileavatars = boot({ window, config });
-
-startup();
-services.settings.changeModal('welcome');
-document.body.append(components.app());
+const { mount } = window.agileavatars = boot({ window });
+mount();
 ```
 </details>
 
@@ -309,91 +298,95 @@ Config is loaded early during [initialisation](#initialisation). Most modules de
 <summary>src/config/config.js</summary>
 
 ```js
-const maxImageSize = 600;
+module.exports = ({ window }) => {
 
-module.exports = {
-    gtag: {         
-        trackingId: 'UA-34497639-2',
-        enabled: true
-    },
-    sentry: {
-        dsn: 'https://63594154fcf34c34966aec13b15e2821@o418187.ingest.sentry.io/5320412',
-        enabled: true
-    },
-    app: {
-        name: 'Agile Avatars',
-        issues: 'https://github.com/mattriley/agileavatars/issues'
-    },
-    author: {
-        name: 'Matt Riley',
-        profile: 'https://www.linkedin.com/in/mattrileyau/'
-    },
-    gravatar: {
-        domain: 'https://secure.gravatar.com',
-        size: maxImageSize,
-        fallbacks: ['robohash', 'monsterid', 'wavatar', 'retro', 'identicon', 'mp'],
-        errorMessage: 'An error occurred. Please check your connection and try again.'
-    },
-    options: {
-        layout: 'modes | shapes | size | spacing | sort | outline',
-        modes: ['active', 'passive'],
-        shapes: ['circle', 'square'],
-        shapeRadius: { circle: 50, square: 0 },
-        active: { min: 0, max: 999, step: 1 },
-        passive: { min: 0, max: 999, step: 1 },
-        size: { min: 100, max: maxImageSize, step: 10 },
-        spacing: { min: 0, max: 10, step: 1 },
-        sort: {
-            orderAdded: 'Order added',
-            roleThenName: 'Role, then name',
-            name: 'Name'
-        }
-    },
-    tags: {
-        layout: 'tagImage | tagName roleName',
-        imagePadding: 17
-    },
-    roles: {
-        nilRole: { roleName: '', color: '#ffffff' },
-        presetColors: {
-            BA: '#6688c3',
-            DEV: '#48a56a',
-            PO: '#ce4a4a',
-            QA: '#eaaf41',
-            TL: '#000000',
-            XD: '#b25da6'
-        }
-    },
-    debounce: {
-        adjustTagInstanceCounts: 100,
-        sortTagList: 50
-    },
-    storage: {
-        stores: ['settings', 'roles', 'tags', 'tagInstances'],
-        defaults: {
-            settings: {
-                app: {
-                    modal: null,
-                    nilRoleId: null
-                },
-                options: {
-                    sort: 'orderAdded',
-                    shape: 'circle',
-                    active: 1,
-                    passive: 0,
-                    size: 170,
-                    spacing: 4,
-                    outline: true
-                },
-                gravatar: {
-                    fallback: 'robohash',
-                    freetext: '',
-                    status: 'ready',
-                    errorMessage: ''
-                }    
+    const maxImageSize = 600;
+    const isLocalhost = (/localhost/).test(window?.location.host);
+
+    return {
+        gtag: {         
+            trackingId: 'UA-34497639-2',
+            enabled: !isLocalhost
+        },
+        sentry: {
+            dsn: 'https://63594154fcf34c34966aec13b15e2821@o418187.ingest.sentry.io/5320412',
+            enabled: !isLocalhost
+        },
+        app: {
+            name: 'Agile Avatars',
+            issues: 'https://github.com/mattriley/agileavatars/issues'
+        },
+        author: {
+            name: 'Matt Riley',
+            profile: 'https://www.linkedin.com/in/mattrileyau/'
+        },
+        gravatar: {
+            domain: 'https://secure.gravatar.com',
+            size: maxImageSize,
+            fallbacks: ['robohash', 'monsterid', 'wavatar', 'retro', 'identicon', 'mp'],
+            errorMessage: 'An error occurred. Please check your connection and try again.'
+        },
+        options: {
+            layout: 'modes | shapes | size | spacing | sort | outline',
+            modes: ['active', 'passive'],
+            shapes: ['circle', 'square'],
+            shapeRadius: { circle: 50, square: 0 },
+            active: { min: 0, max: 999, step: 1 },
+            passive: { min: 0, max: 999, step: 1 },
+            size: { min: 100, max: maxImageSize, step: 10 },
+            spacing: { min: 0, max: 10, step: 1 },
+            sort: {
+                orderAdded: 'Order added',
+                roleThenName: 'Role, then name',
+                name: 'Name'
             }
-        }
-    }        
+        },
+        tags: {
+            layout: 'tagImage | tagName roleName',
+            imagePadding: 17
+        },
+        roles: {
+            nilRole: { roleName: '', color: '#ffffff' },
+            presetColors: {
+                BA: '#6688c3',
+                DEV: '#48a56a',
+                PO: '#ce4a4a',
+                QA: '#eaaf41',
+                TL: '#000000',
+                XD: '#b25da6'
+            }
+        },
+        debounce: {
+            adjustTagInstanceCounts: 100,
+            sortTagList: 50
+        },
+        storage: {
+            stores: ['settings', 'roles', 'tags', 'tagInstances'],
+            defaults: {
+                settings: {
+                    app: {
+                        modal: 'welcome',
+                        nilRoleId: null
+                    },
+                    options: {
+                        sort: 'orderAdded',
+                        shape: 'circle',
+                        active: 1,
+                        passive: 0,
+                        size: 170,
+                        spacing: 4,
+                        outline: true
+                    },
+                    gravatar: {
+                        fallback: 'robohash',
+                        freetext: '',
+                        status: 'ready',
+                        errorMessage: ''
+                    }    
+                }
+            }
+        }        
+    };
 };
 ```
 </details>
@@ -680,7 +673,7 @@ module.exports = ({ window, ...overrides }) => {
     const compose = composer(src, { overrides });
 
     // Configure
-    const config = compose('config');
+    const config = compose('config', { window });
     const io = compose('io', { window });    
     
     // Data
@@ -694,16 +687,15 @@ module.exports = ({ window, ...overrides }) => {
         
     // Presentation
     const { el, ...ui } = compose('ui', { window });        
-    const styles = compose('styles', { el, ui, subscriptions, config });
     const elements = compose('elements', { el, ui, util });
     const vendorComponents = compose('vendorComponents', { el, ui, config, window });
     compose('components', { el, ui, elements, vendorComponents, vendorServices, services, subscriptions, util, config });
-    
+    compose('styles', { el, ui, subscriptions, config });
+
     // Startup    
     compose('diagnostics', { stores, util });
-    compose('startup', { styles, subscriptions, services, stores, ui, util, config });
-
-    return compose.getModules();
+    const { mount } = compose('startup', compose.getModules());
+    return { mount, ...compose.getModules() };
 
 };
 ```
@@ -729,6 +721,7 @@ module.exports = (parent, options = {}) => {
     const modules = { ...parent };
     const dependencies = {};
     const compose = (key, arg = {}) => {
+        delete arg[key];
         const obj = parent[key];
         const composed = composeRecursive(obj, arg, key);
         const collapsed = collapseRecursive({ [key]: composed })[key];
@@ -795,23 +788,23 @@ This is achived by invoking `boot()` and using a data structure provided by `mod
 
 Here's another view generated from the same data:
 
-Modules | components | startup | services | vendor<br>components | styles | vendor<br>services | diagnostics | elements | ui | core | subscriptions | stores | io | window | config
+Modules | startup | components | services | styles | vendor<br>components | vendor<br>services | diagnostics | elements | ui | core | subscriptions | stores | io | config | window
 --- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---:
-components | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
-startup | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
+startup | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
+components | ✅ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
 services | ✅ | ✅ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
-vendorComponents | ✅ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
-styles | ❌ | ✅ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
-vendorServices | ✅ | ❌ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
-diagnostics | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
-elements | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
+styles | ✅ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
+vendorComponents | ✅ | ✅ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
+vendorServices | ✅ | ✅ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
+diagnostics | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
+elements | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
 ui | ✅ | ✅ | ❌ | ✅ | ✅ | ❌ | ❌ | ✅ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
-core | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌
-subscriptions | ✅ | ✅ | ✅ | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌
-stores | ❌ | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ | ✅ | n/a | ❌ | ❌ | ❌
-io | ❌ | ❌ | ✅ | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | n/a | ❌ | ❌
-window | ❌ | ❌ | ❌ | ✅ | ❌ | ✅ | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ | ✅ | n/a | ❌
-config | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ | ❌ | ✅ | ❌ | ❌ | n/a
+core | ✅ | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌
+subscriptions | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌
+stores | ✅ | ❌ | ✅ | ❌ | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ | ✅ | n/a | ❌ | ❌ | ❌
+io | ✅ | ❌ | ✅ | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | n/a | ❌ | ❌
+config | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ | ❌ | ✅ | ❌ | n/a | ❌
+window | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ | ✅ | ✅ | n/a
 
 ## Detecting inappropriate coupling
 
