@@ -1,6 +1,6 @@
-module.exports = ({ startup, components, window }) => () => {
+module.exports = ({ startup, components, ui }) => () => {
 
     startup.startup();
-    window.document.body.append(components.app());
+    ui.getDocument().body.append(components.app());
 
 };
