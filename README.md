@@ -99,21 +99,23 @@ Install iTermocil and launch the pre-configured layout: `./task itermocil`
 - Easy to change. Tests run fast. Tests are behavioural.
 - Functional leaning. Avoid strict functional programming.
 
+
 # Technical Constraints
 
-❌ No languages that compile to JavaScript, e.g. TypeScript.  
-❌ No frameworks, e.g. Angular, Vue.  
-❌ No view rendering libraries, e.g. React.  
-❌ No CSS-in-JS libraries, e.g. Styled Components.  
-❌ No CSS pre-processors, e.g. SASS, SCSS.  
-❌ No state management libraries, e.g. Flux, Redux.  
-❌ No functional programming libraries, e.g. Rambda, Immutable.  
-❌ No general purpose utility libraries, e.g. Lodash, Underscore.  
-❌ No BDD-style assertion libraries, e.g. Chai's _should_ or _expect_ interfaces.  
-❌ No mocking libraries, e.g. Sinon.  
-❌ No task runners, e.g. Grunt, Gulp.  
-❌ No globals. Access to _window_ strictly controlled.  
-❌ No classes/prototypes.  
+- ❌ No languages that compile to JavaScript, e.g. TypeScript.  
+- ❌ No frameworks, e.g. Angular, Vue.  
+- ❌ No view rendering libraries, e.g. React.  
+- ❌ No CSS-in-JS libraries, e.g. Styled Components.  
+- ❌ No CSS pre-processors, e.g. SASS, SCSS.  
+- ❌ No state management libraries, e.g. Flux, Redux.  
+- ❌ No functional programming libraries, e.g. Rambda, Immutable.  
+- ❌ No general purpose utility libraries, e.g. Lodash, Underscore.  
+- ❌ No BDD-style assertion libraries, e.g. Chai's _should_ or _expect_ interfaces.  
+- ❌ No mocking libraries, e.g. Sinon.  
+- ❌ No task runners, e.g. Grunt, Gulp.  
+- ❌ No globals. Access to _window_ strictly controlled.  
+- ❌ No classes/prototypes.  
+
 
 # Architecture
 
