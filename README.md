@@ -63,6 +63,8 @@ DISCLAIMER: Some of the approaches used may be unconventional. Any attempt to em
 - [Conventions](#conventions)
   - [Code](#code)
   - [Documentation](#documentation)
+- [References](#references)
+- [References](#references-1)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -99,24 +101,19 @@ Install iTermocil and launch the pre-configured layout: `./task itermocil`
 
 # Technical Constraints
 
-- No languages that compile to JavaScript, e.g. TypeScript.
-- No frameworks, e.g. Angular.
-- No view rendering libraries, e.g. React.
-- No state management libraries, e.g. Flux, Redux.
-- No functional programming libraries, e.g. Rambda, Immutable.
-- No general purpose utility libraries, e.g. Lodash.
-- No BDD-style assertion libraries, e.g. Chai's _should_ or _expect_ interfaces.
-- No mocking libraries, e.g. Sinon.
-- No task runner libraries, e.g. Grunt, Gulp.
-- No globals. Access to _window_ strictly controlled.
-- No classes/prototypes.
-
-
-Further reading:
-
-- [List of languages that compile to JS](https://github.com/jashkenas/coffeescript/wiki/List-of-languages-that-compile-to-JS)
-- [You Might Not Need TypeScript (or Static Types) - Eric Elliott](https://medium.com/javascript-scene/you-might-not-need-typescript-or-static-types-aa7cb670a77b)
-- [The Shocking Secret About Static Types - Eric Elliott](https://medium.com/javascript-scene/the-shocking-secret-about-static-types-514d39bf30a3)
+❌ No languages that compile to JavaScript, e.g. TypeScript.
+❌ No frameworks, e.g. Angular, Vue.
+❌ No view rendering libraries, e.g. React.
+❌ No CSS-in-JS libraries, e.g. Styled Components.
+❌ No CSS pre-processors, e.g. SASS, SCSS.
+❌ No state management libraries, e.g. Flux, Redux.
+❌ No functional programming libraries, e.g. Rambda, Immutable.
+❌ No general purpose utility libraries, e.g. Lodash, Underscore.
+❌ No BDD-style assertion libraries, e.g. Chai's _should_ or _expect_ interfaces.
+❌ No mocking libraries, e.g. Sinon.
+❌ No task runners, e.g. Grunt, Gulp.
+❌ No globals. Access to _window_ strictly controlled.
+❌ No classes/prototypes.
 
 # Architecture
 
@@ -1756,4 +1753,12 @@ This just makes it easier to know when to use `await`.
 - Avoid using code style in headings, e.g. __About func()__, not __About `func()`__.
 - Wherever possible render actual source files for example code.
 
+
+# References
+
+# References
+
+- [List of languages that compile to JS](https://github.com/jashkenas/coffeescript/wiki/List-of-languages-that-compile-to-JS)
+- [You Might Not Need TypeScript (or Static Types) - Eric Elliott](https://medium.com/javascript-scene/you-might-not-need-typescript-or-static-types-aa7cb670a77b)
+- [The Shocking Secret About Static Types - Eric Elliott](https://medium.com/javascript-scene/the-shocking-secret-about-static-types-514d39bf30a3)
 
