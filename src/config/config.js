@@ -65,7 +65,7 @@ module.exports = ({ window }) => {
             defaults: {
                 settings: {
                     app: {
-                        modal: null,
+                        modal: 'welcome',
                         nilRoleId: null
                     },
                     options: {
