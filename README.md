@@ -32,7 +32,7 @@ DISCLAIMER: Some of the approaches used may be unconventional. Any attempt to em
 - [Design Goals](#design-goals)
 - [Technical Constraints](#technical-constraints)
 - [Architecture](#architecture)
-- [Mount Process](#mount-process)
+- [Mounting](#mounting)
 - [Modules](#modules)
   - [List of modules](#list-of-modules)
 - [Dependency Management](#dependency-management)
@@ -95,6 +95,7 @@ Install iTermocil and launch the pre-configured layout: `./task itermocil`
 # Design Goals
 
 - Beginner friendly. Minimise prerequisite knowledge.
+- Approachable to developers of varying backgrounds and experience.
 - Reduce cognitive load. Simplicity. Minimalism. Organisation. Ability to maintain a mental model.
 - Low maintenance. Avoid dependencies that could impact the application in a material way.
 - Flexibility. Avoid dependencies that take over the control flow of the application.
@@ -135,7 +136,7 @@ Further reading:
 - [PresentationDomainDataLayering - Martin Fowler](https://martinfowler.com/bliki/PresentationDomainDataLayering.html)
 
 
-# Mount Process
+# Mounting
 
 
 A single HTML file at `./public/index.html` loads `./public/app.js` using a `<script>` tag. `app.js` initialises the application by invoking `boot()`, supplying the global `window` object as an argument. Once initialised, the `components` module is used to create the top level `app` component and appends it to the DOM. The `services` module is also used to activate the `welcome` modal. 
@@ -146,7 +147,8 @@ A single HTML file at `./public/index.html` loads `./public/app.js` using a `<sc
 ```js
 require('./css/*.css');
 const boot = require('../boot');
-const { mount } = window.agileavatars = boot({ window });
+const config = require('./config');
+const { mount } = window.agileavatars = boot({ window, config });
 mount();
 ```
 </details>
@@ -298,95 +300,91 @@ Config is loaded early during [initialisation](#initialisation). Most modules de
 <summary>src/config/config.js</summary>
 
 ```js
-module.exports = ({ window }) => {
+const maxImageSize = 600;
 
-    const maxImageSize = 600;
-    const isLocalhost = (/localhost/).test(window?.location.host);
-
-    return {
-        gtag: {         
-            trackingId: 'UA-34497639-2',
-            enabled: !isLocalhost
-        },
-        sentry: {
-            dsn: 'https://63594154fcf34c34966aec13b15e2821@o418187.ingest.sentry.io/5320412',
-            enabled: !isLocalhost
-        },
-        app: {
-            name: 'Agile Avatars',
-            issues: 'https://github.com/mattriley/agileavatars/issues'
-        },
-        author: {
-            name: 'Matt Riley',
-            profile: 'https://www.linkedin.com/in/mattrileyau/'
-        },
-        gravatar: {
-            domain: 'https://secure.gravatar.com',
-            size: maxImageSize,
-            fallbacks: ['robohash', 'monsterid', 'wavatar', 'retro', 'identicon', 'mp'],
-            errorMessage: 'An error occurred. Please check your connection and try again.'
-        },
-        options: {
-            layout: 'modes | shapes | size | spacing | sort | outline',
-            modes: ['active', 'passive'],
-            shapes: ['circle', 'square'],
-            shapeRadius: { circle: 50, square: 0 },
-            active: { min: 0, max: 999, step: 1 },
-            passive: { min: 0, max: 999, step: 1 },
-            size: { min: 100, max: maxImageSize, step: 10 },
-            spacing: { min: 0, max: 10, step: 1 },
-            sort: {
-                orderAdded: 'Order added',
-                roleThenName: 'Role, then name',
-                name: 'Name'
+module.exports = {
+    gtag: {         
+        trackingId: 'UA-34497639-2',
+        enabled: false
+    },
+    sentry: {
+        dsn: 'https://63594154fcf34c34966aec13b15e2821@o418187.ingest.sentry.io/5320412',
+        enabled: false
+    },
+    app: {
+        name: 'Agile Avatars',
+        issues: 'https://github.com/mattriley/agileavatars/issues'
+    },
+    author: {
+        name: 'Matt Riley',
+        profile: 'https://www.linkedin.com/in/mattrileyau/'
+    },
+    gravatar: {
+        domain: 'https://secure.gravatar.com',
+        size: maxImageSize,
+        fallbacks: ['robohash', 'monsterid', 'wavatar', 'retro', 'identicon', 'mp'],
+        errorMessage: 'An error occurred. Please check your connection and try again.'
+    },
+    options: {
+        layout: 'modes | shapes | size | spacing | sort | outline',
+        modes: ['active', 'passive'],
+        shapes: ['circle', 'square'],
+        shapeRadius: { circle: 50, square: 0 },
+        active: { min: 0, max: 999, step: 1 },
+        passive: { min: 0, max: 999, step: 1 },
+        size: { min: 100, max: maxImageSize, step: 10 },
+        spacing: { min: 0, max: 10, step: 1 },
+        sort: {
+            orderAdded: 'Order added',
+            roleThenName: 'Role, then name',
+            name: 'Name'
+        }
+    },
+    tags: {
+        layout: 'tagImage | tagName roleName',
+        imagePadding: 17
+    },
+    roles: {
+        nilRole: { roleName: '', color: '#ffffff' },
+        presetColors: {
+            BA: '#6688c3',
+            DEV: '#48a56a',
+            PO: '#ce4a4a',
+            QA: '#eaaf41',
+            TL: '#000000',
+            XD: '#b25da6'
+        }
+    },
+    debounce: {
+        adjustTagInstanceCounts: 100,
+        sortTagList: 50
+    },
+    storage: {
+        stores: ['settings', 'roles', 'tags', 'tagInstances'],
+        defaults: {
+            settings: {
+                app: {
+                    modal: 'welcome',
+                    nilRoleId: null
+                },
+                options: {
+                    sort: 'orderAdded',
+                    shape: 'circle',
+                    active: 1,
+                    passive: 0,
+                    size: 170,
+                    spacing: 4,
+                    outline: true
+                },
+                gravatar: {
+                    fallback: 'robohash',
+                    freetext: '',
+                    status: 'ready',
+                    errorMessage: ''
+                }    
             }
-        },
-        tags: {
-            layout: 'tagImage | tagName roleName',
-            imagePadding: 17
-        },
-        roles: {
-            nilRole: { roleName: '', color: '#ffffff' },
-            presetColors: {
-                BA: '#6688c3',
-                DEV: '#48a56a',
-                PO: '#ce4a4a',
-                QA: '#eaaf41',
-                TL: '#000000',
-                XD: '#b25da6'
-            }
-        },
-        debounce: {
-            adjustTagInstanceCounts: 100,
-            sortTagList: 50
-        },
-        storage: {
-            stores: ['settings', 'roles', 'tags', 'tagInstances'],
-            defaults: {
-                settings: {
-                    app: {
-                        modal: 'welcome',
-                        nilRoleId: null
-                    },
-                    options: {
-                        sort: 'orderAdded',
-                        shape: 'circle',
-                        active: 1,
-                        passive: 0,
-                        size: 170,
-                        spacing: 4,
-                        outline: true
-                    },
-                    gravatar: {
-                        fallback: 'robohash',
-                        freetext: '',
-                        status: 'ready',
-                        errorMessage: ''
-                    }    
-                }
-            }
-        }        
-    };
+        }
+    }        
 };
 ```
 </details>
@@ -671,10 +669,7 @@ const { storage, util } = src;
 module.exports = ({ window, ...overrides }) => {
 
     const compose = composer(src, { overrides });
-
-    // Configure
-    const config = compose('config', { window });
-    const io = compose('io', { window });    
+    const config = compose('config');
     
     // Data
     const stores = compose('stores', { storage, config });
@@ -682,6 +677,7 @@ module.exports = ({ window, ...overrides }) => {
 
     // Domain
     const core = compose('core', { util, config });
+    const io = compose('io', { window });
     const services = compose('services', { subscriptions, stores, core, io, util, config });
     const vendorServices = compose('vendorServices', { io, config, window });
         
@@ -709,18 +705,15 @@ __Source code for module-composer__
 <summary>node_modules/module-composer/src/module-composer.js</summary>
 
 ```js
-const forEach = require('lodash/forEach');
-const isFunction = require('lodash/isFunction');
-const isPlainObject = require('lodash/isPlainObject');
-const mapValues = require('lodash/mapValues');
 const merge = require('lodash/merge');
-const pick = require('lodash/pick');
+const { isObject, isFunction, forEach, mapValues, pick } = require('./util');
 
 module.exports = (parent, options = {}) => {
     const overrides = options.overrides || {};
     const modules = { ...parent };
     const dependencies = {};
     const compose = (key, arg = {}) => {
+        arg = { ...arg };        
         delete arg[key];
         const obj = parent[key];
         const composed = composeRecursive(obj, arg, key);
@@ -735,7 +728,7 @@ module.exports = (parent, options = {}) => {
 };
 
 const composeRecursive = (obj, arg, parentKey) => {
-    if (!isPlainObject(obj)) return obj;
+    if (!isObject(obj)) return obj;
     const product = {}; 
     const newArg = { [parentKey]: product, ...arg };
     const newObj = mapValues(obj, (val, key) => (isFunction(val) ? val(newArg) : composeRecursive(val, newArg, key)));
@@ -743,7 +736,7 @@ const composeRecursive = (obj, arg, parentKey) => {
 };
 
 const collapseRecursive = (obj, parentObj, parentKey) => {
-    if (isPlainObject(obj)) {
+    if (isObject(obj)) {
         forEach(obj, (val, key) => {
             if (key === parentKey) {
                 parentObj[key] = Object.assign(val, parentObj[key]);
@@ -788,7 +781,7 @@ This is achived by invoking `boot()` and using a data structure provided by `mod
 
 Here's another view generated from the same data:
 
-Modules | startup | components | services | styles | vendor<br>components | vendor<br>services | diagnostics | elements | ui | core | subscriptions | stores | io | config | window
+Modules | startup | components | services | styles | vendor<br>components | vendor<br>services | diagnostics | elements | ui | io | core | subscriptions | stores | window | config
 --- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---:
 startup | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
 components | ✅ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
@@ -799,12 +792,12 @@ vendorServices | ✅ | ✅ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌
 diagnostics | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
 elements | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
 ui | ✅ | ✅ | ❌ | ✅ | ✅ | ❌ | ❌ | ✅ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
-core | ✅ | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌
-subscriptions | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌
-stores | ✅ | ❌ | ✅ | ❌ | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ | ✅ | n/a | ❌ | ❌ | ❌
-io | ✅ | ❌ | ✅ | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | n/a | ❌ | ❌
-config | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ | ❌ | ✅ | ❌ | n/a | ❌
-window | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ | ✅ | ✅ | n/a
+io | ✅ | ❌ | ✅ | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌
+core | ✅ | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌
+subscriptions | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌
+stores | ✅ | ❌ | ✅ | ❌ | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | n/a | ❌ | ❌
+window | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ | ❌ | ❌ | ✅ | ✅ | ❌ | ❌ | ❌ | n/a | ❌
+config | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ | ✅ | ❌ | n/a
 
 ## Detecting inappropriate coupling
 
