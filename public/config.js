@@ -5,6 +5,6 @@ module.exports = {
         enabled: !isLocalhost
     },
     sentry: {
-        enables: !isLocalhost
+        enabled: !isLocalhost
     }
 };
