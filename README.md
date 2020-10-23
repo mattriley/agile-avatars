@@ -58,6 +58,8 @@ DISCLAIMER: Some of the approaches used may be unconventional. Any attempt to em
   - [Higher-order functions](#higher-order-functions)
   - [Pure functions](#pure-functions)
   - [Pipe](#pipe)
+  - [Curry and partial application](#curry-and-partial-application)
+  - [Functional core, imperative shell](#functional-core-imperative-shell)
 - [Conventions](#conventions)
   - [Code](#code)
   - [Documentation](#documentation)
@@ -97,16 +99,24 @@ Install iTermocil and launch the pre-configured layout: `./task itermocil`
 
 # Technical Constraints
 
-- No languages that compile to JavaScript; No TypeScript. 
-  - [You Might Not Need TypeScript (or Static Types) - Eric Elliott](https://medium.com/javascript-scene/you-might-not-need-typescript-or-static-types-aa7cb670a77b)
-  - [The Shocking Secret About Static Types - Eric Elliott](https://medium.com/javascript-scene/the-shocking-secret-about-static-types-514d39bf30a3)
-- No frameworks, view libraries, state management libraries; No Angular, React, Redux.
-- No functional programming libraries. e.g. [Rambda.js](https://github.com/ramda/ramda), [Immutable.js](https://github.com/immutable-js/immutable-js)
-- No globals. Access to `window` strictly controlled.
-- No classes. Prefer partial application.
-  - [Curry and Function Composition - Eric Elliott](https://medium.com/javascript-scene/curry-and-function-composition-2c208d774983)
-- Service functions are imperative shells.
-  - [Functional Core, Imperative Shell - Gary Bernhardt](https://www.destroyallsoftware.com/screencasts/catalog/functional-core-imperative-shell)
+- No languages that compile to JavaScript, e.g. TypeScript.
+- No frameworks, e.g. Angular.
+- No view rendering libraries, e.g. React.
+- No state management libraries, e.g. Flux, Redux.
+- No functional programming libraries, e.g. Rambda, Immutable.
+- No general purpose utility libraries, e.g. Lodash.
+- No BDD-style assertion libraries, e.g. Chai's _should_ or _expect_ interfaces.
+- No mocking libraries, e.g. Sinon.
+- No task runner libraries, e.g. Grunt, Gulp.
+- No globals. Access to _window_ strictly controlled.
+- No classes/prototypes.
+
+
+Further reading:
+
+- [List of languages that compile to JS](https://github.com/jashkenas/coffeescript/wiki/List-of-languages-that-compile-to-JS)
+- [You Might Not Need TypeScript (or Static Types) - Eric Elliott](https://medium.com/javascript-scene/you-might-not-need-typescript-or-static-types-aa7cb670a77b)
+- [The Shocking Secret About Static Types - Eric Elliott](https://medium.com/javascript-scene/the-shocking-secret-about-static-types-514d39bf30a3)
 
 # Architecture
 
@@ -1690,6 +1700,13 @@ module.exports = (...funcs) => initial => funcs.reduce((v, f) => f(v), initial);
 
 Once the [pipeline operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Pipeline_operator) is officially supported in JavaScript, we can remove the custom implementation.
 
+## Curry and partial application
+
+- [Curry and Function Composition - Eric Elliott](https://medium.com/javascript-scene/curry-and-function-composition-2c208d774983)
+
+## Functional core, imperative shell
+
+- [Functional Core, Imperative Shell - Gary Bernhardt](https://www.destroyallsoftware.com/screencasts/catalog/functional-core-imperative-shell)
 
 
 # Conventions
