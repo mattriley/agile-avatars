@@ -13,7 +13,9 @@ Source code for [agileavatars.com](https://agileavatars.com). An experiment in f
 > Agile Avatars makes it quick and easy to know who's working on what with great looking avatars for your agile board. No more fiddling with Word or Google Docs making sure everything aligns just right. Simply drag and drop your images, make some adjustments, print, and laminate!
 
 <p align="center">
+  <br>
   <img src="https://github.com/mattriley/agileavatars/raw/master/readme-docs/demo.gif" />
+  <br>
 </p>
 
 This is a hobby project I decided to double as an experiment in developing a web application in JavaScript without the aid of a framework like React or Angular. Such an approach is often referred to as frameworkless, or vanilla JavaScript.
@@ -120,8 +122,11 @@ Install iTermocil and launch the pre-configured layout: `./task itermocil`
 # Architecture
 
 With the plethora of frontend architectural styles in use today, this application takes a "back to basics" approach with a classic layered architecture. My hypothesis is that the simplicity and familiarity of this architectural style would be approachable for a wide audience including backend developers with limited exposure to frontend development.
+
 <p align="center">
+  <br>
   <img src="https://github.com/mattriley/agileavatars/raw/master/readme-docs/architecture.svg" />
+  <br>
 </p>
 
 *Some modules have been omitted for brevity.
@@ -771,7 +776,9 @@ const override = (obj, overrides) => {
 An interesting side-effect of managing dependencies this way is that it became trivial to generate a dependency diagram.
 
 <p align="center">
+  <br>
   <img src="https://github.com/mattriley/agileavatars/raw/master/readme-docs/modules.svg" />
+  <br>
 </p>
 
 *Some modules have been omitted for brevity.  
