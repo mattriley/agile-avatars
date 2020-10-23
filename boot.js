@@ -21,15 +21,14 @@ module.exports = ({ window, ...overrides }) => {
         
     // Presentation
     const { el, ...ui } = compose('ui', { window });        
-    const styles = compose('styles', { el, ui, subscriptions, config });
     const elements = compose('elements', { el, ui, util });
     const vendorComponents = compose('vendorComponents', { el, ui, config, window });
     compose('components', { el, ui, elements, vendorComponents, vendorServices, services, subscriptions, util, config });
-    
+    compose('styles', { el, ui, subscriptions, config });
+
     // Startup    
     compose('diagnostics', { stores, util });
-    compose('startup', { styles, subscriptions, services, stores, ui, util, config });
-
-    return compose.getModules();
+    const { mount } = compose('startup', { ...compose.getModules(), window });
+    return { mount, ...compose.getModules() };
 
 };
