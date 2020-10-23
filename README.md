@@ -120,7 +120,6 @@ Install iTermocil and launch the pre-configured layout: `./task itermocil`
 # Architecture
 
 With the plethora of frontend architectural styles in use today, this application takes a "back to basics" approach with a classic layered architecture. My hypothesis is that the simplicity and familiarity of this architectural style would be approachable for a wide audience including backend developers with limited exposure to frontend development.
-
 <p align="center">
   <img src="https://github.com/mattriley/agileavatars/raw/master/readme-docs/architecture.svg" />
 </p>
