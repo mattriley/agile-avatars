@@ -1,4 +1,5 @@
 require('./css/*.css');
 const boot = require('../boot');
-const { mount } = window.agileavatars = boot({ window });
+const config = require('./config');
+const { mount } = window.agileavatars = boot({ window, config });
 mount();
