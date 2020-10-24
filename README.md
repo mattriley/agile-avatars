@@ -15,6 +15,7 @@ Source code for [agileavatars.com](https://agileavatars.com). An experiment in f
 <br>
 <p align="center">
   <img src="readme-docs/demo.gif?raw=true" />
+  <br>
   <em>Agile Avatars in action</em>
 </p>
 <br>
@@ -93,6 +94,7 @@ DISCLAIMER: Some of the approaches used may be unconventional. Any attempt to em
 <br>
 <p align="center">
   <img src="readme-docs/itermocil.png?raw=true" />
+  <br>
   <em>iTerm2 pre-configured layout</em>
 </p>
 <br>
@@ -133,6 +135,7 @@ With the plethora of frontend architectural styles in use today, this applicatio
 <br>
 <p align="center">
   <img src="readme-docs/architecture.svg?raw=true" />
+  <br>
   <em>Presentation-Domain-Data layered architecture</em>
 </p>
 <br>
@@ -174,6 +177,7 @@ mount();
 <br>
 <p align="center">
   <img src="readme-docs/console-modules.png?raw=true" />
+  <br>
   <em>Modules displayed in the console</em>
 </p>
 <br>
@@ -181,6 +185,7 @@ mount();
 <br>
 <p align="center">
   <img src="readme-docs/console-state.png?raw=true" />
+  <br>
   <em>Current state displayed in the console</em>
 </p>
 <br>
@@ -790,6 +795,7 @@ An interesting side-effect of managing dependencies this way is that it became t
 <br>
 <p align="center">
   <img src="readme-docs/modules.svg?raw=true" />
+  <br>
   <em>Module dependencies</em>
 </p>
 <br>
