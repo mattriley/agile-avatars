@@ -169,8 +169,8 @@ The following steps outline the mount process:
 require('./css/*.css');
 const boot = require('../boot');
 const config = require('./config');
-const { mount } = window.agileavatars = boot({ window, config });
-mount();
+const { startup } = window.agileavatars = boot({ window, config });
+startup(app => document.body.append(app));
 ```
 </details>
 
@@ -721,8 +721,8 @@ module.exports = ({ window, ...overrides }) => {
 
     // Startup    
     compose('diagnostics', { stores, util });
-    const { mount } = compose('startup', compose.getModules());
-    return { mount, ...compose.getModules() };
+    compose('startup', compose.getModules());
+    return compose.getModules();
 
 };
 ```
