@@ -13,10 +13,10 @@ Source code for [agileavatars.com](https://agileavatars.com). An experiment in f
 > Agile Avatars makes it quick and easy to know who's working on what with great looking avatars for your agile board. No more fiddling with Word or Google Docs making sure everything aligns just right. Simply drag and drop your images, make some adjustments, print, and laminate!
 
 <br>
-<figure>
+<p align="center">
   <img src="https://github.com/mattriley/agileavatars/raw/master/readme-docs/demo.gif" />
-  <figcaption>Agile Avatars in action</figcaption>
-</figure>
+  <div>Agile Avatars in action</div>
+</p>
 <br>
 
 This is a hobby project I decided to double as an experiment in developing a web application in JavaScript without the aid of a framework like React or Angular. Such an approach is often referred to as frameworkless, or vanilla JavaScript.
@@ -91,10 +91,10 @@ DISCLAIMER: Some of the approaches used may be unconventional. Any attempt to em
 - Install iTermocil and launch the pre-configured layout: `./task itermocil`
 
 <br>
-<figure>
+<p align="center">
   <img src="https://github.com/mattriley/agileavatars/raw/master/readme-docs/itermocil.png" />
-  <figcaption>iTerm2 pre-configured layout</figcaption>
-</figure>
+  <div>iTerm2 pre-configured layout</div>
+</p>
 <br>
 
 
@@ -131,10 +131,10 @@ DISCLAIMER: Some of the approaches used may be unconventional. Any attempt to em
 With the plethora of frontend architectural styles in use today, this application takes a "back to basics" approach with a classic layered architecture. My hypothesis is that the simplicity and familiarity of this architectural style would be approachable for a wide audience including backend developers with limited exposure to frontend development.
 
 <br>
-<figure>
+<p align="center">
   <img src="https://github.com/mattriley/agileavatars/raw/master/readme-docs/architecture.svg" />
-  <figcaption>Presentation-Domain-Data layered architecture</figcaption>
-</figure>
+  <div>Presentation-Domain-Data layered architecture</div>
+</p>
 <br>
 
 *Some modules have been omitted for brevity.
@@ -172,17 +172,17 @@ mount();
 </details>
 
 <br>
-<figure>
+<p align="center">
   <img src="https://github.com/mattriley/agileavatars/raw/master/readme-docs/console-modules.png" />
-  <figcaption>Modules displayed in the console</figcaption>
-</figure>
+  <div>Modules displayed in the console</div>
+</p>
 <br>
 
 <br>
-<figure>
+<p align="center">
   <img src="https://github.com/mattriley/agileavatars/raw/master/readme-docs/console-state.png" />
-  <figcaption>Current state displayed in the console</figcaption>
-</figure>
+  <div>Current state displayed in the console</div>
+</p>
 <br>
 
 
@@ -788,10 +788,10 @@ const override = (obj, overrides) => {
 An interesting side-effect of managing dependencies this way is that it became trivial to generate a dependency diagram.
 
 <br>
-<figure>
+<p align="center">
   <img src="https://github.com/mattriley/agileavatars/raw/master/readme-docs/modules.svg" />
-  <figcaption>Module dependencies</figcaption>
-</figure>
+  <div>Module dependencies</div>
+</p>
 <br>
 
 *Some modules have been omitted for brevity.  
