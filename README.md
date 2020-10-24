@@ -34,7 +34,7 @@ DISCLAIMER: Some of the approaches used may be unconventional. Any attempt to em
 - [Design Goals](#design-goals)
 - [Technical Constraints](#technical-constraints)
 - [Architecture](#architecture)
-- [Mounting](#mounting)
+- [Launching](#launching)
 - [Modules](#modules)
   - [List of modules](#list-of-modules)
 - [Dependency Management](#dependency-management)
@@ -146,21 +146,20 @@ Further reading:
 - [PresentationDomainDataLayering - Martin Fowler](https://martinfowler.com/bliki/PresentationDomainDataLayering.html)
 
 
-# Mounting
+# Launching
 
-This application is built using [Parcel](https://parceljs.org/). Given a HTML file, Parcel follows dependencies and packages them into a bundle. Parcel overrides the module loading system to allow assets not normally recognised by JavaScript, such as CSS files.
+The application is built with a module bundler called [Parcel](https://parceljs.org/). Given a HTML file, Parcel follows dependencies to produce a bundle. Parcel extends module loading to allow glob patterns and file types not normally recognised by JavaScript such as CSS files.
 
-While convenient, this couples the code to Parcel, meaning the code cannot be executed without it. This is problematic because the vast majority of code doesn't require Parcel to execute at all. For example, having to build the application with Parcel to run the tests adds overhead and slows down the running of the tests.
+While convenient, this creates a strong coupling to Parcel, as in, the code cannot be interpreted without it. Pre-processing JavaScript, whether it be Parcel or any other tool, increases the time it takes to reflect changes. This is problematic in scenarios where speed matters, such as running unit tests.
 
-In order to isolate Parcel, the project is split into `public` and `src` directories. `public` contains static assets and the minimum amount of JavaScript needed to launch the app with Parcel. `src` contains 'the application' which is executable without Parcel. This enables the unit tests to be run directly with Node without needing to 'build' the application.
+The application is split into 2 top-level directories: `public` and `src`.
 
-The following steps outline the mount process:
+- `public` contains the entry HTML file, static assets such as images and CSS, and the minimum amount of code needed to launch 'the application'.
+- `src` contains all the code comprising 'the application'. 
 
-- Parcel follows the `<script>` element in `./public/index.html` to `./public/app.js`.
-- Parcel interprets `require('./css/*.css');` by combining all CSS files and injecting a stylesheet into the document.
-- The application is 'booted' provided the global window object, and a config override object, and returns the application.
-- The application is assigned to `window.agileavatars` for exploration/debugging purposes.
-- The `mount` function is invoked which starts up the application and loads the root component into the document body.
+In order to isolate Parcel, only `public` may use Parcel loaders. This allows unit tests to cover `src` without having to build the application which helps keep the tests fast.
+
+The following code is referenced by `index.html` and launches the application:
 
 <details open>
 <summary>public/app.js</summary>
@@ -174,11 +173,18 @@ startup(app => document.body.append(app));
 ```
 </details>
 
+Launch steps:
+
+1. Parcel interprets `require('./css/*.css');` by concatenating each CSS file into a single CSS file which is then referenced by a `<link>` tag that Parcel injects into the document head.
+2. The `boot` function is invoked with the global `window` object and config, returning the initialised application modules.
+3. The modules are assigned to `window.agileavatars` for demonstration and debugging purposes.
+4. The `startup` function is invoked with a callback receiving an instance of the 'root component', `app` which is then appended to the document body.
+
 <br>
 <p align="center">
   <img src="readme-docs/console-modules.png?raw=true" />
   <br>
-  <em>Modules displayed in the console</em>
+  <em>Application modules logged to the console</em>
 </p>
 <br>
 
@@ -186,7 +192,7 @@ startup(app => document.body.append(app));
 <p align="center">
   <img src="readme-docs/console-state.png?raw=true" />
   <br>
-  <em>Current state displayed in the console</em>
+  <em>Application state logged to the console</em>
 </p>
 <br>
 
