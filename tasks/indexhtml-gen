@@ -25,9 +25,7 @@ cat > "$PUBLIC_INDEX_HTML" <<EOF
 <meta property="twitter:title" content="$TITLE">
 <meta property="twitter:description" content="$DESCRIPTION">
 <meta property="twitter:image" content="$IMAGE">
-</head>
 
-<body>
-<script src="./app.js"></script>
-</body>
+<script src="./app.js" defer></script>
+</head>
 EOF
