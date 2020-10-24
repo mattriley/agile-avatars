@@ -138,8 +138,19 @@ Further reading:
 
 # Mounting
 
+This application is built using [Parcel](https://parceljs.org/). Given a HTML file, Parcel follows dependencies and packages them into a bundle. Parcel overrides the module loading system to allow assets not normally recognised by JavaScript, such as CSS files.
 
-A single HTML file at `./public/index.html` loads `./public/app.js` using a `<script>` tag. `app.js` initialises the application by invoking `boot()`, supplying the global `window` object as an argument. Once initialised, the `components` module is used to create the top level `app` component and appends it to the DOM. The `services` module is also used to activate the `welcome` modal. 
+While convenient, this couples the code to Parcel, meaning the code cannot be executed without it. This is problematic because the vast majority of code doesn't require Parcel to execute at all. For example, having to build the application with Parcel to run the tests adds overhead and slows down the running of the tests.
+
+In order to isolate Parcel, the project is split into `public` and `src` directories. `public` contains static assets and the minimum amount of JavaScript needed to launch the app with Parcel. `src` contains 'the application' which is executable without Parcel. This enables the unit tests to be run directly with Node without needing to 'build' the application.
+
+The following steps outline the mount process:
+
+- Parcel follows the `<script>` element in `./public/index.html` to `./public/app.js`.
+- Parcel interprets `require('./css/*.css');` by combining all CSS files and injecting a stylesheet into the document.
+- The application is 'booted' provided the global window object, and a config override object, and returns the application.
+- The application is assigned to `window.agileavatars` for exploration/debugging purposes.
+- The `mount` function is invoked which starts up the application and loads the root component into the document body.
 
 <details open>
 <summary>public/app.js</summary>
@@ -153,11 +164,11 @@ mount();
 ```
 </details>
 
-The initialised application is also assigned to `window.agileavatars` for debugging purposes:
 ![Modules displayed in the console](readme-docs/console-modules.png)
+Application modules displayed in the console
 
-This can also be used to view the current state of the application:
 ![State displayed in the console](readme-docs/console-state.png)
+Current state displayed in the console
 
 
 # Modules
