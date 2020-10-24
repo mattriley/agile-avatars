@@ -165,10 +165,10 @@ mount();
 </details>
 
 ![Modules displayed in the console](readme-docs/console-modules.png)
-Application modules displayed in the console
+_Application modules displayed in the console_
 
 ![State displayed in the console](readme-docs/console-state.png)
-Current state displayed in the console
+_Current state displayed in the console_
 
 
 # Modules
