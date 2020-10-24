@@ -175,10 +175,10 @@ startup(app => document.body.append(app));
 
 Launch steps:
 
-1. Parcel interprets `require('./css/*.css');` by concatenating each CSS file into a single CSS file which is then referenced by a `<link>` tag that Parcel injects into the document head.
+1. Parcel interprets `require('./css/*.css');` by concatenating each CSS file into a single file which is then referenced by a `<link>` tag that Parcel injects into `<head>`.
 2. The `boot` function is invoked with the global `window` object and config, returning the initialised application modules.
 3. The modules are assigned to `window.agileavatars` for demonstration and debugging purposes.
-4. The `startup` function is invoked with a callback receiving an instance of the 'root component', `app` which is then appended to the document body.
+4. The `startup` function is invoked with a callback receiving an instance of the root component, `app`, which is then appended to `<body>`.
 
 <br>
 <p align="center">
