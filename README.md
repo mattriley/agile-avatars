@@ -15,7 +15,7 @@ Source code for [agileavatars.com](https://agileavatars.com). An experiment in f
 <br>
 <p align="center">
   <img src="https://github.com/mattriley/agileavatars/raw/master/readme-docs/demo.gif" />
-  <div>Agile Avatars in action</div>
+  Agile Avatars in action
 </p>
 <br>
 
@@ -93,7 +93,7 @@ DISCLAIMER: Some of the approaches used may be unconventional. Any attempt to em
 <br>
 <p align="center">
   <img src="https://github.com/mattriley/agileavatars/raw/master/readme-docs/itermocil.png" />
-  <div>iTerm2 pre-configured layout</div>
+  iTerm2 pre-configured layout
 </p>
 <br>
 
@@ -133,7 +133,7 @@ With the plethora of frontend architectural styles in use today, this applicatio
 <br>
 <p align="center">
   <img src="https://github.com/mattriley/agileavatars/raw/master/readme-docs/architecture.svg" />
-  <div>Presentation-Domain-Data layered architecture</div>
+  Presentation-Domain-Data layered architecture
 </p>
 <br>
 
@@ -174,14 +174,14 @@ mount();
 <br>
 <p align="center">
   <img src="https://github.com/mattriley/agileavatars/raw/master/readme-docs/console-modules.png" />
-  <div>Modules displayed in the console</div>
+  Modules displayed in the console
 </p>
 <br>
 
 <br>
 <p align="center">
   <img src="https://github.com/mattriley/agileavatars/raw/master/readme-docs/console-state.png" />
-  <div>Current state displayed in the console</div>
+  Current state displayed in the console
 </p>
 <br>
 
@@ -790,7 +790,7 @@ An interesting side-effect of managing dependencies this way is that it became t
 <br>
 <p align="center">
   <img src="https://github.com/mattriley/agileavatars/raw/master/readme-docs/modules.svg" />
-  <div>Module dependencies</div>
+  Module dependencies
 </p>
 <br>
 
