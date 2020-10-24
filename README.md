@@ -15,7 +15,7 @@ Source code for [agileavatars.com](https://agileavatars.com). An experiment in f
 <br>
 <p align="center">
   <img src="readme-docs/demo.gif?raw=true" />
-  Agile Avatars in action
+  <small>Agile Avatars in action</small>
 </p>
 <br>
 
@@ -93,7 +93,7 @@ DISCLAIMER: Some of the approaches used may be unconventional. Any attempt to em
 <br>
 <p align="center">
   <img src="readme-docs/itermocil.png?raw=true" />
-  iTerm2 pre-configured layout
+  <small>iTerm2 pre-configured layout</small>
 </p>
 <br>
 
@@ -133,7 +133,7 @@ With the plethora of frontend architectural styles in use today, this applicatio
 <br>
 <p align="center">
   <img src="readme-docs/architecture.svg?raw=true" />
-  Presentation-Domain-Data layered architecture
+  <small>Presentation-Domain-Data layered architecture</small>
 </p>
 <br>
 
@@ -174,14 +174,14 @@ mount();
 <br>
 <p align="center">
   <img src="readme-docs/console-modules.png?raw=true" />
-  Modules displayed in the console
+  <small>Modules displayed in the console</small>
 </p>
 <br>
 
 <br>
 <p align="center">
   <img src="readme-docs/console-state.png?raw=true" />
-  Current state displayed in the console
+  <small>Current state displayed in the console</small>
 </p>
 <br>
 
@@ -790,7 +790,7 @@ An interesting side-effect of managing dependencies this way is that it became t
 <br>
 <p align="center">
   <img src="readme-docs/modules.svg?raw=true" />
-  Module dependencies
+  <small>Module dependencies</small>
 </p>
 <br>
 
