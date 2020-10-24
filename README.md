@@ -14,7 +14,7 @@ Source code for [agileavatars.com](https://agileavatars.com). An experiment in f
 
 <br>
 <p align="center">
-  <img src="https://github.com/mattriley/agileavatars/raw/master/readme-docs/demo.gif" />
+  <img src="readme-docs/demo.gif?raw=true" />
   Agile Avatars in action
 </p>
 <br>
@@ -92,7 +92,7 @@ DISCLAIMER: Some of the approaches used may be unconventional. Any attempt to em
 
 <br>
 <p align="center">
-  <img src="https://github.com/mattriley/agileavatars/raw/master/readme-docs/itermocil.png" />
+  <img src="readme-docs/itermocil.png?raw=true" />
   iTerm2 pre-configured layout
 </p>
 <br>
@@ -132,7 +132,7 @@ With the plethora of frontend architectural styles in use today, this applicatio
 
 <br>
 <p align="center">
-  <img src="https://github.com/mattriley/agileavatars/raw/master/readme-docs/architecture.svg" />
+  <img src="readme-docs/architecture.svg?raw=true" />
   Presentation-Domain-Data layered architecture
 </p>
 <br>
@@ -173,14 +173,14 @@ mount();
 
 <br>
 <p align="center">
-  <img src="https://github.com/mattriley/agileavatars/raw/master/readme-docs/console-modules.png" />
+  <img src="readme-docs/console-modules.png?raw=true" />
   Modules displayed in the console
 </p>
 <br>
 
 <br>
 <p align="center">
-  <img src="https://github.com/mattriley/agileavatars/raw/master/readme-docs/console-state.png" />
+  <img src="readme-docs/console-state.png?raw=true" />
   Current state displayed in the console
 </p>
 <br>
@@ -789,7 +789,7 @@ An interesting side-effect of managing dependencies this way is that it became t
 
 <br>
 <p align="center">
-  <img src="https://github.com/mattriley/agileavatars/raw/master/readme-docs/modules.svg" />
+  <img src="readme-docs/modules.svg?raw=true" />
   Module dependencies
 </p>
 <br>
