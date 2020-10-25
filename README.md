@@ -201,6 +201,8 @@ Launch steps:
 
 Booting is the process of making the application 'ready to launch' and involves loading configuration, composing modules, and returning the composed modules.
 
+The `boot` function composes the application from modules in the `src` directory.
+
 <details open>
 <summary>boot.js</summary>
 
@@ -251,16 +253,16 @@ This 'codified view' of the architecture has some interesting implications:
 <p align="center">
   <img src="readme-docs/modules.svg?raw=true" />
   <br>
-  <em>Dependency diagram generated with [Mermaid](https://mermaid-js.github.io/mermaid)</em>
+  <em>Dependency diagram generated with <a href="https://mermaid-js.github.io/mermaid">Mermaid"</a></em>
 </p>
 <br>
 
 ✱ Some modules have been omitted for brevity.  
 ✱ It's very difficult preventing arrows from overlapping!
 
-`module-composer` is a small library seeded from Agile Avatars then extracted for reuse. For transparency, here is the bulk of the source code:
+`module-composer` is a small library seeded from Agile Avatars then extracted for reuse. For transparency, here is the source code:
 
-<details open>
+<details >
 <summary>node_modules/module-composer/src/module-composer.js</summary>
 
 ```js
