@@ -35,6 +35,7 @@ DISCLAIMER: Some of the approaches used may be unconventional. Any attempt to em
 - [Technical Constraints](#technical-constraints)
 - [Architecture](#architecture)
 - [Launching](#launching)
+- [Booting](#booting)
 - [Modules](#modules)
   - [List of modules](#list-of-modules)
 - [Dependency Management](#dependency-management)
@@ -194,6 +195,128 @@ Launch steps:
   <em>Application state logged to the console</em>
 </p>
 <br>
+
+
+# Booting
+
+Booting is the process of making the application 'ready to launch' and involves loading configuration, composing modules, and returning the composed modules.
+
+<details open>
+<summary>boot.js</summary>
+
+```js
+const composer = require('module-composer');
+const src = require('./src');
+const { storage, util } = src;
+
+module.exports = ({ window, ...overrides }) => {
+
+    const compose = composer(src, { overrides });
+    const config = compose('config');
+    
+    // Data
+    const stores = compose('stores', { storage, config });
+    const subscriptions = compose('subscriptions', { stores, util });
+
+    // Domain
+    const core = compose('core', { util, config });
+    const io = compose('io', { window });
+    const services = compose('services', { subscriptions, stores, core, io, util, config });
+    const vendorServices = compose('vendorServices', { io, config, window });
+        
+    // Presentation
+    const { el, ...ui } = compose('ui', { window });        
+    const elements = compose('elements', { el, ui, util });
+    const vendorComponents = compose('vendorComponents', { el, ui, config, window });
+    compose('components', { el, ui, elements, vendorComponents, vendorServices, services, subscriptions, util, config });
+    compose('styles', { el, ui, subscriptions, config });
+
+    // Startup    
+    compose('diagnostics', { stores, util });
+    compose('startup', compose.getModules());
+    return compose.getModules();
+
+};
+```
+</details>
+
+This 'codified view' of the architecture has some interesting implications:
+
+- Easier to understand how the application "hangs together".
+- Easier to control and manage dependencies. Makes inappropriate dependencies more visible.
+- Ability to test the integrated application without also launching it.
+- Ability to programatically analyse and visualise dependencies.
+
+<br>
+<p align="center">
+  <img src="readme-docs/modules.svg?raw=true" />
+  <br>
+  <em>Dependency diagram generated with [Mermaid](https://mermaid-js.github.io/mermaid)</em>
+</p>
+<br>
+
+✱ Some modules have been omitted for brevity.  
+✱ It's very difficult preventing arrows from overlapping!
+
+`module-composer` is a small library seeded from Agile Avatars then extracted for reuse. For transparency, here is the bulk of the source code:
+
+<details open>
+<summary>node_modules/module-composer/src/module-composer.js</summary>
+
+```js
+const merge = require('lodash/merge');
+const { isObject, isFunction, forEach, mapValues, pick } = require('./util');
+
+module.exports = (parent, options = {}) => {
+    const overrides = options.overrides || {};
+    const modules = { ...parent };
+    const dependencies = {};
+    const compose = (key, arg = {}) => {
+        arg = { ...arg };        
+        delete arg[key];
+        const obj = parent[key];
+        const composed = composeRecursive(obj, arg, key);
+        const collapsed = collapseRecursive({ [key]: composed })[key];
+        const module = override({ [key]: collapsed }, overrides)[key];
+        Object.assign(modules, { [key]: module });
+        Object.assign(dependencies, { [key]: Object.keys(arg) });
+        return module;
+    };
+    const getModules = () => ({ ...modules, __dependencies: { ...dependencies } });
+    return Object.assign(compose, { getModules });
+};
+
+const composeRecursive = (obj, arg, parentKey) => {
+    if (!isObject(obj)) return obj;
+    const product = {}; 
+    const newArg = { [parentKey]: product, ...arg };
+    const newObj = mapValues(obj, (val, key) => (isFunction(val) ? val(newArg) : composeRecursive(val, newArg, key)));
+    return Object.assign(product, newObj);
+};
+
+const collapseRecursive = (obj, parentObj, parentKey) => {
+    if (isObject(obj)) {
+        forEach(obj, (val, key) => {
+            if (key === parentKey) {
+                parentObj[key] = Object.assign(val, parentObj[key]);
+                delete val[key];
+            }
+            collapseRecursive(val, obj, key);
+        });    
+    }
+    return obj;
+};
+
+const override = (obj, overrides) => {
+    return merge(obj, pick(overrides, Object.keys(obj)));
+};
+```
+</details>
+
+For more information, see [module-composer](#-module-composer) in the [Dependencies](#dependencies) section.
+
+Further reading:
+- [Composition Root - Mark Seemann](https://blog.ploeh.dk/2011/07/28/CompositionRoot/)
 
 
 # Modules
