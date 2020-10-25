@@ -173,7 +173,7 @@ startup(app => document.body.append(app));
 ```
 </details>
 
-Launch steps:
+Launch sequence:
 
 1. Parcel interprets `require('./css/*.css');` by concatenating each CSS file into a single file which is then referenced by a `<link>` tag that Parcel injects into `<head>`.
 2. The `boot` function is invoked with the global `window` object and config, returning the initialised application modules.
@@ -253,7 +253,7 @@ This 'codified view' of the architecture has some interesting implications:
 <p align="center">
   <img src="readme-docs/modules.svg?raw=true" />
   <br>
-  <em>Dependency diagram generated with <a href="https://mermaid-js.github.io/mermaid">Mermaid"</a></em>
+  <em>Dependency diagram generated with <a href="https://mermaid-js.github.io/mermaid">Mermaid</a></em>
 </p>
 <br>
 
