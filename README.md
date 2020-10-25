@@ -39,7 +39,6 @@ DISCLAIMER: Some of the approaches used may be unconventional. Any attempt to em
   - [List of modules](#list-of-modules)
 - [Dependency Management](#dependency-management)
   - [Deglobalising window](#deglobalising-window)
-  - [Initialisation](#initialisation)
   - [Initialising the application with boot()](#initialising-the-application-with-boot)
   - [Understanding the architecture](#understanding-the-architecture)
   - [Detecting inappropriate coupling](#detecting-inappropriate-coupling)
@@ -140,7 +139,7 @@ With the plethora of frontend architectural styles in use today, this applicatio
 </p>
 <br>
 
-*Some modules have been omitted for brevity.
+✱ Some modules have been omitted for brevity.
 
 Further reading:
 - [PresentationDomainDataLayering - Martin Fowler](https://martinfowler.com/bliki/PresentationDomainDataLayering.html)
@@ -675,68 +674,9 @@ The solution here is to turn to detection rather than prevention.
 
 In order to detect inappropriate access, window is not made globally available in the unit tests. This is possible because the unit tests run on Node.js instead of a browser environment. JSDOM is used to emulate a browser and create a window object, but the window object is not automatically made global. This means any code referencing the global window object or properties of it will fail. I was initially using `jsdom-global` to make the window object global until I realised I was mistakenly accessing global variables. 
 
-## Initialisation
-
-Initialisation is the process of making the application ready to launch and involves: 
-
-- Loading configuration.
-- Composing modules.
-- Returning the composed modules / the integrated application.
-
-Launching the application involves invoking the _root_ component (which in turn invokes many other subcomponents) and appending it to the DOM. Separating the concern of initialising from launching provides:
-
-- A means of understanding how the application "hangs together".
-- A means of testing isolated behaviours in an integrated setting.
-
-Further reading:
-- [Composition Root - Mark Seemann](https://blog.ploeh.dk/2011/07/28/CompositionRoot/)
-
 ## Initialising the application with boot()
 
 The application is initialised by invoking the function exported by `./boot.js`. `boot()` must be supplied a `window` object. The entire application depends on this supplied instance of `window` rather than depending on the global `window` object.
-
-<details open>
-<summary>boot.js</summary>
-
-```js
-const composer = require('module-composer');
-const src = require('./src');
-const { storage, util } = src;
-
-module.exports = ({ window, ...overrides }) => {
-
-    const compose = composer(src, { overrides });
-    const config = compose('config');
-    
-    // Data
-    const stores = compose('stores', { storage, config });
-    const subscriptions = compose('subscriptions', { stores, util });
-
-    // Domain
-    const core = compose('core', { util, config });
-    const io = compose('io', { window });
-    const services = compose('services', { subscriptions, stores, core, io, util, config });
-    const vendorServices = compose('vendorServices', { io, config, window });
-        
-    // Presentation
-    const { el, ...ui } = compose('ui', { window });        
-    const elements = compose('elements', { el, ui, util });
-    const vendorComponents = compose('vendorComponents', { el, ui, config, window });
-    compose('components', { el, ui, elements, vendorComponents, vendorServices, services, subscriptions, util, config });
-    compose('styles', { el, ui, subscriptions, config });
-
-    // Startup    
-    compose('diagnostics', { stores, util });
-    compose('startup', compose.getModules());
-    return compose.getModules();
-
-};
-```
-</details>
-
-`module-composer` is a small, single-file library that enables module composition using partial function application. Originally part of Agile Avatars but extracted as a separate library because I've found it useful in other projects. See [module-composer](#-module-composer) in the [Dependencies](#dependencies) section.
-
-__Source code for module-composer__
 
 <details >
 <summary>node_modules/module-composer/src/module-composer.js</summary>
@@ -795,25 +735,6 @@ const override = (obj, overrides) => {
 ## Understanding the architecture
 
 `boot.js` is also useful as a single place to go to control and understand how the application "hangs together", helping to reduce cognitive load.
-
-An interesting side-effect of managing dependencies this way is that it became trivial to generate a dependency diagram.
-
-<br>
-<p align="center">
-  <img src="readme-docs/modules.svg?raw=true" />
-  <br>
-  <em>Module dependencies</em>
-</p>
-<br>
-
-*Some modules have been omitted for brevity.  
-*It's very difficult preventing arrows from overlapping!
-
-<details>
-    <summary>How is this diagram generated?</summary>
-    
-
-This is achived by invoking `boot()` and using a data structure provided by `module-composer` that describes the dependencies to generate a [mermaid.js](https://github.com/mermaid-js/mermaid) definition file, and using [mermaid-cli](https://github.com/mermaid-js/mermaid-cli) to generate an SVG. See [mermaid-cli](#-mermaid-jsmermaid-cli) in the [Dependencies](#dependencies) section.
 
 </details>
 
