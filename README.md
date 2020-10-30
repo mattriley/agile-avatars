@@ -50,12 +50,10 @@ DISCLAIMER: Some of the approaches used may be unconventional. Any attempt to em
   - [DOM API - document.createElement()](#dom-api---documentcreateelement)
   - [HTML strings - element.innerHTML](#html-strings---elementinnerhtml)
 - [Testing](#testing)
-  - [Position](#position)
-  - [Constraints](#constraints)
   - [Approach](#approach)
 - [Dependencies](#dependencies)
-  - [Position](#position-1)
-  - [Constraints](#constraints-1)
+  - [Position](#position)
+  - [Constraints](#constraints)
   - [List of production dependencies](#list-of-production-dependencies)
   - [List of development dependencies](#list-of-development-dependencies)
 - [Functional Programming](#functional-programming)
@@ -68,7 +66,6 @@ DISCLAIMER: Some of the approaches used may be unconventional. Any attempt to em
 - [Conventions](#conventions)
   - [Code](#code)
   - [Documentation](#documentation)
-- [References](#references)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -109,9 +106,17 @@ DISCLAIMER: Some of the approaches used may be unconventional. Any attempt to em
 - Flexibility. Avoid dependencies that take over the control flow of the application.
 - Easy to change. Tests run fast. Tests are behavioural.
 - Functional leaning. Avoid strict functional programming.
+- Enables merciless refactoring.
+
+Further reading:
+
+- [Refactoring - Martin Fowler](https://martinfowler.com/tags/refactoring.html)
+- [Refactor Mercilessly - Ward Cunningham](https://wiki.c2.com/?RefactorMercilessly)
 
 
 # Technical Constraints
+
+### General
 
 - No languages that compile to JavaScript, e.g. TypeScript.  
 - No frameworks, e.g. Angular, Vue.  
@@ -121,11 +126,36 @@ DISCLAIMER: Some of the approaches used may be unconventional. Any attempt to em
 - No state management libraries, e.g. Flux, Redux.  
 - No functional programming libraries, e.g. Rambda, Immutable.  
 - No general purpose utility libraries, e.g. Lodash, Underscore.  
-- No BDD-style assertion libraries, e.g. Chai's _should_ or _expect_ interfaces.  
-- No mocking libraries, e.g. Sinon.  
 - No task runners, e.g. Grunt, Gulp.  
 - No globals. Access to _window_ strictly controlled.  
 - No classes/prototypes.  
+
+Further reading:
+
+- [List of languages that compile to JS](https://github.com/jashkenas/coffeescript/wiki/List-of-languages-that-compile-to-JS)
+- [The Brutal Lifecycle of JavaScript Frameworks - Ian Allen](https://stackoverflow.blog/2018/01/11/brutal-lifecycle-javascript-frameworks/)
+- [You Might Not Need TypeScript (or Static Types) - Eric Elliott](https://medium.com/javascript-scene/you-might-not-need-typescript-or-static-types-aa7cb670a77b)
+- [The Shocking Secret About Static Types - Eric Elliott](https://medium.com/javascript-scene/the-shocking-secret-about-static-types-514d39bf30a3)
+- [The TypeScript Tax - Eric Elliot](https://medium.com/javascript-scene/the-typescript-tax-132ff4cb175b)
+
+### Testing
+
+- Optimised for speed/fast feedback. Single digit seconds for entire suite.
+- No compilation/pre-processing required to run tests.
+- No globals. e.g. Mocha, Jest.
+- No hooks. e.g. _beforeEach_, _afterEach_.
+- No BDD-style assertion libraries, e.g. _should_ or _expect_ found in Mocha, Jest.
+- No mocking libraries, e.g. Sinon, Jest.    
+- No circumvention of the module loading system, e.g. Rewire, Proxyquire, Jest.
+
+Further reading:
+
+- [Mocks Aren't Stubs - Martin Fowler](https://martinfowler.com/articles/mocksArentStubs.html)
+- [Classical and Mockist Testing](https://martinfowler.com/articles/mocksArentStubs.html#ClassicalAndMockistTesting)
+- [Mockists Are Dead. Long Live Classicists - Fabio Pereria, ThoughtWorks](https://www.thoughtworks.com/insights/blog/mockists-are-dead-long-live-classicists)
+- [TDD test suites should run in 10 seconds or less - Mark Seemann](https://blog.ploeh.dk/2012/05/24/TDDtestsuitesshouldrunin10secondsorless/)
+- [I strongly recommend that you skip all BDD style assertion libraries - Eric Elliott](https://medium.com/@_ericelliott/i-strongly-recommend-that-you-skip-all-bdd-style-assertion-libraries-including-code-acae26344d4)
+- [Mocking is a code smell - Eric Elliott](https://medium.com/javascript-scene/mocking-is-a-code-smell-944a70c90a6a)
 
 
 # Architecture
@@ -1204,27 +1234,6 @@ module.exports = ({ el }) => () => {
 
 # Testing 
 
-## Position
-
-The position taken in this application is that tests should enable __Merciless Refactoring__. The constraints below are designed to enable the application to change significantly and rapidly.
-
-Further reading:
-- [Refactoring - Martin Fowler](https://martinfowler.com/tags/refactoring.html)
-- [Refactor Mercilessly - Ward Cunningham](https://wiki.c2.com/?RefactorMercilessly)
-- [Refactor Mercilessly - Don Wells](http://www.extremeprogramming.org/rules/refactor.html)
-
-## Constraints
-
-- The application can be tested without bundling or transpiling.
-- Unit test suite optimised for speed. Max 10 seconds.
-  - [TDD test suites should run in 10 seconds or less - Mark Seemann](https://blog.ploeh.dk/2012/05/24/TDDtestsuitesshouldrunin10secondsorless/)
-- No BDD style assertion libraries, e.g. expect. Used assert instead.
-  - [I strongly recommend that you skip all BDD style assertion libraries - Eric Elliott](https://medium.com/@_ericelliott/i-strongly-recommend-that-you-skip-all-bdd-style-assertion-libraries-including-code-acae26344d4)
-- No mocking libraries.
-  - [Mocking is a code smell - Eric Elliott](https://medium.com/javascript-scene/mocking-is-a-code-smell-944a70c90a6a)
-- No hooks, i.e. beforeEach, afterEach.
-- No globals.
-
 ## Approach
 
 The application is tested from the outside-in, starting with the components. A component's behaviour is tested by the effect it has on other components, treating the low level details as a black box. These are "sociable" as opposed to "solitary" unit tests.
@@ -1832,10 +1841,4 @@ This just makes it easier to know when to use `await`.
 - Avoid using code style in headings, e.g. __About func()__, not __About `func()`__.
 - Wherever possible render actual source files for example code.
 
-
-# References
-
-- [List of languages that compile to JS](https://github.com/jashkenas/coffeescript/wiki/List-of-languages-that-compile-to-JS)
-- [You Might Not Need TypeScript (or Static Types) - Eric Elliott](https://medium.com/javascript-scene/you-might-not-need-typescript-or-static-types-aa7cb670a77b)
-- [The Shocking Secret About Static Types - Eric Elliott](https://medium.com/javascript-scene/the-shocking-secret-about-static-types-514d39bf30a3)
 
