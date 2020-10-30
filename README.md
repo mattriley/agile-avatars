@@ -1,14 +1,12 @@
 # Agile Avatars
 
-WORK IN PROGRESS.
-
-Source code for [agileavatars.com](https://agileavatars.com). An experiment in frameworkless/vanilla JavaScript.
-
 ![Build](https://github.com/mattriley/agileavatars/workflows/Build/badge.svg)
 [![codecov](https://codecov.io/gh/mattriley/agileavatars/branch/master/graph/badge.svg)](https://codecov.io/gh/mattriley/agileavatars)
 ![Status](https://img.shields.io/uptimerobot/status/m783034155-295e5fbc9fd4a0e3a54363a5)
 ![30 days](https://img.shields.io/uptimerobot/ratio/m783034155-295e5fbc9fd4a0e3a54363a5)
 
+
+Source code for [agileavatars.com](https://agileavatars.com). An experiment in frameworkless/vanilla JavaScript.
 
 > Agile Avatars makes it quick and easy to know who's working on what with great looking avatars for your agile board. No more fiddling with Word or Google Docs making sure everything aligns just right. Simply drag and drop your images, make some adjustments, print, and laminate!
 
@@ -20,9 +18,9 @@ Source code for [agileavatars.com](https://agileavatars.com). An experiment in f
 </p>
 <br>
 
-This is a hobby project I decided to double as an experiment in developing a web application in JavaScript without the aid of a framework like React or Angular. Such an approach is often referred to as frameworkless, or vanilla JavaScript.
+Agile Avatars is also an experiment in developing a web application under constraints designed to preclude mainstream approaches. Bare in mind that Agile Avatars is relatively small and doesn't necessarily cover every concern found in a typical web application. It does however do enough to present some interesting challenges and attempts to solve those challenges in an evolvable and scalable way.
 
-DISCLAIMER: Some of the approaches used may be unconventional. Any attempt to emulate these approaches should be done with the unique needs and circumstances of your endeavour taken into consideration.
+NOTE: WORK IN PROGRESS!
 
 ## Table of Contents
 
