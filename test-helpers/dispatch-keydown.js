@@ -1,6 +1,6 @@
 module.exports = ({ window }) => (target, code) => {
 
-    const e = window.document.createEvent('Events');
+    const e = new window.Event('Events');
     e.initEvent('keydown', true, true);
     e.code = code;
     target.dispatchEvent(e);

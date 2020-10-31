@@ -4,7 +4,7 @@ module.exports = ({ el, ui }) => (args = {}) => {
     const { title, content, actions, visible, onVisibilityChange } = { ...defaults, ...args };
 
     const dismiss = () => {
-        $overlay.dispatchEvent(ui.createEvent('dismiss'));
+        $overlay.dispatchEvent(ui.event('dismiss'));
     };
 
     const $dismiss = el('span', 'dismiss').addEventListener('click', dismiss);
