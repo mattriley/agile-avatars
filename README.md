@@ -18,7 +18,9 @@ Source code for [agileavatars.com](https://agileavatars.com). An experiment in f
 </p>
 <br>
 
-Agile Avatars is also an experiment in developing a web application under constraints designed to preclude mainstream approaches. Bare in mind that Agile Avatars is relatively small and doesn't necessarily cover every concern found in a typical web application. It does however do enough to present some interesting challenges and attempts to solve those challenges in an evolvable and scalable way.
+Agile Avatars is also an experiment in developing a web application under an extreme set of constraints designed to preclude mainstream solutions. Bare in mind that Agile Avatars is small and doesn't necessarily cover every concern found in a typical web application. It does however do enough to present some interesting design challenges, especially around code organisation, dependency management, state management and view rendering. 
+
+The solutions are designed around the needs of this application at this point in time. The design is intended to be evolvable through refactoring as the needs of the application change over time. The intent is to see what kind of design emerges as a result of an extreme set of constraints.
 
 NOTE: WORK IN PROGRESS!
 
@@ -100,11 +102,13 @@ NOTE: WORK IN PROGRESS!
 - Beginner friendly. Minimise prerequisite knowledge.
 - Approachable to developers of varying backgrounds and experience.
 - Reduce cognitive load. Simplicity. Minimalism. Organisation. Ability to maintain a mental model.
+- Minimise "infrastructure code". Not attempting duplicate mainstream design patterns or build a resuable framework.
 - Low maintenance. Avoid dependencies that could impact the application in a material way.
 - Flexibility. Avoid dependencies that take over the control flow of the application.
 - Easy to change. Tests run fast. Tests are behavioural.
 - Functional leaning. Avoid strict functional programming.
 - Enables merciless refactoring.
+- Embrace JavaScript as a dynamically typed language.
 
 Further reading:
 
