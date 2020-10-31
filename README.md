@@ -429,6 +429,12 @@ This design has some interesting implications:
 
 ### ❖ components
 
+
+```diff
++ config elements services subscriptions ui vendorComponents vendorServices
+- components core diagnostics io startup stores styles window
+```
+
 Provides _component factory functions_. A component is simply a HTML element that relies on closures to react to user interaction and state changes by updating the element or invoking services for any non-presentation concerns.
 
 __Example: tagName__
@@ -482,6 +488,12 @@ module.exports = ({ el, header }) => () => {
 </details>
 
 ### ❖ config
+
+
+```diff
++ 
+- components config core diagnostics elements io services startup stores styles subscriptions ui vendorComponents vendorServices window
+```
 
 Provides _static application config_ as a plain JavaScript object, including default state used to initialise the state stores. Config is loaded at [boot](#booting) time.
 
@@ -580,6 +592,12 @@ module.exports = {
 
 ### ❖ core
 
+
+```diff
++ config
+- components core diagnostics elements io services startup stores styles subscriptions ui vendorComponents vendorServices window
+```
+
 Provides _pure domain functions_. The name "core" comes from [Functional Core, Imperative Shell](https://www.destroyallsoftware.com/screencasts/catalog/functional-core-imperative-shell) providing a home for [pure functions](#pure-functions) which are accessed by services. Without core, services would be interlaced with pure and impure functions, making them harder to test and reason about.
 
 __Example: A pure function__
@@ -627,9 +645,21 @@ See [Deglobalising window](#deglobalising-window) for more information.
 
 ### ❖ diagnostics
 
+
+```diff
++ stores
+- components config core diagnostics elements io services startup styles subscriptions ui vendorComponents vendorServices window
+```
+
 Provides _diagnostic functions_ such as the ability to dump state to the console.
 
 ### ❖ elements
+
+
+```diff
++ ui
+- components config core diagnostics elements io services startup stores styles subscriptions vendorComponents vendorServices window
+```
 
 Provides _element factory functions_. An element is simply a HTML element that relies on closures to react to user interaction by updating the element or raising events for components. Unlike components, they cannot react to state changes or invoke services. Elements are lower level and may be reused by multiple components.
 
@@ -663,6 +693,12 @@ module.exports = ({ el, ui }) => className => {
 
 ### ❖ io
 
+
+```diff
++ window
+- components config core diagnostics elements io services startup stores styles subscriptions ui vendorComponents vendorServices
+```
+
 Provides _IO functions_ while preventing direct access to `window`. IO functions are impure as they depend on the environment in addition to their arguments.
 
 __io implementation__
@@ -687,6 +723,12 @@ module.exports = ({ window }) => {
 See [Deglobalising window](#deglobalising-window) for more information.
 
 ### ❖ services
+
+
+```diff
++ config core io stores subscriptions
+- components diagnostics elements services startup styles ui vendorComponents vendorServices window
+```
 
 Provides _service functions_. Service functions orchestrate the pure functions from _core_, the impure functions from _io_ (such as making HTTP requests), and push changes to the state stores.
 
@@ -714,6 +756,12 @@ module.exports = ({ core, services, stores }) => (tagInstanceId, expression) => 
 
 ### ❖ startup
 
+
+```diff
++ components config core diagnostics elements io services stores styles subscriptions ui vendorComponents vendorServices
+- startup window
+```
+
 Provides _startup functions_ which are used at [launch](#launching) time.
 
 __Example: startup()__
@@ -734,6 +782,12 @@ module.exports = ({ startup, components }) => render => {
 </details>
 
 ### ❖ storage
+
+
+```diff
++ 
+- 
+```
 
 Provides the _state store implementation_. State stores manage state changes and raise change events.
 
@@ -812,11 +866,23 @@ See [State Management](#state-management) for more information.
 
 ### ❖ stores
 
+
+```diff
++ config
+- components core diagnostics elements io services startup stores styles subscriptions ui vendorComponents vendorServices window
+```
+
 Provides the _state stores_. State stores manage state changes and raise change events. State stores are created at [boot](#booting) time as defined in config.
 
 See [State Management](#state-management) for more information.
 
 ### ❖ styles
+
+
+```diff
++ config subscriptions ui
+- components core diagnostics elements io services startup stores styles vendorComponents vendorServices window
+```
 
 Provides _style factory functions_. A style is simply a HTML style element that relies on closures to react to state changes by updating the CSS content of the element. This enables dynamic styling.
 
@@ -865,6 +931,12 @@ module.exports = ({ styles, subscriptions, ui, util }) => () => {
 
 ### ❖ subscriptions
 
+
+```diff
++ stores
+- components config core diagnostics elements io services startup styles subscriptions ui vendorComponents vendorServices window
+```
+
 Provides _subscription functions_. A subscription function enables a listener to be notified of state changes.
 
 The subscription functions are actually implemented in the state store. This module exposes only the subscriptions from the stores to prevent direct read/write access to the the stores. 
@@ -885,6 +957,12 @@ module.exports = ({ stores, util }) => {
 
 ### ❖ ui
 
+
+```diff
++ window
+- components config core diagnostics elements io services startup stores styles subscriptions ui vendorComponents vendorServices
+```
+
 Provides _low-level presentation functions_ while preventing direct access to `window`.
 
 See [Deglobalising window](#deglobalising-window) for more information.
@@ -892,10 +970,28 @@ See [Deglobalising window](#deglobalising-window) for more information.
 ### ❖ util
 
 
+```diff
++ 
+- 
+```
+
+
 ### ❖ vendor-components
 
 
+```diff
++ config ui window
+- components core diagnostics elements io services startup stores styles subscriptions vendorComponents vendorServices
+```
+
+
 ### ❖ vendor-services
+
+
+```diff
++ config io window
+- components core diagnostics elements services startup stores styles subscriptions ui vendorComponents vendorServices
+```
 
 Provides vendor (third party) services including `gtag` and `sentry`. These are separated from the services module because they have different dependencies. The services module avoids a direct dependency on `window` by design but some vendor services may require direct access to `window` which cannot be avoided.
 
