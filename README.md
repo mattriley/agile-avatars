@@ -209,8 +209,8 @@ startup(app => document.body.append(app));
 
 Launch sequence:
 
-1. Parcel interprets `require('./css/*.css');` by concatenating each CSS file into a single file which is then referenced by a `<link>` tag that Parcel injects into `<head>`.
-2. The `boot` function is invoked with the global `window` object and config, returning the initialised application modules.
+1. At build time, Parcel interprets `require('./css/*.css');`, combines each CSS file into a single file which is then referenced by a `<link>` tag that Parcel injects into `<head>`.
+2. At run time, the `boot` function is invoked with the global `window` object and config, returning the initialised application modules.
 3. The modules are assigned to `window.agileavatars` for demonstration and debugging purposes.
 4. The `startup` function is invoked with a callback receiving an instance of the root component, `app`, which is then appended to `<body>`.
 
@@ -427,23 +427,17 @@ This design has some interesting implications:
 
 ### ❖ components
 
-Provides _component builder functions_.
+Provides _component factory functions_. A component is simply a HTML element that relies on closures to react to user interaction and state changes by updating the element or invoking services for any non-presentation concerns.
 
-A __component builder function__ returns a native HTML element that may react to state changes and invoke services.
+__Example: tagName__
 
-Components are only concerned with presentation and any effects are handed off to services. Stores are not directly accessible to prevent bypassing services. window is also not directly accessible, but is indirectly accessible via the dom module which exposes lower level presentation concerns. 
+`tagName` renders the tag name for a given _tag instance_. A _tag_ is composed of an image, a name, and a role. Multiple _instances_ of a tag may be rendered at a time depending on the numbers specified in the _active_ and _passive_ fields.
 
-Technically, window is global in browser environments and is therefore difficult to prevent access to. In order to detect inappropriate access, the unit tests do not expose it globally, causing any code that references it in a global context to fail.
+`tagName` accepts the ID of a tag instance and returns a [content editable](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Editable_content) `<span>`. `tagName` reacts to changes by invoking the `changeTagName()` service function with the new tag name.
 
-__Example: The tag name component__
+`changeTagName()` updates the state of the underlying tag, which triggers a propagation of the new tag name to all other instances of the tag.
 
-The _tag name_ component renders the tag name for a given _tag instance_. A _tag_ is composed of an image, a name, and a role. Multiple _instances_ of a tag may be rendered at a time depending on the numbers specified in the _active_ and _passive_ fields.
-
-The tag name component accepts the ID of a tag instance and returns a [content editable](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Editable_content) span allowing the user to edit the tag name. When changed, the `changeTagName` service function is invoked with the new tag name.
-
-`changeTagName` updates the state of the underlying tag, which triggers a propagation of the new tag name to all other instances of the tag.
-
-The tag name component subscribes to tag name change events and updates the span with the new tag name.
+`tagName` subscribes to tag name change events and updates the editable span with the new tag name.
 
 <details open>
 <summary>src/components/tag-list/tag/components/tag-name.js</summary>
@@ -466,11 +460,9 @@ module.exports = ({ elements, services, subscriptions }) => tagInstanceId => {
 ```
 </details>
 
-__Example: Component composition__
+__Example: Composition__
 
 Because components return native HTML elements, they are easily appended to create composites.
-
-The _header_ component is composed of a _title bar_ and a _nav bar_ component.
 
 <details open>
 <summary>src/components/header/header.js</summary>
@@ -489,9 +481,7 @@ module.exports = ({ el, header }) => () => {
 
 ### ❖ config
 
-Provides application configuration as a POJSO (plain old JavaScript object).
-
-Config is loaded early during [initialisation](#initialisation). Most modules depend on config.
+Provides _static application config_ as a plain JavaScript object, including default state used to initialise the state stores. Config is loaded at [boot](#booting) time.
 
 <details >
 <summary>src/config/config.js</summary>
@@ -588,15 +578,7 @@ module.exports = {
 
 ### ❖ core
 
-Provides _pure domain functions_.
-
-The name "core" comes from [Functional Core, Imperative Shell](https://www.destroyallsoftware.com/screencasts/catalog/functional-core-imperative-shell) providing a home for [pure functions](#pure-functions) which are accessed by services. Without core, services would be interlaced with pure and impure functions, making them harder to test and reason about.
-
-Modules that produce side effects are not accessible to core to help prevent accidental side effects. 
-
-The util module provides lower level pure functions and is accessible to core as purity can be maintained.
-
-Config is also accessible to core. Technically, config could be mutated, producing side effects putting the purity of core at risk. This could be prevented by making config immutable by deeply "freezing" the object. I'm drawing a line here and choosing not to force immutability, but to treat objects as immutable; to avoid mutation of objects as a convention.
+Provides _pure domain functions_. The name "core" comes from [Functional Core, Imperative Shell](https://www.destroyallsoftware.com/screencasts/catalog/functional-core-imperative-shell) providing a home for [pure functions](#pure-functions) which are accessed by services. Without core, services would be interlaced with pure and impure functions, making them harder to test and reason about.
 
 __Example: A pure function__
 
@@ -639,17 +621,17 @@ module.exports = ({ core, config }) => (email, defaultImage) => {
 ```
 </details>
 
+See [Deglobalising window](#deglobalising-window) for more information.
+
 ### ❖ diagnostics
 
-Provides diagnostic functions such as the ability to dump state to the console.
+Provides _diagnostic functions_ such as the ability to dump state to the console.
 
 ### ❖ elements
 
-Provides _element builder functions_.
+Provides _element factory functions_. An element is simply a HTML element that relies on closures to react to user interaction by updating the element or raising events for components. Unlike components, they cannot react to state changes or invoke services. Elements are lower level and may be reused by multiple components.
 
-An __element builder function__ returns a native HTML element. Unlike components, they cannot react to state changes or invoke services. Elements are lower level and may be reused by multiple components.
-
-__Example: An element builder function__
+__Example: editableSpan__
 
 <details open>
 <summary>src/elements/editable-span.js</summary>
@@ -679,15 +661,34 @@ module.exports = ({ el, ui }) => className => {
 
 ### ❖ io
 
-Provides IO functions to service modules (services, vendorServices) while preventing direct access to `window`.
+Provides _IO functions_ while preventing direct access to `window`. IO functions are impure as they depend on the environment in addition to their arguments.
+
+__Source code for io__
+
+<details open>
+<summary>src/io/io.js</summary>
+
+```js
+module.exports = ({ window }) => {
+
+    return {
+        date: () => new window.Date(),
+        fetch: (...args) => window.fetch(...args),
+        random: () => window.Math.random(),
+        createFileReader: () => new window.FileReader()
+    };
+
+};
+```
+</details>
+
+See [Deglobalising window](#deglobalising-window) for more information.
 
 ### ❖ services
 
-Provides _service functions_.
+Provides _service functions_. Service functions orchestrate the pure functions from _core_, the impure functions from _io_ (such as making HTTP requests), and push changes to the state stores.
 
-A __service function__ orchestrates domain logic and IO including state changes.
-
-__Example: A service function__
+__Example: changeTagName()__
 
 <details open>
 <summary>src/services/tags/change-tag-name.js</summary>
@@ -711,25 +712,42 @@ module.exports = ({ core, services, stores }) => (tagInstanceId, expression) => 
 
 ### ❖ startup
 
-Provides startup functions which are required to initialise the application.
+Provides _startup functions_ which are used at [launch](#launching) time.
+
+__Example: startup()__
+
+<details open>
+<summary>src/startup/startup.js</summary>
+
+```js
+module.exports = ({ startup, components }) => render => {
+
+    startup.insertNilRole();
+    startup.createHandlers();
+    startup.createStyleManager();
+    return render && render(components.app());
+
+};
+```
+</details>
 
 ### ❖ storage
 
-Provides the infrastructure code for the state stores.
+Provides the _state store implementation_. State stores manage state changes and raise change events.
+
+See [State Management](#state-management) for more information.
 
 ### ❖ stores
 
-Provides _instances of state stores_.
+Provides the _state stores_. State stores manage state changes and raise change events. State stores are created at [boot](#booting) time as defined in config.
 
-A __state store__ encapsulates state mutations and subscriptions for state changes.
+See [State Management](#state-management) for more information.
 
 ### ❖ styles
 
-Provides _style builder functions_.
+Provides _style factory functions_. A style is simply a HTML style element that relies on closures to react to state changes by updating the CSS content of the element. This enables dynamic styling.
 
-A __style builder function__ returns a style element that can react to state changes.
-
-__Example: A style builder function__
+__Example: roleColor__
 
 <details open>
 <summary>src/styles/role-color.js</summary>
@@ -752,6 +770,26 @@ module.exports = ({ el, subscriptions }) => roleId => {
 ```
 </details>
 
+Styles are injected into `<head>` by the _style manager_.
+
+__Style Manager__
+
+<details open>
+<summary>src/startup/create-style-manager.js</summary>
+
+```js
+module.exports = ({ styles, subscriptions, ui, util }) => () => {
+
+    const { tagImage, roleColor, ...otherStyles } = styles;
+    const appendStyles = (...$$styles) => ui.getDocument().head.append(...$$styles);
+    appendStyles(...Object.values(otherStyles).map(style => style()));
+    subscriptions.tags.onInsert(util.pipe(tagImage, appendStyles));
+    subscriptions.roles.onInsert(util.pipe(roleColor, appendStyles));
+
+};
+```
+</details>
+
 ### ❖ subscriptions
 
 Provides _subscription functions_.
@@ -760,7 +798,9 @@ A __subscription function__ enables a listener to be notified of state changes.
 
 ### ❖ ui
 
-Provides low-level presentation functions to the view modules (elements, components, vendorComponents) while preventing direct access to `window`.
+Provides _low-level presentation functions_ while preventing direct access to `window`.
+
+See [Deglobalising window](#deglobalising-window) for more information.
 
 ### ❖ util
 
