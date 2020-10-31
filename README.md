@@ -40,14 +40,12 @@ NOTE: WORK IN PROGRESS!
   - [List of modules](#list-of-modules)
 - [Dependency Management](#dependency-management)
   - [Deglobalising window](#deglobalising-window)
-  - [Initialising the application with boot()](#initialising-the-application-with-boot)
-  - [Understanding the architecture](#understanding-the-architecture)
   - [Detecting inappropriate coupling](#detecting-inappropriate-coupling)
 - [State Management](#state-management)
   - [Stores](#stores)
   - [Subscriptions](#subscriptions)
 - [View Rendering](#view-rendering)
-  - [DOM API - document.createElement()](#dom-api---documentcreateelement)
+  - [DOM API - document.createElement](#dom-api---documentcreateelement)
   - [HTML strings - element.innerHTML](#html-strings---elementinnerhtml)
 - [Testing](#testing)
   - [Approach](#approach)
@@ -186,14 +184,14 @@ The application is built with a module bundler called [Parcel](https://parceljs.
 
 While convenient, this creates a strong coupling to Parcel, as in, the code cannot be interpreted without it. Pre-processing JavaScript, whether it be Parcel or any other tool, increases the time it takes to reflect changes. This is problematic in scenarios where speed matters, such as running unit tests.
 
-The application is split into 2 top-level directories: `public` and `src`.
+The application is split into 2 top-level directories: public and src.
 
-- `public` contains the entry HTML file, static assets such as images and CSS, and the minimum amount of code needed to launch 'the application'.
-- `src` contains all the code comprising 'the application'. 
+- __public__ contains the entry HTML file, static assets such as images and CSS, and the minimum amount of code needed to launch 'the application'.
+- __src__ contains all the code comprising 'the application'. 
 
-In order to isolate Parcel, only `public` may use Parcel loaders. This allows unit tests to cover `src` without having to build the application which helps keep the tests fast.
+In order to isolate Parcel, only public may use Parcel loaders. This allows unit tests to cover src without having to build the application which helps keep the tests fast.
 
-The following code is referenced by `index.html` and launches the application:
+The following code is referenced by index.html and launches the application:
 
 <details open>
 <summary>public/app.js</summary>
@@ -209,10 +207,10 @@ startup(app => document.body.append(app));
 
 Launch sequence:
 
-1. At build time, Parcel interprets `require('./css/*.css');`, combines each CSS file into a single file which is then referenced by a `<link>` tag that Parcel injects into `<head>`.
-2. At run time, the `boot` function is invoked with the global `window` object and config, returning the initialised application modules.
+1. At build time, Parcel interprets `require('./css/*.css');`, combines each CSS file into a single file which is then referenced by a link tag that Parcel injects into the document head.
+2. At run time, the boot function is invoked with the global window object and config, returning the initialised application modules.
 3. The modules are assigned to `window.agileavatars` for demonstration and debugging purposes.
-4. The `startup` function is invoked with a callback receiving an instance of the root component, `app`, which is then appended to `<body>`.
+4. The startup function is invoked with a callback receiving an instance of the root component, app, which is then appended to the document body.
 
 <br>
 <p align="center">
@@ -235,7 +233,7 @@ Launch sequence:
 
 Booting is the process of making the application 'ready to launch' and involves loading configuration, composing modules, and returning the composed modules.
 
-The `boot` function composes the application from modules in the `src` directory.
+The boot function composes the application from modules in the src directory.
 
 <details open>
 <summary>boot.js</summary>
@@ -296,7 +294,7 @@ This 'codified view' of the architecture has some interesting implications:
 ✱ I've not yet mastered the art of preventing lines from overlapping.
 </p>
 
-`module-composer` is a small library seeded from Agile Avatars then extracted for reuse. For transparency, here is the source code:
+_module-composer_ is a small library seeded from Agile Avatars then extracted for reuse. For transparency, here is the source code:
 
 __module-composer implementation__
 
@@ -365,8 +363,8 @@ The application is composed of architectural components called modules. Each mod
 
 On the file system, a module is simply a directory of sources files that follow some simple rules:
 
-- Each file and subdirectory (i.e. nested `index.js`) is loaded by `index.js` in the same directory.
-- Each `index.js` exports an aggregate object of all files and directories loaded.
+- Each file and subdirectory (i.e. nested index.js) is loaded by index.js in the same directory.
+- Each index.js exports an aggregate object of all files and directories loaded.
 - Each file exports a function, so file names tend to be function names.
 - Where a module is to be composed with collaborating modules, exported functions must be curried to first accept the collaborators.
 
@@ -415,17 +413,19 @@ module.exports = ({ elements, services, subscriptions }) => tagInstanceId => {
 ```
 </details>
 
-Modules are composed (collaborators are resolved) during [initialisation](#initialisation). 
-
 This design has some interesting implications:
 
 - Any source file is only referenced and loaded once in the entire application making it easier to move files around.
-- In general, `index.js` files don't have a clear responsibility, sometimes even containing important implementation details that can be hard to find given any Node.js project will have many of them. This design ensures `index.js` files have a clear responsibility of their own and don't contain important implementation details that would be better extracted and named appropriately.
+- In general, index.js files don't have a clear responsibility, sometimes even containing important implementation details that can be hard to find given any Node.js project will have many of them. This design ensures index.js files have a clear responsibility of their own and don't contain important implementation details that would be better extracted and named appropriately.
 - Remove the noise of many require/import statements at the top of any file.
 - No backtracking paths, i.e. `..` helps reduce cognitive load (for me anyway!).
-- The approach to `index.js` forms a pattern which can be automated with code generation. See [module-indexgen](https://github.com/mattriley/agileavatars#-module-indexgen) in the list of development dependencies.
+- The approach to index.js forms a pattern which can be automated with code generation. See [module-indexgen](https://github.com/mattriley/agileavatars#-module-indexgen) in the list of development dependencies.
 
 ## List of modules
+
+Following is a complete list of modules in Agile Avatars.
+
+The diff-like block lists the collaborators in green and the non-collaborators in red.
 
 ### ❖ components
 
@@ -437,15 +437,15 @@ This design has some interesting implications:
 
 Provides _component factory functions_. A component is simply a HTML element that relies on closures to react to user interaction and state changes by updating the element or invoking services for any non-presentation concerns.
 
-__Example: tagName__
+__Example: tagName component__
 
-`tagName` renders the tag name for a given _tag instance_. A _tag_ is composed of an image, a name, and a role. Multiple _instances_ of a tag may be rendered at a time depending on the numbers specified in the _active_ and _passive_ fields.
+tagName renders the tag name for a given _tag instance_. A _tag_ is composed of an image, a name, and a role. Multiple _instances_ of a tag may be rendered at a time depending on the numbers specified in the _active_ and _passive_ fields.
 
-`tagName` accepts the ID of a tag instance and returns a [content editable](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Editable_content) `<span>`. `tagName` reacts to changes by invoking the `changeTagName()` service function with the new tag name.
+tagName accepts the ID of a tag instance and returns a [content editable](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Editable_content) span. tagName reacts to changes by invoking the changeTagName service function with the new tag name.
 
-`changeTagName()` updates the state of the underlying tag, which triggers a propagation of the new tag name to all other instances of the tag.
+changeTagName updates the state of the underlying tag, which triggers a propagation of the new tag name to all other instances of the tag.
 
-`tagName` subscribes to tag name change events and updates the editable span with the new tag name.
+tagName subscribes to tag name change events and updates the editable span with the new tag name.
 
 <details open>
 <summary>src/components/tag-list/tag/components/tag-name.js</summary>
@@ -468,25 +468,6 @@ module.exports = ({ elements, services, subscriptions }) => tagInstanceId => {
 ```
 </details>
 
-__Example: Composition__
-
-Because components return native HTML elements, they are easily appended to create composites.
-
-<details open>
-<summary>src/components/header/header.js</summary>
-
-```js
-module.exports = ({ el, header }) => () => {
-
-    return el('header').append(
-        header.titleBar(), 
-        header.navBar()
-    );
-    
-};
-```
-</details>
-
 ### ❖ config
 
 
@@ -496,6 +477,8 @@ module.exports = ({ el, header }) => () => {
 ```
 
 Provides _static application config_ as a plain JavaScript object, including default state used to initialise the state stores. Config is loaded at [boot](#booting) time.
+
+__Source: config module__
 
 <details >
 <summary>src/config/config.js</summary>
@@ -600,9 +583,9 @@ module.exports = {
 
 Provides _pure domain functions_. The name "core" comes from [Functional Core, Imperative Shell](https://www.destroyallsoftware.com/screencasts/catalog/functional-core-imperative-shell) providing a home for [pure functions](#pure-functions) which are accessed by services. Without core, services would be interlaced with pure and impure functions, making them harder to test and reason about.
 
-__Example: A pure function__
+__Example: parseEmailExpression function__
 
-`parseEmailExpression` is a pure function. Amongst other properties of pure functions, its return value is the same for the same arguments, and its evaluation has no side effects.
+parseEmailExpression is a pure function. Amongst other properties of pure functions, its return value is the same for the same arguments, and its evaluation has no side effects.
 
 <details open>
 <summary>src/core/tags/parse-email-expression.js</summary>
@@ -622,26 +605,6 @@ module.exports = ({ util }) => expression => {
 };
 ```
 </details>
-
-__Example: Accessing config__
-
-`buildImageUrl` accesses config for the domain and image size to request from Gravatar. These values are known at initialisation time and remain constant, while email and defaultImage will change per request. 
-
-<details open>
-<summary>src/core/gravatar/build-image-url.js</summary>
-
-```js
-module.exports = ({ core, config }) => (email, defaultImage) => {
-
-    const { domain, size } = config.gravatar;
-    const emailHash = core.gravatar.hashEmail(email);
-    return `${domain}/avatar/${emailHash}?r=g&s=${size}&d=${defaultImage}`;
-    
-};
-```
-</details>
-
-See [Deglobalising window](#deglobalising-window) for more information.
 
 ### ❖ diagnostics
 
@@ -663,7 +626,7 @@ Provides _diagnostic functions_ such as the ability to dump state to the console
 
 Provides _element factory functions_. An element is simply a HTML element that relies on closures to react to user interaction by updating the element or raising events for components. Unlike components, they cannot react to state changes or invoke services. Elements are lower level and may be reused by multiple components.
 
-__Example: editableSpan__
+__Example: editableSpan element__
 
 <details open>
 <summary>src/elements/editable-span.js</summary>
@@ -699,9 +662,9 @@ module.exports = ({ el, ui }) => className => {
 - components config core diagnostics elements services startup stores styles subscriptions ui vendorComponents vendorServices
 ```
 
-Provides _IO functions_ while preventing direct access to `window`. IO functions are impure as they depend on the environment in addition to their arguments.
+Provides _IO functions_ while preventing direct access to window. IO functions are impure as they depend on the environment in addition to their arguments.
 
-__io implementation__
+__Source: io module__
 
 <details open>
 <summary>src/io/io.js</summary>
@@ -732,7 +695,7 @@ See [Deglobalising window](#deglobalising-window) for more information.
 
 Provides _service functions_. Service functions orchestrate the pure functions from _core_, the impure functions from _io_ (such as making HTTP requests), and push changes to the state stores.
 
-__Example: changeTagName()__
+__Example: changeTagName function__
 
 <details open>
 <summary>src/services/tags/change-tag-name.js</summary>
@@ -764,7 +727,7 @@ module.exports = ({ core, services, stores }) => (tagInstanceId, expression) => 
 
 Provides _startup functions_ which are used at [launch](#launching) time.
 
-__Example: startup()__
+__Example: startup function__
 
 <details open>
 <summary>src/startup/startup.js</summary>
@@ -791,7 +754,7 @@ module.exports = ({ startup, components }) => render => {
 
 Provides the _state store implementation_. State stores manage state changes and raise change events.
 
-__State store implementation__
+__Source: stateStore implementation__
 
 <details >
 <summary>src/storage/state-store.js</summary>
@@ -886,7 +849,7 @@ See [State Management](#state-management) for more information.
 
 Provides _style factory functions_. A style is simply a HTML style element that relies on closures to react to state changes by updating the CSS content of the element. This enables dynamic styling.
 
-__Example: roleColor__
+__Example: roleColor style__
 
 <details open>
 <summary>src/styles/role-color.js</summary>
@@ -909,9 +872,9 @@ module.exports = ({ el, subscriptions }) => roleId => {
 ```
 </details>
 
-Styles are injected into `<head>` by the _style manager_.
+Styles are injected into the document head by the _styleManager_.
 
-__Style Manager__
+__Source: styleManager implementation__
 
 <details open>
 <summary>src/startup/create-style-manager.js</summary>
@@ -941,7 +904,7 @@ Provides _subscription functions_. A subscription function enables a listener to
 
 The subscription functions are actually implemented in the state store. This module exposes only the subscriptions from the stores to prevent direct read/write access to the the stores. 
 
-__subscriptions implementation__
+__Source: subscriptions module__
 
 <details open>
 <summary>src/subscriptions/subscriptions.js</summary>
@@ -963,7 +926,7 @@ module.exports = ({ stores, util }) => {
 - components config core diagnostics elements io services startup stores styles subscriptions vendorComponents vendorServices
 ```
 
-Provides _low-level presentation functions_ while preventing direct access to `window`.
+Provides _low-level presentation functions_ while preventing direct access to window.
 
 See [Deglobalising window](#deglobalising-window) for more information.
 
@@ -993,11 +956,13 @@ See [Deglobalising window](#deglobalising-window) for more information.
 - components core diagnostics elements services startup stores styles subscriptions ui vendorComponents
 ```
 
-Provides vendor (third party) services including `gtag` and `sentry`. These are separated from the services module because they have different dependencies. The services module avoids a direct dependency on `window` by design but some vendor services may require direct access to `window` which cannot be avoided.
+Provides vendor (third party) services including gtag and sentry. These are separated from the services module because they have different dependencies. The services module avoids a direct dependency on window by design but some vendor services may require direct access to window which cannot be avoided.
 
-__Example: gtag (Google's Global Site Tag)__
+__Example: gtag function__
 
-`gtag` depends on `window` for global variables.
+gtag is short for Google Global Site Tag.
+
+gtag depends on window for global variables to work correctly.
 
 <details open>
 <summary>src/vendor-services/gtag.js</summary>
@@ -1056,74 +1021,9 @@ The solution here is to turn to detection rather than prevention.
 
 ### Detecting inappropriate access to window
 
-In order to detect inappropriate access, window is not made globally available in the unit tests. This is possible because the unit tests run on Node.js instead of a browser environment. JSDOM is used to emulate a browser and create a window object, but the window object is not automatically made global. This means any code referencing the global window object or properties of it will fail. I was initially using `jsdom-global` to make the window object global until I realised I was mistakenly accessing global variables. 
+In order to detect inappropriate access, window is not made globally available in the unit tests. This is possible because the unit tests run on Node.js instead of a browser environment. JSDOM is used to emulate a browser and create a window object, but the window object is not automatically made global. This means any code referencing the global window object or properties of it will fail. I was initially using jsdom-global to make the window object global until I realised I was mistakenly accessing global variables. 
 
-## Initialising the application with boot()
-
-The application is initialised by invoking the function exported by `./boot.js`. `boot()` must be supplied a `window` object. The entire application depends on this supplied instance of `window` rather than depending on the global `window` object.
-
-<details >
-<summary>node_modules/module-composer/src/module-composer.js</summary>
-
-```js
-const merge = require('lodash/merge');
-const { isObject, isFunction, forEach, mapValues, pick } = require('./util');
-
-module.exports = (parent, options = {}) => {
-    const overrides = options.overrides || {};
-    const modules = { ...parent };
-    const dependencies = {};
-    const compose = (key, arg = {}) => {
-        arg = { ...arg };        
-        delete arg[key];
-        const obj = parent[key];
-        const composed = composeRecursive(obj, arg, key);
-        const collapsed = collapseRecursive({ [key]: composed })[key];
-        const module = override({ [key]: collapsed }, overrides)[key];
-        Object.assign(modules, { [key]: module });
-        Object.assign(dependencies, { [key]: Object.keys(arg) });
-        return module;
-    };
-    const getModules = () => ({ ...modules, __dependencies: { ...dependencies } });
-    return Object.assign(compose, { getModules });
-};
-
-const composeRecursive = (obj, arg, parentKey) => {
-    if (!isObject(obj)) return obj;
-    const product = {}; 
-    const newArg = { [parentKey]: product, ...arg };
-    const newObj = mapValues(obj, (val, key) => (isFunction(val) ? val(newArg) : composeRecursive(val, newArg, key)));
-    return Object.assign(product, newObj);
-};
-
-const collapseRecursive = (obj, parentObj, parentKey) => {
-    if (isObject(obj)) {
-        forEach(obj, (val, key) => {
-            if (key === parentKey) {
-                parentObj[key] = Object.assign(val, parentObj[key]);
-                delete val[key];
-            }
-            collapseRecursive(val, obj, key);
-        });    
-    }
-    return obj;
-};
-
-const override = (obj, overrides) => {
-    return merge(obj, pick(overrides, Object.keys(obj)));
-};
-```
-</details>
-
-
-## Understanding the architecture
-
-`boot.js` is also useful as a single place to go to control and understand how the application "hangs together", helping to reduce cognitive load.
-
-</details>
-
-
-Here's another view generated from the same data:
+### Dependency mapping
 
 Modules | startup | components | services | styles | vendor<br>components | vendor<br>services | diagnostics | elements | ui | io | core | subscriptions | stores | window | config
 --- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---:
@@ -1145,9 +1045,9 @@ config | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ |
 
 ## Detecting inappropriate coupling
 
-Another benefit of `boot.js` is that it becomes trivial to identify inappropriate coupling. For example passing `io` which is impure to `core` which is meant to be pure.
+Another benefit of boot.js is that it becomes trivial to identify inappropriate coupling. For example passing io which is impure to core which is meant to be pure.
 
-And because all relative files are loaded by `index.js` files, a simple search can be done to identify any inappropriate file references. The following task is run during pre-commit and fails if any inappropriate file references are found:
+And because all relative files are loaded by index.js files, a simple search can be done to identify any inappropriate file references. The following task is run during pre-commit and fails if any inappropriate file references are found:
 
     <details open>
     <summary>tasks/check-coupling</summary>
@@ -1202,7 +1102,7 @@ No attempt is made to generify the state management solution for reuse by other 
 
 State is managed by a series of _state stores_. 
 
-A **state store** is collection of data items keyed by a unique identifier and managed using typical CRUD operations such as `insert`, `find`, `update`, `remove`.
+A **state store** is collection of data items keyed by a unique identifier and managed using typical CRUD operations such as insert, find, update, remove.
 
 <details >
 <summary>src/storage/state-store.js</summary>
@@ -1273,7 +1173,7 @@ module.exports = (defaults = {}) => {
 ```
 </details>
 
-__Example: Inserting a role using insert()__
+__Example: Inserting a role using insert__
 
 <details open>
 <summary>src/services/roles/insert-role.js</summary>
@@ -1291,7 +1191,7 @@ module.exports = ({ core, services, subscriptions, stores, io }) => roleData => 
 ```
 </details>
 
-__Example: Changing a role name using find() and update()__
+__Example: Changing a role name using find and update__
 
 <details open>
 <summary>src/services/roles/change-role-name.js</summary>
@@ -1309,13 +1209,13 @@ module.exports = ({ core, stores }) => (roleId, roleName) => {
 
 ## Subscriptions
 
-State stores use the [observer pattern](https://en.wikipedia.org/wiki/Observer_pattern) to enable consumers to react to state changes by associating _listener_ functions to events such as `onInsert` and `onChange`.
+State stores use the [observer pattern](https://en.wikipedia.org/wiki/Observer_pattern) to enable consumers to react to state changes by associating _listener_ functions to events such as onInsert and onChange.
 
 The observer pattern is easily implemented with Node's [EventEmitter](https://nodejs.org/api/events.html) which can be bundled directly into the application.
 
 During startup, subscription functions are extracted from the stores into a standalone _subscriptions_ object. This decouples subscribers (namely _services_ and _components_) from the stores making them agnostic of the data source. Although not a design goal for this application, this should allow the data source to change without impacting the subscribers provided the interface of the subscription functions do not change.
 
-__Example: Reacting to a new role using onInsert() and onFirstInsert()__
+__Example: Reacting to a new role using onInsert and onFirstInsert__
 
 <details open>
 <summary>src/components/role-list/role-list.js</summary>
@@ -1340,7 +1240,7 @@ module.exports = ({ el, roleList, subscriptions, ui }) => () => {
 ```
 </details>
 
-__Example: Reacting to the change of a role name using onChange()__
+__Example: Reacting to the change of a role name using onChange__
 
 <details open>
 <summary>src/components/role-list/role-customiser/master-role-name.js</summary>
@@ -1366,9 +1266,9 @@ module.exports = ({ elements, services, subscriptions }) => roleId => {
 
 # View Rendering
 
-View rendering is achieved primarily using the DOM API - `document.createElement()`, and by exception using HTML strings - `element.innerHTML`.
+View rendering is achieved primarily using the DOM API - `document.createElement`, and by exception using HTML strings - `element.innerHTML`.
 
-## DOM API - document.createElement()
+## DOM API - document.createElement
 
 Creating elements with the DOM API usually involves:
 
@@ -1378,13 +1278,13 @@ Creating elements with the DOM API usually involves:
 - Appending child elements, `element.append(child1, child2)`
 - Adding event listeners, `element.addEventListener('click', clickHandler)`
 
-This approach is sometimes criticised as verbose. While I only considered the verbosity a minor concern, I did notice a pattern emerge which lead me to the creation of a helper function, `el()`.
+This approach is sometimes criticised as verbose. While I only considered the verbosity a minor concern, I did notice a pattern emerge which lead me to the creation of a helper function, `el`.
 
-### Creating elements with el()
+### Creating elements with el
 
-`el()` takes a tag name, an optional class name, and optional properties object. Because the native `append()` and `addEventListener()` functions return undefined, `el()` overrides them to return the element instead to enable function chaining.
+`el` takes a tag name, an optional class name, and optional properties object. Because the native `append` and `addEventListener` functions return undefined, `el` overrides them to return the element instead to enable function chaining.
 
-__Example: Usage of el()__
+__Example: Usage of el__
 
 ```js
 const $div = el('div', 'myclass', { prop1: 'foo', prop2: 'bar' })
@@ -1393,7 +1293,7 @@ const $div = el('div', 'myclass', { prop1: 'foo', prop2: 'bar' })
     .addEventListener('click', clickHandler);
 ```
 
-The equivalent without `el()`:
+The equivalent without `el`:
 
 ```js
 const $div = document.createElement('div');
@@ -1405,7 +1305,7 @@ $div.addEventListener('focus', focusHandler);
 $div.addEventListener('click', clickHandler);
 ```
 
-__el() implementation__
+__el implementation__
 
 <details open>
 <summary>src/ui/el.js</summary>
@@ -1438,7 +1338,7 @@ Because ultimately this approach uses `document.createElement` to create element
 
 __Example: Usage of innerHTML for content__
 
-This example uses `el()` to create an element, but assigns a HTML string to `innerHTML` rather than appending child elements.
+This example uses `el` to create an element, but assigns a HTML string to `innerHTML` rather than appending child elements.
 
 <details open>
 <summary>src/components/tips/naming.js</summary>
@@ -1510,7 +1410,7 @@ Where the execution path will reach a system boundary, stub just short of the in
 
 __Example: Gravatar service functions stubbed__
 
-This test creates a 'gravatar modal' and a 'tag list'. Clicking the 'import button' will render a tag in the tag list using data fetched from Gravatar. The `fetchProfileAsync` and `fetchImageAsync` functions are stubbed to prevent the integration from occurring and to avoid coupling the test to the implementation details of the integration. 
+This test creates a 'gravatar modal' and a 'tag list'. Clicking the 'import button' will render a tag in the tag list using data fetched from Gravatar. The fetchProfileAsync and fetchImageAsync functions are stubbed to prevent the integration from occurring and to avoid coupling the test to the implementation details of the integration. 
 
 <details open>
 <summary>tests/components/gravatar/import-success.test.js</summary>
@@ -1578,7 +1478,7 @@ Rather than acting on individual files, tests act on the initialised application
 
 __Example: A component test that depends on shared state__
 
-This test initialises the application by invoking `boot()` and uses the `components` module to create an 'options bar' which should initially be hidden. It then uses the `services` module to insert a tag which should cause the options bar to become visible. 
+This test initialises the application by invoking boot and uses the components module to create an 'options bar' which should initially be hidden. It then uses the services module to insert a tag which should cause the options bar to become visible. 
 
 <details open>
 <summary>tests/components/options-bar.test.js</summary>
@@ -1599,7 +1499,7 @@ module.exports = ({ test, boot, helpers }) => {
 ```
 </details>
 
-NB: As mentioned previously, `boot()` has 1 required argument - `window`. This version of `boot()` is actually a wrapper that supplies an instance of `window` provided by [JSDOM](https://github.com/jsdom/jsdom) to the original `boot` function for testing purposes.
+NB: As mentioned previously, boot has 1 required argument - window. This version of boot is actually a wrapper that supplies an instance of window provided by [JSDOM](https://github.com/jsdom/jsdom) to the original boot function for testing purposes.
 
 # Dependencies
 
@@ -1901,7 +1801,7 @@ While this will not guarantee immutability, it will challenge people to think ab
 
 Prefer higher-order functions such as `filter`, `map`, `reduce`, over imperative looping statements.
 
-__Example: Usage of reduce()__
+__Example: Usage of reduce__
 
 This function transforms a list of store names into an object of store name -> store. This could also be done with a `for` loop. Reduce hides the low level implementation details of iteration. It also removes the need for intermedite variables such as loop counters. 
 
@@ -2066,8 +1966,6 @@ This just makes it easier to know when to use `await`.
 - Table of contents limited to headings 1 and 2.
 - Headings for "lists" should begin with __List of__.
 - Headings for "list items" should begin with ❖ and be level 3 or higher to avoid the table of contents.
-- Append `()` to function names to make it obvious we are referring to a function, e.g. `func()`.
-- Avoid using code style in headings, e.g. __About func()__, not __About `func()`__.
 - Wherever possible render actual source files for example code.
 
 
