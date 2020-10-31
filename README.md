@@ -162,7 +162,7 @@ Further reading:
 
 # Architecture
 
-With the plethora of frontend architectural styles in use today, this application takes a "back to basics" approach with a classic layered architecture. My hypothesis is that the simplicity and familiarity of this architectural style would be approachable for a wide audience including backend developers with limited exposure to frontend development.
+With the plethora of frontend architectural styles in use today, this application takes a "back to basics" approach with a classic layered architecture. The thought being that the simplicity and familiarity of this architectural style would be approachable for a wide audience including backend developers with limited exposure to frontend development.
 
 <br>
 <p align="center">
@@ -172,7 +172,9 @@ With the plethora of frontend architectural styles in use today, this applicatio
 </p>
 <br>
 
+<p align="right">
 ✱ Some modules have been omitted for brevity.
+</p>
 
 Further reading:
 - [PresentationDomainDataLayering - Martin Fowler](https://martinfowler.com/bliki/PresentationDomainDataLayering.html)
@@ -289,8 +291,10 @@ This 'codified view' of the architecture has some interesting implications:
 </p>
 <br>
 
-✱ Some modules have been omitted for brevity.  
-✱ It's very difficult preventing arrows from overlapping!
+<p align="right">
+✱ Some modules have been omitted for brevity.
+✱ I've not yet mastered the art of preventing lines from overlapping.
+</p>
 
 `module-composer` is a small library seeded from Agile Avatars then extracted for reuse. For transparency, here is the source code:
 
