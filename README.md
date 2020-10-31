@@ -292,7 +292,7 @@ This 'codified view' of the architecture has some interesting implications:
 <br>
 
 <p align="right">
-✱ Some modules have been omitted for brevity.
+✱ Some modules have been omitted for brevity.<br>
 ✱ I've not yet mastered the art of preventing lines from overlapping.
 </p>
 
