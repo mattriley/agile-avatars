@@ -938,7 +938,7 @@ See [Deglobalising window](#deglobalising-window) for more information.
 - 
 ```
 
-
+Provides _low-level utility functions_.
 ### ❖ vendor-components
 
 
@@ -947,6 +947,7 @@ See [Deglobalising window](#deglobalising-window) for more information.
 - components core diagnostics elements io services startup stores styles subscriptions vendorServices
 ```
 
+Provides vendor (third party) components including gtag and vanilla-picker. These are separated from the components module because they have different collaborators. The components module avoids a direct dependency on window but some vendor components may require direct access to window which cannot be avoided.
 
 ### ❖ vendor-services
 
@@ -956,7 +957,7 @@ See [Deglobalising window](#deglobalising-window) for more information.
 - components core diagnostics elements services startup stores styles subscriptions ui vendorComponents
 ```
 
-Provides vendor (third party) services including gtag and sentry. These are separated from the services module because they have different dependencies. The services module avoids a direct dependency on window by design but some vendor services may require direct access to window which cannot be avoided.
+Provides vendor (third party) services including gtag and sentry. These are separated from the services module because they have different collaborators. The services module avoids a direct dependency on window but some vendor services may require direct access to window which cannot be avoided.
 
 __Example: gtag function__
 
