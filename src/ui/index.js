@@ -1,6 +1,7 @@
 module.exports = {
+    appendToHead: require('./append-to-head'),
     el: require('./el'),
     event: require('./event'),
-    getDocument: require('./get-document'),
+    refocus: require('./refocus'),
     toggleBoolClass: require('./toggle-bool-class')
 };

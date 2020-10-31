@@ -17,11 +17,11 @@ module.exports = ({ el, tagList, services, subscriptions, ui, util, config }) =>
     });
 
     const sort = () => {
-        const $active = ui.getDocument().activeElement;
-        services.tags.sortTagInstances().forEach(tagInstance => {
-            $tags.append($$tags.get(tagInstance.id));
+        ui.refocus(() => {
+            services.tags.sortTagInstances().forEach(tagInstance => {
+                $tags.append($$tags.get(tagInstance.id));
+            });
         });
-        $active.focus();
     };
 
     const delayedSort = util.debounce(

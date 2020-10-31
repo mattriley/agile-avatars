@@ -1,6 +1,6 @@
-module.exports = ({ ui }) => (tagName, ...opts) => { 
+module.exports = ({ window }) => (tagName, ...opts) => { 
 
-    const el = ui.getDocument().createElement(tagName);
+    const el = window.document.createElement(tagName);
     const props = opts.map(opt => (typeof opt === 'string' ? { className: opt } : opt));
     const funcs = ['append', 'addEventListener'].map(name => {
         const orig = el[name].bind(el);
