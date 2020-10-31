@@ -676,7 +676,7 @@ module.exports = ({ window }) => {
         date: () => new window.Date(),
         fetch: (...args) => window.fetch(...args),
         random: () => window.Math.random(),
-        createFileReader: () => new window.FileReader()
+        fileReader: () => new window.FileReader()
     };
 
 };
