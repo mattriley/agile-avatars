@@ -792,9 +792,23 @@ module.exports = ({ styles, subscriptions, ui, util }) => () => {
 
 ### ❖ subscriptions
 
-Provides _subscription functions_.
+Provides _subscription functions_. A subscription function enables a listener to be notified of state changes.
 
-A __subscription function__ enables a listener to be notified of state changes.
+The subscription functions are actually implemented in the state store. This module exposes only the subscriptions from the stores to prevent direct read/write access to the the stores. 
+
+__Source code for subscriptions__
+
+<details open>
+<summary>src/subscriptions/subscriptions.js</summary>
+
+```js
+module.exports = ({ stores, util }) => {
+
+    return util.mapValues(stores, store => store.subscriptions);
+
+};
+```
+</details>
 
 ### ❖ ui
 
