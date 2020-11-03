@@ -39,8 +39,6 @@ NOTE: WORK IN PROGRESS!
 - [Modules](#modules)
   - [List of modules](#list-of-modules)
 - [Dependency Management](#dependency-management)
-  - [Deglobalising window](#deglobalising-window)
-  - [Detecting inappropriate coupling](#detecting-inappropriate-coupling)
 - [State Management](#state-management)
   - [Stores](#stores)
   - [Subscriptions](#subscriptions)
@@ -55,12 +53,6 @@ NOTE: WORK IN PROGRESS!
   - [List of production dependencies](#list-of-production-dependencies)
   - [List of development dependencies](#list-of-development-dependencies)
 - [Functional Programming](#functional-programming)
-  - [Immutability](#immutability)
-  - [Higher-order functions](#higher-order-functions)
-  - [Pure functions](#pure-functions)
-  - [Pipe](#pipe)
-  - [Curry and partial application](#curry-and-partial-application)
-  - [Functional core, imperative shell](#functional-core-imperative-shell)
 - [Conventions](#conventions)
   - [Code](#code)
   - [Documentation](#documentation)
@@ -193,6 +185,7 @@ In order to isolate Parcel, only public may use Parcel loaders. This allows unit
 
 The following code is referenced by index.html and launches the application:
 
+
 <details open>
 <summary>public/app.js</summary>
 
@@ -234,6 +227,7 @@ Launch sequence:
 Booting is the process of making the application 'ready to launch' and involves loading configuration, composing modules, and returning the composed modules.
 
 The boot function composes the application from modules in the src directory.
+
 
 <details open>
 <summary>boot.js</summary>
@@ -294,64 +288,8 @@ This 'codified view' of the architecture has some interesting implications:
 ✱ I've not yet mastered the art of preventing lines from overlapping.
 </p>
 
-_module-composer_ is a small library seeded from Agile Avatars then extracted for reuse. For transparency, here is the source code:
-
-__module-composer implementation__
-
-<details >
-<summary>node_modules/module-composer/src/module-composer.js</summary>
-
-```js
-const merge = require('lodash/merge');
-const { isObject, isFunction, forEach, mapValues, pick } = require('./util');
-
-module.exports = (parent, options = {}) => {
-    const overrides = options.overrides || {};
-    const modules = { ...parent };
-    const dependencies = {};
-    const compose = (key, arg = {}) => {
-        arg = { ...arg };        
-        delete arg[key];
-        const obj = parent[key];
-        const composed = composeRecursive(obj, arg, key);
-        const collapsed = collapseRecursive({ [key]: composed })[key];
-        const module = override({ [key]: collapsed }, overrides)[key];
-        Object.assign(modules, { [key]: module });
-        Object.assign(dependencies, { [key]: Object.keys(arg) });
-        return module;
-    };
-    const getModules = () => ({ ...modules, __dependencies: { ...dependencies } });
-    return Object.assign(compose, { getModules });
-};
-
-const composeRecursive = (obj, arg, parentKey) => {
-    if (!isObject(obj)) return obj;
-    const product = {}; 
-    const newArg = { [parentKey]: product, ...arg };
-    const newObj = mapValues(obj, (val, key) => (isFunction(val) ? val(newArg) : composeRecursive(val, newArg, key)));
-    return Object.assign(product, newObj);
-};
-
-const collapseRecursive = (obj, parentObj, parentKey) => {
-    if (isObject(obj)) {
-        forEach(obj, (val, key) => {
-            if (key === parentKey) {
-                parentObj[key] = Object.assign(val, parentObj[key]);
-                delete val[key];
-            }
-            collapseRecursive(val, obj, key);
-        });    
-    }
-    return obj;
-};
-
-const override = (obj, overrides) => {
-    return merge(obj, pick(overrides, Object.keys(obj)));
-};
-```
-</details>
-
-For more information, see [module-composer](#-module-composer) in the [Dependencies](#dependencies) section.
+Related:
+- [Dependency management](#dependency-management)
 
 Further reading:
 - [Composition Root - Mark Seemann](https://blog.ploeh.dk/2011/07/28/CompositionRoot/)
@@ -369,6 +307,7 @@ On the file system, a module is simply a directory of sources files that follow 
 - Where a module is to be composed with collaborating modules, exported functions must be curried to first accept the collaborators.
 
 __Example: Root index.js for components module__
+
 
 <details open>
 <summary>src/components/index.js</summary>
@@ -391,6 +330,7 @@ module.exports = {
 </details>
 
 __Example: Curried function accepting collaborators__
+
 
 <details open>
 <summary>src/components/tag-list/tag/components/tag-name.js</summary>
@@ -421,6 +361,21 @@ This design has some interesting implications:
 - No backtracking paths, i.e. `..` helps reduce cognitive load (for me anyway!).
 - The approach to index.js forms a pattern which can be automated with code generation. See [module-indexgen](https://github.com/mattriley/agileavatars#-module-indexgen) in the list of development dependencies.
 
+### Detecting inappropriate coupling
+
+Because all relative files are loaded by index.js files, a simple search can be done to identify any inappropriate file references. The following task is run during pre-commit and fails if any inappropriate file references are found:
+
+
+<details open>
+<summary>tasks/check-coupling</summary>
+
+```sh
+#!/bin/bash
+
+! grep --exclude="index.js" -rnw "$SRC" -e "require('."
+```
+</details>
+
 ## List of modules
 
 Following is a complete list of modules in Agile Avatars.
@@ -446,6 +401,7 @@ tagName accepts the ID of a tag instance and returns a [content editable](https:
 changeTagName updates the state of the underlying tag, which triggers a propagation of the new tag name to all other instances of the tag.
 
 tagName subscribes to tag name change events and updates the editable span with the new tag name.
+
 
 <details open>
 <summary>src/components/tag-list/tag/components/tag-name.js</summary>
@@ -479,6 +435,7 @@ module.exports = ({ elements, services, subscriptions }) => tagInstanceId => {
 Provides _static application config_ as a plain JavaScript object, including default state used to initialise the state stores. Config is loaded at [boot](#booting) time.
 
 __Source: config module__
+
 
 <details >
 <summary>src/config/config.js</summary>
@@ -587,6 +544,7 @@ __Example: parseEmailExpression function__
 
 parseEmailExpression is a pure function. Amongst other properties of pure functions, its return value is the same for the same arguments, and its evaluation has no side effects.
 
+
 <details open>
 <summary>src/core/tags/parse-email-expression.js</summary>
 
@@ -628,6 +586,7 @@ Provides _element factory functions_. An element is simply a HTML element that r
 
 __Example: editableSpan element__
 
+
 <details open>
 <summary>src/elements/editable-span.js</summary>
 
@@ -666,6 +625,7 @@ Provides _IO functions_ while preventing direct access to window. IO functions a
 
 __Source: io module__
 
+
 <details open>
 <summary>src/io/io.js</summary>
 
@@ -696,6 +656,7 @@ See [Deglobalising window](#deglobalising-window) for more information.
 Provides _service functions_. Service functions orchestrate the pure functions from _core_, the impure functions from _io_ (such as making HTTP requests), and push changes to the state stores.
 
 __Example: changeTagName function__
+
 
 <details open>
 <summary>src/services/tags/change-tag-name.js</summary>
@@ -729,6 +690,7 @@ Provides _startup functions_ which are used at [launch](#launching) time.
 
 __Example: startup function__
 
+
 <details open>
 <summary>src/startup/startup.js</summary>
 
@@ -755,6 +717,7 @@ module.exports = ({ startup, components }) => render => {
 Provides the _state store implementation_. State stores manage state changes and raise change events.
 
 __Source: stateStore implementation__
+
 
 <details >
 <summary>src/storage/state-store.js</summary>
@@ -851,6 +814,7 @@ Provides _style factory functions_. A style is simply a HTML style element that 
 
 __Example: roleColor style__
 
+
 <details open>
 <summary>src/styles/role-color.js</summary>
 
@@ -875,6 +839,7 @@ module.exports = ({ el, subscriptions }) => roleId => {
 Styles are injected into the document head by the _styleManager_.
 
 __Source: styleManager implementation__
+
 
 <details open>
 <summary>src/startup/create-style-manager.js</summary>
@@ -905,6 +870,7 @@ Provides _subscription functions_. A subscription function enables a listener to
 The subscription functions are actually implemented in the state store. This module exposes only the subscriptions from the stores to prevent direct read/write access to the the stores. 
 
 __Source: subscriptions module__
+
 
 <details open>
 <summary>src/subscriptions/subscriptions.js</summary>
@@ -965,6 +931,7 @@ gtag is short for Google Global Site Tag.
 
 gtag depends on window for global variables to work correctly.
 
+
 <details open>
 <summary>src/vendor-services/gtag.js</summary>
 
@@ -997,34 +964,15 @@ module.exports = ({ config, io, window }) => {
 
 # Dependency Management
 
-In my experience, one of the biggest causes of cognitive load is _misplaced responsibilities_ which are essentially violations of the _single responsibility principle_ and _principle of least astonishment_. A good design is one that allows you to make reasonable assumptions about how the application hangs together without having to wade through code to validate it. This problem often manifests during estimation - you imagine the effort involved in implementing a new freature, but it never quite turns out how you imagined it.
+Central to modular design is the art of managing the relationships between modules.
 
-Of all the fancy tools and frameworks available for state management, view rendering, etc. none of these really solve the basic problem of where to put things. As an example, it's still too easy to make an API request from a React component, even when your trying to use Redux Saga to separate those concerns. It's also kind of funny that we now need yet another library to help manage this. It's turtles all the way down.
+Arguably one of the biggest causes of cognitive load is _misplaced responsibilities_ which are essentially violations of the _single responsibility principle_ and _principle of least astonishment_. A good design is one that allows you to make reasonable assumptions about how the application hangs together without having to wade through code to validate it. This problem often manifests during estimation - you imagine the effort involved in implementing a new freature, but it never quite turns out how you imagined it.
 
-Possibly the biggest reason for this is window. window is a global [God object](https://en.wikipedia.org/wiki/God_object) that makes it too easy to misplace responsibilities. For example, this makes the fetch API available globally, making to easy to make an API request from a React component.
+Of all the fancy tools and frameworks available for state management, view rendering, etc. none of these really solve the basic problem of where to put things. As an example, it's still too easy to make an API request from a React component, even when your trying to use Redux Saga to separate those concerns. It's also kind of funny that we now need yet another library to help manage this.
 
-## Deglobalising window
+The following explain some of the reasoning behind splitting out certain modules and how the relationships between modules are designed to prevent misplaced responsibilities.
 
-One way of increasing the chances of well placed responsibilities is to constrain the functionality available to any particular module to prevent the misplaced responsibility from occurring. 
-
-### io
-
-To achieve this, a new module is introduced to house the concern of IO. The io module wraps window and exposes only the io operations required by this application. So in this case io exposes fetch. Now, we can reason about the application like this - does it make sense for components to access io? The answer is obviously no, because we want to avoid components making API requests. The module responsible to carrying out such requests is services - so services may have access to io. Components may then trigger API requests indirectly through services.
-
-### ui
-
-Likewise, the reverse is also a concern. We don't want the services module accessing presentation concerns via the window object such as accessing the DOM and creating elements. To prevent this, a new module is introduce to hosue the low level presentation concerns. The ui module wraps the window and exposes only the ui operations required by this application. Now, we can reason able the application like this - does it make sense for services to access ui?  The answer is obviously no. So we allow components to access ui, and we disallow access from services.
-
-
-While these modules help to separate responsibilities, it still doesn't stop the window object from being global and making easy to circumvent this structure. This is not a problem we can solve directly.
-
-The solution here is to turn to detection rather than prevention. 
-
-### Detecting inappropriate access to window
-
-In order to detect inappropriate access, window is not made globally available in the unit tests. This is possible because the unit tests run on Node.js instead of a browser environment. JSDOM is used to emulate a browser and create a window object, but the window object is not automatically made global. This means any code referencing the global window object or properties of it will fail. I was initially using jsdom-global to make the window object global until I realised I was mistakenly accessing global variables. 
-
-### Dependency mapping
+For reference, this table visualises module dependencies.
 
 Modules | startup | components | services | styles | vendor<br>components | vendor<br>services | diagnostics | elements | ui | io | core | subscriptions | stores | window | config
 --- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---:
@@ -1044,21 +992,105 @@ stores | ✅ | ❌ | ✅ | ❌ | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 window | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ | ❌ | ❌ | ✅ | ✅ | ❌ | ❌ | ❌ | n/a | ❌
 config | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ | ✅ | ❌ | n/a
 
-## Detecting inappropriate coupling
+### Deglobalising window
 
-Another benefit of boot.js is that it becomes trivial to identify inappropriate coupling. For example passing io which is impure to core which is meant to be pure.
+Possibly the biggest reason for this is window. window is a global [God object](https://en.wikipedia.org/wiki/God_object) that makes it too easy to misplace responsibilities. For example, this makes the fetch API available globally, making to easy to make an API request from a React component.
 
-And because all relative files are loaded by index.js files, a simple search can be done to identify any inappropriate file references. The following task is run during pre-commit and fails if any inappropriate file references are found:
+#### io
 
-    <details open>
-    <summary>tasks/check-coupling</summary>
-    
-    ```
-    #!/bin/bash
+To achieve this, a new module is introduced to house the concern of IO. The io module wraps window and exposes only the io operations required by this application. So in this case io exposes fetch. Now, we can reason about the application like this - does it make sense for components to access io? The answer is obviously no, because we want to avoid components making API requests. The module responsible to carrying out such requests is services - so services may have access to io. Components may then trigger API requests indirectly through services.
 
-! grep --exclude="index.js" -rnw "$SRC" -e "require('."
-    ```
-    </details>
+#### ui
+
+Likewise, the reverse is also a concern. We don't want the services module accessing presentation concerns via the window object such as accessing the DOM and creating elements. To prevent this, a new module is introduce to hosue the low level presentation concerns. The ui module wraps the window and exposes only the ui operations required by this application. Now, we can reason able the application like this - does it make sense for services to access ui?  The answer is obviously no. So we allow components to access ui, and we disallow access from services.
+
+
+While these modules help to separate responsibilities, it still doesn't stop the window object from being global and making easy to circumvent this structure. This is not a problem we can solve directly.
+
+The solution here is to turn to detection rather than prevention. 
+
+#### Detecting inappropriate access to window
+
+In order to detect inappropriate access, window is not made globally available in the unit tests. This is possible because the unit tests run on Node.js instead of a browser environment. JSDOM is used to emulate a browser and create a window object, but the window object is not automatically made global. This means any code referencing the global window object or properties of it will fail. I was initially using jsdom-global to make the window object global until I realised I was mistakenly accessing global variables. 
+
+
+
+### Separation of Core from Services
+
+In order for the __Services__ module to be useful, it must perform side effects, e.g. updating application state, reading files, sending HTTP requests. In functional programming, these kinds of operations are said to be 'impure' and should be separated from 'pure' functions, which have no such side effects. (In practice the distinction between pure and impure functions is more nuanced than this.)
+
+The __Core__ module was introduced as a home for pure functions. Unlike Services, Core is disallowed access to Stores, IO, or any other module designed to perform side effects. With pure functions extracted, Services primarily orchestrate side effects while delegating to Core for pure application logic.
+
+Further reading:
+- [Pure function - Wikipedia](https://en.wikipedia.org/wiki/Pure_function)
+- [Functional Core, Imperative Shell - Gary Bernhardt](https://www.destroyallsoftware.com/screencasts/catalog/functional-core-imperative-shell)
+
+### Separation of Subscriptions from Stores
+
+
+
+### Module composition with module-composer
+
+
+_module-composer_ is a small library seeded from Agile Avatars then extracted for reuse. For transparency, here is the source code:
+
+__module-composer implementation__
+
+
+<details >
+<summary>node_modules/module-composer/src/module-composer.js</summary>
+
+```js
+const merge = require('lodash/merge');
+const { isObject, isFunction, forEach, mapValues, pick } = require('./util');
+
+module.exports = (parent, options = {}) => {
+    const overrides = options.overrides || {};
+    const modules = { ...parent };
+    const dependencies = {};
+    const compose = (key, arg = {}) => {
+        arg = { ...arg };        
+        delete arg[key];
+        const obj = parent[key];
+        const composed = composeRecursive(obj, arg, key);
+        const collapsed = collapseRecursive({ [key]: composed })[key];
+        const module = override({ [key]: collapsed }, overrides)[key];
+        Object.assign(modules, { [key]: module });
+        Object.assign(dependencies, { [key]: Object.keys(arg) });
+        return module;
+    };
+    const getModules = () => ({ ...modules, __dependencies: { ...dependencies } });
+    return Object.assign(compose, { getModules });
+};
+
+const composeRecursive = (obj, arg, parentKey) => {
+    if (!isObject(obj)) return obj;
+    const product = {}; 
+    const newArg = { [parentKey]: product, ...arg };
+    const newObj = mapValues(obj, (val, key) => (isFunction(val) ? val(newArg) : composeRecursive(val, newArg, key)));
+    return Object.assign(product, newObj);
+};
+
+const collapseRecursive = (obj, parentObj, parentKey) => {
+    if (isObject(obj)) {
+        forEach(obj, (val, key) => {
+            if (key === parentKey) {
+                parentObj[key] = Object.assign(val, parentObj[key]);
+                delete val[key];
+            }
+            collapseRecursive(val, obj, key);
+        });    
+    }
+    return obj;
+};
+
+const override = (obj, overrides) => {
+    return merge(obj, pick(overrides, Object.keys(obj)));
+};
+```
+</details>
+
+For more information, see [module-composer](#-module-composer) in the [Dependencies](#dependencies) section.
 
 
 # State Management
@@ -1104,6 +1136,7 @@ No attempt is made to generify the state management solution for reuse by other 
 State is managed by a series of _state stores_. 
 
 A **state store** is collection of data items keyed by a unique identifier and managed using typical CRUD operations such as insert, find, update, remove.
+
 
 <details >
 <summary>src/storage/state-store.js</summary>
@@ -1176,6 +1209,7 @@ module.exports = (defaults = {}) => {
 
 __Example: Inserting a role using insert__
 
+
 <details open>
 <summary>src/services/roles/insert-role.js</summary>
 
@@ -1193,6 +1227,7 @@ module.exports = ({ core, services, subscriptions, stores, io }) => roleData => 
 </details>
 
 __Example: Changing a role name using find and update__
+
 
 <details open>
 <summary>src/services/roles/change-role-name.js</summary>
@@ -1218,6 +1253,7 @@ During startup, subscription functions are extracted from the stores into a stan
 
 __Example: Reacting to a new role using onInsert and onFirstInsert__
 
+
 <details open>
 <summary>src/components/role-list/role-list.js</summary>
 
@@ -1242,6 +1278,7 @@ module.exports = ({ el, roleList, subscriptions, ui }) => () => {
 </details>
 
 __Example: Reacting to the change of a role name using onChange__
+
 
 <details open>
 <summary>src/components/role-list/role-customiser/master-role-name.js</summary>
@@ -1308,6 +1345,7 @@ $div.addEventListener('click', clickHandler);
 
 __el implementation__
 
+
 <details open>
 <summary>src/ui/el.js</summary>
 
@@ -1341,6 +1379,7 @@ __Example: Usage of innerHTML for content__
 
 This example uses `el` to create an element, but assigns a HTML string to `innerHTML` rather than appending child elements.
 
+
 <details open>
 <summary>src/components/tips/naming.js</summary>
 
@@ -1371,6 +1410,7 @@ The application is tested from the outside-in, starting with the components. A c
 __Example: Tips modal triggered by link in nav bar__
 
 This test creates a 'nav bar' and a 'tips modal'; clicks the 'tips link' in the nav bar; then asserts the tips modal has a class indicating it should be visible. The mechanics behind this interaction are a black box, making it resilient to implementation changes which enables merciless refactoring.
+
 
 <details open>
 <summary>tests/components/tips.test.js</summary>
@@ -1412,6 +1452,7 @@ Where the execution path will reach a system boundary, stub just short of the in
 __Example: Gravatar service functions stubbed__
 
 This test creates a 'gravatar modal' and a 'tag list'. Clicking the 'import button' will render a tag in the tag list using data fetched from Gravatar. The fetchProfileAsync and fetchImageAsync functions are stubbed to prevent the integration from occurring and to avoid coupling the test to the implementation details of the integration. 
+
 
 <details open>
 <summary>tests/components/gravatar/import-success.test.js</summary>
@@ -1480,6 +1521,7 @@ Rather than acting on individual files, tests act on the initialised application
 __Example: A component test that depends on shared state__
 
 This test initialises the application by invoking boot and uses the components module to create an 'options bar' which should initially be hidden. It then uses the services module to insert a tag which should cause the options bar to become visible. 
+
 
 <details open>
 <summary>tests/components/options-bar.test.js</summary>
@@ -1786,7 +1828,7 @@ tape was originally used however zora is newer and has some advantages over tape
 
 Although strict functional design is not a design goal, there are certain functional principles which are easily applied in vanilla JavaScript and should be within grasp of the average developer.
 
-## Immutability
+### Immutability
 
 Care should be taken to avoid mutation but this is not strictly enforced. 
 
@@ -1798,7 +1840,7 @@ As a rule of thumb, prefer `const` over `let`, and avoid `var`.
 
 While this will not guarantee immutability, it will challenge people to think about it. If `let` is seen as a smell, it may drive refactoring toward `const` which will likely result in a better design. An example would be recognising the `let` in a `for` loop as a smell, triggering a refactor toward a higher-order function.
 
-## Higher-order functions
+### Higher-order functions
 
 Prefer higher-order functions such as `filter`, `map`, `reduce`, over imperative looping statements.
 
@@ -1807,6 +1849,7 @@ __Example: Usage of reduce__
 This function transforms a list of store names into an object of store name -> store. This could also be done with a `for` loop. Reduce hides the low level implementation details of iteration. It also removes the need for intermedite variables such as loop counters. 
 
 The `acc` variable is intentionally mutated given the scope of the mutation is small and isolated within the reduce function. An immutable equivalent could be `{ ...acc, [name]: store }`.
+
 
 <details open>
 <summary>src/stores/stores.js</summary>
@@ -1829,7 +1872,7 @@ __Further reading__
 - [Reduce (Composing Software) - Eric Elliot](https://medium.com/javascript-scene/reduce-composing-software-fe22f0c39a1d)
 - [Array.prototype.reduce() - MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce)
 
-## Pure functions
+### Pure functions
 
 As much as possible, pure functions are separated from impure functions. To make the distinction clear, pure domain functions are kept in the `core` module. Pure functions can be reasoned about and tested in isolation without having to manage side effects.
 
@@ -1841,6 +1884,7 @@ From [Wikipedia](https://en.wikipedia.org/wiki/Pure_function):
 __Example: Usage of a pure function__
 
 This function orchestrates pure and impure functions making it impure. However because the implementation of `parseFileExpression` has been extracted as a pure function.
+
 
 <details open>
 <summary>src/services/tags/insert-file-async.js</summary>
@@ -1859,6 +1903,7 @@ module.exports = ({ core, services, util }) => file => {
 </details>
 
 __parseFileExpression__
+
 
 <details open>
 <summary>src/core/tags/parse-file-expression.js</summary>
@@ -1881,11 +1926,12 @@ module.exports = () => expression => {
 </details>
 
 
-## Pipe
+### Pipe
 
 Where possible, use `pipe` to avoid nesting function calls and intermediate variables.
 
 __Example: Usage of pipe when inserting a file__
+
 
 <details open>
 <summary>src/services/tags/insert-file-async.js</summary>
@@ -1905,6 +1951,7 @@ module.exports = ({ core, services, util }) => file => {
 
 __pipe implementation__
 
+
 <details open>
 <summary>src/util/pipe.js</summary>
 
@@ -1915,11 +1962,11 @@ module.exports = (...funcs) => initial => funcs.reduce((v, f) => f(v), initial);
 
 Once the [pipeline operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Pipeline_operator) is officially supported in JavaScript, we can remove the custom implementation.
 
-## Curry and partial application
+### Curry and partial application
 
 - [Curry and Function Composition - Eric Elliott](https://medium.com/javascript-scene/curry-and-function-composition-2c208d774983)
 
-## Functional core, imperative shell
+### Functional core, imperative shell
 
 - [Functional Core, Imperative Shell - Gary Bernhardt](https://www.destroyallsoftware.com/screencasts/catalog/functional-core-imperative-shell)
 
@@ -1938,6 +1985,7 @@ I generally prefer to avoid variable prefixes but I've found these prefixes help
 ### Clarifying comments as footnotes
 
 Such comments are secondary to the code and so follow the code rather than preceed it.
+
 
 <details open>
 <summary>src/components/tag-list/tag/components/tag-image.js</summary>
