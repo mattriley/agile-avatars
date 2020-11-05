@@ -1027,7 +1027,11 @@ Further reading:
 
 ### Separation of Subscriptions from Stores
 
+__Stores__ enable retrieval and updating of state, and the ability to subscribe to state change events. In our layered architecture, the domain layer depends on the data layer, and so the __Services__ module may access Stores directly.
 
+The presentation layer however depends on the domain layer, and so the __Components__ module may _not_ access Stores directly. That's so say, the presentation layer should not be retrieving and updating state directly.
+
+The __Subscriptions__ module was introduced to allow Components to subscribe to state change events while preventing access to the underlying stores. The subscriptions module is generated from the Stores, only providing access to subscriptions.
 
 ### Module composition with module-composer
 
