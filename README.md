@@ -294,6 +294,67 @@ Related:
 Further reading:
 - [Composition Root - Mark Seemann](https://blog.ploeh.dk/2011/07/28/CompositionRoot/)
 
+### module-composer
+
+__module-composer__ is a small library that reduces the amount of boilerplate code needed to compose modules. It was extracted from Agile Avatars for reuse. For transparency, here is the source code:
+
+
+<details >
+<summary>node_modules/module-composer/src/module-composer.js</summary>
+
+```js
+const merge = require('lodash/merge');
+const { isObject, isFunction, forEach, mapValues, pick } = require('./util');
+
+module.exports = (parent, options = {}) => {
+    const overrides = options.overrides || {};
+    const modules = { ...parent };
+    const dependencies = {};
+    const compose = (key, arg = {}) => {
+        arg = { ...arg };        
+        delete arg[key];
+        const obj = parent[key];
+        const composed = composeRecursive(obj, arg, key);
+        const collapsed = collapseRecursive({ [key]: composed })[key];
+        const module = override({ [key]: collapsed }, overrides)[key];
+        Object.assign(modules, { [key]: module });
+        Object.assign(dependencies, { [key]: Object.keys(arg) });
+        return module;
+    };
+    const getModules = () => ({ ...modules, __dependencies: { ...dependencies } });
+    return Object.assign(compose, { getModules });
+};
+
+const composeRecursive = (obj, arg, parentKey) => {
+    if (!isObject(obj)) return obj;
+    const product = {}; 
+    const newArg = { [parentKey]: product, ...arg };
+    const newObj = mapValues(obj, (val, key) => (isFunction(val) ? val(newArg) : composeRecursive(val, newArg, key)));
+    return Object.assign(product, newObj);
+};
+
+const collapseRecursive = (obj, parentObj, parentKey) => {
+    if (isObject(obj)) {
+        forEach(obj, (val, key) => {
+            if (key === parentKey) {
+                parentObj[key] = Object.assign(val, parentObj[key]);
+                delete val[key];
+            }
+            collapseRecursive(val, obj, key);
+        });    
+    }
+    return obj;
+};
+
+const override = (obj, overrides) => {
+    return merge(obj, pick(overrides, Object.keys(obj)));
+};
+```
+</details>
+
+Related:
+- [module-composer](#-module-composer) in the [Dependencies](#dependencies) section.
+
 
 # Modules
 
@@ -992,28 +1053,21 @@ stores | ✅ | ❌ | ✅ | ❌ | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
 window | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ | ❌ | ❌ | ✅ | ✅ | ❌ | ❌ | ❌ | n/a | ❌
 config | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ | ✅ | ❌ | n/a
 
-### Deglobalising window
+### Deglobalising window with io and ui
 
 Possibly the biggest reason for this is window. window is a global [God object](https://en.wikipedia.org/wiki/God_object) that makes it too easy to misplace responsibilities. For example, this makes the fetch API available globally, making to easy to make an API request from a React component.
 
-#### io
+The __io__ module was introduced to wrap window and expose only the io operations required by this application. So in this case io exposes fetch. Now, we can reason about the application like this - does it make sense for components to access io? The answer is obviously no, because we want to avoid components making API requests. The module responsible to carrying out such requests is services - so services may have access to io. Components may then trigger API requests indirectly through services.
 
-To achieve this, a new module is introduced to house the concern of IO. The io module wraps window and exposes only the io operations required by this application. So in this case io exposes fetch. Now, we can reason about the application like this - does it make sense for components to access io? The answer is obviously no, because we want to avoid components making API requests. The module responsible to carrying out such requests is services - so services may have access to io. Components may then trigger API requests indirectly through services.
+The __ui__ modules was introduced to wrap window and exposes only the low level presentation operations required by this application. The ui module wraps the window and exposes only the ui operations required by this application. Now, we can reason able the application like this - does it make sense for services to access ui?  The answer is obviously no. So we allow components to access ui, and we disallow access from services.
 
-#### ui
-
-Likewise, the reverse is also a concern. We don't want the services module accessing presentation concerns via the window object such as accessing the DOM and creating elements. To prevent this, a new module is introduce to hosue the low level presentation concerns. The ui module wraps the window and exposes only the ui operations required by this application. Now, we can reason able the application like this - does it make sense for services to access ui?  The answer is obviously no. So we allow components to access ui, and we disallow access from services.
-
+### Detecting inappropriate access to window
 
 While these modules help to separate responsibilities, it still doesn't stop the window object from being global and making easy to circumvent this structure. This is not a problem we can solve directly.
 
 The solution here is to turn to detection rather than prevention. 
 
-#### Detecting inappropriate access to window
-
 In order to detect inappropriate access, window is not made globally available in the unit tests. This is possible because the unit tests run on Node.js instead of a browser environment. JSDOM is used to emulate a browser and create a window object, but the window object is not automatically made global. This means any code referencing the global window object or properties of it will fail. I was initially using jsdom-global to make the window object global until I realised I was mistakenly accessing global variables. 
-
-
 
 ### Separation of Core from Services
 
@@ -1029,72 +1083,9 @@ Further reading:
 
 __Stores__ enable retrieval and updating of state, and the ability to subscribe to state change events. In our layered architecture, the domain layer depends on the data layer, and so the __Services__ module may access Stores directly.
 
-The presentation layer however depends on the domain layer, and so the __Components__ module may _not_ access Stores directly. That's so say, the presentation layer should not be retrieving and updating state directly.
+The presentation layer however depends on the domain layer, and so the __Components__ module may _not_ access Stores directly. That's to say, the presentation layer should not be retrieving and updating state directly.
 
 The __Subscriptions__ module was introduced to allow Components to subscribe to state change events while preventing access to the underlying stores. The subscriptions module is generated from the Stores, only providing access to subscriptions.
-
-### Module composition with module-composer
-
-
-_module-composer_ is a small library seeded from Agile Avatars then extracted for reuse. For transparency, here is the source code:
-
-__module-composer implementation__
-
-
-<details >
-<summary>node_modules/module-composer/src/module-composer.js</summary>
-
-```js
-const merge = require('lodash/merge');
-const { isObject, isFunction, forEach, mapValues, pick } = require('./util');
-
-module.exports = (parent, options = {}) => {
-    const overrides = options.overrides || {};
-    const modules = { ...parent };
-    const dependencies = {};
-    const compose = (key, arg = {}) => {
-        arg = { ...arg };        
-        delete arg[key];
-        const obj = parent[key];
-        const composed = composeRecursive(obj, arg, key);
-        const collapsed = collapseRecursive({ [key]: composed })[key];
-        const module = override({ [key]: collapsed }, overrides)[key];
-        Object.assign(modules, { [key]: module });
-        Object.assign(dependencies, { [key]: Object.keys(arg) });
-        return module;
-    };
-    const getModules = () => ({ ...modules, __dependencies: { ...dependencies } });
-    return Object.assign(compose, { getModules });
-};
-
-const composeRecursive = (obj, arg, parentKey) => {
-    if (!isObject(obj)) return obj;
-    const product = {}; 
-    const newArg = { [parentKey]: product, ...arg };
-    const newObj = mapValues(obj, (val, key) => (isFunction(val) ? val(newArg) : composeRecursive(val, newArg, key)));
-    return Object.assign(product, newObj);
-};
-
-const collapseRecursive = (obj, parentObj, parentKey) => {
-    if (isObject(obj)) {
-        forEach(obj, (val, key) => {
-            if (key === parentKey) {
-                parentObj[key] = Object.assign(val, parentObj[key]);
-                delete val[key];
-            }
-            collapseRecursive(val, obj, key);
-        });    
-    }
-    return obj;
-};
-
-const override = (obj, overrides) => {
-    return merge(obj, pick(overrides, Object.keys(obj)));
-};
-```
-</details>
-
-For more information, see [module-composer](#-module-composer) in the [Dependencies](#dependencies) section.
 
 
 # State Management
