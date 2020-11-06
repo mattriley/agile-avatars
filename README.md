@@ -296,7 +296,8 @@ subscriptions | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ 
 stores | ✅ | ❌ | ✅ | ❌ | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | n/a | ❌ | ❌
 window | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ | ❌ | ❌ | ✅ | ✅ | ❌ | ❌ | ❌ | n/a | ❌
 config | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ | ✅ | ❌ | n/a
-<p align="center"><em>Generated dependency mapping</em></p>
+<p align="center"><em>Generated dependency mapping (scrolls to the right)</em></p>
+<br>
 
 ### Deglobalising window
 
