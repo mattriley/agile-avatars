@@ -38,7 +38,6 @@ NOTE: WORK IN PROGRESS!
 - [Booting](#booting)
 - [Modules](#modules)
   - [List of modules](#list-of-modules)
-- [Dependency Management](#dependency-management)
 - [State Management](#state-management)
   - [Stores](#stores)
   - [Subscriptions](#subscriptions)
@@ -279,7 +278,7 @@ This 'codified view' of the architecture has some interesting implications:
 <p align="center">
   <img src="readme-docs/modules.svg?raw=true" />
   <br>
-  <em>Dependency diagram generated with <a href="https://mermaid-js.github.io/mermaid">Mermaid</a></em>
+  <em>Generated dependency diagram using <a href="https://mermaid-js.github.io/mermaid">Mermaid</a></em>
 </p>
 <br>
 
@@ -288,11 +287,32 @@ This 'codified view' of the architecture has some interesting implications:
 ✱ I've not yet mastered the art of preventing lines from overlapping.
 </p>
 
-Related:
-- [Dependency management](#dependency-management)
+Modules | startup | components | services | styles | vendor<br>components | vendor<br>services | diagnostics | elements | ui | io | core | subscriptions | stores | window | config
+--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---:
+startup | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
+components | ✅ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
+services | ✅ | ✅ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
+styles | ✅ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
+vendorComponents | ✅ | ✅ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
+vendorServices | ✅ | ✅ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
+diagnostics | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
+elements | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
+ui | ✅ | ✅ | ❌ | ✅ | ✅ | ❌ | ❌ | ✅ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
+io | ✅ | ❌ | ✅ | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌
+core | ✅ | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌
+subscriptions | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌
+stores | ✅ | ❌ | ✅ | ❌ | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | n/a | ❌ | ❌
+window | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ | ❌ | ❌ | ✅ | ✅ | ❌ | ❌ | ❌ | n/a | ❌
+config | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ | ✅ | ❌ | n/a
+<p align="center"><em>Generated dependency mapping</em></p>
 
-Further reading:
-- [Composition Root - Mark Seemann](https://blog.ploeh.dk/2011/07/28/CompositionRoot/)
+### Deglobalising window
+
+window is a global [God object](https://en.wikipedia.org/wiki/God_object) that makes it too easy to misplace responsibilities. For example, manipulating the DOM or making HTTP requests from anywhere in the application.
+
+The application has been designed to mitigate such misplaced responsibilities by avoiding the global window object altogether. The boot function expects a window object to be explicitly provided which is then passed to only the selected modules that are allowed to access it.
+
+While this helps be intentional of how window is accessed, it still doesn't prevent use of the global window object. So, in order to _detect_ inappropriate access, window is not made globally available in the unit tests. This is possible because the unit tests run on Node.js instead of a browser environment. JSDOM is used to emulate a browser and create a non-global window object to provide to the boot function. This causes any code referencing the global window object to fail.
 
 ### module-composer
 
@@ -354,6 +374,10 @@ const override = (obj, overrides) => {
 
 Related:
 - [module-composer](#-module-composer) in the [Dependencies](#dependencies) section.
+
+### Further reading
+
+- [Composition Root - Mark Seemann](https://blog.ploeh.dk/2011/07/28/CompositionRoot/)
 
 
 # Modules
@@ -601,6 +625,8 @@ module.exports = {
 
 Provides _pure domain functions_. The name "core" comes from [Functional Core, Imperative Shell](https://www.destroyallsoftware.com/screencasts/catalog/functional-core-imperative-shell) providing a home for [pure functions](#pure-functions) which are accessed by services. Without core, services would be interlaced with pure and impure functions, making them harder to test and reason about.
 
+The __Core__ module was introduced as a home for pure functions. Unlike Services, Core is disallowed access to Stores, IO, or any other module designed to perform side effects. With pure functions extracted, Services primarily orchestrate side effects while delegating to Core for pure application logic.
+
 __Example: parseEmailExpression function__
 
 parseEmailExpression is a pure function. Amongst other properties of pure functions, its return value is the same for the same arguments, and its evaluation has no side effects.
@@ -625,6 +651,9 @@ module.exports = ({ util }) => expression => {
 ```
 </details>
 
+Further reading:
+- [Pure function - Wikipedia](https://en.wikipedia.org/wiki/Pure_function)
+- [Functional Core, Imperative Shell - Gary Bernhardt](https://www.destroyallsoftware.com/screencasts/catalog/functional-core-imperative-shell)
 ### ❖ diagnostics
 
 
@@ -684,6 +713,8 @@ module.exports = ({ el, ui }) => className => {
 
 Provides _IO functions_ while preventing direct access to window. IO functions are impure as they depend on the environment in addition to their arguments.
 
+The __io__ module was introduced to wrap window and expose only the io operations required by this application. So in this case io exposes fetch. Now, we can reason about the application like this - does it make sense for components to access io? The answer is obviously no, because we want to avoid components making API requests. The module responsible to carrying out such requests is services - so services may have access to io. Components may then trigger API requests indirectly through services.
+
 __Source: io module__
 
 
@@ -715,6 +746,8 @@ See [Deglobalising window](#deglobalising-window) for more information.
 ```
 
 Provides _service functions_. Service functions orchestrate the pure functions from _core_, the impure functions from _io_ (such as making HTTP requests), and push changes to the state stores.
+
+In order for the __Services__ module to be useful, it must perform side effects, e.g. updating application state, reading files, sending HTTP requests. In functional programming, these kinds of operations are said to be 'impure' and should be separated from 'pure' functions, which have no such side effects. (In practice the distinction between pure and impure functions is more nuanced than this.)
 
 __Example: changeTagName function__
 
@@ -930,6 +963,12 @@ Provides _subscription functions_. A subscription function enables a listener to
 
 The subscription functions are actually implemented in the state store. This module exposes only the subscriptions from the stores to prevent direct read/write access to the the stores. 
 
+__Stores__ enable retrieval and updating of state, and the ability to subscribe to state change events. In our layered architecture, the domain layer depends on the data layer, and so the __Services__ module may access Stores directly.
+
+The presentation layer however depends on the domain layer, and so the __Components__ module may _not_ access Stores directly. That's to say, the presentation layer should not be retrieving and updating state directly.
+
+The __Subscriptions__ module was introduced to allow Components to subscribe to state change events while preventing access to the underlying stores. The subscriptions module is generated from the Stores, only providing access to subscriptions.
+
 __Source: subscriptions module__
 
 
@@ -955,7 +994,7 @@ module.exports = ({ stores, util }) => {
 
 Provides _low-level presentation functions_ while preventing direct access to window.
 
-See [Deglobalising window](#deglobalising-window) for more information.
+The __ui__ modules was introduced to wrap window and exposes only the low level presentation operations required by this application. The ui module wraps the window and exposes only the ui operations required by this application. Now, we can reason able the application like this - does it make sense for services to access ui?  The answer is obviously no. So we allow components to access ui, and we disallow access from services.
 
 ### ❖ util
 
@@ -1021,71 +1060,6 @@ module.exports = ({ config, io, window }) => {
 ```
 </details>
 
-
-
-# Dependency Management
-
-Central to modular design is the art of managing the relationships between modules.
-
-Arguably one of the biggest causes of cognitive load is _misplaced responsibilities_ which are essentially violations of the _single responsibility principle_ and _principle of least astonishment_. A good design is one that allows you to make reasonable assumptions about how the application hangs together without having to wade through code to validate it. This problem often manifests during estimation - you imagine the effort involved in implementing a new freature, but it never quite turns out how you imagined it.
-
-Of all the fancy tools and frameworks available for state management, view rendering, etc. none of these really solve the basic problem of where to put things. As an example, it's still too easy to make an API request from a React component, even when your trying to use Redux Saga to separate those concerns. It's also kind of funny that we now need yet another library to help manage this.
-
-The following explain some of the reasoning behind splitting out certain modules and how the relationships between modules are designed to prevent misplaced responsibilities.
-
-For reference, this table visualises module dependencies.
-
-Modules | startup | components | services | styles | vendor<br>components | vendor<br>services | diagnostics | elements | ui | io | core | subscriptions | stores | window | config
---- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---:
-startup | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
-components | ✅ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
-services | ✅ | ✅ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
-styles | ✅ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
-vendorComponents | ✅ | ✅ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
-vendorServices | ✅ | ✅ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
-diagnostics | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
-elements | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
-ui | ✅ | ✅ | ❌ | ✅ | ✅ | ❌ | ❌ | ✅ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
-io | ✅ | ❌ | ✅ | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌
-core | ✅ | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌
-subscriptions | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌
-stores | ✅ | ❌ | ✅ | ❌ | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | n/a | ❌ | ❌
-window | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ | ❌ | ❌ | ✅ | ✅ | ❌ | ❌ | ❌ | n/a | ❌
-config | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ | ✅ | ❌ | n/a
-
-### Deglobalising window with io and ui
-
-Possibly the biggest reason for this is window. window is a global [God object](https://en.wikipedia.org/wiki/God_object) that makes it too easy to misplace responsibilities. For example, this makes the fetch API available globally, making to easy to make an API request from a React component.
-
-The __io__ module was introduced to wrap window and expose only the io operations required by this application. So in this case io exposes fetch. Now, we can reason about the application like this - does it make sense for components to access io? The answer is obviously no, because we want to avoid components making API requests. The module responsible to carrying out such requests is services - so services may have access to io. Components may then trigger API requests indirectly through services.
-
-The __ui__ modules was introduced to wrap window and exposes only the low level presentation operations required by this application. The ui module wraps the window and exposes only the ui operations required by this application. Now, we can reason able the application like this - does it make sense for services to access ui?  The answer is obviously no. So we allow components to access ui, and we disallow access from services.
-
-### Detecting inappropriate access to window
-
-While these modules help to separate responsibilities, it still doesn't stop the window object from being global and making easy to circumvent this structure. This is not a problem we can solve directly.
-
-The solution here is to turn to detection rather than prevention. 
-
-In order to detect inappropriate access, window is not made globally available in the unit tests. This is possible because the unit tests run on Node.js instead of a browser environment. JSDOM is used to emulate a browser and create a window object, but the window object is not automatically made global. This means any code referencing the global window object or properties of it will fail. I was initially using jsdom-global to make the window object global until I realised I was mistakenly accessing global variables. 
-
-### Separation of Core from Services
-
-In order for the __Services__ module to be useful, it must perform side effects, e.g. updating application state, reading files, sending HTTP requests. In functional programming, these kinds of operations are said to be 'impure' and should be separated from 'pure' functions, which have no such side effects. (In practice the distinction between pure and impure functions is more nuanced than this.)
-
-The __Core__ module was introduced as a home for pure functions. Unlike Services, Core is disallowed access to Stores, IO, or any other module designed to perform side effects. With pure functions extracted, Services primarily orchestrate side effects while delegating to Core for pure application logic.
-
-Further reading:
-- [Pure function - Wikipedia](https://en.wikipedia.org/wiki/Pure_function)
-- [Functional Core, Imperative Shell - Gary Bernhardt](https://www.destroyallsoftware.com/screencasts/catalog/functional-core-imperative-shell)
-
-### Separation of Subscriptions from Stores
-
-__Stores__ enable retrieval and updating of state, and the ability to subscribe to state change events. In our layered architecture, the domain layer depends on the data layer, and so the __Services__ module may access Stores directly.
-
-The presentation layer however depends on the domain layer, and so the __Components__ module may _not_ access Stores directly. That's to say, the presentation layer should not be retrieving and updating state directly.
-
-The __Subscriptions__ module was introduced to allow Components to subscribe to state change events while preventing access to the underlying stores. The subscriptions module is generated from the Stores, only providing access to subscriptions.
 
 
 # State Management
