@@ -157,13 +157,9 @@ With the plethora of frontend architectural styles in use today, this applicatio
 <p align="center">
   <img src="readme-docs/architecture.svg?raw=true" />
   <br>
-  <em>Presentation-Domain-Data layered architecture<br>*Some modules have been omitted for brevity.</em>
+  <em>Presentation-Domain-Data layered architecture</em>
 </p>
 <br>
-
-<p align="right">
-✱ Some modules have been omitted for brevity.
-</p>
 
 Further reading:
 - [PresentationDomainDataLayering - Martin Fowler](https://martinfowler.com/bliki/PresentationDomainDataLayering.html)
@@ -278,14 +274,10 @@ This 'codified view' of the architecture has some interesting implications:
 <p align="center">
   <img src="readme-docs/modules.svg?raw=true" />
   <br>
-  <em>Generated dependency diagram using <a href="https://mermaid-js.github.io/mermaid">Mermaid</a><br>*Some modules have been omitted for brevity.<br>*I've not yet mastered the art of preventing lines from overlapping.</em>
+  <em>Generated dependency diagram using <a href="https://mermaid-js.github.io/mermaid">Mermaid</a></em>
 </p>
 <br>
 
-<p align="right">
-✱ Some modules have been omitted for brevity.<br>
-✱ I've not yet mastered the art of preventing lines from overlapping.
-</p>
 
 Modules | startup | components | services | styles | vendor<br>components | vendor<br>services | diagnostics | elements | ui | io | core | subscriptions | stores | window | config
 --- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---:
