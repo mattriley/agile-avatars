@@ -444,8 +444,6 @@ Provides _component factory functions_. A component is simply a HTML element tha
 - core diagnostics io startup stores styles window
 ```
 
-<p align="center"><em>Collaborators</em></p>
-
 __Example: tagName component__
 
 tagName renders the tag name for a given _tag instance_. A _tag_ is composed of an image, a name, and a role. Multiple _instances_ of a tag may be rendered at a time depending on the numbers specified in the _active_ and _passive_ fields.
@@ -535,8 +533,6 @@ Provides _static application config_ as a plain JavaScript object, including def
 + 
 - components core diagnostics elements io services startup stores styles subscriptions ui vendorComponents vendorServices window
 ```
-
-<p align="center"><em>Collaborators</em></p>
 
 __Source: config module__
 
@@ -646,8 +642,6 @@ Provides _pure domain functions_. The name "core" comes from [Functional Core, I
 - components diagnostics elements io services startup stores styles subscriptions ui vendorComponents vendorServices window
 ```
 
-<p align="center"><em>Collaborators</em></p>
-
 The __Core__ module was introduced as a home for pure functions. Unlike Services, Core is disallowed access to Stores, IO, or any other module designed to perform side effects. With pure functions extracted, Services primarily orchestrate side effects while delegating to Core for pure application logic.
 
 __Example: parseEmailExpression function__
@@ -704,8 +698,6 @@ Provides _diagnostic functions_ such as the ability to dump state to the console
 + stores
 - components config core elements io services startup styles subscriptions ui vendorComponents vendorServices window
 ```
-
-<p align="center"><em>Collaborators</em></p>
 ## elements
 
 
@@ -715,8 +707,6 @@ Provides _element factory functions_. An element is simply a HTML element that r
 + ui
 - components config core diagnostics io services startup stores styles subscriptions vendorComponents vendorServices window
 ```
-
-<p align="center"><em>Collaborators</em></p>
 
 __Example: editableSpan element__
 
@@ -765,8 +755,6 @@ Provides _IO functions_ while preventing direct access to window. IO functions a
 - components config core diagnostics elements services startup stores styles subscriptions ui vendorComponents vendorServices
 ```
 
-<p align="center"><em>Collaborators</em></p>
-
 The __io__ module was introduced to wrap window and expose only the io operations required by this application. So in this case io exposes fetch. Now, we can reason about the application like this - does it make sense for components to access io? The answer is obviously no, because we want to avoid components making API requests. The module responsible to carrying out such requests is services - so services may have access to io. Components may then trigger API requests indirectly through services.
 
 __Source: io module__
@@ -806,8 +794,6 @@ Provides _service functions_. Service functions orchestrate the pure functions f
 + config core io stores subscriptions
 - components diagnostics elements startup styles ui vendorComponents vendorServices window
 ```
-
-<p align="center"><em>Collaborators</em></p>
 
 In order for the __Services__ module to be useful, it must perform side effects, e.g. updating application state, reading files, sending HTTP requests. In functional programming, these kinds of operations are said to be 'impure' and should be separated from 'pure' functions, which have no such side effects. (In practice the distinction between pure and impure functions is more nuanced than this.)
 
@@ -884,8 +870,6 @@ Provides _startup functions_ which are used at [launch](#launching) time.
 - window
 ```
 
-<p align="center"><em>Collaborators</em></p>
-
 __Example: startup function__
 
 
@@ -913,8 +897,6 @@ Provides the _state store implementation_. State stores manage state changes and
 + 
 - 
 ```
-
-<p align="center"><em>Collaborators</em></p>
 
 __Source: stateStore implementation__
 
@@ -1000,8 +982,6 @@ Provides the _state stores_. State stores manage state changes and raise change 
 - components core diagnostics elements io services startup styles subscriptions ui vendorComponents vendorServices window
 ```
 
-<p align="center"><em>Collaborators</em></p>
-
 See [State Management](#state-management) for more information.
 
 #### List of stores
@@ -1019,8 +999,6 @@ Provides _style factory functions_. A style is simply a HTML style element that 
 + config subscriptions ui
 - components core diagnostics elements io services startup stores vendorComponents vendorServices window
 ```
-
-<p align="center"><em>Collaborators</em></p>
 
 __Example: roleColor style__
 
@@ -1086,8 +1064,6 @@ Provides _subscription functions_. A subscription function enables a listener to
 - components config core diagnostics elements io services startup styles ui vendorComponents vendorServices window
 ```
 
-<p align="center"><em>Collaborators</em></p>
-
 The subscription functions are actually implemented in the state store. This module exposes only the subscriptions from the stores to prevent direct read/write access to the the stores. 
 
 __Stores__ enable retrieval and updating of state, and the ability to subscribe to state change events. In our layered architecture, the domain layer depends on the data layer, and so the __Services__ module may access Stores directly.
@@ -1121,8 +1097,6 @@ Provides _low-level presentation functions_ while preventing direct access to wi
 - components config core diagnostics elements io services startup stores styles subscriptions vendorComponents vendorServices
 ```
 
-<p align="center"><em>Collaborators</em></p>
-
 The __ui__ modules was introduced to wrap window and exposes only the low level presentation operations required by this application. The ui module wraps the window and exposes only the ui operations required by this application. Now, we can reason able the application like this - does it make sense for services to access ui?  The answer is obviously no. So we allow components to access ui, and we disallow access from services.
 
 Examples: appendToHead, el, event, refocus, toggleBoolClass
@@ -1144,8 +1118,6 @@ Provides _low-level utility functions_.
 - 
 ```
 
-<p align="center"><em>Collaborators</em></p>
-
 #### List of functions
 
 - debounce
@@ -1163,8 +1135,6 @@ Provides vendor (third party) components including gtag and vanilla-picker. Thes
 - components core diagnostics elements io services startup stores styles subscriptions vendorServices
 ```
 
-<p align="center"><em>Collaborators</em></p>
-
 #### List of components
 
 - gtagScript
@@ -1178,8 +1148,6 @@ Provides vendor (third party) services including gtag and sentry. These are sepa
 + config io window
 - components core diagnostics elements services startup stores styles subscriptions ui vendorComponents
 ```
-
-<p align="center"><em>Collaborators</em></p>
 
 __Example: gtag function__
 
