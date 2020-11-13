@@ -37,24 +37,13 @@ NOTE: WORK IN PROGRESS!
 - [Launching](#launching)
 - [Booting](#booting)
 - [Modules](#modules)
-  - [List of modules](#list-of-modules)
+- [List of Modules](#list-of-modules)
 - [State Management](#state-management)
-  - [Stores](#stores)
-  - [Subscriptions](#subscriptions)
 - [View Rendering](#view-rendering)
-  - [DOM API - document.createElement](#dom-api---documentcreateelement)
-  - [HTML strings - element.innerHTML](#html-strings---elementinnerhtml)
 - [Testing](#testing)
-  - [Approach](#approach)
 - [Dependencies](#dependencies)
-  - [Position](#position)
-  - [Constraints](#constraints)
-  - [List of production dependencies](#list-of-production-dependencies)
-  - [List of development dependencies](#list-of-development-dependencies)
 - [Functional Programming](#functional-programming)
 - [Conventions](#conventions)
-  - [Code](#code)
-  - [Documentation](#documentation)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -436,13 +425,14 @@ Because all relative files are loaded by index.js files, a simple search can be 
 ```
 </details>
 
-## List of modules
+
+# List of Modules
 
 Following is a complete list of modules in Agile Avatars.
 
 The diff-like block lists the collaborators in green and the non-collaborators in red.
 
-### ❖ components
+## components
 
 
 ```diff
@@ -487,6 +477,8 @@ module.exports = ({ elements, services, subscriptions }) => tagInstanceId => {
 
 #### List of components
 
+- app
+- dropzone
 - gravatar.actions.container
 - gravatar.actions.error
 - gravatar.actions.import
@@ -502,9 +494,11 @@ module.exports = ({ elements, services, subscriptions }) => tagInstanceId => {
 - imageUploadOptions.chooseImages
 - imageUploadOptions.container
 - imageUploadOptions.gravatar
+- modal
 - modals.gravatar
 - modals.tips
 - modals.welcome
+- optionsBar.container
 - optionsBar.elements.numberOption
 - optionsBar.elements.shapeOption
 - optionsBar.options.modes
@@ -513,27 +507,23 @@ module.exports = ({ elements, services, subscriptions }) => tagInstanceId => {
 - optionsBar.options.size
 - optionsBar.options.sort
 - optionsBar.options.spacing
-- optionsBar.container
+- roleList.container
 - roleList.roleCustomiser.container
 - roleList.roleCustomiser.masterRoleName
 - roleList.roleCustomiser.roleColorPicker
-- roleList.container
+- tagList.container
 - tagList.tag.components.roleName
 - tagList.tag.components.tagImage
 - tagList.tag.components.tagName
 - tagList.tag.container
-- tagList.container
 - tips.badges
 - tips.images
 - tips.laminating
 - tips.multiples
 - tips.naming
 - tips.roleShortcut
-- app
-- dropzone
-- modal
 
-### ❖ config
+## config
 
 
 ```diff
@@ -641,7 +631,7 @@ module.exports = () => () => {
 ```
 </details>
 
-### ❖ core
+## core
 
 
 ```diff
@@ -698,7 +688,7 @@ Further reading:
 - tags.sortTagInstancesByTagThenMode
 - tags.sortTagsByName
 - tags.sortTagsByRoleThenName
-### ❖ diagnostics
+## diagnostics
 
 
 ```diff
@@ -708,7 +698,7 @@ Further reading:
 
 Provides _diagnostic functions_ such as the ability to dump state to the console.
 
-### ❖ elements
+## elements
 
 
 ```diff
@@ -755,7 +745,7 @@ module.exports = ({ el, ui }) => className => {
 - layout
 - modal
 - number
-### ❖ io
+## io
 
 
 ```diff
@@ -795,7 +785,7 @@ See [Deglobalising window](#deglobalising-window) for more information.
 - fetch
 - fileReader
 - random
-### ❖ services
+## services
 
 
 ```diff
@@ -870,7 +860,7 @@ module.exports = ({ core, services, stores }) => (tagInstanceId, expression) => 
 - tags.setupRolePropagation
 - tags.setupTagPropagation
 - tags.sortTagInstances
-### ❖ startup
+## startup
 
 
 ```diff
@@ -898,7 +888,7 @@ module.exports = ({ startup, components }) => render => {
 ```
 </details>
 
-### ❖ storage
+## storage
 
 
 ```diff
@@ -982,7 +972,7 @@ module.exports = (defaults = {}) => {
 
 See [State Management](#state-management) for more information.
 
-### ❖ stores
+## stores
 
 
 ```diff
@@ -1002,7 +992,7 @@ See [State Management](#state-management) for more information.
 - settings
 - tagInstances
 - tags
-### ❖ styles
+## styles
 
 
 ```diff
@@ -1066,7 +1056,7 @@ module.exports = ({ styles, subscriptions, ui, util }) => () => {
 - tagSize
 - tagSpacing
 - vanillaPicker
-### ❖ subscriptions
+## subscriptions
 
 
 ```diff
@@ -1099,7 +1089,7 @@ module.exports = ({ stores, util }) => () => {
 ```
 </details>
 
-### ❖ ui
+## ui
 
 
 ```diff
@@ -1120,7 +1110,7 @@ Examples: appendToHead, el, event, refocus, toggleBoolClass
 - event
 - refocus
 - toggleBoolClass
-### ❖ util
+## util
 
 
 ```diff
@@ -1137,7 +1127,7 @@ Provides _low-level utility functions_.
 - pipe
 - splitAt
 - upperFirst
-### ❖ vendor-components
+## vendor-components
 
 
 ```diff
@@ -1151,7 +1141,7 @@ Provides vendor (third party) components including gtag and vanilla-picker. Thes
 
 - gtagScript
 - vanillaPicker
-### ❖ vendor-services
+## vendor-services
 
 
 ```diff
@@ -1200,7 +1190,6 @@ module.exports = ({ config, io, window }) => {
 
 - gtag
 - sentry
-
 
 # State Management
 
