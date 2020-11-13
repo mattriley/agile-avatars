@@ -4,7 +4,7 @@ module.exports = ({ test, boot, helpers }) => {
         const { components, services } = boot();
         
         const roleId = services.roles.insertRole({ roleName: 'foo' });        
-        const $roleCustomiser = components.roleList.roleCustomiser(roleId);
+        const $roleCustomiser = components.roleList.roleCustomiser.container(roleId);
         
         services.tags.insertTag({ roleId });
 
@@ -25,9 +25,9 @@ module.exports = ({ test, boot, helpers }) => {
         const { components, services } = boot();
         
         const roleId = services.roles.insertRole({ roleName: 'foo' });   
-        const $roleCustomiser = components.roleList.roleCustomiser(roleId);
+        const $roleCustomiser = components.roleList.roleCustomiser.container(roleId);
         
-        const $tagList = components.tagList();
+        const $tagList = components.tagList.container();
         services.tags.insertTag({ roleId });
 
         const $colorPickerTrigger = $roleCustomiser.querySelector('.color-picker');

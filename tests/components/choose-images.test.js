@@ -2,7 +2,7 @@ module.exports = ({ test, boot, window, helpers }) => {
 
     test('multiple images chosen', t => {
         const { components } = boot();
-        const $tagList = components.tagList();
+        const $tagList = components.tagList.container();
         const $chooseImages = components.imageUploadOptions.chooseImages().querySelector('a');
         
         const files = [

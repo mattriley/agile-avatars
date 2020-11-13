@@ -1,5 +1,5 @@
 module.exports = {
-    content: require('./content'),
+    container: require('./container'),
     fallback: require('./fallback'),
     fallbacks: require('./fallbacks'),
     freetext: require('./freetext')

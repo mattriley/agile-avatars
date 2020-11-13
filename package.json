@@ -7,7 +7,7 @@
     "dependencies": {
         "@sentry/browser": "^5.27.0",
         "blueimp-md5": "^2.18.0",
-        "module-composer": "^0.4.8",
+        "module-composer": "^0.5.1",
         "vanilla-picker": "github:mattriley/vanilla-picker"
     },
     "devDependencies": {

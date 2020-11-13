@@ -3,7 +3,7 @@ module.exports = ({ test, boot, helpers }) => {
     const setup = () => {
         const { services, components } = boot();
         const $sortOptions = components.optionsBar.options.sort().querySelector('select');
-        const $tagList = components.tagList();
+        const $tagList = components.tagList.container();
 
         const changeSortOption = value => {
             $sortOptions.value = value;

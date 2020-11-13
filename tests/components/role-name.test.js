@@ -2,9 +2,9 @@ module.exports = ({ test, boot, helpers }) => {
 
     test('role customiser name change propagates to tags', t => {
         const { components, services } = boot();
-        const $tagList = components.tagList();
+        const $tagList = components.tagList.container();
         const roleId = services.roles.insertRole({ roleName: 'foo' });
-        const $roleCustomiser = components.roleList.roleCustomiser(roleId);
+        const $roleCustomiser = components.roleList.roleCustomiser.container(roleId);
         const $roleName = $roleCustomiser.querySelector('.role-name');
 
         services.tags.insertTag({ roleId });
@@ -20,7 +20,7 @@ module.exports = ({ test, boot, helpers }) => {
 
     test('tag role name changes', t => {
         const { components, services } = boot();
-        const $tagList = components.tagList();
+        const $tagList = components.tagList.container();
         services.tags.insertTag({ roleName: 'foo' });
         const [tag1] = helpers.getTags($tagList);
         t.equal(tag1.getRoleName(), 'FOO');        
@@ -31,7 +31,7 @@ module.exports = ({ test, boot, helpers }) => {
 
     test('new role inserted at end of list', t => {
         const { components, services } = boot();
-        const $roleList = components.roleList();
+        const $roleList = components.roleList.container();
         services.roles.insertRole({ roleName: 'foo' });
         services.roles.insertRole({ roleName: 'bar' });
         const [role1, role2] = helpers.getRoles($roleList);
@@ -43,7 +43,7 @@ module.exports = ({ test, boot, helpers }) => {
     test('nil role is hidden', t => {
         const { components, services } = boot();
         const nilRoleId = services.roles.getNilRoleId();
-        const $roleCustomiser = components.roleList.roleCustomiser(nilRoleId);
+        const $roleCustomiser = components.roleList.roleCustomiser.container(nilRoleId);
         t.ok($roleCustomiser.hidden);
         
     });
@@ -51,7 +51,7 @@ module.exports = ({ test, boot, helpers }) => {
     test('non-nil role is visible', async t => {
         const { components, services } = boot();
         const roleId = await services.roles.insertRole({ roleName: 'foo' });
-        const $roleCustomiser = components.roleList.roleCustomiser(roleId);
+        const $roleCustomiser = components.roleList.roleCustomiser.container(roleId);
         t.notOk($roleCustomiser.hidden);
         
     });

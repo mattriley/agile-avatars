@@ -13,7 +13,7 @@ module.exports = ({ test, boot, window, helpers }) => {
             }
         });
         const $spacingInput = components.optionsBar.options.spacing().querySelector('input');
-        const $tagList = components.tagList();
+        const $tagList = components.tagList.container();
         return { $tagList, $spacingInput };
     };
 

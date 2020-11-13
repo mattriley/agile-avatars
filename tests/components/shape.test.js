@@ -16,7 +16,7 @@ module.exports = ({ test, boot, helpers }) => {
     const shapeTestCase = (t, shapeName) => {
         const { components, services, config } = boot();
         const $shape = components.optionsBar.elements.shapeOption(shapeName);   
-        const $tagList = components.tagList();
+        const $tagList = components.tagList.container();
         services.tags.insertTag(); 
         helpers.dispatchKeydown($shape, 'Enter'); 
         const [tag1] = helpers.getTags($tagList);

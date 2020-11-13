@@ -1,4 +1,4 @@
-module.exports = ({ window }) => {
+module.exports = ({ window }) => () => {
 
     return {
         date: () => new window.Date(),

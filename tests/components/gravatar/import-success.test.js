@@ -15,7 +15,7 @@ module.exports = ({ test, setup }) => {
         const $gravatarModal = components.modals.gravatar();
         const $freetextField = $gravatarModal.querySelector('.freetext');
         const $importButton = $gravatarModal.querySelector('.import');
-        const $tagList = components.tagList();
+        const $tagList = components.tagList.container();
 
         const assertGravatarModalVisible = helpers.assertBoolClass(t, $gravatarModal, 'visible'); 
         

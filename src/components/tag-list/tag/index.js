@@ -1,4 +1,4 @@
 module.exports = {
     components: require('./components'),
-    tag: require('./tag')
+    container: require('./container')
 };

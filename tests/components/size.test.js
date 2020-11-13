@@ -13,7 +13,7 @@ module.exports = ({ test, boot, window, helpers }) => {
             }
         });
         const $sizeInput = components.optionsBar.options.size().querySelector('input');
-        const $tagList = components.tagList();
+        const $tagList = components.tagList.container();
         services.tags.insertTag();
         return { $tagList, $sizeInput, config };
     };

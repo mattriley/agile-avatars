@@ -1,5 +1,5 @@
 module.exports = {
-    actions: require('./actions'),
+    container: require('./container'),
     error: require('./error'),
     import: require('./import'),
     loading: require('./loading')

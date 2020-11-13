@@ -5,7 +5,7 @@ module.exports = ({ el, tagList, services, subscriptions, ui, util, config }) =>
     const $tags = el('div', 'tag-list');
     
     subscriptions.tagInstances.onInsert(tagInstanceId => {
-        const $tag = tagList.tag(tagInstanceId);
+        const $tag = tagList.tag.container(tagInstanceId);
         $$tags.set(tagInstanceId, $tag);
         $tags.append($tag);        
         delayedSort();

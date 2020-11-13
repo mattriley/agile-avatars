@@ -18,7 +18,7 @@ module.exports = ({ test, boot, helpers }) => {
 
         const subject = components.optionsBar.elements.numberOption(mode);
         const $input = subject.querySelector('input');
-        const $tagList = components.tagList();        
+        const $tagList = components.tagList.container();        
             
         services.tags.insertTag();  
 

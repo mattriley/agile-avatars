@@ -13,7 +13,7 @@ module.exports = ({ test, boot, helpers }) => {
             } 
         });
         const $checkbox = components.optionsBar.options.outline().querySelector('input');
-        const $tagList = components.tagList();
+        const $tagList = components.tagList.container();
         services.tags.insertTag();
         return { $tagList, $checkbox, helpers };
     };

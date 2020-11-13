@@ -3,7 +3,7 @@ module.exports = ({ el, roleList, subscriptions, ui }) => () => {
     const $roleList = el('div', 'role-list visible-false');
 
     subscriptions.roles.onInsert(roleId => {
-        const $role = roleList.roleCustomiser(roleId);
+        const $role = roleList.roleCustomiser.container(roleId);
         $roleList.append($role);
     });
 

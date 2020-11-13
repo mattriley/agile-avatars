@@ -1,4 +1,4 @@
-module.exports = ({ storage, config }) => {
+module.exports = ({ storage, config }) => () => {
 
     return config.storage.stores.reduce((acc, name) => {
         const defaults = config.storage.defaults[name];

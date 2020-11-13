@@ -20,7 +20,7 @@ const setup = () => {
         const defaultConfig = { debounce: { adjustTagInstanceCounts: 0, sortTagList: 0 } };
         const config = Object.assign(defaultConfig, args.config);
         const app = bootOrig({ window, ...args, config });
-        app.startup();
+        app.startup.start();
         return app;
     };
 

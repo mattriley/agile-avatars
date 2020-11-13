@@ -5,14 +5,14 @@ module.exports = ({ el, ui, components, vendorComponents, subscriptions }) => ()
     const $container = el('div', 'app').append(
         vendorComponents.gtagScript(),
         el('div', 'modals').append(...$$modals),
-        components.header(), 
+        components.header.container(), 
         components.dropzone().append(
             el('div', 'control-panel').append(
-                components.imageUploadOptions(),
-                components.roleList(),
-                components.optionsBar()
+                components.imageUploadOptions.container(),
+                components.roleList.container(),
+                components.optionsBar.container()
             ),
-            components.tagList()
+            components.tagList.container()
         )
     );
 

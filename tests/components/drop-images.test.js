@@ -2,7 +2,7 @@ module.exports = ({ test, boot, window, helpers }) => {
     
     test('multiple images dropped', async t => {
         const { components } = boot();
-        const $tagList = components.tagList();
+        const $tagList = components.tagList.container();
         const $dropzone = components.dropzone();
 
         const files = [
