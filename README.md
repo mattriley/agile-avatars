@@ -1680,9 +1680,11 @@ The following sections lists all dependencies, including:
 - Description of what the dependency is used for.
 - Clarifying comments against the constraints listed above.
   
-## List of production dependencies
 
-### ❖ @sentry/browser
+
+## List of Production Dependencies
+
+## @sentry/browser
 
 > Official Sentry SDK for browsers
 
@@ -1696,7 +1698,7 @@ Integration with [Sentry](https://sentry.io/) for monitoring and alerting.
 
 
 
-### ❖ blueimp-md5
+## blueimp-md5
 
 > JavaScript MD5 implementation. Compatible with server-side environments like Node.js, module loaders like RequireJS, Browserify or webpack and all web browsers.
 
@@ -1720,7 +1722,7 @@ According to [this issue](https://github.com/blueimp/JavaScript-MD5/issues/26), 
 
 
 
-### ❖ module-composer
+## module-composer
 
 > Module composition utility
 
@@ -1738,7 +1740,7 @@ This library was extracted from Agile Avatars.
 
 
 
-### ❖ vanilla-picker
+## vanilla-picker
 
 > A simple, easy to use vanilla JS color picker with alpha selection.
 
@@ -1753,9 +1755,9 @@ Presenting a color picker to change the color of a role.
 
 
 
-## List of development dependencies
+## List of Development Dependencies
 
-### ❖ agileavatars-docgen
+## agileavatars-docgen
 
 > undefined
 
@@ -1767,7 +1769,7 @@ Presenting a color picker to change the color of a role.
 
 
 
-### ❖ c8
+## c8
 
 > output coverage reports using Node.js' built in coverage
 
@@ -1785,7 +1787,7 @@ Code coverage
 - __nyc__\
 nyc was originally used for code coverage and was fine however c8 was chosen for leveraging [native coverage](https://nodejs.org/dist/latest-v10.x/docs/api/cli.html#cli_node_v8_coverage_dir) in recent versions of Node and V8
 
-### ❖ chokidar-cli
+## chokidar-cli
 
 > Ultra-fast cross-platform command line utility to watch file system changes.
 
@@ -1799,7 +1801,7 @@ Running tests automatically on file change.
 
 
 
-### ❖ eslint
+## eslint
 
 > An AST-based pattern checker for JavaScript.
 
@@ -1817,7 +1819,7 @@ Linting and code formatting.
 - __prettier__\
 Prettier was originally used for code formatting but was dropped due to limited configurability.
 
-### ❖ husky
+## husky
 
 > Prevents bad commit or push (git hooks, pre-commit/precommit, pre-push/prepush, post-merge/postmerge and all that stuff...)
 
@@ -1831,7 +1833,7 @@ Running pre-commit validation scripts.
 
 
 
-### ❖ jsdom
+## jsdom
 
 > A JavaScript implementation of many web standards
 
@@ -1849,7 +1851,7 @@ There does not seem to be any viable replacement for JSDOM. The fallback would b
 
 
 
-### ❖ module-indexgen
+## module-indexgen
 
 > Generates index.js files
 
@@ -1867,7 +1869,7 @@ This library was extracted from Agile Avatars.
 
 
 
-### ❖ parcel-bundler
+## parcel-bundler
 
 > Blazing fast, zero configuration web application bundler
 
@@ -1888,7 +1890,7 @@ Designed to be easier to use than webpack.
 
 
 
-### ❖ tap-mocha-reporter
+## tap-mocha-reporter
 
 > Format a TAP stream using Mocha's set of reporters
 
@@ -1902,7 +1904,7 @@ Formatting test output. Supports indented TAP output.
 
 
 
-### ❖ zora
+## zora
 
 > tap test harness for nodejs and browsers
 
@@ -1919,7 +1921,6 @@ Lightweight test harness optimised for speed and simplicity.
 
 - __tape__\
 tape was originally used however zora is newer and has some advantages over tape.
-
 
 
 # Functional Programming
