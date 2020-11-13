@@ -487,51 +487,7 @@ module.exports = ({ elements, services, subscriptions }) => tagInstanceId => {
 
 #### List of components
 
-- app
-- dropzone
-- gravatar.actions.container
-- gravatar.actions.error
-- gravatar.actions.import
-- gravatar.actions.loading
-- gravatar.content.container
-- gravatar.content.fallback
-- gravatar.content.fallbacks
-- gravatar.content.freetext
-- gravatar.title
-- header.container
-- header.navBar
-- header.titleBar
-- imageUploadOptions.chooseImages
-- imageUploadOptions.container
-- imageUploadOptions.gravatar
-- modal
-- modals.gravatar
-- modals.tips
-- modals.welcome
-- optionsBar.container
-- optionsBar.elements.numberOption
-- optionsBar.elements.shapeOption
-- optionsBar.options.modes
-- optionsBar.options.outline
-- optionsBar.options.shapes
-- optionsBar.options.size
-- optionsBar.options.sort
-- optionsBar.options.spacing
-- roleList.container
-- roleList.roleCustomiser.container
-- roleList.roleCustomiser.masterRoleName
-- roleList.roleCustomiser.roleColorPicker
-- tagList.container
-- tagList.tag.components.roleName
-- tagList.tag.components.tagImage
-- tagList.tag.components.tagName
-- tagList.tag.container
-- tips.badges
-- tips.images
-- tips.laminating
-- tips.multiples
-- tips.naming
-- tips.roleShortcut
+`app` `dropzone` `gravatar.actions.container` `gravatar.actions.error` `gravatar.actions.import` `gravatar.actions.loading` `gravatar.content.container` `gravatar.content.fallback` `gravatar.content.fallbacks` `gravatar.content.freetext` `gravatar.title` `header.container` `header.navBar` `header.titleBar` `imageUploadOptions.chooseImages` `imageUploadOptions.container` `imageUploadOptions.gravatar` `modal` `modals.gravatar` `modals.tips` `modals.welcome` `optionsBar.container` `optionsBar.elements.numberOption` `optionsBar.elements.shapeOption` `optionsBar.options.modes` `optionsBar.options.outline` `optionsBar.options.shapes` `optionsBar.options.size` `optionsBar.options.sort` `optionsBar.options.spacing` `roleList.container` `roleList.roleCustomiser.container` `roleList.roleCustomiser.masterRoleName` `roleList.roleCustomiser.roleColorPicker` `tagList.container` `tagList.tag.components.roleName` `tagList.tag.components.tagImage` `tagList.tag.components.tagName` `tagList.tag.container` `tips.badges` `tips.images` `tips.laminating` `tips.multiples` `tips.naming` `tips.roleShortcut`
 
 ### ❖ config
 
