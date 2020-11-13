@@ -42,6 +42,8 @@ NOTE: WORK IN PROGRESS!
 - [View Rendering](#view-rendering)
 - [Testing](#testing)
 - [Dependencies](#dependencies)
+- [List of Production Dependencies](#list-of-production-dependencies)
+- [List of Development Dependencies](#list-of-development-dependencies)
 - [Functional Programming](#functional-programming)
 - [Conventions](#conventions)
 
@@ -1682,7 +1684,7 @@ The following sections lists all dependencies, including:
   
 
 
-## List of Production Dependencies
+# List of Production Dependencies
 
 ## @sentry/browser
 
@@ -1755,7 +1757,7 @@ Presenting a color picker to change the color of a role.
 
 
 
-## List of Development Dependencies
+# List of Development Dependencies
 
 ## agileavatars-docgen
 
