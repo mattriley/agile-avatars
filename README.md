@@ -485,51 +485,31 @@ module.exports = ({ elements, services, subscriptions }) => tagInstanceId => {
 
 #### List of components
 
-- app
-- dropzone
-- gravatar.actions.container
-- gravatar.actions.error
-- gravatar.actions.import
-- gravatar.actions.loading
-- gravatar.content.container
-- gravatar.content.fallback
-- gravatar.content.fallbacks
-- gravatar.content.freetext
-- gravatar.title
-- header.container
-- header.navBar
-- header.titleBar
-- imageUploadOptions.chooseImages
-- imageUploadOptions.container
-- imageUploadOptions.gravatar
-- modal
-- modals.gravatar
-- modals.tips
-- modals.welcome
-- optionsBar.container
-- optionsBar.numberOption
-- optionsBar.options.modes
-- optionsBar.options.outline
-- optionsBar.options.shapes
-- optionsBar.options.size
-- optionsBar.options.sort
-- optionsBar.options.spacing
-- optionsBar.shapeOption
-- roleList.container
-- roleList.roleCustomiser.container
-- roleList.roleCustomiser.masterRoleName
-- roleList.roleCustomiser.roleColorPicker
-- tagList.container
-- tagList.tag.components.roleName
-- tagList.tag.components.tagImage
-- tagList.tag.components.tagName
-- tagList.tag.container
-- tips.badges
-- tips.images
-- tips.laminating
-- tips.multiples
-- tips.naming
-- tips.roleShortcut
+```
+app                                               optionsBar.options.modes                          
+dropzone                                          optionsBar.options.outline                        
+gravatar.actions.container                        optionsBar.options.shapes                         
+gravatar.actions.error                            optionsBar.options.size                           
+gravatar.actions.import                           optionsBar.options.sort                           
+gravatar.actions.loading                          optionsBar.options.spacing                        
+gravatar.content.container                        optionsBar.shapeOption                            
+gravatar.content.fallback                         roleList.container                                
+gravatar.content.fallbacks                        roleList.roleCustomiser.container                 
+gravatar.content.freetext                         roleList.roleCustomiser.masterRoleName            
+gravatar.title                                    roleList.roleCustomiser.roleColorPicker           
+header.container                                  tagList.container                                 
+header.navBar                                     tagList.tag.components.roleName                   
+header.titleBar                                   tagList.tag.components.tagImage                   
+imageUploadOptions.chooseImages                   tagList.tag.components.tagName                    
+imageUploadOptions.container                      tagList.tag.container                             
+imageUploadOptions.gravatar                       tips.badges                                       
+modal                                             tips.images                                       
+modals.gravatar                                   tips.laminating                                   
+modals.tips                                       tips.multiples                                    
+modals.welcome                                    tips.naming                                       
+optionsBar.container                              tips.roleShortcut                                 
+optionsBar.numberOption                           
+```
 
 ## config
 
@@ -685,21 +665,16 @@ module.exports = ({ util }) => expression => {
 
 #### List of core functions
 
-- gravatar.buildImageUrl
-- gravatar.buildProfileUrl
-- gravatar.getNameFromProfile
-- gravatar.hashEmail
-- roles.assignColor
-- roles.buildRole
-- roles.randomColor
-- tags.buildTag
-- tags.parseEmailExpression
-- tags.parseFileExpression
-- tags.parseTagExpression
-- tags.planTagInstanceAdjustment
-- tags.sortTagInstancesByTagThenMode
-- tags.sortTagsByName
-- tags.sortTagsByRoleThenName
+```
+gravatar.buildImageUrl                            tags.parseEmailExpression                         
+gravatar.buildProfileUrl                          tags.parseFileExpression                          
+gravatar.getNameFromProfile                       tags.parseTagExpression                           
+gravatar.hashEmail                                tags.planTagInstanceAdjustment                    
+roles.assignColor                                 tags.sortTagInstancesByTagThenMode                
+roles.buildRole                                   tags.sortTagsByName                               
+roles.randomColor                                 tags.sortTagsByRoleThenName                       
+tags.buildTag                                     
+```
 
 #### Further reading
 
@@ -720,7 +695,9 @@ Provides _diagnostic functions_ such as the ability to dump state to the console
 
 #### List of diagnostic functions
 
-- dumpState
+```
+dumpState                                         
+```
 
 ## elements
 
@@ -768,12 +745,11 @@ module.exports = ({ el, ui }) => className => {
 
 #### List of elements
 
-- dropzone
-- editableSpan
-- label
-- layout
-- modal
-- number
+```
+dropzone                                          layout                                            
+editableSpan                                      modal                                             
+label                                             number                                            
+```
 
 ## io
 
@@ -811,10 +787,10 @@ module.exports = ({ window }) => () => {
 
 #### List of io functions
 
-- date
-- fetch
-- fileReader
-- random
+```
+date                                              fileReader                                        
+fetch                                             random                                            
+```
 
 ## services
 
@@ -855,44 +831,27 @@ module.exports = ({ core, services, stores }) => (tagInstanceId, expression) => 
 
 #### List of service functions
 
-- gravatar.changeFallback
-- gravatar.changeFreetext
-- gravatar.fetchImageAsync
-- gravatar.fetchProfileAsync
-- gravatar.status.is.error
-- gravatar.status.is.ready
-- gravatar.status.is.working
-- gravatar.status.to.error
-- gravatar.status.to.ready
-- gravatar.status.to.working
-- roles.changeRoleColor
-- roles.changeRoleName
-- roles.findOrInsertRoleWithName
-- roles.getNilRoleId
-- roles.getRole
-- roles.insertRole
-- roles.isNilRole
-- roles.setupRolePropagation
-- settings.changeModal
-- settings.changeOption
-- settings.clearModal
-- settings.getGravatar
-- tags.adjustTagInstanceCounts
-- tags.attachImageAsync
-- tags.buildTagInstance
-- tags.changeTagName
-- tags.changeTagRole
-- tags.getTagInstance
-- tags.insertFileAsync
-- tags.insertFileBatchAsync
-- tags.insertGravatarAsync
-- tags.insertGravatarBatchAsync
-- tags.insertTag
-- tags.insertTagInstance
-- tags.removeTagInstance
-- tags.setupRolePropagation
-- tags.setupTagPropagation
-- tags.sortTagInstances
+```
+gravatar.changeFallback                           settings.changeOption                             
+gravatar.changeFreetext                           settings.clearModal                               
+gravatar.fetchImageAsync                          settings.getGravatar                              
+gravatar.fetchProfileAsync                        tags.adjustTagInstanceCounts                      
+gravatar.status.is.error                          tags.attachImageAsync                             
+gravatar.status.is.ready                          tags.buildTagInstance                             
+gravatar.status.is.working                        tags.changeTagName                                
+gravatar.status.to.error                          tags.changeTagRole                                
+gravatar.status.to.ready                          tags.getTagInstance                               
+gravatar.status.to.working                        tags.insertFileAsync                              
+roles.changeRoleColor                             tags.insertFileBatchAsync                         
+roles.changeRoleName                              tags.insertGravatarAsync                          
+roles.findOrInsertRoleWithName                    tags.insertGravatarBatchAsync                     
+roles.getNilRoleId                                tags.insertTag                                    
+roles.getRole                                     tags.insertTagInstance                            
+roles.insertRole                                  tags.removeTagInstance                            
+roles.isNilRole                                   tags.setupRolePropagation                         
+roles.setupRolePropagation                        tags.setupTagPropagation                          
+settings.changeModal                              tags.sortTagInstances                             
+```
 
 ## startup
 
@@ -1047,10 +1006,10 @@ module.exports = ({ storage, config }) => () => {
 
 #### List of stores
 
-- roles
-- settings
-- tagInstances
-- tags
+```
+roles                                             tagInstances                                      
+settings                                          tags                                              
+```
 
 ## styles
 
@@ -1109,13 +1068,12 @@ module.exports = ({ styles, subscriptions, ui, util }) => () => {
 
 #### List of styles
 
-- roleColor
-- tagImage
-- tagOutline
-- tagShape
-- tagSize
-- tagSpacing
-- vanillaPicker
+```
+roleColor                                         tagSize                                           
+tagImage                                          tagSpacing                                        
+tagOutline                                        vanillaPicker                                     
+tagShape                                          
+```
 
 ## subscriptions
 
@@ -1168,11 +1126,11 @@ Provides _low-level presentation functions_ while preventing direct access to wi
 
 #### List of ui functions
 
-- appendToHead
-- el
-- event
-- refocus
-- toggleBoolClass
+```
+appendToHead                                      refocus                                           
+el                                                toggleBoolClass                                   
+event                                             
+```
 
 ## util
 
@@ -1188,11 +1146,11 @@ Provides _low-level utility functions_.
 
 #### List of utility functions
 
-- debounce
-- mapValues
-- pipe
-- splitAt
-- upperFirst
+```
+debounce                                          splitAt                                           
+mapValues                                         upperFirst                                        
+pipe                                              
+```
 
 ## vendor-components
 
@@ -1208,8 +1166,9 @@ Provides vendor (third party) components including gtag and vanilla-picker. Thes
 
 #### List of vendor components
 
-- gtagScript
-- vanillaPicker
+```
+gtagScript                                        vanillaPicker                                     
+```
 
 ## vendor-services
 
@@ -1260,8 +1219,9 @@ module.exports = ({ config, io, window }) => {
 
 #### List of vendor services
 
-- gtag
-- sentry
+```
+gtag                                              sentry                                            
+```
 
 
 # State Management
