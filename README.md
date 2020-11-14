@@ -439,7 +439,7 @@ The diff-like block lists the collaborators in green and the non-collaborators i
 
 Provides _component factory functions_. A component is a HTML element that relies on closures to react to user interaction and state changes by updating the DOM or invoking services for any non-presentation concerns.
 
-### Collaborators
+#### Collaborators
 
 ```diff
 + config elements services subscriptions ui vendorComponents vendorServices
@@ -449,7 +449,7 @@ Provides _component factory functions_. A component is a HTML element that relie
 - No access to _stores_ or _io_. Effects are serviced by the _services_ module.
 - No access to _window_. Low-level presentation concerns are serviced by the _ui_ module.
 
-### Example: tagName
+#### Example: tagName
 
 tagName renders the tag name for a given _tag instance_. A _tag_ is composed of an image, a name, and a role. Multiple _instances_ of a tag may be rendered at a time depending on the numbers specified in the _active_ and _passive_ fields.
 
@@ -481,7 +481,7 @@ module.exports = ({ elements, services, subscriptions }) => tagInstanceId => {
 ```
 </details>
 
-### List of components
+#### List of components
 
 - app
 - dropzone
@@ -534,7 +534,7 @@ module.exports = ({ elements, services, subscriptions }) => tagInstanceId => {
 
 Provides _static application config_ as a plain JavaScript object, including default state used to initialise the state stores. Config is loaded at [boot](#booting) time.
 
-### Collaborators
+#### Collaborators
 
 ```diff
 + 
@@ -543,12 +543,12 @@ Provides _static application config_ as a plain JavaScript object, including def
 
 - No collaborators required.
 
-### Source
+#### Source
 
-_config_ is currently a single-file module:
+_config_ is a single-file module:
 
 
-<details >
+<details open>
 <summary>src/config/config.js</summary>
 
 ```js
@@ -648,7 +648,7 @@ module.exports = () => () => {
 
 Provides _pure functions_ to be consumed by the _services_ module. Without core, services would be interlaced with pure and impure functions, making them harder to test and reason about.
 
-### Collaborators
+#### Collaborators
 
 ```diff
 + config
@@ -657,7 +657,7 @@ Provides _pure functions_ to be consumed by the _services_ module. Without core,
 
 - No access to modules that produce side effects.
 
-### Example: parseEmailExpression
+#### Example: parseEmailExpression
 
 parseEmailExpression is a pure function. Amongst other properties of pure functions, its return value is the same for the same arguments, and its evaluation has no side effects.
 
@@ -681,7 +681,7 @@ module.exports = ({ util }) => expression => {
 ```
 </details>
 
-### List of core functions
+#### List of core functions
 
 - gravatar.buildImageUrl
 - gravatar.buildProfileUrl
@@ -699,7 +699,7 @@ module.exports = ({ util }) => expression => {
 - tags.sortTagsByName
 - tags.sortTagsByRoleThenName
 
-### Further reading
+#### Further reading
 
 - [Pure function - Wikipedia](https://en.wikipedia.org/wiki/Pure_function)
 - [Functional Core, Imperative Shell - Gary Bernhardt](https://www.destroyallsoftware.com/screencasts/catalog/functional-core-imperative-shell)
@@ -709,14 +709,14 @@ module.exports = ({ util }) => expression => {
 
 Provides _diagnostic functions_ such as the ability to dump state to the console.
 
-### Collaborators
+#### Collaborators
 
 ```diff
 + stores
 - components config core elements io services startup styles subscriptions ui vendorComponents vendorServices window
 ```
 
-### List of diagnostic functions
+#### List of diagnostic functions
 
 - dumpState
 
@@ -725,7 +725,7 @@ Provides _diagnostic functions_ such as the ability to dump state to the console
 
 Provides _element factory functions_. An element is a HTML element that relies on closures to react to user interaction by updating the element or raising events for components. Unlike components, they cannot react to state changes or invoke services. Elements are lower level and may be reused by multiple components.
 
-### Collaborators
+#### Collaborators
 
 ```diff
 + ui
@@ -735,7 +735,7 @@ Provides _element factory functions_. An element is a HTML element that relies o
 - No access to _stores_ or _io_. Effects are serviced by raising events to be handled by _components_.
 - No access to _window_. Low-level presentation concerns are serviced by the _ui_ module.
 
-### Example: editableSpan
+#### Example: editableSpan
 
 
 <details open>
@@ -764,7 +764,7 @@ module.exports = ({ el, ui }) => className => {
 ```
 </details>
 
-### List of elements
+#### List of elements
 
 - dropzone
 - editableSpan
@@ -778,16 +778,16 @@ module.exports = ({ el, ui }) => className => {
 
 Provides _io functions_ while preventing direct access to _window_.
 
-### Collaborators
+#### Collaborators
 
 ```diff
 + window
 - components config core diagnostics elements services startup stores styles subscriptions ui vendorComponents vendorServices
 ```
 
-### Source
+#### Source
 
-_io_ is current a single-file module:
+_io_ is a single-file module:
 
 
 <details open>
@@ -807,7 +807,7 @@ module.exports = ({ window }) => () => {
 ```
 </details>
 
-### List of io functions
+#### List of io functions
 
 - date
 - fetch
@@ -819,7 +819,7 @@ module.exports = ({ window }) => () => {
 
 Provides _service functions_. Service functions perform effects by orchestrate the pure functions from _core_, the impure functions from _io_ (such as making HTTP requests), as well as updating state.
 
-### Collaborators
+#### Collaborators
 
 ```diff
 + config core io stores subscriptions
@@ -828,7 +828,7 @@ Provides _service functions_. Service functions perform effects by orchestrate t
 
 - No access to _window_. IO operations are serviced by the _io_ module.
 
-### Example: changeTagName
+#### Example: changeTagName
 
 
 <details open>
@@ -851,7 +851,7 @@ module.exports = ({ core, services, stores }) => (tagInstanceId, expression) => 
 ```
 </details>
 
-### List of service functions
+#### List of service functions
 
 - gravatar.changeFallback
 - gravatar.changeFreetext
@@ -897,7 +897,7 @@ module.exports = ({ core, services, stores }) => (tagInstanceId, expression) => 
 
 Provides _startup functions_ which are used at [launch](#launching) time.
 
-### Collaborators
+#### Collaborators
 
 ```diff
 + components config core diagnostics elements io services stores styles subscriptions ui vendorComponents vendorServices
@@ -906,7 +906,7 @@ Provides _startup functions_ which are used at [launch](#launching) time.
 
 - Largely unconstrained as only used during launch.
 
-### Example: start
+#### Example: start
 
 
 <details open>
@@ -929,16 +929,16 @@ module.exports = ({ startup, components }) => render => {
 
 Provides the _state store implementation_. State stores manage state changes and raise change events.
 
-### Collaborators
+#### Collaborators
 
 ```diff
 + 
 - 
 ```
 
-### Source
+#### Source
 
-_storage_ is currently a single-file module:
+_storage_ is a single-file module:
 
 
 <details >
@@ -1015,16 +1015,16 @@ module.exports = (defaults = {}) => {
 
 Provides the _state stores_. State stores manage state changes and raise change events. State stores are created at [boot](#booting) time as defined in config.
 
-### Collaborators
+#### Collaborators
 
 ```diff
 + config
 - components core diagnostics elements io services startup styles subscriptions ui vendorComponents vendorServices window
 ```
 
-### Source
+#### Source
 
-`stores` is currently a single-file module that creates stores dynamically from _config_:
+`stores` is a single-file module that creates stores dynamically from _config_:
 
 
 <details open>
@@ -1043,7 +1043,7 @@ module.exports = ({ storage, config }) => () => {
 ```
 </details>
 
-### List of stores
+#### List of stores
 
 - roles
 - settings
@@ -1055,14 +1055,14 @@ module.exports = ({ storage, config }) => () => {
 
 Provides _style factory functions_. A style is simply a HTML style element that relies on closures to react to state changes by updating the CSS content of the element. This enables dynamic styling. Styles are injected into the document head by _styleManager_ which is loaded on startup.
 
-### Collaborators
+#### Collaborators
 
 ```diff
 + config subscriptions ui
 - components core diagnostics elements io services startup stores vendorComponents vendorServices window
 ```
 
-### Example: roleColor
+#### Example: roleColor
 
 
 <details open>
@@ -1086,7 +1086,7 @@ module.exports = ({ el, subscriptions }) => roleId => {
 ```
 </details>
 
-### Example: styleManager
+#### Source: styleManager
 
 
 <details open>
@@ -1105,7 +1105,7 @@ module.exports = ({ styles, subscriptions, ui, util }) => () => {
 ```
 </details>
 
-### List of styles
+#### List of styles
 
 - roleColor
 - tagImage
@@ -1128,16 +1128,16 @@ The presentation layer however depends on the domain layer, and so the _componen
 
 The _subscriptions_ module was introduced to allow Components to subscribe to state change events while preventing access to the underlying stores. The subscriptions module is generated from the Stores, only providing access to subscriptions.
 
-### Collaborators
+#### Collaborators
 
 ```diff
 + stores
 - components config core diagnostics elements io services startup styles ui vendorComponents vendorServices window
 ```
 
-### Source
+#### Source
 
-_subscriptions_ is currently a single-file module that exposes only subscriptions from the stores:
+_subscriptions_ is a single-file module that exposes only subscriptions from the stores:
 
 
 <details open>
@@ -1157,7 +1157,7 @@ module.exports = ({ stores, util }) => () => {
 
 Provides _low-level presentation functions_ while preventing direct access to window.
 
-### Collaborators
+#### Collaborators
 
 ```diff
 + window
@@ -1177,14 +1177,14 @@ Provides _low-level presentation functions_ while preventing direct access to wi
 
 Provides _low-level utility functions_.
 
-### Collaborators
+#### Collaborators
 
 ```diff
 + 
 - 
 ```
 
-### List of utility functions
+#### List of utility functions
 
 - debounce
 - mapValues
@@ -1197,14 +1197,14 @@ Provides _low-level utility functions_.
 
 Provides vendor (third party) components including gtag and vanilla-picker. These are separated from the components module because they have different collaborators. The components module avoids a direct dependency on window but some vendor components may require direct access to window which cannot be avoided.
 
-### Collaborators
+#### Collaborators
 
 ```diff
 + config ui window
 - components core diagnostics elements io services startup stores styles subscriptions vendorServices
 ```
 
-### List of vendor components
+#### List of vendor components
 
 - gtagScript
 - vanillaPicker
@@ -1214,14 +1214,14 @@ Provides vendor (third party) components including gtag and vanilla-picker. Thes
 
 Provides vendor (third party) services including gtag and sentry. These are separated from the services module because they have different collaborators. The services module avoids a direct dependency on window but some vendor services may require direct access to window which cannot be avoided.
 
-### Collaborators
+#### Collaborators
 
 ```diff
 + config io window
 - components core diagnostics elements services startup stores styles subscriptions ui vendorComponents
 ```
 
-### Example: gtag
+#### Example: gtag
 
 gtag is short for Google Global Site Tag.
 
@@ -1256,7 +1256,7 @@ module.exports = ({ config, io, window }) => {
 ```
 </details>
 
-### List of vendor services
+#### List of vendor services
 
 - gtag
 - sentry
