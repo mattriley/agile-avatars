@@ -90,7 +90,7 @@ NOTE: WORK IN PROGRESS!
 - Enables merciless refactoring.
 - Embrace JavaScript as a dynamically typed language.
 
-Further reading:
+#### Further reading
 
 - [Refactoring - Martin Fowler](https://martinfowler.com/tags/refactoring.html)
 - [Refactor Mercilessly - Ward Cunningham](https://wiki.c2.com/?RefactorMercilessly)
@@ -130,7 +130,7 @@ Further reading:
 - No mocking libraries, e.g. Sinon, Jest.    
 - No circumvention of the module loading system, e.g. Rewire, Proxyquire, Jest.
 
-Further reading:
+#### Further reading
 
 - [Mocks Aren't Stubs - Martin Fowler](https://martinfowler.com/articles/mocksArentStubs.html)
 - [Classical and Mockist Testing](https://martinfowler.com/articles/mocksArentStubs.html#ClassicalAndMockistTesting)
@@ -142,7 +142,7 @@ Further reading:
 
 # Architecture
 
-With the plethora of frontend architectural styles in use today, this application takes a "back to basics" approach with a classic layered architecture. The thought being that the simplicity and familiarity of this architectural style would be approachable for a wide audience including backend developers with limited exposure to frontend development.
+With the plethora of frontend architectural styles in use today, this application takes a _back to basics_ approach with a classic layered architecture. The thought being that the simplicity and familiarity of this architectural style would be approachable for a wide audience including backend developers with limited exposure to frontend development.
 
 <br>
 <p align="center">
@@ -152,7 +152,8 @@ With the plethora of frontend architectural styles in use today, this applicatio
 </p>
 <br>
 
-Further reading:
+#### Further reading
+
 - [PresentationDomainDataLayering - Martin Fowler](https://martinfowler.com/bliki/PresentationDomainDataLayering.html)
 
 
@@ -184,7 +185,7 @@ startup.start(app => document.body.append(app));
 ```
 </details>
 
-Launch sequence:
+#### Launch sequence
 
 1. At build time, Parcel interprets `require('./css/*.css');`, combines each CSS file into a single file which is then referenced by a link tag that Parcel injects into the document head.
 2. At run time, the boot function is invoked with the global window object and config, returning the initialised application modules.
@@ -210,7 +211,7 @@ Launch sequence:
 
 # Booting
 
-Booting is the process of making the application 'ready to launch' and involves loading configuration, composing modules, and returning the composed modules.
+Booting is the process of making the application _ready to launch_ and involves loading configuration, composing modules, and returning the composed modules.
 
 The boot function composes the application from modules in the src directory.
 
@@ -254,7 +255,7 @@ module.exports = ({ window, ...overrides }) => {
 ```
 </details>
 
-This 'codified view' of the architecture has some interesting implications:
+This _codified view_ of the architecture has some interesting implications:
 
 - Easier to understand how the application "hangs together".
 - Easier to control and manage dependencies. Makes inappropriate dependencies more visible.
@@ -292,20 +293,20 @@ config | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | ❌ | ❌ | ✅ | ❌ |
 <p align="center"><em>Generated dependency mapping (scrolls to the right)</em></p>
 <br>
 
-### Deglobalising window
+## Deglobalising window
 
-window is a global [God object](https://en.wikipedia.org/wiki/God_object) that makes it too easy to misplace responsibilities. For example, manipulating the DOM or making HTTP requests from anywhere in the application.
+_window_ is a global [God object](https://en.wikipedia.org/wiki/God_object) that makes it too easy to misplace responsibilities. For example, manipulating the DOM or making HTTP requests from anywhere in the application.
 
 The application has been designed to mitigate such misplaced responsibilities by avoiding the global window object altogether. The boot function expects a window object to be explicitly provided which is then passed to only the selected modules that are allowed to access it.
 
 While this helps be intentional of how window is accessed, it still doesn't prevent use of the global window object. So, in order to _detect_ inappropriate access, window is not made globally available in the unit tests. This is possible because the unit tests run on Node.js instead of a browser environment. JSDOM is used to emulate a browser and create a non-global window object to provide to the boot function. This causes any code referencing the global window object to fail.
 
-### module-composer
+## module-composer
 
-__module-composer__ is a small library that reduces the amount of boilerplate code needed to compose modules. It was extracted from Agile Avatars for reuse. For transparency, here is the source code:
+_module-composer_ is a small library that reduces the amount of boilerplate code needed to compose modules. It was extracted from Agile Avatars for reuse. For transparency, here is the source code:
 
 
-<details >
+<details open>
 <summary>node_modules/module-composer/src/module-composer.js</summary>
 
 ```js
@@ -340,10 +341,7 @@ const composeRecursive = (obj, arg, parentKey) => {
 ```
 </details>
 
-Related:
-- [module-composer](#-module-composer) in the [Dependencies](#dependencies) section.
-
-### Further reading
+##### Further reading
 
 - [Composition Root - Mark Seemann](https://blog.ploeh.dk/2011/07/28/CompositionRoot/)
 
@@ -359,7 +357,7 @@ On the file system, a module is simply a directory of sources files that follow 
 - Each file exports a function, so file names tend to be function names.
 - Where a module is to be composed with collaborating modules, exported functions must be curried to first accept the collaborators.
 
-__Example: Root index.js for components module__
+#### Example: Root index.js for components module
 
 
 <details open>
@@ -382,7 +380,7 @@ module.exports = {
 ```
 </details>
 
-__Example: Curried function accepting collaborators__
+#### Example: Curried function accepting collaborators
 
 
 <details open>
@@ -1226,13 +1224,13 @@ gtag                                            sentry
 
 # State Management
 
-State management in an interesting problem to solve in this application because it's non-trivial.
+State management in an interesting problem to solve in this application due to the need for shared state between components.
 
 Here's some examples:
 
 Inserting a file (dropping, choosing, or Gravatar):
 - Parses the file name to extract a tag name and optional role name.
-- Renders a new 'master role badge' in the 'roles list' if it doesn't already exist.
+- Renders a new _master role badge_ in the _roles list_ if it doesn't already exist.
 - Renders multiple tag instances with the same image, name and role based on the values of the active and passive fields.
 
 Changing the name of a role in the role list:
@@ -1250,23 +1248,16 @@ Changing the role name of a tag instance:
 Changing the name of a tag instance:
 - Updates the name of all other instances of that tag.
 
-In addition to changing tag names, role names and colours, the control panel affects tag instances:
-- Changing the number of active and passive instances
-- Changing the shape between circle and square
-- Changing the size
-- Changing the spacing
-- Changing the sort order
+Changing an option in the _options bar_ including active, passive, shape, size, spacing and sort order affects all tags.
 
-
-
-Avoiding state management libraries forces the need for a bespoke state management solution.
+The constraint of _no state management libraries_ forces the need for a bespoke state management solution.
 No attempt is made to generify the state management solution for reuse by other applications; rather it is designed to evolve with the specific needs of this application.
 
 ## Stores
 
 State is managed by a series of _state stores_. 
 
-A **state store** is collection of data items keyed by a unique identifier and managed using typical CRUD operations such as insert, find, update, remove.
+A __state store__ is collection of data items keyed by a unique identifier and managed using typical CRUD operations such as insert, find, update, remove.
 
 
 <details >
@@ -1338,7 +1329,7 @@ module.exports = (defaults = {}) => {
 ```
 </details>
 
-__Example: Inserting a role using insert__
+#### Example: Inserting a role
 
 
 <details open>
@@ -1357,7 +1348,7 @@ module.exports = ({ core, services, subscriptions, stores, io }) => roleData => 
 ```
 </details>
 
-__Example: Changing a role name using find and update__
+#### Example: Changing a role name
 
 
 <details open>
@@ -1376,13 +1367,13 @@ module.exports = ({ core, stores }) => (roleId, roleName) => {
 
 ## Subscriptions
 
-State stores use the [observer pattern](https://en.wikipedia.org/wiki/Observer_pattern) to enable consumers to react to state changes by associating _listener_ functions to events such as onInsert and onChange.
+State stores use the [observer pattern](https://en.wikipedia.org/wiki/Observer_pattern) to enable consumers to react to state changes by associating _listener_ functions to events such as _onInsert_ and _onChange_.
 
 The observer pattern is easily implemented with Node's [EventEmitter](https://nodejs.org/api/events.html) which can be bundled directly into the application.
 
-During startup, subscription functions are extracted from the stores into a standalone _subscriptions_ object. This decouples subscribers (namely _services_ and _components_) from the stores making them agnostic of the data source. Although not a design goal for this application, this should allow the data source to change without impacting the subscribers provided the interface of the subscription functions do not change.
+During [boot](#booting) time, subscription functions are extracted from the stores to produce the _subscriptions_ module. This decouples subscribers from the stores making them agnostic of the data source. Although not a design goal for this application, this should allow the data source to change without impacting the subscribers provided the interface of the subscription functions do not change.
 
-__Example: Reacting to a new role using onInsert and onFirstInsert__
+#### Example: Reacting to a new role being inserted
 
 
 <details open>
@@ -1408,7 +1399,7 @@ module.exports = ({ el, roleList, subscriptions, ui }) => () => {
 ```
 </details>
 
-__Example: Reacting to the change of a role name using onChange__
+### Example: Reacting to a role name change
 
 
 <details open>
@@ -1453,7 +1444,7 @@ This approach is sometimes criticised as verbose. While I only considered the ve
 
 `el` takes a tag name, an optional class name, and optional properties object. Because the native `append` and `addEventListener` functions return undefined, `el` overrides them to return the element instead to enable function chaining.
 
-__Example: Usage of el__
+#### Example: Usage of el
 
 ```js
 const $div = el('div', 'myclass', { prop1: 'foo', prop2: 'bar' })
@@ -1474,7 +1465,7 @@ $div.addEventListener('focus', focusHandler);
 $div.addEventListener('click', clickHandler);
 ```
 
-__el implementation__
+#### Source: el
 
 
 <details open>
@@ -1506,7 +1497,7 @@ Because ultimately this approach uses `document.createElement` to create element
 
 `element.innerHTML` is used by exception, where HTML is used primarily for marking up blocks of content.
 
-__Example: Usage of innerHTML for content__
+#### Example: Usage of innerHTML for content
 
 This example uses `el` to create an element, but assigns a HTML string to `innerHTML` rather than appending child elements.
 
@@ -1538,7 +1529,7 @@ module.exports = ({ el }) => () => {
 
 The application is tested from the outside-in, starting with the components. A component's behaviour is tested by the effect it has on other components, treating the low level details as a black box. These are "sociable" as opposed to "solitary" unit tests.
 
-__Example: Tips modal triggered by link in nav bar__
+#### Example: Tips modal triggered by link in nav bar
 
 This test creates a 'nav bar' and a 'tips modal'; clicks the 'tips link' in the nav bar; then asserts the tips modal has a class indicating it should be visible. The mechanics behind this interaction are a black box, making it resilient to implementation changes which enables merciless refactoring.
 
@@ -1580,7 +1571,7 @@ Exceptions are made to the black box approach under certain conditions:
 
 Where the execution path will reach a system boundary, stub just short of the integration to avoid coupling the test to the low level implementation details of the integration.
 
-__Example: Gravatar service functions stubbed__
+#### Example: Gravatar service functions stubbed
 
 This test creates a 'gravatar modal' and a 'tag list'. Clicking the 'import button' will render a tag in the tag list using data fetched from Gravatar. The fetchProfileAsync and fetchImageAsync functions are stubbed to prevent the integration from occurring and to avoid coupling the test to the implementation details of the integration. 
 
@@ -1649,7 +1640,7 @@ Links
 
 Rather than acting on individual files, tests act on the initialised application. 
 
-__Example: A component test that depends on shared state__
+#### Example: A component test that depends on shared state
 
 This test initialises the application by invoking boot and uses the components module to create an 'options bar' which should initially be hidden. It then uses the services module to insert a tag which should cause the options bar to become visible. 
 
@@ -1964,7 +1955,7 @@ While this will not guarantee immutability, it will challenge people to think ab
 
 Prefer higher-order functions such as `filter`, `map`, `reduce`, over imperative looping statements.
 
-__Example: Usage of reduce__
+#### Example: Usage of reduce
 
 This function transforms a list of store names into an object of store name -> store. This could also be done with a `for` loop. Reduce hides the low level implementation details of iteration. It also removes the need for intermedite variables such as loop counters. 
 
@@ -1987,7 +1978,7 @@ module.exports = ({ storage, config }) => () => {
 ```
 </details>
 
-__Further reading__
+#### Further reading
 
 - [Reduce (Composing Software) - Eric Elliot](https://medium.com/javascript-scene/reduce-composing-software-fe22f0c39a1d)
 - [Array.prototype.reduce() - MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce)
@@ -2001,7 +1992,7 @@ From [Wikipedia](https://en.wikipedia.org/wiki/Pure_function):
 > 1. Its return value is the same for the same arguments (no variation with local static variables, non-local variables, mutable reference arguments or input streams from I/O devices).
 > 2. Its evaluation has no side effects (no mutation of local static variables, non-local variables, mutable reference arguments or I/O streams).
 
-__Example: Usage of a pure function__
+#### Example: Usage of a pure function
 
 This function orchestrates pure and impure functions making it impure. However because the implementation of `parseFileExpression` has been extracted as a pure function.
 
@@ -2021,8 +2012,6 @@ module.exports = ({ core, services, util }) => file => {
 };
 ```
 </details>
-
-__parseFileExpression__
 
 
 <details open>
@@ -2050,7 +2039,7 @@ module.exports = () => expression => {
 
 Where possible, use `pipe` to avoid nesting function calls and intermediate variables.
 
-__Example: Usage of pipe when inserting a file__
+#### Example: Usage of pipe when inserting a file
 
 
 <details open>
@@ -2069,7 +2058,7 @@ module.exports = ({ core, services, util }) => file => {
 ```
 </details>
 
-__pipe implementation__
+#### Source: pipe
 
 
 <details open>
@@ -2132,9 +2121,8 @@ This just makes it easier to know when to use `await`.
 
 ## Documentation
 
-- Table of contents limited to headings 1 and 2.
+- Table of contents limited to heading 1.
 - Headings for "lists" should begin with __List of__.
-- Headings for "list items" should begin with ❖ and be level 3 or higher to avoid the table of contents.
 - Wherever possible render actual source files for example code.
 
 
