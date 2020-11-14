@@ -4,8 +4,8 @@ module.exports = ({ test, boot, helpers }) => {
 
     const toggleTestCase = (t, shapeName) => {
         const { components } = boot();
-        const $shape = components.optionsBar.elements.shapeOption(shapeName);   
-        const $anotherShape = components.optionsBar.elements.shapeOption('foobar');
+        const $shape = components.optionsBar.shapeOption(shapeName);   
+        const $anotherShape = components.optionsBar.shapeOption('foobar');
         helpers.dispatchEvent('click', $anotherShape);
         const assertSelected = helpers.assertBoolClass(t, $shape, 'selected');
         assertSelected(false);
@@ -15,7 +15,7 @@ module.exports = ({ test, boot, helpers }) => {
 
     const shapeTestCase = (t, shapeName) => {
         const { components, services, config } = boot();
-        const $shape = components.optionsBar.elements.shapeOption(shapeName);   
+        const $shape = components.optionsBar.shapeOption(shapeName);   
         const $tagList = components.tagList.container();
         services.tags.insertTag(); 
         helpers.dispatchKeydown($shape, 'Enter'); 
@@ -45,8 +45,8 @@ module.exports = ({ test, boot, helpers }) => {
     test('shape not selected on keypress other than Enter or Space', t => {
         const shapeName = 'circle';
         const { components } = boot();
-        const $shape = components.optionsBar.elements.shapeOption(shapeName);   
-        const $anotherShape = components.optionsBar.elements.shapeOption('foobar');
+        const $shape = components.optionsBar.shapeOption(shapeName);   
+        const $anotherShape = components.optionsBar.shapeOption('foobar');
         helpers.dispatchEvent('click', $anotherShape);
         const assertSelected = helpers.assertBoolClass(t, $shape, 'selected');
         assertSelected(false);

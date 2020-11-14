@@ -16,7 +16,7 @@ module.exports = ({ test, boot, helpers }) => {
             }
         });
 
-        const subject = components.optionsBar.elements.numberOption(mode);
+        const subject = components.optionsBar.numberOption(mode);
         const $input = subject.querySelector('input');
         const $tagList = components.tagList.container();        
             

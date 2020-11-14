@@ -1,1 +1,1 @@
-module.exports = ({ optionsBar }) => () => optionsBar.elements.numberOption('spacing');
+module.exports = ({ components }) => () => components.optionsBar.numberOption('spacing');

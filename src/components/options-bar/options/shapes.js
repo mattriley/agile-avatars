@@ -1,6 +1,6 @@
-module.exports = ({ el, optionsBar, config }) => () => {
+module.exports = ({ el, components, config }) => () => {
     
-    const $$shapes = config.options.shapes.map(optionsBar.elements.shapeOption);
+    const $$shapes = config.options.shapes.map(components.optionsBar.shapeOption);
     return el('span').append(...$$shapes);
 
 };

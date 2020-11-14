@@ -1,6 +1,6 @@
-module.exports = ({ el, optionsBar, config }) => () => {
+module.exports = ({ el, components, config }) => () => {
 
-    const $$modes = config.options.modes.map(optionsBar.elements.numberOption);
+    const $$modes = config.options.modes.map(components.optionsBar.numberOption);
     return el('span').append(...$$modes);
     
 };

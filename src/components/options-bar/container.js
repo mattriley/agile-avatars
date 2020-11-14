@@ -1,8 +1,8 @@
-module.exports = ({ optionsBar, elements, subscriptions, ui, config }) => () => {
+module.exports = ({ components, elements, subscriptions, ui, config }) => () => {
     
     const $optionsBar = elements.layout({
         layout: config.options.layout, 
-        components: optionsBar.options
+        components: components.optionsBar.options
     });
 
     $optionsBar.className = 'options-bar visible-false';

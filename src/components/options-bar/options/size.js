@@ -1,1 +1,1 @@
-module.exports = ({ optionsBar }) => () => optionsBar.elements.numberOption('size');
+module.exports = ({ components }) => () => components.optionsBar.numberOption('size');

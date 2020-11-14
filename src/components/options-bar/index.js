@@ -1,5 +1,6 @@
 module.exports = {
-    elements: require('./elements'),
     options: require('./options'),
-    container: require('./container')
+    container: require('./container'),
+    numberOption: require('./number-option'),
+    shapeOption: require('./shape-option')
 };
