@@ -486,29 +486,29 @@ module.exports = ({ elements, services, subscriptions }) => tagInstanceId => {
 #### List of components
 
 ```
-app                                               optionsBar.options.modes                          
-dropzone                                          optionsBar.options.outline                        
-gravatar.actions.container                        optionsBar.options.shapes                         
-gravatar.actions.error                            optionsBar.options.size                           
-gravatar.actions.import                           optionsBar.options.sort                           
-gravatar.actions.loading                          optionsBar.options.spacing                        
-gravatar.content.container                        optionsBar.shapeOption                            
-gravatar.content.fallback                         roleList.container                                
-gravatar.content.fallbacks                        roleList.roleCustomiser.container                 
-gravatar.content.freetext                         roleList.roleCustomiser.masterRoleName            
-gravatar.title                                    roleList.roleCustomiser.roleColorPicker           
-header.container                                  tagList.container                                 
-header.navBar                                     tagList.tag.components.roleName                   
-header.titleBar                                   tagList.tag.components.tagImage                   
-imageUploadOptions.chooseImages                   tagList.tag.components.tagName                    
-imageUploadOptions.container                      tagList.tag.container                             
-imageUploadOptions.gravatar                       tips.badges                                       
-modal                                             tips.images                                       
-modals.gravatar                                   tips.laminating                                   
-modals.tips                                       tips.multiples                                    
-modals.welcome                                    tips.naming                                       
-optionsBar.container                              tips.roleShortcut                                 
-optionsBar.numberOption                           
+app                                             optionsBar.options.modes                        
+dropzone                                        optionsBar.options.outline                      
+gravatar.actions.container                      optionsBar.options.shapes                       
+gravatar.actions.error                          optionsBar.options.size                         
+gravatar.actions.import                         optionsBar.options.sort                         
+gravatar.actions.loading                        optionsBar.options.spacing                      
+gravatar.content.container                      optionsBar.shapeOption                          
+gravatar.content.fallback                       roleList.container                              
+gravatar.content.fallbacks                      roleList.roleCustomiser.container               
+gravatar.content.freetext                       roleList.roleCustomiser.masterRoleName          
+gravatar.title                                  roleList.roleCustomiser.roleColorPicker         
+header.container                                tagList.container                               
+header.navBar                                   tagList.tag.components.roleName                 
+header.titleBar                                 tagList.tag.components.tagImage                 
+imageUploadOptions.chooseImages                 tagList.tag.components.tagName                  
+imageUploadOptions.container                    tagList.tag.container                           
+imageUploadOptions.gravatar                     tips.badges                                     
+modal                                           tips.images                                     
+modals.gravatar                                 tips.laminating                                 
+modals.tips                                     tips.multiples                                  
+modals.welcome                                  tips.naming                                     
+optionsBar.container                            tips.roleShortcut                               
+optionsBar.numberOption                         
 ```
 
 ## config
@@ -666,14 +666,14 @@ module.exports = ({ util }) => expression => {
 #### List of core functions
 
 ```
-gravatar.buildImageUrl                            tags.parseEmailExpression                         
-gravatar.buildProfileUrl                          tags.parseFileExpression                          
-gravatar.getNameFromProfile                       tags.parseTagExpression                           
-gravatar.hashEmail                                tags.planTagInstanceAdjustment                    
-roles.assignColor                                 tags.sortTagInstancesByTagThenMode                
-roles.buildRole                                   tags.sortTagsByName                               
-roles.randomColor                                 tags.sortTagsByRoleThenName                       
-tags.buildTag                                     
+gravatar.buildImageUrl                          tags.parseEmailExpression                       
+gravatar.buildProfileUrl                        tags.parseFileExpression                        
+gravatar.getNameFromProfile                     tags.parseTagExpression                         
+gravatar.hashEmail                              tags.planTagInstanceAdjustment                  
+roles.assignColor                               tags.sortTagInstancesByTagThenMode              
+roles.buildRole                                 tags.sortTagsByName                             
+roles.randomColor                               tags.sortTagsByRoleThenName                     
+tags.buildTag                                   
 ```
 
 #### Further reading
@@ -696,7 +696,7 @@ Provides _diagnostic functions_ such as the ability to dump state to the console
 #### List of diagnostic functions
 
 ```
-dumpState                                         
+dumpState                                       
 ```
 
 ## elements
@@ -746,9 +746,9 @@ module.exports = ({ el, ui }) => className => {
 #### List of elements
 
 ```
-dropzone                                          layout                                            
-editableSpan                                      modal                                             
-label                                             number                                            
+dropzone                                        layout                                          
+editableSpan                                    modal                                           
+label                                           number                                          
 ```
 
 ## io
@@ -788,8 +788,8 @@ module.exports = ({ window }) => () => {
 #### List of io functions
 
 ```
-date                                              fileReader                                        
-fetch                                             random                                            
+date                                            fileReader                                      
+fetch                                           random                                          
 ```
 
 ## services
@@ -832,25 +832,25 @@ module.exports = ({ core, services, stores }) => (tagInstanceId, expression) => 
 #### List of service functions
 
 ```
-gravatar.changeFallback                           settings.changeOption                             
-gravatar.changeFreetext                           settings.clearModal                               
-gravatar.fetchImageAsync                          settings.getGravatar                              
-gravatar.fetchProfileAsync                        tags.adjustTagInstanceCounts                      
-gravatar.status.is.error                          tags.attachImageAsync                             
-gravatar.status.is.ready                          tags.buildTagInstance                             
-gravatar.status.is.working                        tags.changeTagName                                
-gravatar.status.to.error                          tags.changeTagRole                                
-gravatar.status.to.ready                          tags.getTagInstance                               
-gravatar.status.to.working                        tags.insertFileAsync                              
-roles.changeRoleColor                             tags.insertFileBatchAsync                         
-roles.changeRoleName                              tags.insertGravatarAsync                          
-roles.findOrInsertRoleWithName                    tags.insertGravatarBatchAsync                     
-roles.getNilRoleId                                tags.insertTag                                    
-roles.getRole                                     tags.insertTagInstance                            
-roles.insertRole                                  tags.removeTagInstance                            
-roles.isNilRole                                   tags.setupRolePropagation                         
-roles.setupRolePropagation                        tags.setupTagPropagation                          
-settings.changeModal                              tags.sortTagInstances                             
+gravatar.changeFallback                         settings.changeOption                           
+gravatar.changeFreetext                         settings.clearModal                             
+gravatar.fetchImageAsync                        settings.getGravatar                            
+gravatar.fetchProfileAsync                      tags.adjustTagInstanceCounts                    
+gravatar.status.is.error                        tags.attachImageAsync                           
+gravatar.status.is.ready                        tags.buildTagInstance                           
+gravatar.status.is.working                      tags.changeTagName                              
+gravatar.status.to.error                        tags.changeTagRole                              
+gravatar.status.to.ready                        tags.getTagInstance                             
+gravatar.status.to.working                      tags.insertFileAsync                            
+roles.changeRoleColor                           tags.insertFileBatchAsync                       
+roles.changeRoleName                            tags.insertGravatarAsync                        
+roles.findOrInsertRoleWithName                  tags.insertGravatarBatchAsync                   
+roles.getNilRoleId                              tags.insertTag                                  
+roles.getRole                                   tags.insertTagInstance                          
+roles.insertRole                                tags.removeTagInstance                          
+roles.isNilRole                                 tags.setupRolePropagation                       
+roles.setupRolePropagation                      tags.setupTagPropagation                        
+settings.changeModal                            tags.sortTagInstances                           
 ```
 
 ## startup
@@ -1007,8 +1007,8 @@ module.exports = ({ storage, config }) => () => {
 #### List of stores
 
 ```
-roles                                             tagInstances                                      
-settings                                          tags                                              
+roles                                           tagInstances                                    
+settings                                        tags                                            
 ```
 
 ## styles
@@ -1069,10 +1069,10 @@ module.exports = ({ styles, subscriptions, ui, util }) => () => {
 #### List of styles
 
 ```
-roleColor                                         tagSize                                           
-tagImage                                          tagSpacing                                        
-tagOutline                                        vanillaPicker                                     
-tagShape                                          
+roleColor                                       tagSize                                         
+tagImage                                        tagSpacing                                      
+tagOutline                                      vanillaPicker                                   
+tagShape                                        
 ```
 
 ## subscriptions
@@ -1127,9 +1127,9 @@ Provides _low-level presentation functions_ while preventing direct access to wi
 #### List of ui functions
 
 ```
-appendToHead                                      refocus                                           
-el                                                toggleBoolClass                                   
-event                                             
+appendToHead                                    refocus                                         
+el                                              toggleBoolClass                                 
+event                                           
 ```
 
 ## util
@@ -1147,9 +1147,9 @@ Provides _low-level utility functions_.
 #### List of utility functions
 
 ```
-debounce                                          splitAt                                           
-mapValues                                         upperFirst                                        
-pipe                                              
+debounce                                        splitAt                                         
+mapValues                                       upperFirst                                      
+pipe                                            
 ```
 
 ## vendor-components
@@ -1167,7 +1167,7 @@ Provides vendor (third party) components including gtag and vanilla-picker. Thes
 #### List of vendor components
 
 ```
-gtagScript                                        vanillaPicker                                     
+gtagScript                                      vanillaPicker                                   
 ```
 
 ## vendor-services
@@ -1220,7 +1220,7 @@ module.exports = ({ config, io, window }) => {
 #### List of vendor services
 
 ```
-gtag                                              sentry                                            
+gtag                                            sentry                                          
 ```
 
 
