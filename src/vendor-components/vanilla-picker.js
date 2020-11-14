@@ -1,8 +1,8 @@
 const Picker = require('vanilla-picker');
 
-module.exports = ({ window }) => args => {
+module.exports = ({ window }) => ({ parent, color, onChange }) => {
 
-    new Picker({ window, ...args });
-    return args.parent;
+    new Picker({ window, parent, color, onChange });
+    return parent;
 
 };
