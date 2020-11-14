@@ -270,23 +270,25 @@ This 'codified view' of the architecture has some interesting implications:
 <br>
 
 
-Modules | startup | components | services | styles | vendor<br>components | vendor<br>services | diagnostics | elements | ui | io | core | subscriptions | stores | window | config
---- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---:
-startup | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
-components | ✅ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
-services | ✅ | ✅ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
-styles | ✅ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
-vendorComponents | ✅ | ✅ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
-vendorServices | ✅ | ✅ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
-diagnostics | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
-elements | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
-ui | ✅ | ✅ | ❌ | ✅ | ✅ | ❌ | ❌ | ✅ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
-io | ✅ | ❌ | ✅ | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌
-core | ✅ | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌
-subscriptions | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌
-stores | ✅ | ❌ | ✅ | ❌ | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | n/a | ❌ | ❌
-window | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ | ❌ | ❌ | ✅ | ✅ | ❌ | ❌ | ❌ | n/a | ❌
-config | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ | ✅ | ❌ | n/a
+Modules | startup | components | services | vendor<br>services | vendor<br>components | styles | subscriptions | stores | elements | diagnostics | core | ui | io | window | util | storage | config
+--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---:
+startup | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
+components | ✅ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
+services | ✅ | ✅ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
+vendorServices | ✅ | ✅ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
+vendorComponents | ✅ | ✅ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
+styles | ✅ | ❌ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
+subscriptions | ✅ | ✅ | ✅ | ❌ | ❌ | ✅ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
+stores | ✅ | ❌ | ✅ | ❌ | ❌ | ❌ | ✅ | n/a | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
+elements | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
+diagnostics | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
+core | ✅ | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
+ui | ✅ | ✅ | ❌ | ❌ | ✅ | ✅ | ❌ | ❌ | ✅ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌
+io | ✅ | ❌ | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌
+window | ❌ | ❌ | ❌ | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ | n/a | ❌ | ❌ | ❌
+util | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ | ❌ | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | n/a | ❌ | ❌
+storage | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | n/a | ❌
+config | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | n/a
 <p align="center"><em>Generated dependency mapping (scrolls to the right)</em></p>
 <br>
 
@@ -312,7 +314,7 @@ const { isObject, isFunction, mapValues, override } = require('./util');
 module.exports = (parent, options = {}) => {
     const overrides = options.overrides || {};
     const modules = { ...parent };
-    const dependencies = {};
+    const dependencies = mapValues(modules, () => []);
     const compose = (key, arg = {}) => {
         arg = { ...arg };        
         delete arg[key];
@@ -442,8 +444,8 @@ Provides _component factory functions_. A component is a HTML element that relie
 #### Collaborators
 
 ```diff
-+ config elements services subscriptions ui vendorComponents vendorServices
-- core diagnostics io startup stores styles window
++ config elements services subscriptions ui util vendorComponents vendorServices
+- core diagnostics io startup storage stores styles window
 ```
 
 - No access to _stores_ or _io_. Effects are serviced by the _services_ module.
@@ -505,14 +507,14 @@ module.exports = ({ elements, services, subscriptions }) => tagInstanceId => {
 - modals.tips
 - modals.welcome
 - optionsBar.container
-- optionsBar.elements.numberOption
-- optionsBar.elements.shapeOption
+- optionsBar.numberOption
 - optionsBar.options.modes
 - optionsBar.options.outline
 - optionsBar.options.shapes
 - optionsBar.options.size
 - optionsBar.options.sort
 - optionsBar.options.spacing
+- optionsBar.shapeOption
 - roleList.container
 - roleList.roleCustomiser.container
 - roleList.roleCustomiser.masterRoleName
@@ -538,7 +540,7 @@ Provides _static application config_ as a plain JavaScript object, including def
 
 ```diff
 + 
-- components core diagnostics elements io services startup stores styles subscriptions ui vendorComponents vendorServices window
+- components core diagnostics elements io services startup storage stores styles subscriptions ui util vendorComponents vendorServices window
 ```
 
 - No collaborators required.
@@ -651,8 +653,8 @@ Provides _pure functions_ to be consumed by the _services_ module. Without core,
 #### Collaborators
 
 ```diff
-+ config
-- components diagnostics elements io services startup stores styles subscriptions ui vendorComponents vendorServices window
++ config util
+- components diagnostics elements io services startup storage stores styles subscriptions ui vendorComponents vendorServices window
 ```
 
 - No access to modules that produce side effects.
@@ -712,8 +714,8 @@ Provides _diagnostic functions_ such as the ability to dump state to the console
 #### Collaborators
 
 ```diff
-+ stores
-- components config core elements io services startup styles subscriptions ui vendorComponents vendorServices window
++ stores util
+- components config core elements io services startup storage styles subscriptions ui vendorComponents vendorServices window
 ```
 
 #### List of diagnostic functions
@@ -728,8 +730,8 @@ Provides _element factory functions_. An element is a HTML element that relies o
 #### Collaborators
 
 ```diff
-+ ui
-- components config core diagnostics io services startup stores styles subscriptions vendorComponents vendorServices window
++ ui util
+- components config core diagnostics io services startup storage stores styles subscriptions vendorComponents vendorServices window
 ```
 
 - No access to _stores_ or _io_. Effects are serviced by raising events to be handled by _components_.
@@ -782,7 +784,7 @@ Provides _io functions_ while preventing direct access to _window_.
 
 ```diff
 + window
-- components config core diagnostics elements services startup stores styles subscriptions ui vendorComponents vendorServices
+- components config core diagnostics elements services startup storage stores styles subscriptions ui util vendorComponents vendorServices
 ```
 
 #### Source
@@ -822,8 +824,8 @@ Provides _service functions_. Service functions perform effects by orchestrate t
 #### Collaborators
 
 ```diff
-+ config core io stores subscriptions
-- components diagnostics elements startup styles ui vendorComponents vendorServices window
++ config core io stores subscriptions util
+- components diagnostics elements startup storage styles ui vendorComponents vendorServices window
 ```
 
 - No access to _window_. IO operations are serviced by the _io_ module.
@@ -900,7 +902,7 @@ Provides _startup functions_ which are used at [launch](#launching) time.
 #### Collaborators
 
 ```diff
-+ components config core diagnostics elements io services stores styles subscriptions ui vendorComponents vendorServices
++ components config core diagnostics elements io services storage stores styles subscriptions ui util vendorComponents vendorServices
 - window
 ```
 
@@ -933,7 +935,7 @@ Provides the _state store implementation_. State stores manage state changes and
 
 ```diff
 + 
-- 
+- components config core diagnostics elements io services startup stores styles subscriptions ui util vendorComponents vendorServices window
 ```
 
 #### Source
@@ -1018,8 +1020,8 @@ Provides the _state stores_. State stores manage state changes and raise change 
 #### Collaborators
 
 ```diff
-+ config
-- components core diagnostics elements io services startup styles subscriptions ui vendorComponents vendorServices window
++ config storage
+- components core diagnostics elements io services startup styles subscriptions ui util vendorComponents vendorServices window
 ```
 
 #### Source
@@ -1033,11 +1035,11 @@ Provides the _state stores_. State stores manage state changes and raise change 
 ```js
 module.exports = ({ storage, config }) => () => {
 
-    return config.storage.stores.reduce((acc, name) => {
+    return Object.fromEntries(config.storage.stores.map(name => {
         const defaults = config.storage.defaults[name];
         const store = storage.stateStore(defaults);
-        return Object.assign(acc, { [name]: store });
-    }, {});
+        return [name, store];
+    }));
 
 };
 ```
@@ -1059,7 +1061,7 @@ Provides _style factory functions_. A style is simply a HTML style element that 
 
 ```diff
 + config subscriptions ui
-- components core diagnostics elements io services startup stores vendorComponents vendorServices window
+- components core diagnostics elements io services startup storage stores util vendorComponents vendorServices window
 ```
 
 #### Example: roleColor
@@ -1131,8 +1133,8 @@ The _subscriptions_ module was introduced to allow Components to subscribe to st
 #### Collaborators
 
 ```diff
-+ stores
-- components config core diagnostics elements io services startup styles ui vendorComponents vendorServices window
++ stores util
+- components config core diagnostics elements io services startup storage styles ui vendorComponents vendorServices window
 ```
 
 #### Source
@@ -1161,7 +1163,7 @@ Provides _low-level presentation functions_ while preventing direct access to wi
 
 ```diff
 + window
-- components config core diagnostics elements io services startup stores styles subscriptions vendorComponents vendorServices
+- components config core diagnostics elements io services startup storage stores styles subscriptions util vendorComponents vendorServices
 ```
 
 #### List of ui functions
@@ -1181,7 +1183,7 @@ Provides _low-level utility functions_.
 
 ```diff
 + 
-- 
+- components config core diagnostics elements io services startup storage stores styles subscriptions ui vendorComponents vendorServices window
 ```
 
 #### List of utility functions
@@ -1201,7 +1203,7 @@ Provides vendor (third party) components including gtag and vanilla-picker. Thes
 
 ```diff
 + config ui window
-- components core diagnostics elements io services startup stores styles subscriptions vendorServices
+- components core diagnostics elements io services startup storage stores styles subscriptions util vendorServices
 ```
 
 #### List of vendor components
@@ -1218,7 +1220,7 @@ Provides vendor (third party) services including gtag and sentry. These are sepa
 
 ```diff
 + config io window
-- components core diagnostics elements services startup stores styles subscriptions ui vendorComponents
+- components core diagnostics elements services startup storage stores styles subscriptions ui util vendorComponents
 ```
 
 #### Example: gtag
@@ -2015,11 +2017,11 @@ The `acc` variable is intentionally mutated given the scope of the mutation is s
 ```js
 module.exports = ({ storage, config }) => () => {
 
-    return config.storage.stores.reduce((acc, name) => {
+    return Object.fromEntries(config.storage.stores.map(name => {
         const defaults = config.storage.defaults[name];
         const store = storage.stateStore(defaults);
-        return Object.assign(acc, { [name]: store });
-    }, {});
+        return [name, store];
+    }));
 
 };
 ```
