@@ -4,9 +4,9 @@ const { storage, util } = src;
 
 module.exports = ({ window, ...overrides }) => {
 
-    const compose = composer(src, { overrides });
+    const compose = composer(src, {}, overrides);
     const config = compose('config');
-    
+
     // Data
     const stores = compose('stores', { storage, config });
     const subscriptions = compose('subscriptions', { stores, util });
@@ -16,9 +16,9 @@ module.exports = ({ window, ...overrides }) => {
     const io = compose('io', { window });
     const services = compose('services', { subscriptions, stores, core, io, util, config });
     const vendorServices = compose('vendorServices', { io, config, window });
-        
+
     // Presentation
-    const { el, ...ui } = compose('ui', { window });        
+    const { el, ...ui } = compose('ui', { window });
     const elements = compose('elements', { el, ui, util });
     const vendorComponents = compose('vendorComponents', { el, ui, config, window });
     compose('components', { el, ui, elements, vendorComponents, vendorServices, services, subscriptions, util, config });
