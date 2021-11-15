@@ -11,7 +11,6 @@
         "ecmaVersion": 11
     },
     "rules": {
-        "no-undef": "error",
         "accessor-pairs": "error",
         "array-bracket-newline": "error",
         "array-bracket-spacing": [
@@ -120,7 +119,7 @@
                 "before": true
             }
         ],
-        "line-comment-position": "error",
+        "line-comment-position": "off",
         "linebreak-style": [
             "error",
             "unix"
@@ -134,7 +133,7 @@
         "max-lines": "error",
         "max-lines-per-function": "off",
         "max-nested-callbacks": "error",
-        "max-params": "off",
+        "max-params": "error",
         "max-statements": "off",
         "max-statements-per-line": "off",
         "multiline-comment-style": "off",
@@ -168,7 +167,7 @@
         "no-implicit-coercion": "error",
         "no-implicit-globals": "error",
         "no-implied-eval": "error",
-        "no-inline-comments": "error",
+        "no-inline-comments": "off",
         "no-invalid-this": "error",
         "no-iterator": "error",
         "no-label-var": "error",
