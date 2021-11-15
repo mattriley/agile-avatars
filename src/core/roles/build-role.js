@@ -1,7 +1,7 @@
 module.exports = ({ core, util }) => (roleData, randomNumber) => {
-    
+
     const transformRoleName = roleData => {
-        const roleName = (roleData.roleName ?? '').trim().toUpperCase();
+        const roleName = (roleData.roleName || '').trim().toUpperCase();
         return { ...roleData, roleName };
     };
 

@@ -1,7 +1,7 @@
 module.exports = ({ core, services, stores, subscriptions, util }) => tagData => {
 
     const assignRoleId = ({ roleName, ...tagData }) => {
-        const roleId = tagData.roleId ?? services.roles.findOrInsertRoleWithName(roleName);
+        const roleId = tagData.roleId || services.roles.findOrInsertRoleWithName(roleName);
         return { roleId, ...tagData };
     };
 
@@ -12,6 +12,6 @@ module.exports = ({ core, services, stores, subscriptions, util }) => tagData =>
         });
     };
 
-    return util.pipe(assignRoleId, core.tags.buildTag, insertTag)(tagData ?? {});
+    return util.pipe(assignRoleId, core.tags.buildTag, insertTag)(tagData || {});
 
 };

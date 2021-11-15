@@ -912,7 +912,7 @@ module.exports = (defaults = {}) => {
     const funcs = new Map();
     const collectionEmitter = new EventEmitter();
     
-    const manage = id => funcs.get(id) ?? { get: () => null };
+    const manage = id => funcs.get(id) || { get: () => null };
     const list = () => [...state.values()];
     const find = id => manage(id).get();
     const update = (id, changes) => manage(id).update(changes);
@@ -925,7 +925,7 @@ module.exports = (defaults = {}) => {
     const subscriptions = { onChange, onChangeAny, onInsert, onFirstInsert, onBeforeRemove };
 
     const insert = (data, callback) => {
-        const id = data.id ?? nextId++;
+        const id = data.id || nextId++;
         const item = { id, ...data };
         const itemEmitter = new EventEmitter();
 
@@ -1272,7 +1272,7 @@ module.exports = (defaults = {}) => {
     const funcs = new Map();
     const collectionEmitter = new EventEmitter();
     
-    const manage = id => funcs.get(id) ?? { get: () => null };
+    const manage = id => funcs.get(id) || { get: () => null };
     const list = () => [...state.values()];
     const find = id => manage(id).get();
     const update = (id, changes) => manage(id).update(changes);
@@ -1285,7 +1285,7 @@ module.exports = (defaults = {}) => {
     const subscriptions = { onChange, onChangeAny, onInsert, onFirstInsert, onBeforeRemove };
 
     const insert = (data, callback) => {
-        const id = data.id ?? nextId++;
+        const id = data.id || nextId++;
         const item = { id, ...data };
         const itemEmitter = new EventEmitter();
 
