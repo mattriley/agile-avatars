@@ -3,5 +3,5 @@ package_output
 node_modules
 coverage
 iTermocil.yml
-.cache
+.parcel-cache
 .DS_Store

@@ -11,13 +11,14 @@
         "vanilla-picker": "github:mattriley/vanilla-picker"
     },
     "devDependencies": {
+        "@parcel/resolver-glob": "^2.0.1",
         "c8": "^7.3.5",
         "chokidar-cli": "^3.0.0",
         "eslint": "^8.2.0",
         "husky": "^7.0.4",
         "jsdom": "^18.1.0",
         "module-indexgen": "^0.2.2",
-        "parcel-bundler": "^1.12.5",
+        "parcel": "^2.0.1",
         "zora": "^5.0.0",
         "zora-reporters": "^1.3.0"
     },

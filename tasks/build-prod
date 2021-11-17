@@ -3,4 +3,4 @@
 PROFILE="prod"
 PROFILE_OUTPUT="$BUILD_OUTPUT/$PROFILE"
 tasks/pre-build "$PROFILE"
-npx parcel build "$PUBLIC_INDEX_HTML" -d "$PROFILE_OUTPUT" --no-source-maps
+npx parcel build "$PUBLIC_INDEX_HTML" --dist-dir "$PROFILE_OUTPUT" --no-source-maps
