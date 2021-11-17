@@ -14,7 +14,7 @@
         "c8": "^7.3.5",
         "chokidar-cli": "^3.0.0",
         "eslint": "^8.2.0",
-        "husky": "^4.3.0",
+        "husky": "^7.0.4",
         "jsdom": "^16.2.2",
         "module-indexgen": "^0.2.2",
         "parcel-bundler": "^1.12.5",
@@ -25,10 +25,5 @@
         ">1%",
         "not ie 11",
         "not op_mini all"
-    ],
-    "husky": {
-        "hooks": {
-            "pre-commit": "./task pre-commit"
-        }
-    }
+    ]
 }
