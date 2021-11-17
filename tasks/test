@@ -1,9 +1,5 @@
 #!/bin/bash
 
-export INDENT=true
-
-: ${REPORTER:=spec}
-
 find "$TESTS" -name "*.test.js" -print \
     | xargs node --unhandled-rejections=none "./tasks/test.js" \
-    | npx tap-mocha-reporter $REPORTER
+    | npx zr

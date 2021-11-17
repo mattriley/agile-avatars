@@ -3,7 +3,7 @@
 /* eslint-disable no-process-exit */
 
 const { JSDOM } = require('jsdom');
-const { createHarness } = require('zora');
+const { createHarness, createJSONReporter } = require('zora');
 const path = require('path');
 const composer = require('module-composer');
 const testHelpers = require('../test-helpers');
@@ -16,7 +16,7 @@ const setup = () => {
     const helpers = composer({ helpers: testHelpers })('helpers', { window });
 
     const boot = (args = {}) => {
-        resetJsdom(); 
+        resetJsdom();
         const defaultConfig = { debounce: { adjustTagInstanceCounts: 0, sortTagList: 0 } };
         const config = Object.assign(defaultConfig, args.config);
         const app = bootOrig({ window, ...args, config });
@@ -45,10 +45,10 @@ const runTests = filePath => {
 
 const start = async () => {
     let uncaughtError = null;
-    
+
     try {
         files.forEach(runTests);
-        await testHarness.report();
+        await testHarness.report({ reporter: createJSONReporter() });
     } catch (e) {
         console.error(e);
         uncaughtError = e;

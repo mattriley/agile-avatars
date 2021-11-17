@@ -18,8 +18,8 @@
         "jsdom": "^18.1.0",
         "module-indexgen": "^0.2.2",
         "parcel-bundler": "^1.12.5",
-        "tap-mocha-reporter": "^5.0.1",
-        "zora": "^4.0.1"
+        "zora": "^5.0.0",
+        "zora-reporters": "^1.3.0"
     },
     "browserslist": [
         ">1%",
