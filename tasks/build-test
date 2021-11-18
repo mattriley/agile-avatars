@@ -1,6 +1,0 @@
-#!/bin/bash
-
-PROFILE="test"
-PROFILE_OUTPUT="$BUILD_OUTPUT/$PROFILE"
-tasks/pre-build "$PROFILE"
-npx parcel build "$PUBLIC_INDEX_HTML" --dist-dir "$PROFILE_OUTPUT" --no-source-maps
