@@ -1,0 +1,14 @@
+#!/bin/bash
+
+export PROJECT_NAME="agileavatars"
+export BUILD_OUTPUT="build_output"
+export PACKAGE_OUTPUT="package_output"
+export PUBLIC="public"
+export PUBLIC_INDEX_HTML="$PUBLIC/index.html"
+export PUBLIC_CSS="$PUBLIC/css"
+export PUBLIC_IMAGES="$PUBLIC/img"
+export SRC="src"
+export TESTS="tests"
+export TEST_HELPERS="test-helpers"
+export TEST_WATCH_PATTERN="{$SRC,$TESTS,$TEST_HELPERS}/**/*.js"
+export INDEXGEN_PATHS="$SRC $TEST_HELPERS"
