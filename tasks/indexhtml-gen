@@ -5,6 +5,9 @@ TITLE="Agile Avatars"
 DESCRIPTION="Agile Avatars makes it quick and easy to know who's working on what with great looking avatars for your agile board. No more fiddling with Word or Google Docs making sure everything aligns just right. Simply drag and drop your images, make some adjustments, print, and laminate!"
 AUTHOR="Matt Riley"
 IMAGE="$URL/img/social.jpg"
+STYLESHEET="styles.css"
+
+cat $PUBLIC_CSS/* > "$PUBLIC/$STYLESHEET"
 
 cat > "$PUBLIC_INDEX_HTML" <<EOF
 <head>
@@ -26,6 +29,7 @@ cat > "$PUBLIC_INDEX_HTML" <<EOF
 <meta property="twitter:description" content="$DESCRIPTION">
 <meta property="twitter:image" content="$IMAGE">
 
+<link rel="stylesheet" href="$STYLESHEET" />
 <script type="module" src="./app.js"></script>
 </head>
 EOF
