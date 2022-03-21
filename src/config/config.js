@@ -2,7 +2,7 @@ const maxImageSize = 600;
 
 module.exports = () => () => {
     return {
-        gtag: {         
+        gtag: {
             trackingId: 'UA-34497639-2',
             enabled: false
         },
@@ -12,7 +12,8 @@ module.exports = () => () => {
         },
         app: {
             name: 'Agile Avatars',
-            issues: 'https://github.com/mattriley/agileavatars/issues'
+            issues: 'https://github.com/mattriley/agileavatars/issues',
+            source: 'https://github.com/mattriley/agileavatars'
         },
         author: {
             name: 'Matt Riley',
@@ -80,9 +81,9 @@ module.exports = () => () => {
                         freetext: '',
                         status: 'ready',
                         errorMessage: ''
-                    }    
+                    }
                 }
             }
-        }        
+        }
     };
 };
