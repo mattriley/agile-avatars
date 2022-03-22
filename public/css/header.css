@@ -9,10 +9,18 @@ header {
     color: white;
     padding: 0;
     margin: 0;
+    font-family: helvetica;
+    font-size: .8rem;
 }
 
 header a {
     padding-left: 1.5rem;
+    color: white;
+    text-decoration: none;
+}
+
+header a:hover {
+    text-decoration: underline;
 }
 
 .title-bar {
@@ -21,10 +29,7 @@ header a {
     align-items: center;
     background-color: black;
     padding: 0.5rem;
-    padding: 0.5rem 1.5rem;
-    font-size: 1rem;
-    font-size: small;
-    font-size: .7rem;
+    padding: 0.2rem 1.5rem;
     border-top: solid 2px white;
     white-space: nowrap;
 }
@@ -40,9 +45,14 @@ header a {
 .title-bar .app-name {
     padding: 0;
     margin: 0;
-    font-size: 1rem;
-    font-size: small;
+    
     display: inline-block;
     text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: .1rem;
+}
+
+.author {
+    font-family: 'Shadows Into Light';
     font-weight: bold;
 }
