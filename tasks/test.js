@@ -9,6 +9,8 @@ const composer = require('module-composer');
 const testHelpers = require('../test-helpers');
 const src = require('../src/modules');
 const bootOrig = require('../src/boot');
+const baseConfig = require('../src/data/config.json');
+const _ = require('lodash');
 
 const setup = () => {
     const { window } = new JSDOM('', { url: 'https://localhost/' });
@@ -18,7 +20,7 @@ const setup = () => {
     const boot = (args = {}) => {
         resetJsdom();
         const defaultConfig = { debounce: { adjustTagInstanceCounts: 0, sortTagList: 0 } };
-        const config = Object.assign(defaultConfig, args.config);
+        const config = _.merge({}, baseConfig, defaultConfig, args.config);
         const app = bootOrig({ window, ...args, config });
         app.startup.start();
         return app;

@@ -1,6 +1,5 @@
 module.exports = {
     components: require('./components'),
-    config: require('./config'),
     core: require('./core'),
     diagnostics: require('./diagnostics'),
     elements: require('./elements'),
