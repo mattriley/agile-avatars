@@ -7,8 +7,8 @@ const { createHarness, createJSONReporter } = require('zora');
 const path = require('path');
 const composer = require('module-composer');
 const testHelpers = require('../test-helpers');
-const src = require('../src');
-const bootOrig = require('../boot');
+const src = require('../src/modules');
+const bootOrig = require('../src/boot');
 
 const setup = () => {
     const { window } = new JSDOM('', { url: 'https://localhost/' });

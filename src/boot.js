@@ -1,10 +1,10 @@
 const composer = require('module-composer');
-const src = require('./src');
-const { storage, util } = src;
+const modules = require('./modules');
+const { storage, util } = modules;
 
 module.exports = ({ window, ...overrides }) => {
 
-    const compose = composer(src, {}, overrides);
+    const compose = composer(modules, {}, overrides);
     const config = compose('config');
 
     // Data

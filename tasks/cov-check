@@ -3,7 +3,7 @@
 npx c8 \
     --check-coverage \
     --all \
-    --include "$SRC" \
+    --include "$MODULES" \
     --reporter=text-summary \
     --reporter=lcov \
     --branches 98 \

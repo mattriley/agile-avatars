@@ -36,13 +36,7 @@
             "error",
             "always"
         ],
-        "brace-style": [
-            "error",
-            "1tbs",
-            {
-                "allowSingleLine": true
-            }
-        ],
+        "brace-style": "off",
         "callback-return": "off",
         "camelcase": "error",
         "capitalized-comments": "off",

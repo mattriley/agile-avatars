@@ -2,7 +2,7 @@
 
 npx c8 \
     --all \
-    --include "$SRC" \
+    --include "$MODULES" \
     --reporter=text-summary \
     --reporter=html \
     ./tasks/test
