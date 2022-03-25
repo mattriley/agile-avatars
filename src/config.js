@@ -1,5 +1,5 @@
 const _ = require('lodash');
-const config = require('../src/data/config.json');
+const config = require('./data/config.json');
 const isLocalhost = (/localhost/).test(window.location.host);
 
 const overrides = {

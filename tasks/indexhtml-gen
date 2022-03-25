@@ -31,6 +31,6 @@ cat > "$PUBLIC_INDEX_HTML" <<EOF
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Shadows+Into+Light" />
 <link rel="stylesheet" href="$STYLESHEET" />
-<script type="module" src="./app.js"></script>
+<script type="module" src="../src/app.js"></script>
 </head>
 EOF
