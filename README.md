@@ -53,7 +53,7 @@ NOTE: WORK IN PROGRESS!
 
 ### Prerequisites
 
-- Install Node 14.4.0 or install [nvm](https://github.com/nvm-sh/nvm) and run `nvm install`
+- Install Node 17.1.0 or install [nvm](https://github.com/nvm-sh/nvm) and run `nvm install`
 - Install dependencies: `npm install`
 
 ### Tasks
@@ -174,13 +174,12 @@ The following code is referenced by index.html and launches the application:
 
 
 <details open>
-<summary>public/app.js</summary>
+<summary>src/app.js</summary>
 
 ```js
-require('./css/*.css');
-const boot = require('../boot');
+const boot = require('./boot');
 const config = require('./config');
-const { startup } = window.agileavatars = boot({ window, config });
+const { startup } = window.agileavatars = boot({ window, config }).getModules();
 startup.start(app => document.body.append(app));
 ```
 </details>
@@ -217,18 +216,17 @@ The boot function composes the application from modules in the src directory.
 
 
 <details open>
-<summary>boot.js</summary>
+<summary>src/boot.js</summary>
 
 ```js
 const composer = require('module-composer');
-const src = require('./src');
-const { storage, util } = src;
+const modules = require('./modules');
+const { storage, util } = modules;
 
-module.exports = ({ window, ...overrides }) => {
+module.exports = ({ window, config, ...overrides }) => {
 
-    const compose = composer(src, { overrides });
-    const config = compose('config');
-    
+    const compose = composer(modules, { config }, overrides);
+
     // Data
     const stores = compose('stores', { storage, config });
     const subscriptions = compose('subscriptions', { stores, util });
@@ -238,9 +236,9 @@ module.exports = ({ window, ...overrides }) => {
     const io = compose('io', { window });
     const services = compose('services', { subscriptions, stores, core, io, util, config });
     const vendorServices = compose('vendorServices', { io, config, window });
-        
+
     // Presentation
-    const { el, ...ui } = compose('ui', { window });        
+    const { el, ...ui } = compose('ui', { window });
     const elements = compose('elements', { el, ui, util });
     const vendorComponents = compose('vendorComponents', { el, ui, config, window });
     compose('components', { el, ui, elements, vendorComponents, vendorServices, services, subscriptions, util, config });
@@ -249,7 +247,7 @@ module.exports = ({ window, ...overrides }) => {
     // Startup    
     compose('diagnostics', { stores, util });
     compose('startup', compose.getModules());
-    return compose.getModules();
+    return compose; //.getModules();
 
 };
 ```
@@ -271,25 +269,24 @@ This _codified view_ of the architecture has some interesting implications:
 <br>
 
 
-Modules | startup | components | services | vendor<br>services | vendor<br>components | styles | subscriptions | stores | elements | diagnostics | core | ui | io | window | util | storage | config
---- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---:
-startup | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
-components | ✅ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
-services | ✅ | ✅ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
-vendorServices | ✅ | ✅ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
-vendorComponents | ✅ | ✅ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
-styles | ✅ | ❌ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
-subscriptions | ✅ | ✅ | ✅ | ❌ | ❌ | ✅ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
-stores | ✅ | ❌ | ✅ | ❌ | ❌ | ❌ | ✅ | n/a | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
-elements | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
-diagnostics | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
-core | ✅ | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
-ui | ✅ | ✅ | ❌ | ❌ | ✅ | ✅ | ❌ | ❌ | ✅ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌
-io | ✅ | ❌ | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌
-window | ❌ | ❌ | ❌ | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ | n/a | ❌ | ❌ | ❌
-util | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ | ❌ | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ | n/a | ❌ | ❌
-storage | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | n/a | ❌
-config | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | n/a
+Modules | startup | components | services | vendor<br>services | vendor<br>components | subscriptions | styles | elements | diagnostics | ui | stores | io | core | window | util | storage
+--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---:
+startup | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
+components | ✅ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
+services | ✅ | ✅ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
+vendorServices | ✅ | ✅ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
+vendorComponents | ✅ | ✅ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
+subscriptions | ✅ | ✅ | ✅ | ❌ | ❌ | n/a | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
+styles | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
+elements | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
+diagnostics | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
+ui | ✅ | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ | ✅ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
+stores | ✅ | ❌ | ✅ | ❌ | ❌ | ✅ | ❌ | ❌ | ✅ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌
+io | ✅ | ❌ | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌
+core | ✅ | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌
+window | ❌ | ❌ | ❌ | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ | ✅ | ❌ | n/a | ❌ | ❌
+util | ✅ | ✅ | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ | ❌ | n/a | ❌
+storage | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ | n/a
 <p align="center"><em>Generated dependency mapping (scrolls to the right)</em></p>
 <br>
 
@@ -312,23 +309,28 @@ _module-composer_ is a small library that reduces the amount of boilerplate code
 ```js
 const { isObject, isFunction, mapValues, override } = require('./util');
 
-module.exports = (parent, options = {}) => {
-    const overrides = options.overrides || {};
+module.exports = (parent, defaults = {}, overrides = {}) => {
     const modules = { ...parent };
     const dependencies = mapValues(modules, () => []);
     const compose = (key, arg = {}) => {
-        arg = { ...arg };        
+        arg = { ...defaults, ...arg };        
         delete arg[key];
         const obj = parent[key];
         const composed = composeRecursive(obj, arg, key);
         const initialise = isFunction(composed[key]) ? composed[key] : () => composed;
         const module = override({ [key]: initialise() }, overrides)[key];
-        Object.assign(modules, { [key]: module });
-        Object.assign(dependencies, { [key]: Object.keys(arg) });
+        modules[key] = module;
+        dependencies[key] = Object.keys(arg);
         return module;
     };
-    const getModules = () => ({ ...modules, __dependencies: { ...dependencies } });
-    return Object.assign(compose, { getModules });
+    return Object.assign(compose, { 
+        default: (key, arg) => defaults[key] = compose(key, arg),
+        addDefaults: obj => { Object.assign(defaults, obj); },
+        addModules: obj => { Object.assign(modules, obj); },
+        getModule: key => modules[key],
+        getModules: () => ({ ...modules }),
+        getDependencies: () => ({ ...dependencies })
+    });
 };
 
 const composeRecursive = (obj, arg, parentKey) => {
@@ -361,7 +363,7 @@ On the file system, a module is simply a directory of sources files that follow 
 
 
 <details open>
-<summary>src/components/index.js</summary>
+<summary>src/modules/components/index.js</summary>
 
 ```js
 module.exports = {
@@ -384,7 +386,7 @@ module.exports = {
 
 
 <details open>
-<summary>src/components/tag-list/tag/components/tag-name.js</summary>
+<summary>src/modules/components/tag-list/tag/components/tag-name.js</summary>
 
 ```js
 module.exports = ({ elements, services, subscriptions }) => tagInstanceId => {
@@ -423,7 +425,7 @@ Because all relative files are loaded by index.js files, a simple search can be 
 ```sh
 #!/bin/bash
 
-! grep --exclude="index.js" -rnw "$SRC" -e "require('."
+! grep --exclude="index.js" -rnw "$MODULES" -e "require('."
 ```
 </details>
 
@@ -442,7 +444,7 @@ Provides _component factory functions_. A component is a HTML element that relie
 #### Collaborators
 
 ```diff
-+ config elements services subscriptions ui util vendorComponents vendorServices
++ elements services subscriptions ui util vendorComponents vendorServices
 - core diagnostics io startup storage stores styles window
 ```
 
@@ -461,7 +463,7 @@ tagName subscribes to tag name change events and updates the editable span with 
 
 
 <details open>
-<summary>src/components/tag-list/tag/components/tag-name.js</summary>
+<summary>src/modules/components/tag-list/tag/components/tag-name.js</summary>
 
 ```js
 module.exports = ({ elements, services, subscriptions }) => tagInstanceId => {
@@ -496,132 +498,17 @@ gravatar.content.fallbacks                      roleList.roleCustomiser.containe
 gravatar.content.freetext                       roleList.roleCustomiser.masterRoleName          
 gravatar.title                                  roleList.roleCustomiser.roleColorPicker         
 header.container                                tagList.container                               
-header.navBar                                   tagList.tag.components.roleName                 
-header.titleBar                                 tagList.tag.components.tagImage                 
-imageUploadOptions.chooseImages                 tagList.tag.components.tagName                  
-imageUploadOptions.container                    tagList.tag.container                           
-imageUploadOptions.gravatar                     tips.badges                                     
-modal                                           tips.images                                     
-modals.gravatar                                 tips.laminating                                 
-modals.tips                                     tips.multiples                                  
-modals.welcome                                  tips.naming                                     
-optionsBar.container                            tips.roleShortcut                               
-optionsBar.numberOption                         
+header.titleBar                                 tagList.tag.components.roleName                 
+imageUploadOptions.chooseImages                 tagList.tag.components.tagImage                 
+imageUploadOptions.container                    tagList.tag.components.tagName                  
+imageUploadOptions.gravatar                     tagList.tag.container                           
+modal                                           tips.badges                                     
+modals.gravatar                                 tips.images                                     
+modals.tips                                     tips.laminating                                 
+modals.welcome                                  tips.multiples                                  
+optionsBar.container                            tips.naming                                     
+optionsBar.numberOption                         tips.roleShortcut                               
 ```
-
-## config
-
-
-Provides _static application config_ as a plain JavaScript object, including default state used to initialise the state stores. Config is loaded at [boot](#booting) time.
-
-#### Collaborators
-
-```diff
-+ 
-- components core diagnostics elements io services startup storage stores styles subscriptions ui util vendorComponents vendorServices window
-```
-
-- No collaborators required.
-
-#### Source
-
-_config_ is a single-file module:
-
-
-<details open>
-<summary>src/config/config.js</summary>
-
-```js
-const maxImageSize = 600;
-
-module.exports = () => () => {
-    return {
-        gtag: {         
-            trackingId: 'UA-34497639-2',
-            enabled: false
-        },
-        sentry: {
-            dsn: 'https://63594154fcf34c34966aec13b15e2821@o418187.ingest.sentry.io/5320412',
-            enabled: false
-        },
-        app: {
-            name: 'Agile Avatars',
-            issues: 'https://github.com/mattriley/agileavatars/issues'
-        },
-        author: {
-            name: 'Matt Riley',
-            profile: 'https://www.linkedin.com/in/mattrileyau/'
-        },
-        gravatar: {
-            domain: 'https://secure.gravatar.com',
-            size: maxImageSize,
-            fallbacks: ['robohash', 'monsterid', 'wavatar', 'retro', 'identicon', 'mp'],
-            errorMessage: 'An error occurred. Please check your connection and try again.'
-        },
-        options: {
-            layout: 'modes | shapes | size | spacing | sort | outline',
-            modes: ['active', 'passive'],
-            shapes: ['circle', 'square'],
-            shapeRadius: { circle: 50, square: 0 },
-            active: { min: 0, max: 999, step: 1 },
-            passive: { min: 0, max: 999, step: 1 },
-            size: { min: 100, max: maxImageSize, step: 10 },
-            spacing: { min: 0, max: 10, step: 1 },
-            sort: {
-                orderAdded: 'Order added',
-                roleThenName: 'Role, then name',
-                name: 'Name'
-            }
-        },
-        tags: {
-            layout: 'tagImage | tagName roleName',
-            imagePadding: 17
-        },
-        roles: {
-            nilRole: { roleName: '', color: '#ffffff' },
-            presetColors: {
-                BA: '#6688c3',
-                DEV: '#48a56a',
-                PO: '#ce4a4a',
-                QA: '#eaaf41',
-                TL: '#000000',
-                XD: '#b25da6'
-            }
-        },
-        debounce: {
-            adjustTagInstanceCounts: 100,
-            sortTagList: 50
-        },
-        storage: {
-            stores: ['settings', 'roles', 'tags', 'tagInstances'],
-            defaults: {
-                settings: {
-                    app: {
-                        modal: 'welcome',
-                        nilRoleId: null
-                    },
-                    options: {
-                        sort: 'orderAdded',
-                        shape: 'circle',
-                        active: 1,
-                        passive: 0,
-                        size: 170,
-                        spacing: 4,
-                        outline: true
-                    },
-                    gravatar: {
-                        fallback: 'robohash',
-                        freetext: '',
-                        status: 'ready',
-                        errorMessage: ''
-                    }    
-                }
-            }
-        }        
-    };
-};
-```
-</details>
 
 ## core
 
@@ -631,7 +518,7 @@ Provides _pure functions_ to be consumed by the _services_ module. Without core,
 #### Collaborators
 
 ```diff
-+ config util
++ util
 - components diagnostics elements io services startup storage stores styles subscriptions ui vendorComponents vendorServices window
 ```
 
@@ -643,7 +530,7 @@ parseEmailExpression is a pure function. Amongst other properties of pure functi
 
 
 <details open>
-<summary>src/core/tags/parse-email-expression.js</summary>
+<summary>src/modules/core/tags/parse-email-expression.js</summary>
 
 ```js
 module.exports = ({ util }) => expression => {
@@ -688,7 +575,7 @@ Provides _diagnostic functions_ such as the ability to dump state to the console
 
 ```diff
 + stores util
-- components config core elements io services startup storage styles subscriptions ui vendorComponents vendorServices window
+- components core elements io services startup storage styles subscriptions ui vendorComponents vendorServices window
 ```
 
 #### List of diagnostic functions
@@ -706,7 +593,7 @@ Provides _element factory functions_. An element is a HTML element that relies o
 
 ```diff
 + ui util
-- components config core diagnostics io services startup storage stores styles subscriptions vendorComponents vendorServices window
+- components core diagnostics io services startup storage stores styles subscriptions vendorComponents vendorServices window
 ```
 
 - No access to _stores_ or _io_. Effects are serviced by raising events to be handled by _components_.
@@ -716,7 +603,7 @@ Provides _element factory functions_. An element is a HTML element that relies o
 
 
 <details open>
-<summary>src/elements/editable-span.js</summary>
+<summary>src/modules/elements/editable-span.js</summary>
 
 ```js
 module.exports = ({ el, ui }) => className => {
@@ -758,7 +645,7 @@ Provides _io functions_ while preventing direct access to _window_.
 
 ```diff
 + window
-- components config core diagnostics elements services startup storage stores styles subscriptions ui util vendorComponents vendorServices
+- components core diagnostics elements services startup storage stores styles subscriptions ui util vendorComponents vendorServices
 ```
 
 #### Source
@@ -767,7 +654,7 @@ _io_ is a single-file module:
 
 
 <details open>
-<summary>src/io/io.js</summary>
+<summary>src/modules/io/io.js</summary>
 
 ```js
 module.exports = ({ window }) => () => {
@@ -798,7 +685,7 @@ Provides _service functions_. Service functions perform effects by orchestrate t
 #### Collaborators
 
 ```diff
-+ config core io stores subscriptions util
++ core io stores subscriptions util
 - components diagnostics elements startup storage styles ui vendorComponents vendorServices window
 ```
 
@@ -808,7 +695,7 @@ Provides _service functions_. Service functions perform effects by orchestrate t
 
 
 <details open>
-<summary>src/services/tags/change-tag-name.js</summary>
+<summary>src/modules/services/tags/change-tag-name.js</summary>
 
 ```js
 module.exports = ({ core, services, stores }) => (tagInstanceId, expression) => {
@@ -859,7 +746,7 @@ Provides _startup functions_ which are used at [launch](#launching) time.
 #### Collaborators
 
 ```diff
-+ components config core diagnostics elements io services storage stores styles subscriptions ui util vendorComponents vendorServices
++ components core diagnostics elements io services storage stores styles subscriptions ui util vendorComponents vendorServices
 - window
 ```
 
@@ -869,7 +756,7 @@ Provides _startup functions_ which are used at [launch](#launching) time.
 
 
 <details open>
-<summary>src/startup/start.js</summary>
+<summary>src/modules/startup/start.js</summary>
 
 ```js
 module.exports = ({ startup, components }) => render => {
@@ -892,7 +779,7 @@ Provides the _state store implementation_. State stores manage state changes and
 
 ```diff
 + 
-- components config core diagnostics elements io services startup stores styles subscriptions ui util vendorComponents vendorServices window
+- components core diagnostics elements io services startup stores styles subscriptions ui util vendorComponents vendorServices window
 ```
 
 #### Source
@@ -901,7 +788,7 @@ _storage_ is a single-file module:
 
 
 <details >
-<summary>src/storage/state-store.js</summary>
+<summary>src/modules/storage/state-store.js</summary>
 
 ```js
 const EventEmitter = require('events');
@@ -911,7 +798,7 @@ module.exports = (defaults = {}) => {
     const state = new Map();
     const funcs = new Map();
     const collectionEmitter = new EventEmitter();
-    
+
     const manage = id => funcs.get(id) || { get: () => null };
     const list = () => [...state.values()];
     const find = id => manage(id).get();
@@ -960,7 +847,7 @@ module.exports = (defaults = {}) => {
         funcs.delete(id);
         state.delete(id);
     };
-    
+
     Object.entries(defaults).map(([id, entry]) => ({ id, ...entry })).forEach(entry => insert(entry));
 
     return { insert, remove, list, find, update, subscriptions };
@@ -977,7 +864,7 @@ Provides the _state stores_. State stores manage state changes and raise change 
 #### Collaborators
 
 ```diff
-+ config storage
++ storage
 - components core diagnostics elements io services startup styles subscriptions ui util vendorComponents vendorServices window
 ```
 
@@ -987,7 +874,7 @@ Provides the _state stores_. State stores manage state changes and raise change 
 
 
 <details open>
-<summary>src/stores/stores.js</summary>
+<summary>src/modules/stores/stores.js</summary>
 
 ```js
 module.exports = ({ storage, config }) => () => {
@@ -1017,7 +904,7 @@ Provides _style factory functions_. A style is simply a HTML style element that 
 #### Collaborators
 
 ```diff
-+ config subscriptions ui
++ subscriptions ui
 - components core diagnostics elements io services startup storage stores util vendorComponents vendorServices window
 ```
 
@@ -1025,7 +912,7 @@ Provides _style factory functions_. A style is simply a HTML style element that 
 
 
 <details open>
-<summary>src/styles/role-color.js</summary>
+<summary>src/modules/styles/role-color.js</summary>
 
 ```js
 module.exports = ({ el, subscriptions }) => roleId => {
@@ -1049,7 +936,7 @@ module.exports = ({ el, subscriptions }) => roleId => {
 
 
 <details open>
-<summary>src/startup/create-style-manager.js</summary>
+<summary>src/modules/startup/create-style-manager.js</summary>
 
 ```js
 module.exports = ({ styles, subscriptions, ui, util }) => () => {
@@ -1090,7 +977,7 @@ The _subscriptions_ module was introduced to allow Components to subscribe to st
 
 ```diff
 + stores util
-- components config core diagnostics elements io services startup storage styles ui vendorComponents vendorServices window
+- components core diagnostics elements io services startup storage styles ui vendorComponents vendorServices window
 ```
 
 #### Source
@@ -1099,7 +986,7 @@ _subscriptions_ is a single-file module that exposes only subscriptions from the
 
 
 <details open>
-<summary>src/subscriptions/subscriptions.js</summary>
+<summary>src/modules/subscriptions/subscriptions.js</summary>
 
 ```js
 module.exports = ({ stores, util }) => () => {
@@ -1119,7 +1006,7 @@ Provides _low-level presentation functions_ while preventing direct access to wi
 
 ```diff
 + window
-- components config core diagnostics elements io services startup storage stores styles subscriptions util vendorComponents vendorServices
+- components core diagnostics elements io services startup storage stores styles subscriptions util vendorComponents vendorServices
 ```
 
 #### List of ui functions
@@ -1139,7 +1026,7 @@ Provides _low-level utility functions_.
 
 ```diff
 + 
-- components config core diagnostics elements io services startup storage stores styles subscriptions ui vendorComponents vendorServices window
+- components core diagnostics elements io services startup storage stores styles subscriptions ui vendorComponents vendorServices window
 ```
 
 #### List of utility functions
@@ -1158,7 +1045,7 @@ Provides vendor (third party) components including gtag and vanilla-picker. Thes
 #### Collaborators
 
 ```diff
-+ config ui window
++ ui window
 - components core diagnostics elements io services startup storage stores styles subscriptions util vendorServices
 ```
 
@@ -1176,7 +1063,7 @@ Provides vendor (third party) services including gtag and sentry. These are sepa
 #### Collaborators
 
 ```diff
-+ config io window
++ io window
 - components core diagnostics elements services startup storage stores styles subscriptions ui util vendorComponents
 ```
 
@@ -1188,7 +1075,7 @@ gtag depends on window for global variables to work correctly.
 
 
 <details open>
-<summary>src/vendor-services/gtag.js</summary>
+<summary>src/modules/vendor-services/gtag.js</summary>
 
 ```js
 /* eslint-disable */
@@ -1261,7 +1148,7 @@ A __state store__ is collection of data items keyed by a unique identifier and m
 
 
 <details >
-<summary>src/storage/state-store.js</summary>
+<summary>src/modules/storage/state-store.js</summary>
 
 ```js
 const EventEmitter = require('events');
@@ -1271,7 +1158,7 @@ module.exports = (defaults = {}) => {
     const state = new Map();
     const funcs = new Map();
     const collectionEmitter = new EventEmitter();
-    
+
     const manage = id => funcs.get(id) || { get: () => null };
     const list = () => [...state.values()];
     const find = id => manage(id).get();
@@ -1320,7 +1207,7 @@ module.exports = (defaults = {}) => {
         funcs.delete(id);
         state.delete(id);
     };
-    
+
     Object.entries(defaults).map(([id, entry]) => ({ id, ...entry })).forEach(entry => insert(entry));
 
     return { insert, remove, list, find, update, subscriptions };
@@ -1333,7 +1220,7 @@ module.exports = (defaults = {}) => {
 
 
 <details open>
-<summary>src/services/roles/insert-role.js</summary>
+<summary>src/modules/services/roles/insert-role.js</summary>
 
 ```js
 module.exports = ({ core, services, subscriptions, stores, io }) => roleData => {
@@ -1352,7 +1239,7 @@ module.exports = ({ core, services, subscriptions, stores, io }) => roleData => 
 
 
 <details open>
-<summary>src/services/roles/change-role-name.js</summary>
+<summary>src/modules/services/roles/change-role-name.js</summary>
 
 ```js
 module.exports = ({ core, stores }) => (roleId, roleName) => {
@@ -1377,7 +1264,7 @@ During [boot](#booting) time, subscription functions are extracted from the stor
 
 
 <details open>
-<summary>src/components/role-list/container.js</summary>
+<summary>src/modules/components/role-list/container.js</summary>
 
 ```js
 module.exports = ({ el, roleList, subscriptions, ui }) => () => {
@@ -1403,7 +1290,7 @@ module.exports = ({ el, roleList, subscriptions, ui }) => () => {
 
 
 <details open>
-<summary>src/components/role-list/role-customiser/master-role-name.js</summary>
+<summary>src/modules/components/role-list/role-customiser/master-role-name.js</summary>
 
 ```js
 module.exports = ({ elements, services, subscriptions }) => roleId => {
@@ -1469,7 +1356,7 @@ $div.addEventListener('click', clickHandler);
 
 
 <details open>
-<summary>src/ui/el.js</summary>
+<summary>src/modules/ui/el.js</summary>
 
 ```js
 module.exports = ({ window }) => (tagName, ...opts) => { 
@@ -1503,7 +1390,7 @@ This example uses `el` to create an element, but assigns a HTML string to `inner
 
 
 <details open>
-<summary>src/components/tips/naming.js</summary>
+<summary>src/modules/components/tips/naming.js</summary>
 
 ```js
 module.exports = ({ el }) => () => {
@@ -1785,8 +1672,8 @@ Presenting a color picker to change the color of a role.
 
 > output coverage reports using Node.js' built in coverage
 
-- Homepage: https://github.com/bcoe/c8#readme
-- __13__ dependencies :warning:
+- Homepage: undefined
+- __12__ dependencies :warning:
 
 #### Used for
 
@@ -1803,7 +1690,7 @@ nyc was originally used for code coverage and was fine however c8 was chosen for
 
 > Ultra-fast cross-platform command line utility to watch file system changes.
 
-- Homepage: https://github.com/kimmobrunfeldt/chokidar-cli
+- Homepage: https://github.com/open-npm-tools/chokidar-cli
 - __4__ dependencies :white_check_mark:
 
 #### Used for
@@ -1818,7 +1705,7 @@ Running tests automatically on file change.
 > An AST-based pattern checker for JavaScript.
 
 - Homepage: https://eslint.org
-- __37__ dependencies :warning:
+- __38__ dependencies :warning:
 
 #### Used for
 
@@ -1833,10 +1720,10 @@ Prettier was originally used for code formatting but was dropped due to limited 
 
 ## husky
 
-> Prevents bad commit or push (git hooks, pre-commit/precommit, pre-push/prepush, post-merge/postmerge and all that stuff...)
+> Modern native Git hooks made easy
 
-- Homepage: https://github.com/typicode/husky#readme
-- __10__ dependencies :warning:
+- Homepage: https://typicode.github.io/husky
+- __0__ dependencies :boom:
 
 #### Used for
 
@@ -1849,8 +1736,8 @@ Running pre-commit validation scripts.
 
 > A JavaScript implementation of many web standards
 
-- Homepage: https://github.com/jsdom/jsdom#readme
-- __26__ dependencies :warning:
+- Homepage: undefined
+- __27__ dependencies :warning:
 
 #### Used for
 
@@ -1881,46 +1768,23 @@ This library was extracted from Agile Avatars.
 
 
 
-## parcel-bundler
+## parcel
 
-> Blazing fast, zero configuration web application bundler
+> undefined
 
-- Homepage: https://github.com/parcel-bundler/parcel#readme
-- __59__ dependencies :warning:
-
-#### Used for
-
-Bundling the application.
-
-#### Comments
-
-- __No alternative with fewer dependencies exists__\
-Parcel has many dependencies. An exception is made for ease of use.
-
-- __Low learning curve__\
-Designed to be easier to use than webpack.
+- Homepage: undefined
+- __0__ dependencies :boom:
 
 
-
-## tap-mocha-reporter
-
-> Format a TAP stream using Mocha's set of reporters
-
-- Homepage: https://github.com/isaacs/tap-mocha-reporter
-- __8__ dependencies :white_check_mark:
-
-#### Used for
-
-Formatting test output. Supports indented TAP output.
 
 
 
 
 ## zora
 
-> tap test harness for nodejs and browsers
+> the lightest yet the fastest javascript testing library
 
-- Homepage: https://github.com/lorenzofox3/zora#readme
+- Homepage: undefined
 - __0__ dependencies :boom:
 
 #### Used for
@@ -1933,6 +1797,18 @@ Lightweight test harness optimised for speed and simplicity.
 
 - __tape__\
 tape was originally used however zora is newer and has some advantages over tape.
+
+## zora-reporters
+
+> undefined
+
+- Homepage: undefined
+- __0__ dependencies :boom:
+
+
+
+
+
 
 
 # Functional Programming
@@ -1963,7 +1839,7 @@ The `acc` variable is intentionally mutated given the scope of the mutation is s
 
 
 <details open>
-<summary>src/stores/stores.js</summary>
+<summary>src/modules/stores/stores.js</summary>
 
 ```js
 module.exports = ({ storage, config }) => () => {
@@ -1998,7 +1874,7 @@ This function orchestrates pure and impure functions making it impure. However b
 
 
 <details open>
-<summary>src/services/tags/insert-file-async.js</summary>
+<summary>src/modules/services/tags/insert-file-async.js</summary>
 
 ```js
 module.exports = ({ core, services, util }) => file => {
@@ -2015,7 +1891,7 @@ module.exports = ({ core, services, util }) => file => {
 
 
 <details open>
-<summary>src/core/tags/parse-file-expression.js</summary>
+<summary>src/modules/core/tags/parse-file-expression.js</summary>
 
 ```js
 module.exports = () => expression => {
@@ -2043,7 +1919,7 @@ Where possible, use `pipe` to avoid nesting function calls and intermediate vari
 
 
 <details open>
-<summary>src/services/tags/insert-file-async.js</summary>
+<summary>src/modules/services/tags/insert-file-async.js</summary>
 
 ```js
 module.exports = ({ core, services, util }) => file => {
@@ -2062,7 +1938,7 @@ module.exports = ({ core, services, util }) => file => {
 
 
 <details open>
-<summary>src/util/pipe.js</summary>
+<summary>src/modules/util/pipe.js</summary>
 
 ```js
 module.exports = (...funcs) => initial => funcs.reduce((v, f) => f(v), initial);
@@ -2097,7 +1973,7 @@ Such comments are secondary to the code and so follow the code rather than prece
 
 
 <details open>
-<summary>src/components/tag-list/tag/components/tag-image.js</summary>
+<summary>src/modules/components/tag-list/tag/components/tag-image.js</summary>
 
 ```js
 module.exports = ({ el }) => () => {
