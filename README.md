@@ -179,8 +179,8 @@ The following code is referenced by index.html and launches the application:
 ```js
 const boot = require('./boot');
 const config = require('./config');
-const { startup } = window.agileavatars = boot({ window, config }).getModules();
-startup.start(app => document.body.append(app));
+const { modules } = window.agileavatars = boot({ window, config });
+modules.startup.start(app => document.body.append(app));
 ```
 </details>
 
@@ -247,7 +247,7 @@ module.exports = ({ window, config, ...overrides }) => {
     // Startup    
     compose('diagnostics', { stores, util });
     compose('startup', compose.getModules());
-    return compose; //.getModules();
+    return compose.done();
 
 };
 ```
@@ -310,10 +310,14 @@ _module-composer_ is a small library that reduces the amount of boilerplate code
 const { isObject, isFunction, mapValues, override } = require('./util');
 
 module.exports = (parent, defaults = {}, overrides = {}) => {
-    const modules = { ...parent };
-    const dependencies = mapValues(modules, () => []);
+    const modules = {}, dependencies = {};
+    const addModules = obj => {
+        Object.assign(modules, obj);
+        Object.assign(dependencies, mapValues(modules, () => []))
+    };
+    addModules({ ...parent });
     const compose = (key, arg = {}) => {
-        arg = { ...defaults, ...arg };        
+        arg = { ...defaults, ...arg };
         delete arg[key];
         const obj = parent[key];
         const composed = composeRecursive(obj, arg, key);
@@ -323,19 +327,20 @@ module.exports = (parent, defaults = {}, overrides = {}) => {
         dependencies[key] = Object.keys(arg);
         return module;
     };
-    return Object.assign(compose, { 
+    return Object.assign(compose, {
         default: (key, arg) => defaults[key] = compose(key, arg),
         addDefaults: obj => { Object.assign(defaults, obj); },
-        addModules: obj => { Object.assign(modules, obj); },
+        addModules,
         getModule: key => modules[key],
         getModules: () => ({ ...modules }),
-        getDependencies: () => ({ ...dependencies })
+        getDependencies: () => ({ ...dependencies }),
+        done: () => ({ modules, dependencies })
     });
 };
 
 const composeRecursive = (obj, arg, parentKey) => {
     if (!isObject(obj)) return obj;
-    const product = {}; 
+    const product = {};
     const newArg = { [parentKey]: product, ...arg };
     const newObj = mapValues(obj, (val, key) => (isFunction(val) ? val(newArg) : composeRecursive(val, newArg, key)));
     return Object.assign(product, newObj);
