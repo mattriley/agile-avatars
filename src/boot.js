@@ -26,6 +26,6 @@ module.exports = ({ window, config, ...overrides }) => {
     // Startup    
     compose('diagnostics', { stores, util });
     compose('startup', compose.getModules());
-    return compose; //.getModules();
+    return compose.done();
 
 };
