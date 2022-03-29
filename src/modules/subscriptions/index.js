@@ -1,3 +1,3 @@
 module.exports = {
-    subscriptions: require('./subscriptions')
+    setup: require('./setup')
 };

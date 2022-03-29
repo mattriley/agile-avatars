@@ -1,3 +1,3 @@
 module.exports = {
-    io: require('./io')
+    setup: require('./setup')
 };

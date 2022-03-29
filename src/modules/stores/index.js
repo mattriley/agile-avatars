@@ -1,3 +1,3 @@
 module.exports = {
-    stores: require('./stores')
+    setup: require('./setup')
 };

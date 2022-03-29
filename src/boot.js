@@ -7,12 +7,12 @@ module.exports = ({ window, config, ...overrides }) => {
     const compose = composer(modules, { config }, overrides);
 
     // Data
-    const stores = compose('stores', { storage, config }, stores => stores.stores());
-    const subscriptions = compose('subscriptions', { stores, util }, subscriptions => subscriptions.subscriptions());
+    const stores = compose('stores', { storage, config }, stores => stores.setup());
+    const subscriptions = compose('subscriptions', { stores, util }, subscriptions => subscriptions.setup());
 
     // Domain
     const core = compose('core', { util, config });
-    const io = compose('io', { window }, io => io.io());
+    const io = compose('io', { window }, io => io.setup());
     const services = compose('services', { subscriptions, stores, core, io, util, config });
     const vendorServices = compose('vendorServices', { io, config, window });
 
