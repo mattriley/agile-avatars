@@ -20,12 +20,12 @@ module.exports = ({ window, config, ...overrides }) => {
     const { el, ...ui } = compose('ui', { window });
     const elements = compose('elements', { el, ui, util });
     const vendorComponents = compose('vendorComponents', { el, ui, config, window });
-    compose('components', { el, ui, elements, vendorComponents, vendorServices, services, subscriptions, util, config });
-    compose('styles', { el, ui, subscriptions, config });
+    const components = compose('components', { el, ui, elements, vendorComponents, vendorServices, services, subscriptions, util, config });
+    const styles = compose('styles', { el, ui, subscriptions, config });
 
     // Startup    
     compose('diagnostics', { stores, util });
-    compose('startup');
+    compose('startup', { ui, components, styles, services, subscriptions, stores, util, config });
 
     return compose.done();
 
