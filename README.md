@@ -228,12 +228,12 @@ module.exports = ({ window, config, ...overrides }) => {
     const compose = composer(modules, { config }, overrides);
 
     // Data
-    const stores = compose('stores', { storage, config });
-    const subscriptions = compose('subscriptions', { stores, util });
+    const stores = compose('stores', { storage, config }, stores => stores.setup());
+    const subscriptions = compose('subscriptions', { stores, util }, subscriptions => subscriptions.setup());
 
     // Domain
     const core = compose('core', { util, config });
-    const io = compose('io', { window });
+    const io = compose('io', { window }, io => io.setup());
     const services = compose('services', { subscriptions, stores, core, io, util, config });
     const vendorServices = compose('vendorServices', { io, config, window });
 
@@ -241,12 +241,13 @@ module.exports = ({ window, config, ...overrides }) => {
     const { el, ...ui } = compose('ui', { window });
     const elements = compose('elements', { el, ui, util });
     const vendorComponents = compose('vendorComponents', { el, ui, config, window });
-    compose('components', { el, ui, elements, vendorComponents, vendorServices, services, subscriptions, util, config });
-    compose('styles', { el, ui, subscriptions, config });
+    const components = compose('components', { el, ui, elements, vendorComponents, vendorServices, services, subscriptions, util, config });
+    const styles = compose('styles', { el, ui, subscriptions, config });
 
     // Startup    
     compose('diagnostics', { stores, util });
-    compose('startup', compose.getModules());
+    compose('startup', { ui, components, styles, services, subscriptions, stores, util, config });
+
     return compose.done();
 
 };
@@ -274,19 +275,19 @@ Modules | startup | components | services | vendor<br>services | vendor<br>compo
 startup | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
 components | ✅ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
 services | ✅ | ✅ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
-vendorServices | ✅ | ✅ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
-vendorComponents | ✅ | ✅ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
+vendorServices | ❌ | ✅ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
+vendorComponents | ❌ | ✅ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
 subscriptions | ✅ | ✅ | ✅ | ❌ | ❌ | n/a | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
 styles | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
-elements | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
-diagnostics | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
+elements | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
+diagnostics | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
 ui | ✅ | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ | ✅ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
 stores | ✅ | ❌ | ✅ | ❌ | ❌ | ✅ | ❌ | ❌ | ✅ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌
-io | ✅ | ❌ | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌
-core | ✅ | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌
+io | ❌ | ❌ | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌
+core | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌
 window | ❌ | ❌ | ❌ | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ | ✅ | ❌ | n/a | ❌ | ❌
 util | ✅ | ✅ | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ | ❌ | n/a | ❌
-storage | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ | n/a
+storage | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ | n/a
 <p align="center"><em>Generated dependency mapping (scrolls to the right)</em></p>
 <br>
 
@@ -310,32 +311,20 @@ _module-composer_ is a small library that reduces the amount of boilerplate code
 const { isObject, isFunction, mapValues, override } = require('./util');
 
 module.exports = (parent, defaults = {}, overrides = {}) => {
-    const modules = {}, dependencies = {};
-    const addModules = obj => {
-        Object.assign(modules, obj);
-        Object.assign(dependencies, mapValues(modules, () => []))
-    };
-    addModules({ ...parent });
-    const compose = (key, arg = {}) => {
+    const modules = { ...parent }, dependencies = mapValues(modules, () => []);
+    const done = () => ({ modules: { ...modules }, dependencies: { ...dependencies } });
+    const compose = (key, arg = {}, initialise) => {
         arg = { ...defaults, ...arg };
         delete arg[key];
         const obj = parent[key];
         const composed = composeRecursive(obj, arg, key);
-        const initialise = isFunction(composed[key]) ? composed[key] : () => composed;
-        const module = override({ [key]: initialise() }, overrides)[key];
+        const initialised = initialise ? initialise(composed) : composed;
+        const module = override({ [key]: initialised }, overrides)[key];
         modules[key] = module;
         dependencies[key] = Object.keys(arg);
         return module;
     };
-    return Object.assign(compose, {
-        default: (key, arg) => defaults[key] = compose(key, arg),
-        addDefaults: obj => { Object.assign(defaults, obj); },
-        addModules,
-        getModule: key => modules[key],
-        getModules: () => ({ ...modules }),
-        getDependencies: () => ({ ...dependencies }),
-        done: () => ({ modules, dependencies })
-    });
+    return Object.assign(compose, { done });
 };
 
 const composeRecursive = (obj, arg, parentKey) => {
@@ -659,7 +648,7 @@ _io_ is a single-file module:
 
 
 <details open>
-<summary>src/modules/io/io.js</summary>
+<summary>src/modules/io/setup.js</summary>
 
 ```js
 module.exports = ({ window }) => () => {
@@ -751,8 +740,8 @@ Provides _startup functions_ which are used at [launch](#launching) time.
 #### Collaborators
 
 ```diff
-+ components core diagnostics elements io services storage stores styles subscriptions ui util vendorComponents vendorServices
-- window
++ components services stores styles subscriptions ui util
+- core diagnostics elements io storage vendorComponents vendorServices window
 ```
 
 - Largely unconstrained as only used during launch.
@@ -879,7 +868,7 @@ Provides the _state stores_. State stores manage state changes and raise change 
 
 
 <details open>
-<summary>src/modules/stores/stores.js</summary>
+<summary>src/modules/stores/setup.js</summary>
 
 ```js
 module.exports = ({ storage, config }) => () => {
@@ -991,7 +980,7 @@ _subscriptions_ is a single-file module that exposes only subscriptions from the
 
 
 <details open>
-<summary>src/modules/subscriptions/subscriptions.js</summary>
+<summary>src/modules/subscriptions/setup.js</summary>
 
 ```js
 module.exports = ({ stores, util }) => () => {
@@ -1638,9 +1627,21 @@ According to [this issue](https://github.com/blueimp/JavaScript-MD5/issues/26), 
 
 
 
+## lodash
+
+> undefined
+
+- Homepage: undefined
+- __0__ dependencies :boom:
+
+
+
+
+
+
 ## module-composer
 
-> Module composition utility
+> A module composition utility
 
 - Homepage: https://github.com/mattriley/node-module-composer
 - __1__ dependency :white_check_mark:
@@ -1710,7 +1711,7 @@ Running tests automatically on file change.
 > An AST-based pattern checker for JavaScript.
 
 - Homepage: https://eslint.org
-- __38__ dependencies :warning:
+- __35__ dependencies :warning:
 
 #### Used for
 
@@ -1722,6 +1723,18 @@ Linting and code formatting.
 
 - __prettier__\
 Prettier was originally used for code formatting but was dropped due to limited configurability.
+
+## events
+
+> undefined
+
+- Homepage: undefined
+- __0__ dependencies :boom:
+
+
+
+
+
 
 ## husky
 
@@ -1774,6 +1787,18 @@ This library was extracted from Agile Avatars.
 
 
 ## parcel
+
+> undefined
+
+- Homepage: undefined
+- __0__ dependencies :boom:
+
+
+
+
+
+
+## process
 
 > undefined
 
@@ -1844,7 +1869,7 @@ The `acc` variable is intentionally mutated given the scope of the mutation is s
 
 
 <details open>
-<summary>src/modules/stores/stores.js</summary>
+<summary>src/modules/stores/setup.js</summary>
 
 ```js
 module.exports = ({ storage, config }) => () => {
