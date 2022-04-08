@@ -131,8 +131,10 @@ header {
     color: white;
     padding: 0;
     margin: 0;
-    font-family: helvetica;
-    font-size: .8rem;
+    /* font-family: helvetica; */
+    /* font-size: .8rem; */
+    font-family: 'Roboto Condensed', sans-serif;
+
 }
 
 header a {
