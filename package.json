@@ -4,6 +4,10 @@
     "author": "Matt Riley",
     "repository": "github:mattriley/agileavatars",
     "license": "GPL-3.0-or-later",
+    "scripts": {
+        "start": "./task start",
+        "test": "./task test"
+    },
     "dependencies": {
         "@sentry/browser": "^6.15.0",
         "blueimp-md5": "^2.18.0",
