@@ -28,6 +28,6 @@ module.exports = ({ services, el, config }) => () => {
     const $left = el('div', 'left').append($title, $author);
     const $right = el('div', 'right').append($tips, $issues, $source);
 
-    return el('div', 'title-bar').append($left, $right);
+    return el('div', 'dev-bar').append($left, $right);
 
 };
