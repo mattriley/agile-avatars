@@ -1,20 +1,12 @@
 module.exports = ({ services, el, config }) => () => {
 
-    const $title = el('span', 'app-name', { textContent: config.app.name });
-
-    const $author = el('a', 'author', {
-        textContent: `by ${config.author.name}`,
-        href: config.author.profile,
-        target: '_blank'
-    });
-
     const $tips = el('a', 'tips', { textContent: 'Tips & tricks' })
         .addEventListener('click', () => {
             services.settings.changeModal('tips');
         });
 
     const $issues = el('a', {
-        textContent: 'Give feedback',
+        textContent: 'Send feedback',
         target: '_blank',
         href: config.app.issues
     });
@@ -25,9 +17,9 @@ module.exports = ({ services, el, config }) => () => {
         href: config.app.source
     });
 
-    const $left = el('div', 'left').append($title, $author);
-    const $right = el('div', 'right').append($tips, $issues, $source);
+    const $devBar = el('dev-bar').append($tips, $issues, $source);
+    $devBar.setAttribute('app-name', config.app.name);
 
-    return el('div', 'dev-bar').append($left, $right);
+    return $devBar;
 
 };
