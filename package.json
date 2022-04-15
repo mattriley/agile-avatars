@@ -12,7 +12,7 @@
         "@sentry/browser": "^6.15.0",
         "blueimp-md5": "^2.18.0",
         "lodash": "^4.17.21",
-        "module-composer": "^0.7.6",
+        "module-composer": "^0.8.0",
         "vanilla-picker": "github:mattriley/vanilla-picker"
     },
     "devDependencies": {
