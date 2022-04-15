@@ -179,7 +179,7 @@ The following code is referenced by index.html and launches the application:
 ```js
 const boot = require('./boot');
 const config = require('./config');
-const { modules } = window.agileavatars = boot({ window, config });
+const modules = window.agileavatars = boot({ window, config }).getModules();
 modules.startup.start(app => document.body.append(app));
 ```
 </details>
@@ -248,7 +248,7 @@ module.exports = ({ window, config, ...overrides }) => {
     compose('diagnostics', { stores, util });
     compose('startup', { ui, components, styles, services, subscriptions, stores, util, config });
 
-    return compose.done();
+    return compose;
 
 };
 ```
@@ -312,7 +312,8 @@ const { isObject, isFunction, mapValues, override } = require('./util');
 
 module.exports = (parent, defaults = {}, overrides = {}) => {
     const modules = { ...parent }, dependencies = mapValues(modules, () => []);
-    const done = () => ({ modules: { ...modules }, dependencies: { ...dependencies } });
+    const getModules = () => ({ ...modules });
+    const getDependencies = () => ({ ...dependencies });
     const compose = (key, arg = {}, initialise) => {
         arg = { ...defaults, ...arg };
         delete arg[key];
@@ -324,7 +325,7 @@ module.exports = (parent, defaults = {}, overrides = {}) => {
         dependencies[key] = Object.keys(arg);
         return module;
     };
-    return Object.assign(compose, { done });
+    return Object.assign(compose, { getModules, getDependencies });
 };
 
 const composeRecursive = (obj, arg, parentKey) => {
