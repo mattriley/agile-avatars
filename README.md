@@ -180,8 +180,12 @@ The following code is referenced by index.html and launches the application:
 import boot from './boot';
 import config from './config';
 
-const { modules } = window.agileavatars = boot({ window, config }).composition;
-modules.startup.start(app => document.body.append(app));
+const { startup, composition } = boot({ config, window });
+const app = { config, ...composition };
+window.app = app;
+window.document.title = config.app.name;
+console.log({ app });
+startup.start(app => document.body.append(app));
 ```
 </details>
 
