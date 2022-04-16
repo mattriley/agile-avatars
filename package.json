@@ -10,7 +10,7 @@
         "test": "./task test"
     },
     "dependencies": {
-        "@sentry/browser": "^6.15.0",
+        "@sentry/browser": "^6.19.6",
         "blueimp-md5": "^2.18.0",
         "lodash": "^4.17.21",
         "module-composer": "^0.8.0",

@@ -177,8 +177,9 @@ The following code is referenced by index.html and launches the application:
 <summary>src/app.js</summary>
 
 ```js
-const boot = require('./boot');
-const config = require('./config');
+import boot from './boot';
+import config from './config';
+
 const modules = window.agileavatars = boot({ window, config }).getModules();
 modules.startup.start(app => document.body.append(app));
 ```
@@ -219,11 +220,12 @@ The boot function composes the application from modules in the src directory.
 <summary>src/boot.js</summary>
 
 ```js
-const composer = require('module-composer');
-const modules = require('./modules');
+import composer from 'module-composer';
+import modules from './modules';
 const { storage, util } = modules;
 
-module.exports = ({ window, config, ...overrides }) => {
+export default ({ window, config, ...overrides }) => {
+
 
     const compose = composer(modules, { config }, overrides);
 
@@ -247,6 +249,7 @@ module.exports = ({ window, config, ...overrides }) => {
     // Startup    
     compose('diagnostics', { stores, util });
     compose('startup', { ui, components, styles, services, subscriptions, stores, util, config });
+
 
     return compose;
 
@@ -361,19 +364,19 @@ On the file system, a module is simply a directory of sources files that follow 
 <summary>src/modules/components/index.js</summary>
 
 ```js
-module.exports = {
-    gravatar: require('./gravatar'),
-    header: require('./header'),
-    imageUploadOptions: require('./image-upload-options'),
-    modals: require('./modals'),
-    optionsBar: require('./options-bar'),
-    roleList: require('./role-list'),
-    tagList: require('./tag-list'),
-    tips: require('./tips'),
-    app: require('./app'),
-    dropzone: require('./dropzone'),
-    modal: require('./modal')
-};
+import gravatar from './gravatar';
+import header from './header';
+import imageUploadOptions from './image-upload-options';
+import modals from './modals';
+import optionsBar from './options-bar';
+import roleList from './role-list';
+import tagList from './tag-list';
+import tips from './tips';
+import app from './app';
+import dropzone from './dropzone';
+import modal from './modal';
+
+export default { gravatar, header, imageUploadOptions, modals, optionsBar, roleList, tagList, tips, app, dropzone, modal };
 ```
 </details>
 
@@ -384,7 +387,7 @@ module.exports = {
 <summary>src/modules/components/tag-list/tag/components/tag-name.js</summary>
 
 ```js
-module.exports = ({ elements, services, subscriptions }) => tagInstanceId => {
+export default ({ elements, services, subscriptions }) => tagInstanceId => {
 
     const $tagName = elements.editableSpan('tag-name')
         .addEventListener('change', () => {
@@ -461,7 +464,7 @@ tagName subscribes to tag name change events and updates the editable span with 
 <summary>src/modules/components/tag-list/tag/components/tag-name.js</summary>
 
 ```js
-module.exports = ({ elements, services, subscriptions }) => tagInstanceId => {
+export default ({ elements, services, subscriptions }) => tagInstanceId => {
 
     const $tagName = elements.editableSpan('tag-name')
         .addEventListener('change', () => {
@@ -485,7 +488,7 @@ app                                             optionsBar.options.modes
 dropzone                                        optionsBar.options.outline                      
 gravatar.actions.container                      optionsBar.options.shapes                       
 gravatar.actions.error                          optionsBar.options.size                         
-gravatar.actions.import                         optionsBar.options.sort                         
+gravatar.actions.importButton                   optionsBar.options.sort                         
 gravatar.actions.loading                        optionsBar.options.spacing                      
 gravatar.content.container                      optionsBar.shapeOption                          
 gravatar.content.fallback                       roleList.container                              
@@ -528,13 +531,13 @@ parseEmailExpression is a pure function. Amongst other properties of pure functi
 <summary>src/modules/core/tags/parse-email-expression.js</summary>
 
 ```js
-module.exports = ({ util }) => expression => {
+export default ({ util }) => expression => {
 
     const indexOfAt = expression.indexOf('@');
     const isEmail = indexOfAt > -1;
     const [username] = (isEmail ? expression.substr(0, indexOfAt) : expression).split('+');
     const lastIndexOfPlus = expression.lastIndexOf('+');
-    const hasRole = lastIndexOfPlus > indexOfAt;        
+    const hasRole = lastIndexOfPlus > indexOfAt;
     const [emailOrUsername, roleName] = hasRole ? util.splitAt(expression, lastIndexOfPlus, 1) : [expression];
     const email = isEmail ? emailOrUsername : '';
     return { email, username, emailOrUsername, roleName };
@@ -601,7 +604,7 @@ Provides _element factory functions_. An element is a HTML element that relies o
 <summary>src/modules/elements/editable-span.js</summary>
 
 ```js
-module.exports = ({ el, ui }) => className => {
+export default ({ el, ui }) => className => {
 
     const dispatchChange = () => $span.dispatchEvent(ui.event('change'));
 
@@ -609,13 +612,13 @@ module.exports = ({ el, ui }) => className => {
         .addEventListener('blur', () => {
             dispatchChange();
         })
-        .addEventListener('keydown', e => {            
+        .addEventListener('keydown', e => {
             if (e.code === 'Enter') {
                 e.preventDefault();
                 dispatchChange();
             }
         });
-    
+
     $span.setAttribute('contenteditable', true);
 
     return $span;
@@ -652,7 +655,7 @@ _io_ is a single-file module:
 <summary>src/modules/io/setup.js</summary>
 
 ```js
-module.exports = ({ window }) => () => {
+export default ({ window }) => () => {
 
     return {
         date: () => new window.Date(),
@@ -693,7 +696,7 @@ Provides _service functions_. Service functions perform effects by orchestrate t
 <summary>src/modules/services/tags/change-tag-name.js</summary>
 
 ```js
-module.exports = ({ core, services, stores }) => (tagInstanceId, expression) => {
+export default ({ core, services, stores }) => (tagInstanceId, expression) => {
 
     const { tagId } = services.tags.getTagInstance(tagInstanceId);
     const { tagName, roleName } = core.tags.parseTagExpression(expression);
@@ -704,7 +707,7 @@ module.exports = ({ core, services, stores }) => (tagInstanceId, expression) => 
         const roleId = services.roles.findOrInsertRoleWithName(roleName);
         stores.tags.update(tagId, { roleId });
     }
-    
+
 };
 ```
 </details>
@@ -754,7 +757,7 @@ Provides _startup functions_ which are used at [launch](#launching) time.
 <summary>src/modules/startup/start.js</summary>
 
 ```js
-module.exports = ({ startup, components }) => render => {
+export default ({ startup, components }) => render => {
 
     startup.insertNilRole();
     startup.createHandlers();
@@ -786,9 +789,9 @@ _storage_ is a single-file module:
 <summary>src/modules/storage/state-store.js</summary>
 
 ```js
-const EventEmitter = require('events');
+import EventEmitter from 'events';
 
-module.exports = (defaults = {}) => {
+export default (defaults = {}) => {
     let nextId = 1;
     const state = new Map();
     const funcs = new Map();
@@ -872,7 +875,7 @@ Provides the _state stores_. State stores manage state changes and raise change 
 <summary>src/modules/stores/setup.js</summary>
 
 ```js
-module.exports = ({ storage, config }) => () => {
+export default ({ storage, config }) => () => {
 
     return Object.fromEntries(config.storage.stores.map(name => {
         const defaults = config.storage.defaults[name];
@@ -910,7 +913,7 @@ Provides _style factory functions_. A style is simply a HTML style element that 
 <summary>src/modules/styles/role-color.js</summary>
 
 ```js
-module.exports = ({ el, subscriptions }) => roleId => {
+export default ({ el, subscriptions }) => roleId => {
 
     const $style = el('style');
 
@@ -920,7 +923,7 @@ module.exports = ({ el, subscriptions }) => roleId => {
                 .role${roleId} .role-name { background-color: ${color}; }
             `;
     });
-    
+
     return $style;
 
 };
@@ -934,7 +937,7 @@ module.exports = ({ el, subscriptions }) => roleId => {
 <summary>src/modules/startup/create-style-manager.js</summary>
 
 ```js
-module.exports = ({ styles, subscriptions, ui, util }) => () => {
+export default ({ styles, subscriptions, ui, util }) => () => {
 
     const { tagImage, roleColor, ...otherStyles } = styles;
     const appendStyles = (...$$styles) => ui.appendToHead(...$$styles);
@@ -984,7 +987,7 @@ _subscriptions_ is a single-file module that exposes only subscriptions from the
 <summary>src/modules/subscriptions/setup.js</summary>
 
 ```js
-module.exports = ({ stores, util }) => () => {
+export default ({ stores, util }) => () => {
 
     return util.mapValues(stores, store => store.subscriptions);
 
@@ -1075,7 +1078,7 @@ gtag depends on window for global variables to work correctly.
 ```js
 /* eslint-disable */
 
-module.exports = ({ config, io, window }) => {
+export default ({ config, io, window }) => {
 
     const { trackingId, enabled } = config.gtag;
 
@@ -1083,16 +1086,16 @@ module.exports = ({ config, io, window }) => {
         window.dataLayer = [];
         window[`ga-disable-${trackingId}`] = !enabled;
         gtag('js', io.date());
-        gtag('config', trackingId);        
+        gtag('config', trackingId);
     }
 
-    function gtag () { 
+    function gtag() {
         if (!window.dataLayer) initalise();
-        window.dataLayer.push(arguments); 
-    } 
-    
+        window.dataLayer.push(arguments);
+    }
+
     return gtag;
-    
+
 };
 ```
 </details>
@@ -1146,9 +1149,9 @@ A __state store__ is collection of data items keyed by a unique identifier and m
 <summary>src/modules/storage/state-store.js</summary>
 
 ```js
-const EventEmitter = require('events');
+import EventEmitter from 'events';
 
-module.exports = (defaults = {}) => {
+export default (defaults = {}) => {
     let nextId = 1;
     const state = new Map();
     const funcs = new Map();
@@ -1218,7 +1221,7 @@ module.exports = (defaults = {}) => {
 <summary>src/modules/services/roles/insert-role.js</summary>
 
 ```js
-module.exports = ({ core, services, subscriptions, stores, io }) => roleData => {
+export default ({ core, services, subscriptions, stores, io }) => roleData => {
 
     const role = core.roles.buildRole(roleData, io.random());
 
@@ -1237,12 +1240,12 @@ module.exports = ({ core, services, subscriptions, stores, io }) => roleData => 
 <summary>src/modules/services/roles/change-role-name.js</summary>
 
 ```js
-module.exports = ({ core, stores }) => (roleId, roleName) => {
+export default ({ core, stores }) => (roleId, roleName) => {
 
     const oldState = stores.roles.find(roleId);
     const newState = core.roles.buildRole({ ...oldState, roleName });
     stores.roles.update(roleId, newState);
-    
+
 };
 ```
 </details>
@@ -1262,7 +1265,7 @@ During [boot](#booting) time, subscription functions are extracted from the stor
 <summary>src/modules/components/role-list/container.js</summary>
 
 ```js
-module.exports = ({ el, roleList, subscriptions, ui }) => () => {
+export default ({ el, roleList, subscriptions, ui }) => () => {
 
     const $roleList = el('div', 'role-list visible-false');
 
@@ -1276,7 +1279,7 @@ module.exports = ({ el, roleList, subscriptions, ui }) => () => {
     });
 
     return $roleList;
-    
+
 };
 ```
 </details>
@@ -1288,13 +1291,13 @@ module.exports = ({ el, roleList, subscriptions, ui }) => () => {
 <summary>src/modules/components/role-list/role-customiser/master-role-name.js</summary>
 
 ```js
-module.exports = ({ elements, services, subscriptions }) => roleId => {
+export default ({ elements, services, subscriptions }) => roleId => {
 
     const $roleName = elements.editableSpan(`role-name role${roleId}`)
         .addEventListener('change', () => {
             services.roles.changeRoleName(roleId, $roleName.textContent);
         });
-    
+
     subscriptions.roles.onChange(roleId, 'roleName', roleName => {
         $roleName.textContent = roleName;
     });
@@ -1354,7 +1357,7 @@ $div.addEventListener('click', clickHandler);
 <summary>src/modules/ui/el.js</summary>
 
 ```js
-module.exports = ({ window }) => (tagName, ...opts) => { 
+export default ({ window }) => (tagName, ...opts) => {
 
     const el = window.document.createElement(tagName);
     const props = opts.map(opt => (typeof opt === 'string' ? { className: opt } : opt));
@@ -1388,8 +1391,8 @@ This example uses `el` to create an element, but assigns a HTML string to `inner
 <summary>src/modules/components/tips/naming.js</summary>
 
 ```js
-module.exports = ({ el }) => () => {
-    
+export default ({ el }) => () => {
+
     return el('div', {
         title: 'Naming',
         innerHTML: `
@@ -1420,18 +1423,18 @@ This test creates a 'nav bar' and a 'tips modal'; clicks the 'tips link' in the 
 <summary>tests/components/tips.test.js</summary>
 
 ```js
-module.exports = ({ test, boot, helpers }) => {
+export default ({ test, boot, helpers }) => {
 
     test('tips modal triggered by link in nav bar', t => {
         const { components } = boot();
         const $tipsLink = components.header.navBar().querySelector('.tips');
         const $tipsModal = components.modals.tips('tips');
         const assertVisible = helpers.assertBoolClass(t, $tipsModal, 'visible');
-        assertVisible(false);    
+        assertVisible(false);
         helpers.dispatchEvent('click', $tipsLink);
-        assertVisible(true);       
+        assertVisible(true);
     });
-    
+
 };
 ```
 </details>
@@ -1462,7 +1465,7 @@ This test creates a 'gravatar modal' and a 'tag list'. Clicking the 'import butt
 <summary>tests/components/gravatar/import-success.test.js</summary>
 
 ```js
-module.exports = ({ test, setup }) => {
+export default ({ test, setup }) => {
 
     test('import success', async t => {
         const { boot, helpers, window } = setup();
@@ -1481,15 +1484,15 @@ module.exports = ({ test, setup }) => {
         const $importButton = $gravatarModal.querySelector('.import');
         const $tagList = components.tagList.container();
 
-        const assertGravatarModalVisible = helpers.assertBoolClass(t, $gravatarModal, 'visible'); 
-        
+        const assertGravatarModalVisible = helpers.assertBoolClass(t, $gravatarModal, 'visible');
+
         $freetextField.value = 'foo@bar.com';
         helpers.dispatchEvent('input', $freetextField);
 
         await helpers.onTagListMutation(
             $tagList,
             () => {
-                helpers.dispatchEvent('click', $importButton);    
+                helpers.dispatchEvent('click', $importButton);
 
             },
             async tag1 => {
@@ -1497,7 +1500,7 @@ module.exports = ({ test, setup }) => {
                 t.equal(await tag1.getImage(), 'url(data:image/jpg;base64,QllURVM=)');
                 assertGravatarModalVisible(false);
             }
-        );  
+        );
     });
 
 };
@@ -1531,13 +1534,13 @@ This test initialises the application by invoking boot and uses the components m
 <summary>tests/components/options-bar.test.js</summary>
 
 ```js
-module.exports = ({ test, boot, helpers }) => {
-    
+export default ({ test, boot, helpers }) => {
+
     test('options bar not visible until first tag inserted', t => {
         const { components, services } = boot();
         const $optionsBar = components.optionsBar.container();
         const assertVisible = helpers.assertBoolClass(t, $optionsBar, 'visible');
-        assertVisible(false);    
+        assertVisible(false);
         services.tags.insertTag();
         assertVisible(true);
     });
@@ -1873,7 +1876,7 @@ The `acc` variable is intentionally mutated given the scope of the mutation is s
 <summary>src/modules/stores/setup.js</summary>
 
 ```js
-module.exports = ({ storage, config }) => () => {
+export default ({ storage, config }) => () => {
 
     return Object.fromEntries(config.storage.stores.map(name => {
         const defaults = config.storage.defaults[name];
@@ -1908,14 +1911,14 @@ This function orchestrates pure and impure functions making it impure. However b
 <summary>src/modules/services/tags/insert-file-async.js</summary>
 
 ```js
-module.exports = ({ core, services, util }) => file => {
+export default ({ core, services, util }) => file => {
 
     return util.pipe(
         core.tags.parseFileExpression,
         services.tags.insertTag,
         services.tags.attachImageAsync(file)
     )(file.name);
-    
+
 };
 ```
 </details>
@@ -1925,7 +1928,7 @@ module.exports = ({ core, services, util }) => file => {
 <summary>src/modules/core/tags/parse-file-expression.js</summary>
 
 ```js
-module.exports = () => expression => {
+export default () => expression => {
 
     const [tagName, roleName] = expression
         .split('/')
@@ -1934,7 +1937,7 @@ module.exports = () => expression => {
         .split('.')[0]
         .split('+')
         .map(s => s.trim());
-        
+
     return { tagName, roleName };
 
 };
@@ -1953,14 +1956,14 @@ Where possible, use `pipe` to avoid nesting function calls and intermediate vari
 <summary>src/modules/services/tags/insert-file-async.js</summary>
 
 ```js
-module.exports = ({ core, services, util }) => file => {
+export default ({ core, services, util }) => file => {
 
     return util.pipe(
         core.tags.parseFileExpression,
         services.tags.insertTag,
         services.tags.attachImageAsync(file)
     )(file.name);
-    
+
 };
 ```
 </details>
@@ -1972,7 +1975,7 @@ module.exports = ({ core, services, util }) => file => {
 <summary>src/modules/util/pipe.js</summary>
 
 ```js
-module.exports = (...funcs) => initial => funcs.reduce((v, f) => f(v), initial);
+export default (...funcs) => initial => funcs.reduce((v, f) => f(v), initial);
 ```
 </details>
 
@@ -2007,7 +2010,7 @@ Such comments are secondary to the code and so follow the code rather than prece
 <summary>src/modules/components/tag-list/tag/components/tag-image.js</summary>
 
 ```js
-module.exports = ({ el }) => () => {
+export default ({ el }) => () => {
 
     return el('div', 'tag-image');
 
