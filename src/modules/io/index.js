@@ -1,3 +1,5 @@
 import setup from './setup';
 
-export default { setup };
+export default {
+    setup
+};

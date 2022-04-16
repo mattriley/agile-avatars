@@ -9,4 +9,15 @@ import getTags from './get-tags';
 import onMutation from './on-mutation';
 import onTagListMutation from './on-tag-list-mutation';
 
-export default { assertBoolClass, dispatchDropFiles, dispatchEvent, dispatchKeydown, getRole, getRoles, getTagImageAsync, getTags, onMutation, onTagListMutation };
+export default {
+    assertBoolClass,
+    dispatchDropFiles,
+    dispatchEvent,
+    dispatchKeydown,
+    getRole,
+    getRoles,
+    getTagImageAsync,
+    getTags,
+    onMutation,
+    onTagListMutation
+};

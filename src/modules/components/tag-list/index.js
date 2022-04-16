@@ -1,4 +1,7 @@
-import tag from './tag';
 import container from './container';
+import tag from './tag';
 
-export default { tag, container };
+export default {
+    container,
+    tag
+};

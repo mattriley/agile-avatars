@@ -7,4 +7,13 @@ import insertRole from './insert-role';
 import isNilRole from './is-nil-role';
 import setupRolePropagation from './setup-role-propagation';
 
-export default { changeRoleColor, changeRoleName, findOrInsertRoleWithName, getNilRoleId, getRole, insertRole, isNilRole, setupRolePropagation };
+export default {
+    changeRoleColor,
+    changeRoleName,
+    findOrInsertRoleWithName,
+    getNilRoleId,
+    getRole,
+    insertRole,
+    isNilRole,
+    setupRolePropagation
+};

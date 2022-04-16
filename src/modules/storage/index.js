@@ -1,3 +1,5 @@
 import stateStore from './state-store';
 
-export default { stateStore };
+export default {
+    stateStore
+};

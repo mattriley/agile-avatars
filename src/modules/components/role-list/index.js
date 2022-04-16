@@ -1,4 +1,7 @@
-import roleCustomiser from './role-customiser';
 import container from './container';
+import roleCustomiser from './role-customiser';
 
-export default { roleCustomiser, container };
+export default {
+    container,
+    roleCustomiser
+};

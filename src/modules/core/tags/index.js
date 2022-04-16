@@ -7,4 +7,13 @@ import sortTagInstancesByTagThenMode from './sort-tag-instances-by-tag-then-mode
 import sortTagsByName from './sort-tags-by-name';
 import sortTagsByRoleThenName from './sort-tags-by-role-then-name';
 
-export default { buildTag, parseEmailExpression, parseFileExpression, parseTagExpression, planTagInstanceAdjustment, sortTagInstancesByTagThenMode, sortTagsByName, sortTagsByRoleThenName };
+export default {
+    buildTag,
+    parseEmailExpression,
+    parseFileExpression,
+    parseTagExpression,
+    planTagInstanceAdjustment,
+    sortTagInstancesByTagThenMode,
+    sortTagsByName,
+    sortTagsByRoleThenName
+};

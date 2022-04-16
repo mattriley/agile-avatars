@@ -8,11 +8,28 @@ import insertFileAsync from './insert-file-async';
 import insertFileBatchAsync from './insert-file-batch-async';
 import insertGravatarAsync from './insert-gravatar-async';
 import insertGravatarBatchAsync from './insert-gravatar-batch-async';
-import insertTagInstance from './insert-tag-instance';
 import insertTag from './insert-tag';
+import insertTagInstance from './insert-tag-instance';
 import removeTagInstance from './remove-tag-instance';
 import setupRolePropagation from './setup-role-propagation';
 import setupTagPropagation from './setup-tag-propagation';
 import sortTagInstances from './sort-tag-instances';
 
-export default { adjustTagInstanceCounts, attachImageAsync, buildTagInstance, changeTagName, changeTagRole, getTagInstance, insertFileAsync, insertFileBatchAsync, insertGravatarAsync, insertGravatarBatchAsync, insertTagInstance, insertTag, removeTagInstance, setupRolePropagation, setupTagPropagation, sortTagInstances };
+export default {
+    adjustTagInstanceCounts,
+    attachImageAsync,
+    buildTagInstance,
+    changeTagName,
+    changeTagRole,
+    getTagInstance,
+    insertFileAsync,
+    insertFileBatchAsync,
+    insertGravatarAsync,
+    insertGravatarBatchAsync,
+    insertTag,
+    insertTagInstance,
+    removeTagInstance,
+    setupRolePropagation,
+    setupTagPropagation,
+    sortTagInstances
+};

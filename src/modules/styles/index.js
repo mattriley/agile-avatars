@@ -6,4 +6,12 @@ import tagSize from './tag-size';
 import tagSpacing from './tag-spacing';
 import vanillaPicker from './vanilla-picker';
 
-export default { roleColor, tagImage, tagOutline, tagShape, tagSize, tagSpacing, vanillaPicker };
+export default {
+    roleColor,
+    tagImage,
+    tagOutline,
+    tagShape,
+    tagSize,
+    tagSpacing,
+    vanillaPicker
+};

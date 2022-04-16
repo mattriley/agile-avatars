@@ -14,4 +14,20 @@ import util from './util';
 import vendorComponents from './vendor-components';
 import vendorServices from './vendor-services';
 
-export default { components, core, diagnostics, elements, io, services, startup, storage, stores, styles, subscriptions, ui, util, vendorComponents, vendorServices };
+export default {
+    components,
+    core,
+    diagnostics,
+    elements,
+    io,
+    services,
+    startup,
+    storage,
+    stores,
+    styles,
+    subscriptions,
+    ui,
+    util,
+    vendorComponents,
+    vendorServices
+};

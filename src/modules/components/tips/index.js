@@ -5,4 +5,11 @@ import multiples from './multiples';
 import naming from './naming';
 import roleShortcut from './role-shortcut';
 
-export default { badges, images, laminating, multiples, naming, roleShortcut };
+export default {
+    badges,
+    images,
+    laminating,
+    multiples,
+    naming,
+    roleShortcut
+};
