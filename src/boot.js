@@ -4,8 +4,7 @@ const { storage, util } = modules;
 
 export default ({ window, config, ...overrides }) => {
 
-
-    const compose = composer(modules, { config }, overrides);
+    const compose = composer(modules, { overrides });
 
     // Data
     const stores = compose('stores', { storage, config }, stores => stores.setup());
@@ -28,7 +27,6 @@ export default ({ window, config, ...overrides }) => {
     compose('diagnostics', { stores, util });
     compose('startup', { ui, components, styles, services, subscriptions, stores, util, config });
 
-
-    return compose;
+    return compose.modules;
 
 };

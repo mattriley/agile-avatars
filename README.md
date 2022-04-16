@@ -180,7 +180,7 @@ The following code is referenced by index.html and launches the application:
 import boot from './boot';
 import config from './config';
 
-const modules = window.agileavatars = boot({ window, config }).getModules();
+const { modules } = window.agileavatars = boot({ window, config }).composition;
 modules.startup.start(app => document.body.append(app));
 ```
 </details>
@@ -226,8 +226,7 @@ const { storage, util } = modules;
 
 export default ({ window, config, ...overrides }) => {
 
-
-    const compose = composer(modules, { config }, overrides);
+    const compose = composer(modules, { overrides });
 
     // Data
     const stores = compose('stores', { storage, config }, stores => stores.setup());
@@ -250,8 +249,7 @@ export default ({ window, config, ...overrides }) => {
     compose('diagnostics', { stores, util });
     compose('startup', { ui, components, styles, services, subscriptions, stores, util, config });
 
-
-    return compose;
+    return compose.modules;
 
 };
 ```
@@ -311,24 +309,27 @@ _module-composer_ is a small library that reduces the amount of boilerplate code
 <summary>node_modules/module-composer/src/module-composer.js</summary>
 
 ```js
-const { isObject, isFunction, mapValues, override } = require('./util');
+const { merge, isObject, isFunction, mapValues, override } = require('./util');
 
-module.exports = (parent, defaults = {}, overrides = {}) => {
+module.exports = (parent, options = {}) => {
+    const opt = merge({
+        defaults: {}, overrides: {},
+        compositionModule: { enabled: true, name: 'composition' }
+    }, options);
     const modules = { ...parent }, dependencies = mapValues(modules, () => []);
-    const getModules = () => ({ ...modules });
-    const getDependencies = () => ({ ...dependencies });
+    if (opt.compositionModule.enabled) modules[opt.compositionModule.name] = { modules, dependencies };
     const compose = (key, arg = {}, initialise) => {
-        arg = { ...defaults, ...arg };
+        arg = { ...opt.defaults, ...arg };
         delete arg[key];
         const obj = parent[key];
         const composed = composeRecursive(obj, arg, key);
         const initialised = initialise ? initialise(composed) : composed;
-        const module = override({ [key]: initialised }, overrides)[key];
+        const module = override({ [key]: initialised }, opt.overrides)[key];
         modules[key] = module;
         dependencies[key] = Object.keys(arg);
         return module;
     };
-    return Object.assign(compose, { getModules, getDependencies });
+    return Object.assign(compose, { modules, dependencies });
 };
 
 const composeRecursive = (obj, arg, parentKey) => {
@@ -364,19 +365,31 @@ On the file system, a module is simply a directory of sources files that follow 
 <summary>src/modules/components/index.js</summary>
 
 ```js
+import app from './app';
+import dropzone from './dropzone';
 import gravatar from './gravatar';
 import header from './header';
 import imageUploadOptions from './image-upload-options';
+import modal from './modal';
 import modals from './modals';
 import optionsBar from './options-bar';
 import roleList from './role-list';
 import tagList from './tag-list';
 import tips from './tips';
-import app from './app';
-import dropzone from './dropzone';
-import modal from './modal';
 
-export default { gravatar, header, imageUploadOptions, modals, optionsBar, roleList, tagList, tips, app, dropzone, modal };
+export default {
+    app,
+    dropzone,
+    gravatar,
+    header,
+    imageUploadOptions,
+    modal,
+    modals,
+    optionsBar,
+    roleList,
+    tagList,
+    tips
+};
 ```
 </details>
 

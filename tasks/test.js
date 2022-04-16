@@ -20,7 +20,7 @@ const setup = () => {
         resetJsdom();
         const defaultConfig = { debounce: { adjustTagInstanceCounts: 0, sortTagList: 0 } };
         const config = _.merge({}, baseConfig, defaultConfig, args.config);
-        const modules = bootOrig({ window, ...args, config }).getModules();
+        const modules = bootOrig({ window, ...args, config });
         modules.startup.start();
         return modules;
     };
