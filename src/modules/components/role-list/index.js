@@ -1,4 +1,4 @@
-module.exports = {
-    roleCustomiser: require('./role-customiser'),
-    container: require('./container')
-};
+import roleCustomiser from './role-customiser';
+import container from './container';
+
+export default { roleCustomiser, container };

@@ -1,1 +1,1 @@
-module.exports = ({ window }) => (...el) => window.document.head.append(...el);
+export default ({ window }) => (...el) => window.document.head.append(...el);

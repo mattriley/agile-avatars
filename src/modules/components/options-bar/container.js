@@ -1,7 +1,7 @@
-module.exports = ({ components, elements, subscriptions, ui, config }) => () => {
-    
+export default ({ components, elements, subscriptions, ui, config }) => () => {
+
     const $optionsBar = elements.layout({
-        layout: config.options.layout, 
+        layout: config.options.layout,
         components: components.optionsBar.options
     });
 
@@ -12,5 +12,5 @@ module.exports = ({ components, elements, subscriptions, ui, config }) => () => 
     });
 
     return $optionsBar;
-    
+
 };

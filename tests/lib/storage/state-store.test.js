@@ -1,4 +1,4 @@
-module.exports = ({ src, test }) => {
+export default ({ src, test }) => {
 
     const { stateStore } = src.storage;
 
@@ -9,7 +9,7 @@ module.exports = ({ src, test }) => {
         t.equal(id1, 1);
         const id2 = store.insert(data);
         t.equal(id2, 2);
-        
+
     });
 
     test('insert then get state', t => {
@@ -18,7 +18,7 @@ module.exports = ({ src, test }) => {
         const id = store.insert(data);
         const state = store.find(id);
         t.same(state, { id: 1, foo: 'bar' });
-        
+
     });
 
     test('insert then set state', t => {
@@ -28,7 +28,7 @@ module.exports = ({ src, test }) => {
         store.update(id, { foo: 'boo', baz: 'qux' });
         const state = store.find(id);
         t.same(state, { id: 1, foo: 'boo', baz: 'qux' });
-        
+
     });
 
     test('insert emits insert event and inserted item can be found', t => {
@@ -37,7 +37,7 @@ module.exports = ({ src, test }) => {
         store.subscriptions.onInsert(id => {
             const state = store.find(id);
             t.same(state, { id: 1, foo: 'bar' });
-            
+
         });
 
         const data = { foo: 'bar' };
@@ -51,7 +51,7 @@ module.exports = ({ src, test }) => {
 
         store.subscriptions.onInsert(() => {
             t.ok(callbackInvoked);
-            
+
         });
 
         const data = { foo: 'bar' };
@@ -70,7 +70,7 @@ module.exports = ({ src, test }) => {
         store.remove(id);
         const state = store.find(id);
         t.equal(state, null);
-        
+
     });
 
     test('before remove emitted before removing', t => {
@@ -79,7 +79,7 @@ module.exports = ({ src, test }) => {
         store.subscriptions.onBeforeRemove(id => {
             const state = store.find(id);
             t.same(state, { id: 1, foo: 'bar' });
-            
+
         });
 
         const data = { foo: 'bar' };
@@ -97,7 +97,7 @@ module.exports = ({ src, test }) => {
         store.subscriptions.onChangeAny('foo', () => {
             const state = store.find(id);
             t.same(state, { id: 1, foo: 'boo' });
-            
+
         });
 
         store.update(id, { foo: 'boo' });

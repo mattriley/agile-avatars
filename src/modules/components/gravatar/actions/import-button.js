@@ -1,4 +1,4 @@
-module.exports = ({ el, services, subscriptions, ui }) => () => {
+export default ({ el, services, subscriptions, ui }) => () => {
 
     const $import = el('button', 'import', { textContent: 'Import' })
         .addEventListener('click', () => {

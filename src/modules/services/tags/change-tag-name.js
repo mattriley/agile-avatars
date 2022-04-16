@@ -1,4 +1,4 @@
-module.exports = ({ core, services, stores }) => (tagInstanceId, expression) => {
+export default ({ core, services, stores }) => (tagInstanceId, expression) => {
 
     const { tagId } = services.tags.getTagInstance(tagInstanceId);
     const { tagName, roleName } = core.tags.parseTagExpression(expression);
@@ -9,5 +9,5 @@ module.exports = ({ core, services, stores }) => (tagInstanceId, expression) => 
         const roleId = services.roles.findOrInsertRoleWithName(roleName);
         stores.tags.update(tagId, { roleId });
     }
-    
+
 };

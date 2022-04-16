@@ -1,8 +1,8 @@
-const sentry = require('@sentry/browser');
+import * as Sentry from '@sentry/browser';
 
-module.exports = ({ config }) => {
+export default ({ config }) => {
 
-    sentry.init(config.sentry);
-    return sentry;
+    Sentry.init(config.sentry);
+    return Sentry;
 
 };

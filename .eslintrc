@@ -8,7 +8,8 @@
     },
     "extends": "eslint:recommended",
     "parserOptions": {
-        "ecmaVersion": 11
+        "ecmaVersion": 11,
+        "sourceType": "module"
     },
     "rules": {
         "accessor-pairs": "error",
@@ -287,7 +288,7 @@
             "error",
             "last"
         ],
-        "sort-imports": "error",
+        "sort-imports": "warn",
         "sort-keys": "off",
         "sort-vars": "error",
         "space-before-blocks": "error",

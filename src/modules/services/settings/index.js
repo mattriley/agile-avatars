@@ -1,6 +1,6 @@
-module.exports = {
-    changeModal: require('./change-modal'),
-    changeOption: require('./change-option'),
-    clearModal: require('./clear-modal'),
-    getGravatar: require('./get-gravatar')
-};
+import changeModal from './change-modal';
+import changeOption from './change-option';
+import clearModal from './clear-modal';
+import getGravatar from './get-gravatar';
+
+export default { changeModal, changeOption, clearModal, getGravatar };

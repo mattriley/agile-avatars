@@ -1,4 +1,4 @@
-module.exports = ({ el, elements, services, subscriptions, config }) => () => {
+export default ({ el, elements, services, subscriptions, config }) => () => {
 
     const $$options = Object.entries(config.options.sort).map(([value, textContent]) => {
         return el('option', { value, textContent });
@@ -15,5 +15,5 @@ module.exports = ({ el, elements, services, subscriptions, config }) => () => {
     });
 
     return elements.label('Keep sorted by', $keepSorted);
-    
+
 };

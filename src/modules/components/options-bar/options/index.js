@@ -1,8 +1,8 @@
-module.exports = {
-    modes: require('./modes'),
-    outline: require('./outline'),
-    shapes: require('./shapes'),
-    size: require('./size'),
-    sort: require('./sort'),
-    spacing: require('./spacing')
-};
+import modes from './modes';
+import outline from './outline';
+import shapes from './shapes';
+import size from './size';
+import sort from './sort';
+import spacing from './spacing';
+
+export default { modes, outline, shapes, size, sort, spacing };

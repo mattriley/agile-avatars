@@ -1,4 +1,4 @@
-module.exports = ({ el }) => () => {
+export default ({ el }) => () => {
 
     const $gravatarTitle = el('span', 'gravatar-title', {
         textContent: 'Import images from Gravatar'
@@ -11,5 +11,5 @@ module.exports = ({ el }) => () => {
     });
 
     return el('div').append($gravatarTitle, $aboutGravatar);
-    
+
 };

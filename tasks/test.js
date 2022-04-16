@@ -1,16 +1,15 @@
 /* eslint-disable no-process-env */
 /* eslint-disable no-console */
 /* eslint-disable no-process-exit */
-
-const { JSDOM } = require('jsdom');
-const { createHarness, createJSONReporter } = require('zora');
-const path = require('path');
-const composer = require('module-composer');
-const testHelpers = require('../test-helpers');
-const src = require('../src/modules');
-const bootOrig = require('../src/boot');
-const baseConfig = require('../src/data/config.json');
-const _ = require('lodash');
+import { JSDOM } from 'jsdom';
+import { createHarness, createJSONReporter } from 'zora';
+import path from 'path';
+import composer from 'module-composer';
+import testHelpers from '../test-helpers';
+import src from '../src/modules';
+import bootOrig from '../src/boot';
+import baseConfig from '../src/data/config.json';
+import _ from 'lodash';
 
 const setup = () => {
     const { window } = new JSDOM('', { url: 'https://localhost/' });
@@ -38,10 +37,11 @@ const testHarness = createHarness({ indent, runOnly });
 const test = testHarness[runOnly ? 'only' : 'test'];
 
 const runTests = filePath => {
-    test(filePath, ({ only, skip, ...t }) => {
+    test(filePath, async ({ only, skip, ...t }) => {
         const test = (...args) => t.test(...args);
         Object.assign(test, { only, skip });
-        require(path.resolve(filePath))({ test, setup, ...args });
+        const { default: invokeTests } = await import(path.resolve(filePath));
+        invokeTests({ test, setup, ...args });
     });
 };
 

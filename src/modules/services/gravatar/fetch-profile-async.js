@@ -1,4 +1,4 @@
-module.exports = ({ core, io }) => async email => {
+export default ({ core, io }) => async email => {
 
     if (!email) return {};
     const url = core.gravatar.buildProfileUrl(email);
@@ -8,5 +8,5 @@ module.exports = ({ core, io }) => async email => {
     const data = await response.json();
     const [profile] = data.entry;
     return profile;
-    
+
 };

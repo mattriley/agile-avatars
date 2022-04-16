@@ -1,4 +1,4 @@
-module.exports = ({ core, services, stores, subscriptions, util }) => tagData => {
+export default ({ core, services, stores, subscriptions, util }) => tagData => {
 
     const assignRoleId = ({ roleName, ...tagData }) => {
         const roleId = tagData.roleId || services.roles.findOrInsertRoleWithName(roleName);

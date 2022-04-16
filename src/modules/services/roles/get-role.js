@@ -1,4 +1,4 @@
-module.exports = ({ stores }) => roleId => {
+export default ({ stores }) => roleId => {
 
     return stores.roles.find(roleId);
 

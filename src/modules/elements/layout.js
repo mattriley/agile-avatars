@@ -1,4 +1,4 @@
-module.exports = ({ el }) => ({ layout, components, componentArgs = [] }) => {
+export default ({ el }) => ({ layout, components, componentArgs = [] }) => {
 
     const groups = layout.split('|').map(str => str.trim().split(' '));
 

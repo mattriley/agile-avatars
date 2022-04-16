@@ -1,6 +1,6 @@
-module.exports = ({ helpers }) => ($tagList, trigger, ...callbacks) => {
+export default ({ helpers }) => ($tagList, trigger, ...callbacks) => {
 
-    const decoratedCallbacks = callbacks.map(cb => {        
+    const decoratedCallbacks = callbacks.map(cb => {
         const decorated = () => cb(...helpers.getTags($tagList));
         return cb ? decorated : undefined;
     });

@@ -1,5 +1,5 @@
-module.exports = ({ el, services, subscriptions, ui }) => fallback => {
-    
+export default ({ el, services, subscriptions, ui }) => fallback => {
+
     const $fallback = el('img', 'fallback', {
         title: fallback,
         src: `img/gravatar-fallbacks/${fallback}.png`

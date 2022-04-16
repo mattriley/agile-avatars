@@ -1,8 +1,8 @@
-module.exports = ({ el, content }) => () => {
-    
+export default ({ el, content }) => () => {
+
     return el('div', 'gravatar').append(
-        content.freetext(), 
-        content.fallbacks() 
+        content.freetext(),
+        content.fallbacks()
     );
 
 };

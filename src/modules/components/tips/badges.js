@@ -1,4 +1,4 @@
-module.exports = ({ el }) => () => {
+export default ({ el }) => () => {
 
     return el('div', {
         title: 'Blocked and other badges',

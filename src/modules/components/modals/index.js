@@ -1,5 +1,5 @@
-module.exports = {
-    gravatar: require('./gravatar'),
-    tips: require('./tips'),
-    welcome: require('./welcome')
-};
+import gravatar from './gravatar';
+import tips from './tips';
+import welcome from './welcome';
+
+export default { gravatar, tips, welcome };

@@ -1,4 +1,4 @@
-module.exports = ({ el, components, services, config }) => () => {
+export default ({ el, components, services, config }) => () => {
 
     const $heading = el('h1', 'welcome-title', {
         textContent: `Welcome to ${config.app.name}`
@@ -11,13 +11,13 @@ module.exports = ({ el, components, services, config }) => () => {
 
     const $continue = el('button', { textContent: 'Continue' });
     $continue.addEventListener('click', services.settings.clearModal);
-    
+
     const $content = el('div', 'welcome').append($heading, $image);
 
     return components.modal({
-        name: 'welcome', 
+        name: 'welcome',
         content: $content,
         actions: $continue
     });
-    
+
 };

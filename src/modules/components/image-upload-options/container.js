@@ -1,4 +1,4 @@
-module.exports = ({ el, imageUploadOptions }) => () => {
+export default ({ el, imageUploadOptions }) => () => {
 
     return el('div', 'image-upload-options').append(
         el('span', { textContent: 'Drag & drop images' }),

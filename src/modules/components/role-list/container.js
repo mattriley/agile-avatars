@@ -1,4 +1,4 @@
-module.exports = ({ el, roleList, subscriptions, ui }) => () => {
+export default ({ el, roleList, subscriptions, ui }) => () => {
 
     const $roleList = el('div', 'role-list visible-false');
 
@@ -12,5 +12,5 @@ module.exports = ({ el, roleList, subscriptions, ui }) => () => {
     });
 
     return $roleList;
-    
+
 };

@@ -1,7 +1,7 @@
-const Picker = require('vanilla-picker'); 
+import Picker from 'vanilla-picker';
 
-module.exports = ({ el }) => () => {
-    
+export default ({ el }) => () => {
+
     return el('style', { textContent: Picker.css });
 
 };

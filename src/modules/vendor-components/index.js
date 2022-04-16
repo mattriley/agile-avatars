@@ -1,4 +1,4 @@
-module.exports = {
-    gtagScript: require('./gtag-script'),
-    vanillaPicker: require('./vanilla-picker')
-};
+import gtagScript from './gtag-script';
+import vanillaPicker from './vanilla-picker';
+
+export default { gtagScript, vanillaPicker };

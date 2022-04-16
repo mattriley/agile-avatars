@@ -1,4 +1,4 @@
-module.exports = ({ window }) => $tagImage => {
+export default ({ window }) => $tagImage => {
 
     return new Promise(resolve => {
         const intervalId = setInterval(() => {

@@ -1,4 +1,4 @@
-module.exports = ({ styles, subscriptions, ui, util }) => () => {
+export default ({ styles, subscriptions, ui, util }) => () => {
 
     const { tagImage, roleColor, ...otherStyles } = styles;
     const appendStyles = (...$$styles) => ui.appendToHead(...$$styles);

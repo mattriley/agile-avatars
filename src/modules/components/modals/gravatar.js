@@ -1,10 +1,10 @@
-module.exports = ({ components }) => () => {
+export default ({ components }) => () => {
 
-    return components.modal({ 
-        name: 'gravatar', 
+    return components.modal({
+        name: 'gravatar',
         title: components.gravatar.title(),
-        content: components.gravatar.content.container(),         
+        content: components.gravatar.content.container(),
         actions: components.gravatar.actions.container()
     });
-    
+
 };

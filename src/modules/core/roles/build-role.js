@@ -1,4 +1,4 @@
-module.exports = ({ core, util }) => (roleData, randomNumber) => {
+export default ({ core, util }) => (roleData, randomNumber) => {
 
     const transformRoleName = roleData => {
         const roleName = (roleData.roleName || '').trim().toUpperCase();

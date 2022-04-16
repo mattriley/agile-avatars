@@ -1,4 +1,4 @@
-module.exports = ({ elements, services, subscriptions, util, config }) => optionName => {
+export default ({ elements, services, subscriptions, util, config }) => optionName => {
 
     const { min, max, step } = config.options[optionName];
 

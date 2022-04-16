@@ -1,7 +1,7 @@
-module.exports = ({ el, actions }) => () => {
+export default ({ el, actions }) => () => {
 
     return el('div').append(
-        actions.import(),
+        actions.importButton(),
         actions.loading(),
         actions.error()
     );

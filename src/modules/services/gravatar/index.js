@@ -1,7 +1,7 @@
-module.exports = {
-    changeFallback: require('./change-fallback'),
-    changeFreetext: require('./change-freetext'),
-    fetchImageAsync: require('./fetch-image-async'),
-    fetchProfileAsync: require('./fetch-profile-async'),
-    status: require('./status')
-};
+import changeFallback from './change-fallback';
+import changeFreetext from './change-freetext';
+import fetchImageAsync from './fetch-image-async';
+import fetchProfileAsync from './fetch-profile-async';
+import status from './status';
+
+export default { changeFallback, changeFreetext, fetchImageAsync, fetchProfileAsync, status };

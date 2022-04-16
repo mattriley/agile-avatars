@@ -1,4 +1,4 @@
-module.exports = ({ elements, services, subscriptions }) => ({ name, title, content, actions }) => {
+export default ({ elements, services, subscriptions }) => ({ name, title, content, actions }) => {
 
     const onVisibilityChange = callback => {
         subscriptions.settings.onChange('app', 'modal', modal => {

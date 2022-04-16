@@ -1,4 +1,4 @@
-module.exports = ({ el, subscriptions }) => roleId => {
+export default ({ el, subscriptions }) => roleId => {
 
     const $style = el('style');
 
@@ -8,7 +8,7 @@ module.exports = ({ el, subscriptions }) => roleId => {
                 .role${roleId} .role-name { background-color: ${color}; }
             `;
     });
-    
+
     return $style;
 
 };

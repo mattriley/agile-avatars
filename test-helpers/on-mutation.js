@@ -1,4 +1,4 @@
-module.exports = ({ window }) => ($target, trigger, ...callbacks) => {
+export default ({ window }) => ($target, trigger, ...callbacks) => {
 
     return new Promise(resolve => {
         const observer = new window.MutationObserver(async () => {
@@ -8,9 +8,9 @@ module.exports = ({ window }) => ($target, trigger, ...callbacks) => {
                 observer.disconnect();
                 resolve();
             }
-        });    
+        });
         observer.observe($target, { childList: true, subtree: true });
         trigger();
     });
-    
+
 };

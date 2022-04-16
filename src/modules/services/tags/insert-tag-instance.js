@@ -1,4 +1,4 @@
-module.exports = ({ services, stores }) => tagInstanceData => {
+export default ({ services, stores }) => tagInstanceData => {
 
     const tagInstance = services.tags.buildTagInstance(tagInstanceData);
 
@@ -11,5 +11,5 @@ module.exports = ({ services, stores }) => tagInstanceData => {
             [mode]: tag[mode].concat(tagInstanceId)
         });
     });
-    
+
 };

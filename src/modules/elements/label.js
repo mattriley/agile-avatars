@@ -1,11 +1,11 @@
-module.exports = ({ el }) => (...nodes) => {
+export default ({ el }) => (...nodes) => {
 
     const transformedNodes = nodes.map(node => {
         return typeof node === 'string' ? el('span', 'label', { innerHTML: node }) : node;
     });
 
     return el('label').append(...transformedNodes);
-    
+
 };
 
 /* FOOTNOTES

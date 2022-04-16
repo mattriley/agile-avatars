@@ -1,6 +1,7 @@
 {
     "name": "agileavatars",
     "version": "1.0.0",
+    "type": "module",
     "author": "Matt Riley",
     "repository": "github:mattriley/agileavatars",
     "license": "GPL-3.0-or-later",

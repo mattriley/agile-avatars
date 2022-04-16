@@ -1,4 +1,4 @@
-module.exports = ({ el, ui }) => (args = {}) => {
+export default ({ el, ui }) => (args = {}) => {
 
     const defaults = { visible: false, onVisibilityChange: () => undefined };
     const { title, content, actions, visible, onVisibilityChange } = { ...defaults, ...args };
@@ -11,7 +11,7 @@ module.exports = ({ el, ui }) => (args = {}) => {
 
     const $title = el('div', 'modal-title').append(title, $dismiss);
     ui.toggleBoolClass($title, 'visible', Boolean(title));
-    
+
     const $content = el('div', 'modal-content').append(content);
 
     const $actions = el('div', 'modal-actions').append(actions);
@@ -24,14 +24,14 @@ module.exports = ({ el, ui }) => (args = {}) => {
     const $overlay = el('div', 'modal-overlay')
         .append($prompt)
         .addEventListener('click', dismiss);
-    
+
     const toggleVisibility = visible => {
         ui.toggleBoolClass($overlay, 'visible', visible);
     };
 
     toggleVisibility(visible);
     onVisibilityChange(toggleVisibility, $overlay);
-    
+
     return $overlay;
 
 };

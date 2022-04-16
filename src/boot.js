@@ -1,8 +1,9 @@
-const composer = require('module-composer');
-const modules = require('./modules');
+import composer from 'module-composer';
+import modules from './modules';
 const { storage, util } = modules;
 
-module.exports = ({ window, config, ...overrides }) => {
+export default ({ window, config, ...overrides }) => {
+
 
     const compose = composer(modules, { config }, overrides);
 
@@ -26,6 +27,7 @@ module.exports = ({ window, config, ...overrides }) => {
     // Startup    
     compose('diagnostics', { stores, util });
     compose('startup', { ui, components, styles, services, subscriptions, stores, util, config });
+
 
     return compose;
 

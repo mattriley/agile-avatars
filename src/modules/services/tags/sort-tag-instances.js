@@ -1,5 +1,5 @@
-module.exports = ({ core, stores }) => () => {
-    
+export default ({ core, stores }) => () => {
+
     const sorts = {
         orderAdded: stores.tags.list,
         roleThenName: () => core.tags.sortTagsByRoleThenName(stores.tags.list(), stores.roles.find),

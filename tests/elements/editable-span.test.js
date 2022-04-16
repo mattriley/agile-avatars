@@ -1,20 +1,20 @@
-module.exports = ({ test, boot, helpers }) => {
+export default ({ test, boot, helpers }) => {
 
-    test('change invoked by enter key', async () => {      
+    test('change invoked by enter key', async () => {
         await new Promise(resolve => {
             const { elements } = boot();
             const $editableSpan = elements.editableSpan();
-    
+
             $editableSpan.addEventListener('change', () => {
                 resolve();
-                
+
             });
-    
+
             helpers.dispatchKeydown($editableSpan, 'Enter');
-        }); 
+        });
     });
 
-    test('change not invoked by key other than enter key', t => {       
+    test('change not invoked by key other than enter key', t => {
         const { elements } = boot();
         const $editableSpan = elements.editableSpan();
 
@@ -23,8 +23,8 @@ module.exports = ({ test, boot, helpers }) => {
         });
 
         helpers.dispatchKeydown($editableSpan, 'A');
-        
-    });    
+
+    });
 
     test('editing', t => {
         const { elements } = boot();
@@ -32,7 +32,7 @@ module.exports = ({ test, boot, helpers }) => {
 
         $editableSpan.addEventListener('change', () => {
             t.equal($editableSpan.textContent, 'foo');
-            
+
         });
 
         $editableSpan.textContent = 'foo';

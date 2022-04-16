@@ -1,4 +1,4 @@
-module.exports = ({ el, ui, util }) => ({ min, max, step }) => {
+export default ({ el, ui, util }) => ({ min, max, step }) => {
 
     const intValue = () => parseInt($number.value);
 
@@ -22,9 +22,9 @@ module.exports = ({ el, ui, util }) => ({ min, max, step }) => {
     const $number = el('input', { type: 'number', min, max, step })
         .addEventListener('input', onInput)
         .addEventListener('blur', onBlur);
-    
+
     return $number;
-    
+
 };
 
 /* FOOTNOTES

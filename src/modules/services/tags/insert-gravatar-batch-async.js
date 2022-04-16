@@ -1,4 +1,4 @@
-module.exports = ({ services, config }) => async (emails, fallback) => {
+export default ({ services, config }) => async (emails, fallback) => {
 
     try {
         services.gravatar.status.to.working();

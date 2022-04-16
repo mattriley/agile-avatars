@@ -4,7 +4,7 @@ const STATUS = {
     error: 'error'
 };
 
-module.exports = ({ stores }) => {
+export default ({ stores }) => {
 
     const is = Object.keys(STATUS).reduce((acc, status) => {
         const func = () => stores.settings.find('gravatar').status === status;
@@ -27,7 +27,7 @@ module.exports = ({ stores }) => {
             stores.settings.update('gravatar', { status: STATUS.error, errorMessage });
         }
     };
-   
+
     return { is, to };
 
 };

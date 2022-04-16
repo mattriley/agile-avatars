@@ -1,4 +1,4 @@
-module.exports = ({ config }) => (tags, getTagInstance) => {
+export default ({ config }) => (tags, getTagInstance) => {
 
     return tags.flatMap(tag => {
         return config.options.modes.flatMap(mode => {

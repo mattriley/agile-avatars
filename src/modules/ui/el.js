@@ -1,4 +1,4 @@
-module.exports = ({ window }) => (tagName, ...opts) => { 
+export default ({ window }) => (tagName, ...opts) => {
 
     const el = window.document.createElement(tagName);
     const props = opts.map(opt => (typeof opt === 'string' ? { className: opt } : opt));

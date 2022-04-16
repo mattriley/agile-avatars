@@ -1,4 +1,4 @@
-module.exports = ({ el, ui }) => className => {
+export default ({ el, ui }) => className => {
 
     const dispatchChange = () => $span.dispatchEvent(ui.event('change'));
 
@@ -6,13 +6,13 @@ module.exports = ({ el, ui }) => className => {
         .addEventListener('blur', () => {
             dispatchChange();
         })
-        .addEventListener('keydown', e => {            
+        .addEventListener('keydown', e => {
             if (e.code === 'Enter') {
                 e.preventDefault();
                 dispatchChange();
             }
         });
-    
+
     $span.setAttribute('contenteditable', true);
 
     return $span;

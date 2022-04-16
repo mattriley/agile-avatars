@@ -1,4 +1,4 @@
-module.exports = ({ core, io }) => async (emailOrUsername, defaultImage) => {
+export default ({ core, io }) => async (emailOrUsername, defaultImage) => {
 
     const imageUrl = core.gravatar.buildImageUrl(emailOrUsername, defaultImage);
     const response = await io.fetch(imageUrl);

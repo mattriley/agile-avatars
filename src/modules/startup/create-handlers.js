@@ -1,7 +1,7 @@
-module.exports = ({ services, subscriptions, util, config }) => () => {
+export default ({ services, subscriptions, util, config }) => () => {
 
     const adjustTagInstanceCounts = util.debounce(
-        services.tags.adjustTagInstanceCounts, 
+        services.tags.adjustTagInstanceCounts,
         config.debounce.adjustTagInstanceCounts
     );
 

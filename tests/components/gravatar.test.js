@@ -1,4 +1,4 @@
-module.exports = ({ test, boot, helpers }) => {
+export default ({ test, boot, helpers }) => {
 
     test('launches gravatar', t => {
         const { components } = boot();
@@ -7,14 +7,14 @@ module.exports = ({ test, boot, helpers }) => {
         assertVisible(false);
         const $gravatarLink = components.imageUploadOptions.gravatar();
         helpers.dispatchEvent('click', $gravatarLink);
-        assertVisible(true);        
+        assertVisible(true);
     });
 
     test('prevented from importing from gravatar with no input', t => {
         const { components } = boot();
         const $gravatar = components.modals.gravatar();
         const $importButton = $gravatar.querySelector('.import');
-        t.equal($importButton.disabled, true);        
+        t.equal($importButton.disabled, true);
     });
 
     test('prevented from importing from gravatar with blank input', t => {

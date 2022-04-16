@@ -1,6 +1,6 @@
-module.exports = {
-    container: require('./container'),
-    error: require('./error'),
-    import: require('./import'),
-    loading: require('./loading')
-};
+import container from './container';
+import error from './error';
+import importButton from './import-button';
+import loading from './loading';
+
+export default { container, error, importButton, loading };

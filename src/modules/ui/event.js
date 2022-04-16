@@ -1,1 +1,1 @@
-module.exports = ({ window }) => (...args) => new window.Event(...args);
+export default ({ window }) => (...args) => new window.Event(...args);

@@ -1,11 +1,11 @@
-module.exports = ({ test, boot }) => {
+export default ({ test, boot }) => {
 
     const { core } = boot();
 
     test('email address', t => {
         const expression = 'foo+xzy@bar.com+dev';
         const actual = core.tags.parseEmailExpression(expression);
-        t.equal(actual, { 
+        t.equal(actual, {
             email: 'foo+xzy@bar.com',
             username: 'foo',
             emailOrUsername: 'foo+xzy@bar.com',
@@ -16,7 +16,7 @@ module.exports = ({ test, boot }) => {
     test('username', t => {
         const expression = 'foo+dev';
         const actual = core.tags.parseEmailExpression(expression);
-        t.equal(actual, { 
+        t.equal(actual, {
             email: '',
             username: 'foo',
             emailOrUsername: 'foo',

@@ -1,5 +1,5 @@
-module.exports = ({ test, boot, window, helpers }) => {
-    
+export default ({ test, boot, window, helpers }) => {
+
     test('multiple images dropped', async t => {
         const { components } = boot();
         const $tagList = components.tagList.container();
@@ -11,18 +11,18 @@ module.exports = ({ test, boot, window, helpers }) => {
         ];
 
         await helpers.onTagListMutation(
-            $tagList, 
+            $tagList,
             () => {
                 const event = new window.Event('drop');
                 Object.defineProperty(event, 'dataTransfer', { value: { files } });
-                $dropzone.dispatchEvent(event);                
+                $dropzone.dispatchEvent(event);
             },
             (tag1, tag2) => {
                 t.deepEqual([tag1.getTagName(), tag1.getRoleName()], ['Foo', 'BAR']);
                 t.deepEqual([tag2.getTagName(), tag2.getRoleName()], ['Baz', 'QUX']);
-                
+
             }
-        );        
+        );
     });
 
 };

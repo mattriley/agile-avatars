@@ -1,4 +1,4 @@
-module.exports = ({ core, config, stores, services }) => () => {
+export default ({ core, config, stores, services }) => () => {
 
     const tags = stores.tags.list();
 

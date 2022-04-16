@@ -1,4 +1,4 @@
-module.exports = ({ test, setup }) => {
+export default ({ test, setup }) => {
 
     test('import success', async t => {
         const { boot, helpers, window } = setup();
@@ -17,15 +17,15 @@ module.exports = ({ test, setup }) => {
         const $importButton = $gravatarModal.querySelector('.import');
         const $tagList = components.tagList.container();
 
-        const assertGravatarModalVisible = helpers.assertBoolClass(t, $gravatarModal, 'visible'); 
-        
+        const assertGravatarModalVisible = helpers.assertBoolClass(t, $gravatarModal, 'visible');
+
         $freetextField.value = 'foo@bar.com';
         helpers.dispatchEvent('input', $freetextField);
 
         await helpers.onTagListMutation(
             $tagList,
             () => {
-                helpers.dispatchEvent('click', $importButton);    
+                helpers.dispatchEvent('click', $importButton);
 
             },
             async tag1 => {
@@ -33,7 +33,7 @@ module.exports = ({ test, setup }) => {
                 t.equal(await tag1.getImage(), 'url(data:image/jpg;base64,QllURVM=)');
                 assertGravatarModalVisible(false);
             }
-        );  
+        );
     });
 
 };

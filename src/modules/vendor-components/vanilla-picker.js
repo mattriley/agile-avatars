@@ -1,6 +1,6 @@
-const Picker = require('vanilla-picker');
+import Picker from 'vanilla-picker';
 
-module.exports = ({ window }) => ({ parent, color, onChange }) => {
+export default ({ window }) => ({ parent, color, onChange }) => {
 
     new Picker({ window, parent, color, onChange });
     return parent;

@@ -1,4 +1,4 @@
-module.exports = ({ startup, components }) => render => {
+export default ({ startup, components }) => render => {
 
     startup.insertNilRole();
     startup.createHandlers();

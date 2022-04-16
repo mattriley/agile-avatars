@@ -1,4 +1,4 @@
-module.exports = ({ stores }) => (roleId, color) => {
+export default ({ stores }) => (roleId, color) => {
 
     stores.roles.update(roleId, { color });
 

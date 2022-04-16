@@ -1,4 +1,4 @@
-module.exports = () => expression => {
+export default () => expression => {
 
     const [tagName, roleName] = expression
         .split('/')
@@ -7,7 +7,7 @@ module.exports = () => expression => {
         .split('.')[0]
         .split('+')
         .map(s => s.trim());
-        
+
     return { tagName, roleName };
 
 };

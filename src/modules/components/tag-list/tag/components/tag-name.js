@@ -1,4 +1,4 @@
-module.exports = ({ elements, services, subscriptions }) => tagInstanceId => {
+export default ({ elements, services, subscriptions }) => tagInstanceId => {
 
     const $tagName = elements.editableSpan('tag-name')
         .addEventListener('change', () => {

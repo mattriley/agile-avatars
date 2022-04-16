@@ -1,4 +1,4 @@
-module.exports = ({ el, services, subscriptions, ui }) => () => {
+export default ({ el, services, subscriptions, ui }) => () => {
 
     const $loading = el('div', 'loading-indicator lds-dual-ring');
 

@@ -1,4 +1,4 @@
-module.exports = ({ test, boot, helpers }) => {
+export default ({ test, boot, helpers }) => {
 
     test('import failure', async t => {
         const { components } = boot({

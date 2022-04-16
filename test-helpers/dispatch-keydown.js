@@ -1,4 +1,4 @@
-module.exports = ({ window }) => (target, code) => {
+export default ({ window }) => (target, code) => {
 
     const e = new window.Event('Events');
     e.initEvent('keydown', true, true);

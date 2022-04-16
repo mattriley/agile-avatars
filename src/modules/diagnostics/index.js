@@ -1,3 +1,3 @@
-module.exports = {
-    dumpState: require('./dump-state')
-};
+import dumpState from './dump-state';
+
+export default { dumpState };

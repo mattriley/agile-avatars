@@ -1,4 +1,4 @@
-module.exports = ({ el, services, subscriptions, elements }) => () => {
+export default ({ el, services, subscriptions, elements }) => () => {
 
     const $freetext = el('textarea', 'freetext')
         .addEventListener('input', () => {
@@ -16,5 +16,5 @@ module.exports = ({ el, services, subscriptions, elements }) => () => {
     const labelText = 'Email addresses:';
 
     return elements.label(labelText, $freetext);
-    
+
 };

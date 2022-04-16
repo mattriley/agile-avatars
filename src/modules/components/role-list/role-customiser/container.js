@@ -1,5 +1,5 @@
-module.exports = ({ el, roleCustomiser, services }) => roleId => {
-    
+export default ({ el, roleCustomiser, services }) => roleId => {
+
     const $masterRoleName = roleCustomiser.masterRoleName(roleId);
     const $colorPicker = roleCustomiser.roleColorPicker(roleId);
 

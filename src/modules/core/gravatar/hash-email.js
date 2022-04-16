@@ -1,6 +1,6 @@
-const md5 = require('blueimp-md5');
+import md5 from 'blueimp-md5';
 
-module.exports = () => email => md5(email.trim().toLowerCase());
+export default () => email => md5(email.trim().toLowerCase());
 
 /* FOOTNOTES
 

@@ -1,5 +1,5 @@
-module.exports = ({ stores }) => modal => {
-    
+export default ({ stores }) => modal => {
+
     stores.settings.update('app', { modal });
 
 };

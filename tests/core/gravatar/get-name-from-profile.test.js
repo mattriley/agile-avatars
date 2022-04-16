@@ -1,4 +1,4 @@
-module.exports = ({ test, boot }) => {
+export default ({ test, boot }) => {
 
     const { core } = boot();
 

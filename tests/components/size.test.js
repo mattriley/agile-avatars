@@ -1,11 +1,11 @@
-module.exports = ({ test, boot, window, helpers }) => {
+export default ({ test, boot, window, helpers }) => {
 
     const setup = ({ sizeDefault }) => {
-        const { components, services, config } = boot({ 
-            config: { 
+        const { components, services, config } = boot({
+            config: {
                 storage: {
                     defaults: {
-                        settings: { 
+                        settings: {
                             options: { size: sizeDefault }
                         }
                     }
@@ -26,12 +26,12 @@ module.exports = ({ test, boot, window, helpers }) => {
         helpers.dispatchEvent('input', $sizeInput);
         const [tag1] = helpers.getTags($tagList);
         const tagListStyle = window.getComputedStyle($tagList);
-        t.equal(tagListStyle.gridTemplateColumns, `repeat(auto-fill, ${targetSize}px)`);        
+        t.equal(tagListStyle.gridTemplateColumns, `repeat(auto-fill, ${targetSize}px)`);
         const sizeMinusPadding = targetSize - (config.tags.imagePadding * 2);
         const imageStyle = tag1.getImageStyle();
         t.equal(imageStyle.width, `${sizeMinusPadding}px`);
         t.equal(imageStyle.height, `${sizeMinusPadding}px`);
-                
+
     };
 
     test('tag size increases', t => {
@@ -41,5 +41,5 @@ module.exports = ({ test, boot, window, helpers }) => {
     test('tag size decreases', t => {
         testCase(t, -50);
     });
-    
+
 };

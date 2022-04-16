@@ -1,9 +1,9 @@
-module.exports = ({ core, config }) => (email, defaultImage) => {
+export default ({ core, config }) => (email, defaultImage) => {
 
     const { domain, size } = config.gravatar;
     const emailHash = core.gravatar.hashEmail(email);
     return `${domain}/avatar/${emailHash}?r=g&s=${size}&d=${defaultImage}`;
-    
+
 };
 
 /* FOOTNOTES

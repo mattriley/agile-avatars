@@ -1,4 +1,4 @@
-module.exports = ({ el, services }) => () => {
+export default ({ el, services }) => () => {
 
     const $fileInput = el('input', {
         type: 'file',

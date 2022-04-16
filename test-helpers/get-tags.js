@@ -1,6 +1,6 @@
-module.exports = ({ window, helpers }) => $tagList => {
+export default ({ window, helpers }) => $tagList => {
 
-    return Array.from($tagList.querySelectorAll('.tag')).map($tag => {        
+    return Array.from($tagList.querySelectorAll('.tag')).map($tag => {
         const $tagName = $tag.querySelector('.tag-name');
         const $tagImage = $tag.querySelector('.tag-image');
         const $roleName = $tag.querySelector('.role-name');

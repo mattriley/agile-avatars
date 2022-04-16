@@ -1,4 +1,4 @@
-module.exports = ({ elements, services }) => () => {
+export default ({ elements, services }) => () => {
 
     return elements.dropzone()
         .addEventListener('drop', e => {

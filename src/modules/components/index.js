@@ -1,13 +1,13 @@
-module.exports = {
-    gravatar: require('./gravatar'),
-    header: require('./header'),
-    imageUploadOptions: require('./image-upload-options'),
-    modals: require('./modals'),
-    optionsBar: require('./options-bar'),
-    roleList: require('./role-list'),
-    tagList: require('./tag-list'),
-    tips: require('./tips'),
-    app: require('./app'),
-    dropzone: require('./dropzone'),
-    modal: require('./modal')
-};
+import gravatar from './gravatar';
+import header from './header';
+import imageUploadOptions from './image-upload-options';
+import modals from './modals';
+import optionsBar from './options-bar';
+import roleList from './role-list';
+import tagList from './tag-list';
+import tips from './tips';
+import app from './app';
+import dropzone from './dropzone';
+import modal from './modal';
+
+export default { gravatar, header, imageUploadOptions, modals, optionsBar, roleList, tagList, tips, app, dropzone, modal };

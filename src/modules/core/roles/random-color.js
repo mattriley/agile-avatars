@@ -1,7 +1,7 @@
-module.exports = () => randomNumber => {
+export default () => randomNumber => {
 
     return '#' + ('00000' + ((randomNumber * (1 << 24)) | 0).toString(16)).slice(-6);
-    
+
 };
 
 /* FOOTNOTES

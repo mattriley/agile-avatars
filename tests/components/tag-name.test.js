@@ -1,5 +1,5 @@
-module.exports = ({ test, boot, helpers }) => {
-    
+export default ({ test, boot, helpers }) => {
+
     test('tag name changes to blank', t => {
         const { components, services } = boot();
         const $tagList = components.tagList.container();
@@ -7,36 +7,36 @@ module.exports = ({ test, boot, helpers }) => {
         const [tag1] = helpers.getTags($tagList);
         const { getTagName, setTagName } = tag1;
         t.equal(getTagName(), 'Foo');
-        setTagName('');                
+        setTagName('');
         t.equal(getTagName(), '');
-        
+
     });
 
     test('tag name changes to different name', t => {
         const { components, services } = boot();
-        const $tagList = components.tagList.container();    
+        const $tagList = components.tagList.container();
         services.tags.insertTag({ tagName: 'foo' });
         const [tag1] = helpers.getTags($tagList);
         const { getTagName, setTagName } = tag1;
         t.equal(getTagName(), 'Foo');
         setTagName('bar');
         t.equal(getTagName(), 'bar');
-        
+
     });
 
     test('tag name and role changes given expression', t => {
         const { components, services } = boot();
-        const $tagList = components.tagList.container();        
+        const $tagList = components.tagList.container();
         services.tags.insertTag();
         const [tag1] = helpers.getTags($tagList);
         const { setTagName, getTagName, getRoleName } = tag1;
         setTagName('foo+bar');
         t.deepEqual([getTagName(), getRoleName()], ['foo', 'BAR']);
-        
+
     });
 
     test('tag name change propagates to all instances of tag', t => {
-        const { components, services } = boot();        
+        const { components, services } = boot();
         const $tagList = components.tagList.container();
         services.tags.insertTag();
         services.settings.changeOption('active', 2);
@@ -58,7 +58,7 @@ module.exports = ({ test, boot, helpers }) => {
             t.equal(tag2.getTagName(), 'Foo');
         }
 
-        
+
     });
 
 };

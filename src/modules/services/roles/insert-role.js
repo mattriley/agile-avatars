@@ -1,4 +1,4 @@
-module.exports = ({ core, services, subscriptions, stores, io }) => roleData => {
+export default ({ core, services, subscriptions, stores, io }) => roleData => {
 
     const role = core.roles.buildRole(roleData, io.random());
 

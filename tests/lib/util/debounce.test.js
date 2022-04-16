@@ -1,4 +1,4 @@
-module.exports = ({ test, boot }) => {
+export default ({ test, boot }) => {
 
     test('debounce is zero', async () => {
         const { util } = boot();
@@ -7,8 +7,8 @@ module.exports = ({ test, boot }) => {
                 resolve();
             };
 
-            util.debounce(foo, 0)();   
-        });     
+            util.debounce(foo, 0)();
+        });
     });
 
     test('debounce is greater than zero', async () => {
@@ -17,10 +17,10 @@ module.exports = ({ test, boot }) => {
             const foo = () => {
                 resolve();
             };
-    
-            util.debounce(foo, 1)(); 
+
+            util.debounce(foo, 1)();
         });
-             
+
     });
 
 };

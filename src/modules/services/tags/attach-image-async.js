@@ -1,5 +1,5 @@
-module.exports = ({ stores, io }) => imageBlob => tagId => {
-    
+export default ({ stores, io }) => imageBlob => tagId => {
+
     return new Promise((resolve, reject) => {
         const reader = io.fileReader();
         reader.readAsDataURL(imageBlob);

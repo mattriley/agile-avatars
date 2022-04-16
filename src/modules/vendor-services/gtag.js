@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-module.exports = ({ config, io, window }) => {
+export default ({ config, io, window }) => {
 
     const { trackingId, enabled } = config.gtag;
 
@@ -8,14 +8,14 @@ module.exports = ({ config, io, window }) => {
         window.dataLayer = [];
         window[`ga-disable-${trackingId}`] = !enabled;
         gtag('js', io.date());
-        gtag('config', trackingId);        
+        gtag('config', trackingId);
     }
 
-    function gtag () { 
+    function gtag() {
         if (!window.dataLayer) initalise();
-        window.dataLayer.push(arguments); 
-    } 
-    
+        window.dataLayer.push(arguments);
+    }
+
     return gtag;
-    
+
 };

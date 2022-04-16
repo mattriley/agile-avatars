@@ -1,5 +1,5 @@
-module.exports = () => (tags, getRole) => {
-    
+export default () => (tags, getRole) => {
+
     return tags.sort((a, b) => {
         const { roleName: roleNameA } = getRole(a.roleId);
         const { roleName: roleNameB } = getRole(b.roleId);
@@ -7,5 +7,5 @@ module.exports = () => (tags, getRole) => {
         const nameComparison = a.tagName.localeCompare(b.tagName);
         return roleComparison || nameComparison;
     });
-    
+
 };

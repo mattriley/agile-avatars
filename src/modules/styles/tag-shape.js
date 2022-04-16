@@ -1,4 +1,4 @@
-module.exports = ({ el, subscriptions, config }) => () => {
+export default ({ el, subscriptions, config }) => () => {
 
     const $style = el('style');
 
@@ -8,5 +8,5 @@ module.exports = ({ el, subscriptions, config }) => () => {
     });
 
     return $style;
-    
+
 };

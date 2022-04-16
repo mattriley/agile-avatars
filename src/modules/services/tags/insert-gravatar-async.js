@@ -1,7 +1,7 @@
-module.exports = ({ core, services }) => (expression, defaultImage) => {
+export default ({ core, services }) => (expression, defaultImage) => {
 
     const { email, username, emailOrUsername, roleName } = core.tags.parseEmailExpression(expression);
-    
+
     const profilePromise = services.gravatar.fetchProfileAsync(email).then(profile => {
         const tagName = core.gravatar.getNameFromProfile(profile, username);
         return services.tags.insertTag({ tagName, roleName });

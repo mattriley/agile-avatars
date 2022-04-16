@@ -1,4 +1,4 @@
-module.exports = ({ test, boot, helpers }) => {
+export default ({ test, boot, helpers }) => {
 
     test('welcome modal is visible by default', t => {
         const { components } = boot();
@@ -13,7 +13,7 @@ module.exports = ({ test, boot, helpers }) => {
         const assertVisible = helpers.assertBoolClass(t, $welcomeModal, 'visible');
         const $dismiss = $welcomeModal.querySelector('button');
         helpers.dispatchEvent('click', $dismiss);
-        assertVisible(false);        
+        assertVisible(false);
     });
 
 };

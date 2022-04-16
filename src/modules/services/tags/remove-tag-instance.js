@@ -1,4 +1,4 @@
-module.exports = ({ stores }) => tagInstanceId => {
+export default ({ stores }) => tagInstanceId => {
 
     const { tagId, mode } = stores.tagInstances.find(tagInstanceId);
     const tag = stores.tags.find(tagId);
@@ -11,5 +11,5 @@ module.exports = ({ stores }) => tagInstanceId => {
     });
 
     stores.tagInstances.remove(tagInstanceId);
-    
+
 };

@@ -1,11 +1,11 @@
-module.exports = () => (tags, modeCounts) => {
-    
+export default () => (tags, modeCounts) => {
+
     return tags.flatMap(tag => {
         return Object.entries(modeCounts).flatMap(([mode, count]) => {
             return plan({ tag, mode, count });
         });
     });
-    
+
 };
 
 const plan = ({ tag, mode, count }) => {

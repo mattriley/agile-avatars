@@ -1,5 +1,5 @@
-module.exports = {
-    assignColor: require('./assign-color'),
-    buildRole: require('./build-role'),
-    randomColor: require('./random-color')
-};
+import assignColor from './assign-color';
+import buildRole from './build-role';
+import randomColor from './random-color';
+
+export default { assignColor, buildRole, randomColor };

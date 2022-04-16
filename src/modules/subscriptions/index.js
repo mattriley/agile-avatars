@@ -1,3 +1,3 @@
-module.exports = {
-    setup: require('./setup')
-};
+import setup from './setup';
+
+export default { setup };

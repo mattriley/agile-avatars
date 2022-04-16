@@ -1,4 +1,4 @@
-module.exports = ({ el }) => () => {
+export default ({ el }) => () => {
 
     return el('div', 'multiples', {
         title: 'Multiples',
@@ -23,5 +23,5 @@ module.exports = ({ el }) => () => {
             <img src='img/tips/active-passive.png' />
         `
     });
-    
+
 };

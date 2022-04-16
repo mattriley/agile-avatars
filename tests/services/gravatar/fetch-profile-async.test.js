@@ -1,4 +1,4 @@
-module.exports = ({ test, boot }) => {
+export default ({ test, boot }) => {
 
     test('return profile on successful response', async t => {
         const profile = { name: { givenName: 'given' }, displayName: 'display' };

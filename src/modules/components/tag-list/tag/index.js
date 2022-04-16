@@ -1,4 +1,4 @@
-module.exports = {
-    components: require('./components'),
-    container: require('./container')
-};
+import components from './components';
+import container from './container';
+
+export default { components, container };

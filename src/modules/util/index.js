@@ -1,7 +1,7 @@
-module.exports = {
-    debounce: require('./debounce'),
-    mapValues: require('./map-values'),
-    pipe: require('./pipe'),
-    splitAt: require('./split-at'),
-    upperFirst: require('./upper-first')
-};
+import debounce from './debounce';
+import mapValues from './map-values';
+import pipe from './pipe';
+import splitAt from './split-at';
+import upperFirst from './upper-first';
+
+export default { debounce, mapValues, pipe, splitAt, upperFirst };

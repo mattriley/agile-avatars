@@ -1,5 +1,5 @@
-module.exports = ({ test, boot, helpers }) => {
-    
+export default ({ test, boot, helpers }) => {
+
     const setup = () => {
         const { services, components } = boot();
         const $sortOptions = components.optionsBar.options.sort().querySelector('select');
@@ -24,24 +24,24 @@ module.exports = ({ test, boot, helpers }) => {
         const [tag1, tag2] = helpers.getTags($tagList);
         t.deepEqual([tag1.getTagName(), tag1.getRoleName()], ['B', 'A']);
         t.deepEqual([tag2.getTagName(), tag2.getRoleName()], ['A', 'B']);
-        
+
     });
 
     test('keep sorted by role then name', t => {
         const { $tagList, services, changeSortOption } = setup();
 
         changeSortOption('roleThenName');
-            
+
         services.tags.insertTag({ tagName: 'A', roleName: 'B' });
         services.tags.insertTag({ tagName: 'B', roleName: 'A' });
         services.tags.insertTag({ tagName: 'C', roleName: 'A' });
 
         const [tag1, tag2, tag3] = helpers.getTags($tagList);
-        
+
         t.deepEqual([tag1.getTagName(), tag1.getRoleName()], ['B', 'A']);
         t.deepEqual([tag2.getTagName(), tag2.getRoleName()], ['C', 'A']);
         t.deepEqual([tag3.getTagName(), tag3.getRoleName()], ['A', 'B']);
-        
+
     });
 
     test('keep sorted by name', t => {
@@ -55,7 +55,7 @@ module.exports = ({ test, boot, helpers }) => {
         const [tag1, tag2] = helpers.getTags($tagList);
         t.deepEqual([tag1.getTagName(), tag1.getRoleName()], ['A', 'B']);
         t.deepEqual([tag2.getTagName(), tag2.getRoleName()], ['B', 'A']);
-        
+
     });
 
     test('sorts existing tags', t => {
@@ -71,7 +71,7 @@ module.exports = ({ test, boot, helpers }) => {
         }
 
         changeSortOption('roleThenName');
-        
+
         {
             const [tag1, tag2, tag3] = helpers.getTags($tagList);
             t.deepEqual([tag1.getTagName(), tag1.getRoleName()], ['B', 'A']);
@@ -94,10 +94,10 @@ module.exports = ({ test, boot, helpers }) => {
             const [tag1, tag2, tag3] = helpers.getTags($tagList);
             t.deepEqual([tag1.getTagName(), tag1.getRoleName()], ['A', 'B']);
             t.deepEqual([tag2.getTagName(), tag2.getRoleName()], ['C', 'A']);
-            t.deepEqual([tag3.getTagName(), tag3.getRoleName()], ['B', 'A']);            
+            t.deepEqual([tag3.getTagName(), tag3.getRoleName()], ['B', 'A']);
         }
-        
-         
+
+
     });
 
 };

@@ -1,4 +1,4 @@
-module.exports = ({ stores }) => roleId => () => {
+export default ({ stores }) => roleId => () => {
 
     const { roleName } = stores.roles.find(roleId);
     const changes = { roleName };

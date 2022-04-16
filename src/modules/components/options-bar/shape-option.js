@@ -1,4 +1,4 @@
-module.exports = ({ el, subscriptions, services, ui, config }) => shapeName => {
+export default ({ el, subscriptions, services, ui, config }) => shapeName => {
 
     const $shape = el('span', 'shape-option', {
         title: `Change shape to ${shapeName}`,

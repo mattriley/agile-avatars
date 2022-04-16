@@ -1,4 +1,4 @@
-module.exports = ({ test, boot }) => {
+export default ({ test, boot }) => {
 
     test('return image blob on successful response', async t => {
         const image = 'blob';

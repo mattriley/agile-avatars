@@ -1,5 +1,5 @@
-module.exports = ({ el, elements, services, subscriptions }) => () => {
-    
+export default ({ el, elements, services, subscriptions }) => () => {
+
     const $showOutline = el('input', { type: 'checkbox' })
         .addEventListener('change', () => {
             services.settings.changeOption('outline', $showOutline.checked);

@@ -1,4 +1,4 @@
-module.exports = ({ el, vendorComponents, services }) => roleId => {
+export default ({ el, vendorComponents, services }) => roleId => {
 
     const role = services.roles.getRole(roleId);
 

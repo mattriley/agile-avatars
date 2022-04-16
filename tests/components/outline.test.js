@@ -1,8 +1,8 @@
-module.exports = ({ test, boot, helpers }) => {
+export default ({ test, boot, helpers }) => {
 
     const setup = ({ outlineDefault }) => {
-        const { components, services } = boot({ 
-            config: { 
+        const { components, services } = boot({
+            config: {
                 storage: {
                     defaults: {
                         settings: {
@@ -10,7 +10,7 @@ module.exports = ({ test, boot, helpers }) => {
                         }
                     }
                 }
-            } 
+            }
         });
         const $checkbox = components.optionsBar.options.outline().querySelector('input');
         const $tagList = components.tagList.container();
@@ -21,21 +21,21 @@ module.exports = ({ test, boot, helpers }) => {
     test('outline toggles on', t => {
         const { $tagList, $checkbox } = setup({ outlineDefault: false });
         $checkbox.checked = true;
-        helpers.dispatchEvent('change', $checkbox); 
+        helpers.dispatchEvent('change', $checkbox);
         const [tag1] = helpers.getTags($tagList);
         const outlineColor = tag1.getTagStyle().borderColor;
         t.notOk(outlineColor === 'transparent');
-        
+
     });
 
     test('outline toggles off', t => {
         const { $tagList, $checkbox } = setup({ outlineDefault: true });
         $checkbox.checked = false;
-        helpers.dispatchEvent('change', $checkbox); 
+        helpers.dispatchEvent('change', $checkbox);
         const [tag1] = helpers.getTags($tagList);
         const outlineColor = tag1.getTagStyle().borderColor;
         t.ok(outlineColor === 'transparent');
-        
+
     });
 
 };

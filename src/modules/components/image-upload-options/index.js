@@ -1,5 +1,5 @@
-module.exports = {
-    chooseImages: require('./choose-images'),
-    container: require('./container'),
-    gravatar: require('./gravatar')
-};
+import chooseImages from './choose-images';
+import container from './container';
+import gravatar from './gravatar';
+
+export default { chooseImages, container, gravatar };

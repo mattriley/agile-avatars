@@ -1,4 +1,4 @@
-module.exports = ({ test, boot, helpers }) => {
+export default ({ test, boot, helpers }) => {
 
     test('empty reverts to minimum on blur', t => {
         const { elements } = boot();
@@ -48,7 +48,7 @@ module.exports = ({ test, boot, helpers }) => {
         $input.value = 10;
         helpers.dispatchEvent('blur', $input);
         t.equal($input.value, '9');
-    });        
+    });
 
     test('decimal ignored', t => {
         const { elements } = boot();

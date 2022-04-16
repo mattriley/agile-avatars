@@ -1,4 +1,4 @@
-module.exports = ({ services, el, config }) => () => {
+export default ({ services, el, config }) => () => {
 
     const $tips = el('a', 'tips', { textContent: 'Tips & tricks' })
         .addEventListener('click', () => {

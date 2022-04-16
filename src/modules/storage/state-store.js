@@ -1,6 +1,6 @@
-const EventEmitter = require('events');
+import EventEmitter from 'events';
 
-module.exports = (defaults = {}) => {
+export default (defaults = {}) => {
     let nextId = 1;
     const state = new Map();
     const funcs = new Map();
