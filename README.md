@@ -193,8 +193,10 @@ startup.start(app => document.body.append(app));
 
 1. At build time, Parcel interprets `require('./css/*.css');`, combines each CSS file into a single file which is then referenced by a link tag that Parcel injects into the document head.
 2. At run time, the boot function is invoked with the global window object and config, returning the initialised application modules.
-3. The modules are assigned to `window.agileavatars` for demonstration and debugging purposes.
+3. The modules are assigned to `window.app` for demonstration and debugging purposes.
 4. The startup function is invoked with a callback receiving an instance of the root component, app, which is then appended to the document body.
+
+Note: `window.agileavatars` changed to `window.app`.
 
 <br>
 <p align="center">
@@ -274,7 +276,7 @@ This _codified view_ of the architecture has some interesting implications:
 <br>
 
 
-Modules | startup | components | services | vendor<br>services | vendor<br>components | subscriptions | styles | elements | diagnostics | ui | stores | io | core | window | util | storage
+<!-- Modules | startup | components | services | vendor<br>services | vendor<br>components | subscriptions | styles | elements | diagnostics | ui | stores | io | core | window | util | storage
 --- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---:
 startup | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
 components | ✅ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
@@ -293,7 +295,7 @@ window | ❌ | ❌ | ❌ | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ | ✅ |
 util | ✅ | ✅ | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ | ❌ | n/a | ❌
 storage | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ | n/a
 <p align="center"><em>Generated dependency mapping (scrolls to the right)</em></p>
-<br>
+<br> -->
 
 ## Deglobalising window
 
@@ -435,6 +437,7 @@ Because all relative files are loaded by index.js files, a simple search can be 
 #!/bin/bash
 
 ! grep --exclude="index.js" -rnw "$MODULES" -e "require('."
+! grep --exclude="index.js" -rnw "$MODULES" -e "from '."
 ```
 </details>
 
