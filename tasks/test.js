@@ -3,8 +3,10 @@
 /* eslint-disable no-process-exit */
 import { JSDOM } from 'jsdom';
 import { createHarness, createJSONReporter } from 'zora';
+// import { createDiffReporter } from 'zora-reporters'; // use for tricky errors
+
 import path from 'path';
-import composer from 'module-composer';
+import moduleComposer from 'module-composer';
 import testHelpers from '../test-helpers';
 import src from '../src/modules';
 import bootOrig from '../src/boot';
@@ -14,7 +16,8 @@ import _ from 'lodash';
 const setup = () => {
     const { window } = new JSDOM('', { url: 'https://localhost/' });
     const resetJsdom = () => { window.document.getElementsByTagName('html')[0].innerHTML = ''; };
-    const helpers = composer({ helpers: testHelpers })('helpers', { window });
+    const composeHelpers = moduleComposer({ helpers: testHelpers });
+    const { helpers } = composeHelpers('helpers', { window });
 
     const boot = (args = {}) => {
         resetJsdom();
