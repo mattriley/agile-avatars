@@ -233,27 +233,26 @@ export default ({ window, config, ...overrides }) => {
     const compose = composer(modules, { overrides });
 
     // Data
-    const stores = compose('stores', { storage, config }, stores => stores.setup());
-    const subscriptions = compose('subscriptions', { stores, util }, subscriptions => subscriptions.setup());
+    const { stores } = compose('stores', { storage, config }, stores => stores.setup());
+    const { subscriptions } = compose('subscriptions', { stores, util }, subscriptions => subscriptions.setup());
 
     // Domain
-    const core = compose('core', { util, config });
-    const io = compose('io', { window }, io => io.setup());
-    const services = compose('services', { subscriptions, stores, core, io, util, config });
-    const vendorServices = compose('vendorServices', { io, config, window });
+    const { core } = compose('core', { util, config });
+    const { io } = compose('io', { window }, io => io.setup());
+    const { services } = compose('services', { subscriptions, stores, core, io, util, config });
+    const { vendorServices } = compose('vendorServices', { io, config, window });
 
     // Presentation
-    const { el, ...ui } = compose('ui', { window });
-    const elements = compose('elements', { el, ui, util });
-    const vendorComponents = compose('vendorComponents', { el, ui, config, window });
-    const components = compose('components', { el, ui, elements, vendorComponents, vendorServices, services, subscriptions, util, config });
-    const styles = compose('styles', { el, ui, subscriptions, config });
+    const { ui } = compose('ui', { window });
+    const { el } = ui;
+    const { elements } = compose('elements', { el, ui, util });
+    const { vendorComponents } = compose('vendorComponents', { el, ui, config, window });
+    const { components } = compose('components', { el, ui, elements, vendorComponents, vendorServices, services, subscriptions, util, config });
+    const { styles } = compose('styles', { el, ui, subscriptions, config });
 
     // Startup    
     compose('diagnostics', { stores, util });
-    compose('startup', { ui, components, styles, services, subscriptions, stores, util, config });
-
-    return compose.modules;
+    return compose('startup', { ui, components, styles, services, subscriptions, stores, util, config });
 
 };
 ```
@@ -313,27 +312,22 @@ _module-composer_ is a small library that reduces the amount of boilerplate code
 <summary>node_modules/module-composer/src/module-composer.js</summary>
 
 ```js
-const { merge, isObject, isFunction, mapValues, override } = require('./util');
+const { isObject, isFunction, mapValues, override } = require('./util');
 
 module.exports = (parent, options = {}) => {
-    const opt = merge({
-        defaults: {}, overrides: {},
-        compositionModule: { enabled: true, name: 'composition' }
-    }, options);
     const modules = { ...parent }, dependencies = mapValues(modules, () => []);
-    if (opt.compositionModule.enabled) modules[opt.compositionModule.name] = { modules, dependencies };
-    const compose = (key, arg = {}, initialise) => {
-        arg = { ...opt.defaults, ...arg };
+    modules.composition = { modules, dependencies };
+    return (key, arg = {}, customise) => {
+        arg = { ...options.defaults, ...arg };
         delete arg[key];
         const obj = parent[key];
         const composed = composeRecursive(obj, arg, key);
-        const initialised = initialise ? initialise(composed) : composed;
-        const module = override({ [key]: initialised }, opt.overrides)[key];
+        const initialised = customise ? customise(composed) : composed;
+        const module = override({ [key]: initialised }, options.overrides)[key];
         modules[key] = module;
         dependencies[key] = Object.keys(arg);
-        return module;
+        return { ...modules };
     };
-    return Object.assign(compose, { modules, dependencies });
 };
 
 const composeRecursive = (obj, arg, parentKey) => {
