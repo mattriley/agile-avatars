@@ -53,7 +53,7 @@ NOTE: WORK IN PROGRESS!
 
 ### Prerequisites
 
-- Install Node 17.1.0 or install [nvm](https://github.com/nvm-sh/nvm) and run `nvm install`
+- Install Node 16 or install [nvm](https://github.com/nvm-sh/nvm) and run `nvm install`
 - Install dependencies: `npm install`
 
 ### Tasks
