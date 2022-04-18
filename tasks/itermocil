@@ -10,7 +10,6 @@ windows:
     panes:
       - commands:
         - nvm use
-        - code .
         - clear
       - commands:
         - nvm use
@@ -23,7 +22,7 @@ windows:
       - commands:
         - nvm use
         - clear
-        - ./task serve
+        - ./task start
 EOF
 
 itermocil

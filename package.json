@@ -23,7 +23,7 @@
         "events": "^3.3.0",
         "husky": "^7.0.4",
         "jsdom": "^19.0.0",
-        "module-indexgen": "^0.3.7",
+        "module-indexgen": "^0.5.0",
         "parcel": "^2.4.1",
         "process": "^0.11.10",
         "zora": "^5.0.0",
