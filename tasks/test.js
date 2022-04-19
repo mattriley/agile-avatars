@@ -1,7 +1,7 @@
 /* eslint-disable no-process-env */
 /* eslint-disable no-console */
 /* eslint-disable no-process-exit */
-import { JSDOM } from 'jsdom';
+import JSDOM from 'jsdom';
 import { createHarness, createJSONReporter } from 'zora';
 // import { createDiffReporter } from 'zora-reporters'; // use for tricky errors
 
@@ -14,7 +14,7 @@ import baseConfig from '../src/data/config.json';
 import _ from 'lodash';
 
 const setup = () => {
-    const { window } = new JSDOM('', { url: 'https://localhost/' });
+    const { window } = new JSDOM.JSDOM('', { url: 'https://localhost/' });
     const resetJsdom = () => { window.document.getElementsByTagName('html')[0].innerHTML = ''; };
     const composeHelpers = moduleComposer({ helpers: testHelpers });
     const { helpers } = composeHelpers('helpers', { window });

@@ -2,7 +2,7 @@ build_output
 package_output
 node_modules
 coverage
-iTermocil.yml
+itermocil.yml
 .vscode
 .parcel-cache
 .DS_Store
