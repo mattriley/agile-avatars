@@ -316,27 +316,23 @@ _module-composer_ is a small library that reduces the amount of boilerplate code
 ```js
 const { isObject, isFunction, mapValues, override } = require('./util');
 
-module.exports = (parent, options = {}) => {
-    const modules = { ...parent }, dependencies = mapValues(modules, () => []);
+module.exports = (target, options = {}) => {
+    const modules = { ...target }, dependencies = mapValues(modules, () => []);
     modules.composition = { modules, dependencies };
-    return (key, arg = {}, customise) => {
-        arg = { ...options.defaults, ...arg };
-        delete arg[key];
-        const obj = parent[key];
-        const composed = composeRecursive(obj, arg, key);
-        const initialised = customise ? customise(composed) : composed;
-        const module = override({ [key]: initialised }, options.overrides)[key];
-        modules[key] = module;
-        dependencies[key] = Object.keys(arg);
+    return (key, args = {}, customise = m => m) => {
+        const totalArgs = { ...options.defaults, ...args };
+        const module = customise(composeRecursive(target[key], totalArgs, key));
+        modules[key] = override({ [key]: module }, options.overrides)[key];
+        dependencies[key] = Object.keys(totalArgs);
         return { ...modules };
     };
 };
 
-const composeRecursive = (obj, arg, parentKey) => {
-    if (!isObject(obj)) return obj;
+const composeRecursive = (target, args, parentKey) => {
+    if (!isObject(target)) return target;
     const product = {};
-    const newArg = { [parentKey]: product, ...arg };
-    const newObj = mapValues(obj, (val, key) => (isFunction(val) ? val(newArg) : composeRecursive(val, newArg, key)));
+    const newArg = { [parentKey]: product, ...args };
+    const newObj = mapValues(target, (val, key) => (isFunction(val) ? val(newArg) : composeRecursive(val, newArg, key)));
     return Object.assign(product, newObj);
 };
 ```
