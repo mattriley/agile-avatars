@@ -1,7 +1,7 @@
-export default ({ test, boot, window, helpers }) => {
+export default ({ test, compose, window, helpers }) => {
 
     test('multiple images dropped', async t => {
-        const { components } = boot();
+        const { components } = compose();
         const $tagList = components.tagList.container();
         const $dropzone = components.dropzone();
 

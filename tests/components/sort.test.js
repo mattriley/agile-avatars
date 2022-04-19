@@ -1,7 +1,7 @@
-export default ({ test, boot, helpers }) => {
+export default ({ test, compose, helpers }) => {
 
     const setup = () => {
-        const { services, components } = boot();
+        const { services, components } = compose();
         const $sortOptions = components.optionsBar.options.sort().querySelector('select');
         const $tagList = components.tagList.container();
 

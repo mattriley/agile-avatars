@@ -1,6 +1,6 @@
-export default ({ test, boot }) => {
+export default ({ test, compose }) => {
 
-    const { core } = boot();
+    const { core } = compose();
 
     test('missing role name', t => {
         const role = core.roles.buildRole({});

@@ -1,4 +1,4 @@
-export default ({ test, boot }) => {
+export default ({ test, compose }) => {
 
     test('return image blob on successful response', async t => {
         const image = 'blob';
@@ -7,7 +7,7 @@ export default ({ test, boot }) => {
             return { ok: true, blob: () => image };
         };
         const io = { fetch };
-        const { services } = boot({ io });
+        const { services } = compose({ io });
         const actualImage = await services.gravatar.fetchImageAsync('foo@bar.com', 'defaultimage');
         t.equal(actualImage, image);
     });
@@ -15,7 +15,7 @@ export default ({ test, boot }) => {
     test('throw on unexpected response status', async t => {
         const fetch = () => ({ ok: false, status: 500 });
         const io = { fetch };
-        const { services } = boot({ io });
+        const { services } = compose({ io });
         try {
             await services.gravatar.fetchImageAsync('foo@bar.com', 'defaultimage');
             t.fail();

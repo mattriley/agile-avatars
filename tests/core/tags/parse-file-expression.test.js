@@ -1,6 +1,6 @@
-export default ({ test, boot }) => {
+export default ({ test, compose }) => {
 
-    const { core } = boot();
+    const { core } = compose();
 
     test('file name', t => {
         const expression = '1 foo bar+dev.jpg';

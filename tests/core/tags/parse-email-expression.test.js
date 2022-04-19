@@ -1,6 +1,6 @@
-export default ({ test, boot }) => {
+export default ({ test, compose }) => {
 
-    const { core } = boot();
+    const { core } = compose();
 
     test('email address', t => {
         const expression = 'foo+xzy@bar.com+dev';

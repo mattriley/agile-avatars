@@ -1,7 +1,7 @@
-export default ({ test, boot, helpers }) => {
+export default ({ test, compose, helpers }) => {
 
     test('import failure', async t => {
-        const { components } = boot({
+        const { components } = compose({
             services: {
                 tags: {
                     insertGravatarAsync: () => Promise.reject(new Error())

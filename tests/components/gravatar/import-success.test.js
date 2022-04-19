@@ -1,9 +1,9 @@
 export default ({ test, setup }) => {
 
     test('import success', async t => {
-        const { boot, helpers, window } = setup();
+        const { compose, helpers, window } = setup();
 
-        const { components } = boot({
+        const { components } = compose({
             services: {
                 gravatar: {
                     fetchProfileAsync: () => Promise.resolve({ displayName: 'foo' }),

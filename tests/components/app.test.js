@@ -1,7 +1,7 @@
-export default ({ test, boot }) => {
+export default ({ test, compose }) => {
 
     test('app renders', t => {
-        const { components } = boot();
+        const { components } = compose();
         const $app = components.app();
         t.ok($app);
 

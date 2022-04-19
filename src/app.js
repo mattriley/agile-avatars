@@ -1,7 +1,7 @@
-import boot from './boot';
+import compose from './compose';
 import config from './config';
 
-const { startup, composition } = boot({ config, window });
+const { startup, composition } = compose({ config, window });
 const app = { config, ...composition };
 window.app = app;
 window.document.title = config.app.name;

@@ -1,9 +1,9 @@
 // TODO: Explicit tests for toggling with Enter and Space keys.
 
-export default ({ test, boot, helpers }) => {
+export default ({ test, compose, helpers }) => {
 
     const toggleTestCase = (t, shapeName) => {
-        const { components } = boot();
+        const { components } = compose();
         const $shape = components.optionsBar.shapeOption(shapeName);
         const $anotherShape = components.optionsBar.shapeOption('foobar');
         helpers.dispatchEvent('click', $anotherShape);
@@ -14,7 +14,7 @@ export default ({ test, boot, helpers }) => {
     };
 
     const shapeTestCase = (t, shapeName) => {
-        const { components, services, config } = boot();
+        const { components, services, config } = compose();
         const $shape = components.optionsBar.shapeOption(shapeName);
         const $tagList = components.tagList.container();
         services.tags.insertTag();
@@ -44,7 +44,7 @@ export default ({ test, boot, helpers }) => {
     // TODO: Remove duplication
     test('shape not selected on keypress other than Enter or Space', t => {
         const shapeName = 'circle';
-        const { components } = boot();
+        const { components } = compose();
         const $shape = components.optionsBar.shapeOption(shapeName);
         const $anotherShape = components.optionsBar.shapeOption('foobar');
         helpers.dispatchEvent('click', $anotherShape);

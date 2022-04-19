@@ -1,10 +1,10 @@
-export default ({ test, boot, helpers }) => {
+export default ({ test, compose, helpers }) => {
 
     const testCase = (t, mode, adjustment) => {
         const defaultValue = 2;
         const targetCount = defaultValue + adjustment;
 
-        const { components, services } = boot({
+        const { components, services } = compose({
             config: {
                 storage: {
                     defaults: {

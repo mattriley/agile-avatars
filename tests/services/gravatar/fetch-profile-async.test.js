@@ -1,4 +1,4 @@
-export default ({ test, boot }) => {
+export default ({ test, compose }) => {
 
     test('return profile on successful response', async t => {
         const profile = { name: { givenName: 'given' }, displayName: 'display' };
@@ -8,13 +8,13 @@ export default ({ test, boot }) => {
             return { ok: true, json: () => json };
         };
         const io = { fetch };
-        const { services } = boot({ io });
+        const { services } = compose({ io });
         const actualProfile = await services.gravatar.fetchProfileAsync('foo@bar.com');
         t.equal(actualProfile, profile);
     });
 
     test('return empty profile when email is null', async t => {
-        const { services } = boot();
+        const { services } = compose();
         const profile = await services.gravatar.fetchProfileAsync(null);
         t.equal(profile, {});
     });
@@ -22,7 +22,7 @@ export default ({ test, boot }) => {
     test('return empty profile on 404 not found', async t => {
         const fetch = () => ({ status: 404 });
         const io = { fetch };
-        const { services } = boot({ io });
+        const { services } = compose({ io });
         const profile = await services.gravatar.fetchProfileAsync('foo@bar.com');
         t.equal(profile, {});
     });
@@ -30,7 +30,7 @@ export default ({ test, boot }) => {
     test('throw on unexpected response status', async t => {
         const fetch = () => ({ ok: false, status: 500 });
         const io = { fetch };
-        const { services } = boot({ io });
+        const { services } = compose({ io });
         try {
             await services.gravatar.fetchProfileAsync('foo@bar.com');
             t.fail();

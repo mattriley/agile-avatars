@@ -1,7 +1,7 @@
-export default ({ test, boot, helpers }) => {
+export default ({ test, compose, helpers }) => {
 
     test('tips modal triggered by link in nav bar', t => {
-        const { components } = boot();
+        const { components } = compose();
         const $tipsLink = components.header.navBar().querySelector('.tips');
         const $tipsModal = components.modals.tips('tips');
         const assertVisible = helpers.assertBoolClass(t, $tipsModal, 'visible');

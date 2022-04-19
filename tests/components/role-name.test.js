@@ -1,7 +1,7 @@
-export default ({ test, boot, helpers }) => {
+export default ({ test, compose, helpers }) => {
 
     test('role customiser name change propagates to tags', t => {
-        const { components, services } = boot();
+        const { components, services } = compose();
         const $tagList = components.tagList.container();
         const roleId = services.roles.insertRole({ roleName: 'foo' });
         const $roleCustomiser = components.roleList.roleCustomiser.container(roleId);
@@ -19,7 +19,7 @@ export default ({ test, boot, helpers }) => {
     });
 
     test('tag role name changes', t => {
-        const { components, services } = boot();
+        const { components, services } = compose();
         const $tagList = components.tagList.container();
         services.tags.insertTag({ roleName: 'foo' });
         const [tag1] = helpers.getTags($tagList);
@@ -30,7 +30,7 @@ export default ({ test, boot, helpers }) => {
     });
 
     test('new role inserted at end of list', t => {
-        const { components, services } = boot();
+        const { components, services } = compose();
         const $roleList = components.roleList.container();
         services.roles.insertRole({ roleName: 'foo' });
         services.roles.insertRole({ roleName: 'bar' });
@@ -41,7 +41,7 @@ export default ({ test, boot, helpers }) => {
     });
 
     test('nil role is hidden', t => {
-        const { components, services } = boot();
+        const { components, services } = compose();
         const nilRoleId = services.roles.getNilRoleId();
         const $roleCustomiser = components.roleList.roleCustomiser.container(nilRoleId);
         t.ok($roleCustomiser.hidden);
@@ -49,7 +49,7 @@ export default ({ test, boot, helpers }) => {
     });
 
     test('non-nil role is visible', async t => {
-        const { components, services } = boot();
+        const { components, services } = compose();
         const roleId = await services.roles.insertRole({ roleName: 'foo' });
         const $roleCustomiser = components.roleList.roleCustomiser.container(roleId);
         t.notOk($roleCustomiser.hidden);

@@ -1,7 +1,7 @@
-export default ({ test, boot, helpers }) => {
+export default ({ test, compose, helpers }) => {
 
     test('empty reverts to minimum on blur', t => {
-        const { elements } = boot();
+        const { elements } = compose();
         const $input = elements.number({ min: 1, max: 9, step: 1 });
         $input.value = '';
         helpers.dispatchEvent('blur', $input);
@@ -9,7 +9,7 @@ export default ({ test, boot, helpers }) => {
     });
 
     test('empty remains empty on input', t => {
-        const { elements } = boot();
+        const { elements } = compose();
         const $input = elements.number({ min: 1, max: 9, step: 1 });
         $input.value = '';
         helpers.dispatchEvent('input', $input);
@@ -17,7 +17,7 @@ export default ({ test, boot, helpers }) => {
     });
 
     test('minimum is accepted', t => {
-        const { elements } = boot();
+        const { elements } = compose();
         const $input = elements.number({ min: 1, max: 9, step: 1 });
         const newValue = 1;
         $input.value = newValue;
@@ -26,7 +26,7 @@ export default ({ test, boot, helpers }) => {
     });
 
     test('maxium is accepted', t => {
-        const { elements } = boot();
+        const { elements } = compose();
         const $input = elements.number({ min: 1, max: 9, step: 1 });
         const newValue = 9;
         $input.value = newValue;
@@ -35,7 +35,7 @@ export default ({ test, boot, helpers }) => {
     });
 
     test('minimum enforced', t => {
-        const { elements } = boot();
+        const { elements } = compose();
         const $input = elements.number({ min: 1, max: 9, step: 1 });
         $input.value = 0;
         helpers.dispatchEvent('blur', $input);
@@ -43,7 +43,7 @@ export default ({ test, boot, helpers }) => {
     });
 
     test('maximum enforced', t => {
-        const { elements } = boot();
+        const { elements } = compose();
         const $input = elements.number({ min: 1, max: 9, step: 1 });
         $input.value = 10;
         helpers.dispatchEvent('blur', $input);
@@ -51,7 +51,7 @@ export default ({ test, boot, helpers }) => {
     });
 
     test('decimal ignored', t => {
-        const { elements } = boot();
+        const { elements } = compose();
         const $input = elements.number({ min: 1, max: 9, step: 1 });
         $input.value = 2.5;
         helpers.dispatchEvent('blur', $input);

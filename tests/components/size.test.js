@@ -1,7 +1,7 @@
-export default ({ test, boot, window, helpers }) => {
+export default ({ test, compose, window, helpers }) => {
 
     const setup = ({ sizeDefault }) => {
-        const { components, services, config } = boot({
+        const { components, services, config } = compose({
             config: {
                 storage: {
                     defaults: {

@@ -1,7 +1,7 @@
-export default ({ test, boot }) => {
+export default ({ test, compose }) => {
 
     test('debounce is zero', async () => {
-        const { util } = boot();
+        const { util } = compose();
         await new Promise(resolve => {
             const foo = () => {
                 resolve();
@@ -12,7 +12,7 @@ export default ({ test, boot }) => {
     });
 
     test('debounce is greater than zero', async () => {
-        const { util } = boot();
+        const { util } = compose();
         await new Promise(resolve => {
             const foo = () => {
                 resolve();

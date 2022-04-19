@@ -1,7 +1,7 @@
 export default ({ test, setup }) => {
 
     // test('script tag initialised correctly', t => {
-    //     const { components } = boot({ 
+    //     const { components } = compose({ 
     //         config: { 
     //             googleAnalytics: { enabled: true } 
     //         }
@@ -14,8 +14,8 @@ export default ({ test, setup }) => {
 
     test('tracking metadata set correctly', t => {
         const date = new Date(1590969600000);
-        const { boot, window } = setup();
-        const { vendorServices } = boot({
+        const { compose, window } = setup();
+        const { vendorServices } = compose({
             config: {
                 gtag: { enabled: true }
             },
@@ -29,8 +29,8 @@ export default ({ test, setup }) => {
     });
 
     test('gtag function sets metadata correctly', t => {
-        const { boot, window } = setup();
-        const { vendorServices } = boot({
+        const { compose, window } = setup();
+        const { vendorServices } = compose({
             config: {
                 gtag: { enabled: true }
             }
@@ -40,8 +40,8 @@ export default ({ test, setup }) => {
     });
 
     test('disabled', t => {
-        const { boot, window } = setup();
-        const { vendorServices } = boot({
+        const { compose, window } = setup();
+        const { vendorServices } = compose({
             config: {
                 gtag: { enabled: false }
             }

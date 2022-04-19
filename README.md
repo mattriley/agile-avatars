@@ -35,7 +35,7 @@ NOTE: WORK IN PROGRESS!
 - [Technical Constraints](#technical-constraints)
 - [Architecture](#architecture)
 - [Launching](#launching)
-- [Booting](#booting)
+- [Composing](#composing)
 - [Modules](#modules)
 - [List of Modules](#list-of-modules)
 - [State Management](#state-management)
@@ -177,10 +177,10 @@ The following code is referenced by index.html and launches the application:
 <summary>src/app.js</summary>
 
 ```js
-import boot from './boot';
+import compose from './compose';
 import config from './config';
 
-const { startup, composition } = boot({ config, window });
+const { startup, composition } = compose({ config, window });
 const app = { config, ...composition };
 window.app = app;
 window.document.title = config.app.name;
@@ -192,7 +192,7 @@ startup.start(app => document.body.append(app));
 #### Launch sequence
 
 1. At build time, Parcel interprets `require('./css/*.css');`, combines each CSS file into a single file which is then referenced by a link tag that Parcel injects into the document head.
-2. At run time, the boot function is invoked with the global window object and config, returning the initialised application modules.
+2. At run time, the compose function is invoked with the global window object and config, returning the initialised application modules.
 3. The modules are assigned to `window.app` for demonstration and debugging purposes.
 4. The startup function is invoked with a callback receiving an instance of the root component, app, which is then appended to the document body.
 
@@ -215,15 +215,15 @@ Note: `window.agileavatars` changed to `window.app`.
 <br>
 
 
-# Booting
+# Composing
 
-Booting is the process of making the application _ready to launch_ and involves loading configuration, composing modules, and returning the composed modules.
+Composing is the process of making the application _ready to launch_ and involves loading configuration, composing modules, and returning the composed modules.
 
-The boot function composes the application from modules in the src directory.
+The compose function composes the application from modules in the src directory.
 
 
 <details open>
-<summary>src/boot.js</summary>
+<summary>src/compose.js</summary>
 
 ```js
 import composer from 'module-composer';
@@ -301,9 +301,9 @@ storage | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ 
 
 _window_ is a global [God object](https://en.wikipedia.org/wiki/God_object) that makes it too easy to misplace responsibilities. For example, manipulating the DOM or making HTTP requests from anywhere in the application.
 
-The application has been designed to mitigate such misplaced responsibilities by avoiding the global window object altogether. The boot function expects a window object to be explicitly provided which is then passed to only the selected modules that are allowed to access it.
+The application has been designed to mitigate such misplaced responsibilities by avoiding the global window object altogether. The compose function expects a window object to be explicitly provided which is then passed to only the selected modules that are allowed to access it.
 
-While this helps be intentional of how window is accessed, it still doesn't prevent use of the global window object. So, in order to _detect_ inappropriate access, window is not made globally available in the unit tests. This is possible because the unit tests run on Node.js instead of a browser environment. JSDOM is used to emulate a browser and create a non-global window object to provide to the boot function. This causes any code referencing the global window object to fail.
+While this helps be intentional of how window is accessed, it still doesn't prevent use of the global window object. So, in order to _detect_ inappropriate access, window is not made globally available in the unit tests. This is possible because the unit tests run on Node.js instead of a browser environment. JSDOM is used to emulate a browser and create a non-global window object to provide to the compose function. This causes any code referencing the global window object to fail.
 
 ## module-composer
 
@@ -867,7 +867,7 @@ export default (defaults = {}) => {
 ## stores
 
 
-Provides the _state stores_. State stores manage state changes and raise change events. State stores are created at [boot](#booting) time as defined in config.
+Provides the _state stores_. State stores manage state changes and raise change events. State stores are created at [compose](#composing) time as defined in config.
 
 #### Collaborators
 
@@ -1266,7 +1266,7 @@ State stores use the [observer pattern](https://en.wikipedia.org/wiki/Observer_p
 
 The observer pattern is easily implemented with Node's [EventEmitter](https://nodejs.org/api/events.html) which can be bundled directly into the application.
 
-During [boot](#booting) time, subscription functions are extracted from the stores to produce the _subscriptions_ module. This decouples subscribers from the stores making them agnostic of the data source. Although not a design goal for this application, this should allow the data source to change without impacting the subscribers provided the interface of the subscription functions do not change.
+During [compose](#composing) time, subscription functions are extracted from the stores to produce the _subscriptions_ module. This decouples subscribers from the stores making them agnostic of the data source. Although not a design goal for this application, this should allow the data source to change without impacting the subscribers provided the interface of the subscription functions do not change.
 
 #### Example: Reacting to a new role being inserted
 
@@ -1433,10 +1433,10 @@ This test creates a 'nav bar' and a 'tips modal'; clicks the 'tips link' in the 
 <summary>tests/components/tips.test.js</summary>
 
 ```js
-export default ({ test, boot, helpers }) => {
+export default ({ test, compose, helpers }) => {
 
     test('tips modal triggered by link in nav bar', t => {
-        const { components } = boot();
+        const { components } = compose();
         const $tipsLink = components.header.navBar().querySelector('.tips');
         const $tipsModal = components.modals.tips('tips');
         const assertVisible = helpers.assertBoolClass(t, $tipsModal, 'visible');
@@ -1478,9 +1478,9 @@ This test creates a 'gravatar modal' and a 'tag list'. Clicking the 'import butt
 export default ({ test, setup }) => {
 
     test('import success', async t => {
-        const { boot, helpers, window } = setup();
+        const { compose, helpers, window } = setup();
 
-        const { components } = boot({
+        const { components } = compose({
             services: {
                 gravatar: {
                     fetchProfileAsync: () => Promise.resolve({ displayName: 'foo' }),
@@ -1537,17 +1537,17 @@ Rather than acting on individual files, tests act on the initialised application
 
 #### Example: A component test that depends on shared state
 
-This test initialises the application by invoking boot and uses the components module to create an 'options bar' which should initially be hidden. It then uses the services module to insert a tag which should cause the options bar to become visible. 
+This test initialises the application by invoking compose and uses the components module to create an 'options bar' which should initially be hidden. It then uses the services module to insert a tag which should cause the options bar to become visible. 
 
 
 <details open>
 <summary>tests/components/options-bar.test.js</summary>
 
 ```js
-export default ({ test, boot, helpers }) => {
+export default ({ test, compose, helpers }) => {
 
     test('options bar not visible until first tag inserted', t => {
-        const { components, services } = boot();
+        const { components, services } = compose();
         const $optionsBar = components.optionsBar.container();
         const assertVisible = helpers.assertBoolClass(t, $optionsBar, 'visible');
         assertVisible(false);
@@ -1559,7 +1559,8 @@ export default ({ test, boot, helpers }) => {
 ```
 </details>
 
-NB: As mentioned previously, boot has 1 required argument - window. This version of boot is actually a wrapper that supplies an instance of window provided by [JSDOM](https://github.com/jsdom/jsdom) to the original boot function for testing purposes.
+NB: As mentioned previously, compose has 1 required argument - window. This version of compose is actually a wrapper that supplies an instance of window provided by [JSDOM](https://github.com/jsdom/jsdom) to the original compose function for testing purposes.
+
 
 # Dependencies
 

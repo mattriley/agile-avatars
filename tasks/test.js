@@ -9,7 +9,7 @@ import path from 'path';
 import moduleComposer from 'module-composer';
 import testHelpers from '../test-helpers';
 import src from '../src/modules';
-import bootOrig from '../src/boot';
+import composeOrig from '../src/compose';
 import baseConfig from '../src/data/config.json';
 import _ from 'lodash';
 
@@ -19,16 +19,16 @@ const setup = () => {
     const composeHelpers = moduleComposer({ helpers: testHelpers });
     const { helpers } = composeHelpers('helpers', { window });
 
-    const boot = (args = {}) => {
+    const compose = (args = {}) => {
         resetJsdom();
         const defaultConfig = { debounce: { adjustTagInstanceCounts: 0, sortTagList: 0 } };
         const config = _.merge({}, baseConfig, defaultConfig, args.config);
-        const modules = bootOrig({ window, ...args, config });
+        const modules = composeOrig({ window, ...args, config });
         modules.startup.start();
         return modules;
     };
 
-    return { src, boot, window, helpers };
+    return { src, compose, window, helpers };
 };
 
 const args = setup();
