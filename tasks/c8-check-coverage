@@ -1,0 +1,13 @@
+#!/bin/bash
+
+npx c8 \
+    --check-coverage \
+    --all \
+    --include "$MODULES" \
+    --reporter=text-summary \
+    --reporter=lcov \
+    --branches $COV_BRANCHES \
+    --lines $COV_LINES \
+    --functions $COV_FUNCTIONS \
+    --statements $COV_STATEMENTS \
+    ./tasks/test

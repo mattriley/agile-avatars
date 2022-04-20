@@ -1,5 +1,20 @@
 #!/bin/bash
 
+export PROJECT_NAME="agileavatars"
+export SRC="./src"
+export DATA="./data"
+export MODULES="$SRC/modules"
+export TESTS="./tests"
+export TEST_HELPERS="./test-helpers"
+export TEST_WATCH_PATTERN="{$SRC,$TESTS,$TEST_HELPERS}/**/*.js"
+export ESLINT_PATHS=("$SRC" "$TESTS" "$TEST_HELPERS")
+export INDEXGEN_PATHS="$DATA $MODULES/** $TEST_HELPERS/**"
+export INDEXGEN_TYPE="esm"
+export COV_BRANCHES=100
+export COV_LINES=100
+export COV_FUNCTIONS=100
+export COV_STATEMENTS=100
+
 . ./task-vars
 
 function task() {

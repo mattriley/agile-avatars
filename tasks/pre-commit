@@ -2,6 +2,6 @@
 
 set -ex
 
-./tasks/check-coupling
+./tasks/check-relative-imports
 ./tasks/lint
 ./tasks/cov-check

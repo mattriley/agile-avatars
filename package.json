@@ -6,7 +6,6 @@
     "license": "GPL-3.0-or-later",
     "repository": "github:mattriley/agileavatars",
     "type": "module",
-    "main": "src/app.js",
     "scripts": {
         "start": "./task start",
         "test": "./task test"
@@ -35,5 +34,8 @@
         ">1%",
         "not ie 11",
         "not op_mini all"
-    ]
+    ],
+    "nurt": {
+        "nodeVersion": "16"
+    }
 }
