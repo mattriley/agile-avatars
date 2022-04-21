@@ -1,8 +1,10 @@
-build_output
-package_output
-node_modules
-coverage
-itermocil.yml
-.vscode
-.parcel-cache
+/*cache
+/*output
+/build
+/coverage
+/node_modules
+/temp
+/config.*
+/itermocil.yml
+/.vscode
 .DS_Store
