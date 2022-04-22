@@ -8,9 +8,9 @@ import { createHarness, createJSONReporter } from 'zora';
 import path from 'path';
 import moduleComposer from 'module-composer';
 import testHelpers from '../test-helpers';
-import src from '../src/modules';
+import modules from '../src/modules';
 import composeOrig from '../src/compose';
-import baseConfig from '../src/default-config.json';
+import testConfig from '../src/test-config';
 import _ from 'lodash';
 
 const setup = () => {
@@ -21,14 +21,13 @@ const setup = () => {
 
     const compose = (args = {}) => {
         resetJsdom();
-        const defaultConfig = { debounce: { adjustTagInstanceCounts: 0, sortTagList: 0 } };
-        const config = _.merge({}, baseConfig, defaultConfig, args.config);
+        const config = _.merge({}, testConfig, args.config);
         const modules = composeOrig({ window, ...args, config });
         modules.startup.start();
         return modules;
     };
 
-    return { src, compose, window, helpers };
+    return { modules, compose, window, helpers };
 };
 
 const args = setup();

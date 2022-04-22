@@ -1,6 +1,6 @@
-export default ({ src, test }) => {
+export default ({ modules, test }) => {
 
-    const { stateStore } = src.storage;
+    const { stateStore } = modules.storage;
 
     test('insert increments id by 1', t => {
         const store = stateStore({});
