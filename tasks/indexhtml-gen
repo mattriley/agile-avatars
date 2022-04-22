@@ -34,4 +34,7 @@ cat > "$PUBLIC_INDEX_HTML" <<EOF
 <script type="text/JavaScript" src="https://mattriley.github.io/webcomponents.js"></script>
 <script type="module" src="../src/app.js"></script>
 </head>
+<body>
+<div id="app"></div>
+</body>
 EOF
