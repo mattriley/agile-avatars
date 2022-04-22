@@ -1,6 +1,0 @@
-{
-    "name": "agileavatars",
-    "description": "Great looking avatars for your agile board and experiment in FRAMEWORK-LESS, vanilla JavaScript.",
-    "nodeVersion": "16",
-    "moduleType": "esm"
-}

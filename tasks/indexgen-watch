@@ -1,3 +1,3 @@
 #!/bin/bash
         
-npx indexgen $INDEXGEN_PATHS --type $INDEXGEN_TYPE --watch
+npx indexgen $INDEXGEN_PATHS --type $INDEXGEN_TYPE $INDEXGEN_OPTIONS --watch
