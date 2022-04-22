@@ -1,6 +1,6 @@
 #!/bin/bash
 
 find "$TESTS" -name "*.test.js" -print \
-    | xargs node --experimental-specifier-resolution=node "./tasks/test.js" \
+    | xargs ./tasks/test-zora-spa \
     | npx zr
 

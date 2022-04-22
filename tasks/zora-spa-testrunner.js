@@ -10,7 +10,7 @@ import moduleComposer from 'module-composer';
 import testHelpers from '../test-helpers';
 import src from '../src/modules';
 import composeOrig from '../src/compose';
-import baseConfig from '../src/data/config.json';
+import baseConfig from '../src/default-config.json';
 import _ from 'lodash';
 
 const setup = () => {
