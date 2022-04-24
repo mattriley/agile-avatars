@@ -1,4 +1,6 @@
 #!/bin/bash
+  
+. ./task-vars
 
 npm i -D husky@latest
 npx husky install

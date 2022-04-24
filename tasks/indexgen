@@ -1,3 +1,5 @@
 #!/bin/bash
-        
-npx indexgen $INDEXGEN_PATHS --type $INDEXGEN_TYPE $INDEXGEN_OPTIONS
+  
+. ./task-vars
+
+npx indexgen ${INDEXGEN_PATHS[@]} --type "$INDEXGEN_TYPE" $INDEXGEN_OPTIONS $@

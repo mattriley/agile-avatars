@@ -1,4 +1,7 @@
 #!/bin/bash
+  
+. ./task-vars
+
 
 cat > "itermocil.yml" <<EOF
 windows:

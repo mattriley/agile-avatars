@@ -1,4 +1,7 @@
 #!/bin/bash
+  
+. ./task-vars
+
 
 FORMULA="TomAnthony/brews/itermocil"
 

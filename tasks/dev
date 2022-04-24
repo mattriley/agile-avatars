@@ -1,4 +1,6 @@
 #!/bin/bash
+  
+. ./task-vars
 
 ./tasks/itermocil-install
 ./tasks/itermocil

@@ -1,4 +1,7 @@
 #!/bin/bash
+  
+. ./task-vars
+
 
 npx c8 \
     --check-coverage \
