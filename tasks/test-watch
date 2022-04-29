@@ -2,4 +2,4 @@
 
 . ./task-vars
 
-npx chokidar $TEST_WATCH_PATTERN -c "REPORTER=min ./task test"
+npx chokidar "${TEST_WATCH_PATTERNS[@]}" -c "./task test"

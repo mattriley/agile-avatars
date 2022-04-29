@@ -3,5 +3,5 @@
 . ./task-vars
 
 find "$TESTS" -name "*.test.js" -print \
-| xargs node --experimental-specifier-resolution=node "./tasks/zora-spa-testrunner.js" $@ \
-| npx zr
+| xargs node --experimental-specifier-resolution=node "./tasks/lib/zora-spa-testrunner.js" \
+| npx zr -R diff

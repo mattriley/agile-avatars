@@ -7,10 +7,10 @@ import { createHarness, createJSONReporter } from 'zora';
 
 import path from 'path';
 import moduleComposer from 'module-composer';
-import testHelpers from '../test-helpers';
-import modules from '../src/modules';
-import composeOrig from '../src/compose';
-import testConfig from '../src/test-config';
+import testHelpers from '../../test-helpers';
+import modules from '../../src/modules';
+import composeOrig from '../../src/compose';
+import testConfig from '../../src/test-config';
 import _ from 'lodash';
 
 const setup = () => {
