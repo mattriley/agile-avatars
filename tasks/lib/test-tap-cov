@@ -1,0 +1,9 @@
+#!/bin/bash
+  
+. ./task-vars
+
+./tasks/test-tap \
+--coverage \
+--no-check-coverage \
+--coverage-report=html \
+$@

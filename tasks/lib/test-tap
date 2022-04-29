@@ -1,0 +1,5 @@
+#!/bin/bash
+  
+. ./task-vars
+
+npx tap "$TESTS/**/*.test.js" --no-coverage $@

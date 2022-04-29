@@ -7,7 +7,7 @@ function task() {
     "tasks/$1" "${@:2}"
     EXIT_CODE=$?
     echo
-    echo "exit code $EXIT_CODE"
+    echo "$1 completed with exit code $EXIT_CODE"
 }
 
 time task $@

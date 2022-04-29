@@ -1,0 +1,28 @@
+#!/bin/bash
+  
+. ./task-vars
+
+
+./tasks/lib/itermocil-install   
+
+cat > "itermocil.yml" <<EOF
+windows:
+  - name: $PROJECT_NAME
+    root: $(pwd)
+    layout: main-vertical
+    panes:
+EOF
+
+for i in "${ITERMOCIL_TASKS[@]}"
+do
+  SCRIPT_FILE="./tasks/$i"
+  if [ -f "$SCRIPT_FILE" ]; then
+  cat >> "itermocil.yml" <<EOF
+      - commands:
+        - nvm use
+        - $SCRIPT_FILE
+EOF
+  fi
+done
+
+itermocil

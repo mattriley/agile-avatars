@@ -2,4 +2,4 @@
   
 . ./task-vars
 
-npx tape $@
+code .

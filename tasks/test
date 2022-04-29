@@ -1,6 +1,3 @@
 #!/bin/bash
 
-find "$TESTS" -name "*.test.js" -print \
-    | xargs ./tasks/test-zora-spa \
-    | npx zr
-
+./tasks/lib/test-zora-spa

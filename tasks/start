@@ -1,3 +1,5 @@
 #!/bin/bash
 
+. ./task-vars
+
 ./tasks/build-dev --open

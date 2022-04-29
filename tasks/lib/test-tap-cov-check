@@ -1,0 +1,11 @@
+#!/bin/bash
+  
+. ./task-vars
+
+./tasks/test-tap-cov \
+--no-browser \
+--check-coverage \
+--branches $COV_BRANCHES \
+--lines $COV_LINES \
+--functions $COV_FUNCTIONS \
+--statements $COV_STATEMENTS

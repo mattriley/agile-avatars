@@ -1,0 +1,5 @@
+#!/bin/bash
+  
+. ./task-vars
+
+npx tape "$TESTS/**/*.test.js" $@
