@@ -1,5 +1,0 @@
-#!/bin/bash
-  
-. ./task-vars
-
-npx chokidar "${TEST_WATCH_PATTERNS[@]}" -c "./tasks/test"

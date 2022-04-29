@@ -6,10 +6,6 @@
     "license": "GPL-3.0-or-later",
     "repository": "github:mattriley/agileavatars",
     "type": "module",
-    "scripts": {
-        "start": "./task start",
-        "test": "./task test"
-    },
     "dependencies": {
         "@sentry/browser": "^6.19.6",
         "blueimp-md5": "^2.18.0",
