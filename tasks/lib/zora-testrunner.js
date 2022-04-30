@@ -1,12 +1,11 @@
 /* eslint-disable no-process-env */
-const { createHarness, createJSONReporter } = require('zora');
+const { createHarness } = require('zora');
+const { createDiffReporter } = require('zora-reporters');
 const path = require('path');
 
 const files = process.argv.slice(2);
-const indent = process.env.INDENT === 'true';
-const runOnly = process.env.RUN_ONLY === 'true';
-const testHarness = createHarness({ indent, runOnly });
-const test = testHarness[runOnly ? 'only' : 'test'];
+const testHarness = createHarness({ indent: true });
+const test = testHarness[process.env.ZORA_ONLY === 'true' ? 'only' : 'test'];
 
 const runTests = filePath => {
     test(filePath, ({ only, skip, ...t }) => {
@@ -21,7 +20,7 @@ const start = async () => {
 
     try {
         files.forEach(runTests);
-        await testHarness.report({ reporter: createJSONReporter() });
+        await testHarness.report({ reporter: createDiffReporter() });
     } catch (e) {
         console.error(e);
         uncaughtError = e;

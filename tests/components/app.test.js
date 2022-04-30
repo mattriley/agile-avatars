@@ -4,7 +4,6 @@ export default ({ test, compose }) => {
         const { components } = compose();
         const $app = components.app();
         t.ok($app);
-
     });
 
 };
