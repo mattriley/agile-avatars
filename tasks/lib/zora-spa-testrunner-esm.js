@@ -13,11 +13,11 @@ import _ from 'lodash';
 
 const setup = () => {
     const { window } = new JSDOM.JSDOM('', { url: 'https://localhost/' });
-    const resetJsdom = () => { window.document.getElementsByTagName('html')[0].innerHTML = ''; };
+    const resetDocument = () => { window.document.getElementsByTagName('html')[0].innerHTML = ''; };
     const { helpers } = composeTesting({ window });
 
     const compose = (overrides = {}) => {
-        resetJsdom();
+        resetDocument();
         const config = _.merge({}, testConfig, overrides.config);
         const modules = composeModules({ window, config, overrides });
         modules.startup.start();
