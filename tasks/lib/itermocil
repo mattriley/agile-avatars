@@ -15,12 +15,12 @@ EOF
 
 for i in "${ITERMOCIL_TASKS[@]}"
 do
-  SCRIPT_FILE="./tasks/$i"
-  if [ -f "$SCRIPT_FILE" ]; then
+  for TASK_PATH in "${TASK_PATHS[@]}"; do [ -f "$TASK_PATH/$i" ] && TASK_FILE="$TASK_PATH/$i"; done
+  if [[ ! -z "$TASK_FILE" ]]; then
   cat >> "itermocil.yml" <<EOF
       - commands:
         - nvm use
-        - $SCRIPT_FILE
+        - $TASK_FILE
 EOF
   fi
 done

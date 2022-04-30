@@ -3,11 +3,12 @@
 . ./task-vars
 
 function task() {
-    echo "$1 started"
-    "tasks/$1" "${@:2}"
+    for i in "${TASK_PATHS[@]}"; do [ -f "$i/$1" ] && TASK_FILE="$i/$1"; done
+    echo "Task "$TASK_FILE" started"
+    "$TASK_FILE" "${@:2}"
     EXIT_CODE=$?
     echo
-    echo "$1 completed with exit code $EXIT_CODE"
+    echo "Task "$TASK_FILE" completed with exit code $EXIT_CODE"
 }
 
 time task $@
