@@ -6,28 +6,25 @@ import { createHarness } from 'zora';
 import { createDiffReporter } from 'zora-reporters';
 
 import path from 'path';
-import moduleComposer from 'module-composer';
-import testHelpers from '../../test-helpers';
-import modules from '../../src/modules';
-import composeOrig from '../../src/compose';
+import composeTesting from '../../testing/compose';
+import composeModules from '../../src/compose';
 import testConfig from '../../src/test-config';
 import _ from 'lodash';
 
 const setup = () => {
     const { window } = new JSDOM.JSDOM('', { url: 'https://localhost/' });
     const resetJsdom = () => { window.document.getElementsByTagName('html')[0].innerHTML = ''; };
-    const composeHelpers = moduleComposer({ helpers: testHelpers });
-    const { helpers } = composeHelpers('helpers', { window });
+    const { helpers } = composeTesting({ window });
 
     const compose = (args = {}) => {
         resetJsdom();
         const config = _.merge({}, testConfig, args.config);
-        const modules = composeOrig({ window, ...args, config });
+        const modules = composeModules({ window, config, overrides: args });
         modules.startup.start();
         return { config, ...modules };
     };
 
-    return { modules, compose, window, helpers };
+    return { compose, window, helpers };
 };
 
 const args = setup();

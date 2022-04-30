@@ -7,6 +7,8 @@ export COV_LINES=90
 export COV_FUNCTIONS=90
 export COV_STATEMENTS=90
 
+export INDEXGEN_PATHS=("$MODULES" "./testing/modules")
+
 export BUILD_OUTPUT="build_output"
 export PACKAGE_OUTPUT="package_output"
 export PUBLIC="public"

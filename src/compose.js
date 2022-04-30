@@ -2,7 +2,7 @@ import composer from 'module-composer';
 import modules from './modules';
 const { storage, util } = modules;
 
-export default ({ window, config, ...overrides }) => {
+export default ({ window, config, overrides }) => {
 
     const compose = composer(modules, { overrides });
 
