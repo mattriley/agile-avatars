@@ -2,10 +2,10 @@
 
 . ./task-vars-default
 
-export COV_BRANCHES=98
-export COV_LINES=98
-export COV_FUNCTIONS=98
-export COV_STATEMENTS=98
+export COV_BRANCHES=90
+export COV_LINES=90
+export COV_FUNCTIONS=90
+export COV_STATEMENTS=90
 
 export BUILD_OUTPUT="build_output"
 export PACKAGE_OUTPUT="package_output"

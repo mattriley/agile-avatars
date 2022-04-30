@@ -2,6 +2,6 @@
   
 . ./task-vars
 
-find "$TESTS" -name "*.test.js" -print \
-| ZORA_REPORTER="json" xargs node "./tasks/lib/zora-testrunner.js" \
+ls $TESTS/**/*.test.js \
+| xargs node "./tasks/lib/zora-testrunner.js" \
 | npx zr -R diff

@@ -3,7 +3,7 @@
 /* eslint-disable no-process-exit */
 import JSDOM from 'jsdom';
 import { createHarness, createJSONReporter } from 'zora';
-// import { createDiffReporter } from 'zora-reporters'; // use for tricky errors
+import { createDiffReporter } from 'zora-reporters'; // use for tricky errors
 
 import path from 'path';
 import moduleComposer from 'module-composer';
@@ -24,7 +24,7 @@ const setup = () => {
         const config = _.merge({}, testConfig, args.config);
         const modules = composeOrig({ window, ...args, config });
         modules.startup.start();
-        return modules;
+        return { config, ...modules };
     };
 
     return { modules, compose, window, helpers };
