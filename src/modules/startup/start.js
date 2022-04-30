@@ -8,7 +8,7 @@ export default ({ startup }) => () => {
         createRoot: container => {
             return {
                 render: element => container.append(element)
-            }
+            };
         }
     };
 

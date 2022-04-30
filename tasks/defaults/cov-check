@@ -2,4 +2,4 @@
   
 . ./task-vars
 
-./tasks/lib/cov-c8-check
+./task c8-cov-check

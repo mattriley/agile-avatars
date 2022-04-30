@@ -13,10 +13,10 @@ windows:
     panes:
 EOF
 
-for i in "${ITERMOCIL_TASKS[@]}"
+for TASK_NAME in "${ITERMOCIL_TASKS[@]}"
 do
-  for TASK_PATH in "${TASK_PATHS[@]}"; do [ -f "$TASK_PATH/$i" ] && TASK_FILE="$TASK_PATH/$i"; done
-  if [[ ! -z "$TASK_FILE" ]]; then
+for TASK_PATH in "${TASK_PATHS[@]}"; do [ -f "$TASK_PATH/$TASK_NAME" ] && TASK_FILE="$TASK_PATH/$TASK_NAME" && break; done
+if [[ ! -z "$TASK_FILE" ]]; then
   cat >> "itermocil.yml" <<EOF
       - commands:
         - nvm use

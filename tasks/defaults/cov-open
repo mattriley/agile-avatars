@@ -1,5 +1,0 @@
-#!/bin/bash
-  
-. ./task-vars
-
-open -a "Google Chrome" "coverage/index.html"

@@ -2,5 +2,5 @@
   
 . ./task-vars
 
-./tasks/lib/cov-c8
+./task c8-cov
 ./task cov-open

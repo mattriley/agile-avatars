@@ -3,7 +3,8 @@
 . ./task-vars
 
 function task() {
-    for i in "${TASK_PATHS[@]}"; do [ -f "$i/$1" ] && TASK_FILE="$i/$1"; done
+    TASK_NAME=$1
+    for TASK_PATH in "${TASK_PATHS[@]}"; do [ -f "$TASK_PATH/$TASK_NAME" ] && TASK_FILE="$TASK_PATH/$TASK_NAME" && break; done
     echo "Task "$TASK_FILE" started"
     "$TASK_FILE" "${@:2}"
     EXIT_CODE=$?

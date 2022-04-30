@@ -1,0 +1,5 @@
+#!/bin/bash
+  
+. ./task-vars
+
+npx chokidar "${TEST_WATCH_PATHS[@]}" -c "./task test"

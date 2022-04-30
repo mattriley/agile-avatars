@@ -3,6 +3,6 @@
 . ./task-vars
 
 set -ex
-# ./tasks/check-relative-imports
-# ./tasks/lint
-# ./tasks/cov-check
+./task check-relative-imports
+./task lint
+./task cov-check

@@ -2,7 +2,7 @@
   
 . ./task-vars
 
-./tasks/test-tap-cov \
+./tasks/tap-cov \
 --no-browser \
 --check-coverage \
 --branches $COV_BRANCHES \

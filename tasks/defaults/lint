@@ -2,4 +2,4 @@
   
 . ./task-vars
 
-./tasks/lib/lint-eslint
+./task eslint

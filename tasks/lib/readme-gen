@@ -1,0 +1,7 @@
+#!/bin/bash
+  
+. ./task-vars
+
+README="README.md"
+node ./tasks/lib/readme-file-generator.js > $README
+npx doctoc --maxlevel 2 $README
