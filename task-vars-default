@@ -5,6 +5,7 @@ export SRC="./src"
 export DATA="./data"
 export MODULES="$SRC/modules"
 export TESTS="./tests"
+export TEST_PATTERN="$TESTS/**/*.test.js"
 export TEST_HELPERS="./test-helpers"
 export TEST_WATCH_PATHS=("$SRC" "$TESTS" "$TEST_HELPERS")
 export ESLINT_PATHS=("$SRC" "$TESTS")

@@ -2,6 +2,6 @@
   
 . ./task-vars
 
-ls $TESTS/**/*.test.js \
+ls $TEST_PATTERN \
 | xargs node "./tasks/lib/zora-testrunner.js" \
 | npx zr -R diff

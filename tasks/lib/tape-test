@@ -2,4 +2,4 @@
   
 . ./task-vars
 
-npx tape "$TESTS/**/*.test.js" $@
+npx tape "$TEST_PATTERN" $@

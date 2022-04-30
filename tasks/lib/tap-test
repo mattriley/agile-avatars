@@ -2,4 +2,4 @@
   
 . ./task-vars
 
-npx tap "$TESTS/**/*.test.js" --no-coverage "$@"
+npx tap "$TEST_PATTERN" --no-coverage "$@"
