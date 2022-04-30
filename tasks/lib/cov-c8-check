@@ -2,8 +2,7 @@
   
 . ./task-vars
 
-npx c8 \
---check-coverage \
+npx c8 --check-coverage \
 --all \
 --include "$SRC" \
 --reporter=text-summary \

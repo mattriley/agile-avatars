@@ -6,7 +6,6 @@ npx c8 \
 --all \
 --include "$SRC" \
 --reporter=text-summary \
+--reporter=lcov \
 --reporter=html \
 ./tasks/test
-
-open "coverage/index.html"
