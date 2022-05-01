@@ -9,11 +9,11 @@ import composeTesting from '../../testing/compose';
 
 const setup = () => {
     const { window } = new JSDOM.JSDOM('', { url: 'https://localhost/' });
-    const resetDocument = () => { window.document.getElementsByTagName('html')[0].innerHTML = ''; };
     const { helpers } = composeTesting({ window });
 
     const compose = (overrides = {}) => {
-        resetDocument();
+        window.document.getElementsByTagName('html')[0].innerHTML = '';
+        delete window.dataLayer;
         const modules = configure({ window, overrides }, testConfig, overrides.config);
         modules.startup.start();
         return modules;
@@ -33,7 +33,7 @@ const runTests = filePath => {
         const test = (...args) => t.test(...args);
         Object.assign(test, { only, skip });
         const { default: invokeTests } = await import(path.resolve(filePath));
-        return invokeTests({ test, setup, ...testModuleArgs });
+        return invokeTests({ test, ...testModuleArgs });
     });
 };
 

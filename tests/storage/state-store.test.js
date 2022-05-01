@@ -1,10 +1,9 @@
-export default ({ setup, test }) => {
+export default ({ compose, test }) => {
 
     // const { stateStore } = modules.composition.target.storage;
 
 
     test('insert increments id by 1', t => {
-        const { compose } = setup();
         const { stateStore } = compose().composition.target.storage;
         const store = stateStore({});
         const data = { foo: 'bar' };
@@ -16,7 +15,6 @@ export default ({ setup, test }) => {
     });
 
     test('insert then get state', t => {
-        const { compose } = setup();
         const { stateStore } = compose().composition.target.storage;
         const store = stateStore({});
         const data = { foo: 'bar' };
@@ -27,7 +25,6 @@ export default ({ setup, test }) => {
     });
 
     test('insert then set state', t => {
-        const { compose } = setup();
         const { stateStore } = compose().composition.target.storage;
         const store = stateStore({});
         const data = { foo: 'bar' };
@@ -39,7 +36,6 @@ export default ({ setup, test }) => {
     });
 
     test('insert emits insert event and inserted item can be found', t => {
-        const { compose } = setup();
         const { stateStore } = compose().composition.target.storage;
         const store = stateStore({});
 
@@ -54,7 +50,6 @@ export default ({ setup, test }) => {
     });
 
     test('insert callback invoked before insert event emitted', t => {
-        const { compose } = setup();
         const { stateStore } = compose().composition.target.storage;
         const store = stateStore({});
 
@@ -75,7 +70,6 @@ export default ({ setup, test }) => {
     });
 
     test('insert then remove', t => {
-        const { compose } = setup();
         const { stateStore } = compose().composition.target.storage;
         const store = stateStore({});
         const data = { foo: 'bar' };
@@ -87,7 +81,6 @@ export default ({ setup, test }) => {
     });
 
     test('before remove emitted before removing', t => {
-        const { compose } = setup();
         const { stateStore } = compose().composition.target.storage;
         const store = stateStore({});
 
@@ -104,7 +97,6 @@ export default ({ setup, test }) => {
     });
 
     test('onChangeAny is emitted when any item is changed', t => {
-        const { compose } = setup();
         const { stateStore } = compose().composition.target.storage;
         const store = stateStore({});
 

@@ -8,6 +8,7 @@ import getTagImageAsync from './get-tag-image-async';
 import getTags from './get-tags';
 import onMutation from './on-mutation';
 import onTagListMutation from './on-tag-list-mutation';
+import test from './test';
 
 export default {
     assertBoolClass,
@@ -19,5 +20,6 @@ export default {
     getTagImageAsync,
     getTags,
     onMutation,
-    onTagListMutation
+    onTagListMutation,
+    test
 };

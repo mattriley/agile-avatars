@@ -1,4 +1,4 @@
-export default ({ test, setup }) => {
+export default ({ test, window, compose }) => {
 
     // test('script tag initialised correctly', t => {
     //     const { components } = compose({ 
@@ -14,7 +14,6 @@ export default ({ test, setup }) => {
 
     test('tracking metadata set correctly', t => {
         const date = new Date(1590969600000);
-        const { compose, window } = setup();
         const { vendorServices } = compose({
             config: {
                 gtag: { enabled: true }
@@ -29,7 +28,6 @@ export default ({ test, setup }) => {
     });
 
     test('gtag function sets metadata correctly', t => {
-        const { compose, window } = setup();
         const { vendorServices } = compose({
             config: {
                 gtag: { enabled: true }
@@ -40,7 +38,6 @@ export default ({ test, setup }) => {
     });
 
     test('disabled', t => {
-        const { compose, window } = setup();
         const { vendorServices } = compose({
             config: {
                 gtag: { enabled: false }
