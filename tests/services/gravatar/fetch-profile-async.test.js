@@ -8,7 +8,7 @@ export default ({ test, compose }) => {
             return { ok: true, json: () => json };
         };
         const io = { fetch };
-        const { services } = compose({ io });
+        const { services } = compose({ overrides: { io } });
         const actualProfile = await services.gravatar.fetchProfileAsync('foo@bar.com');
         t.equal(actualProfile, profile);
     });
@@ -22,7 +22,7 @@ export default ({ test, compose }) => {
     test('return empty profile on 404 not found', async t => {
         const fetch = () => ({ status: 404 });
         const io = { fetch };
-        const { services } = compose({ io });
+        const { services } = compose({ overrides: { io } });
         const profile = await services.gravatar.fetchProfileAsync('foo@bar.com');
         t.equal(profile, {});
     });
@@ -30,7 +30,7 @@ export default ({ test, compose }) => {
     test('throw on unexpected response status', async t => {
         const fetch = () => ({ ok: false, status: 500 });
         const io = { fetch };
-        const { services } = compose({ io });
+        const { services } = compose({ overrides: { io } });
         try {
             await services.gravatar.fetchProfileAsync('foo@bar.com');
             t.fail();

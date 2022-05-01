@@ -1,13 +1,17 @@
 export default ({ test, compose, helpers }) => {
 
     test('import failure', async t => {
+
         const { components } = compose({
-            services: {
-                tags: {
-                    insertGravatarAsync: () => Promise.reject(new Error())
+            overrides: {
+                services: {
+                    tags: {
+                        insertGravatarAsync: () => Promise.reject(new Error())
+                    }
                 }
             }
         });
+
 
         const $gravatarModal = components.modals.gravatar();
         const $freetextField = $gravatarModal.querySelector('.freetext');
@@ -19,7 +23,7 @@ export default ({ test, compose, helpers }) => {
 
         const freetext = 'foo@bar.com';
 
-        console.warn('**', helpers.test());
+        console.warn('**', helpers.test);
 
         await helpers.onMutation(
             $gravatarModal,

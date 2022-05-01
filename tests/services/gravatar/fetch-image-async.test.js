@@ -7,7 +7,7 @@ export default ({ test, compose }) => {
             return { ok: true, blob: () => image };
         };
         const io = { fetch };
-        const { services } = compose({ io });
+        const { services } = compose({ overrides: { io } });
         const actualImage = await services.gravatar.fetchImageAsync('foo@bar.com', 'defaultimage');
         t.equal(actualImage, image);
     });
@@ -15,7 +15,7 @@ export default ({ test, compose }) => {
     test('throw on unexpected response status', async t => {
         const fetch = () => ({ ok: false, status: 500 });
         const io = { fetch };
-        const { services } = compose({ io });
+        const { services } = compose({ overrides: { io } });
         try {
             await services.gravatar.fetchImageAsync('foo@bar.com', 'defaultimage');
             t.fail();

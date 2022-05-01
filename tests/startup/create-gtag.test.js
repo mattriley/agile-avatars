@@ -18,8 +18,10 @@ export default ({ test, window, compose }) => {
             config: {
                 gtag: { enabled: true }
             },
-            io: {
-                date: () => date
+            overrides: {
+                io: {
+                    date: () => date
+                }
             }
         });
         vendorServices.gtag('foobar');
