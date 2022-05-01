@@ -1,5 +1,7 @@
 #!/bin/bash
 
+. ./task-vars
+
 PROFILE="dev"
 PROFILE_OUTPUT="$BUILD_OUTPUT/$PROFILE"
 ./tasks/pre-build "$PROFILE"
