@@ -53,7 +53,7 @@ NOTE: WORK IN PROGRESS!
 
 ### Prerequisites
 
-- Install Node 16 or install [nvm](https://github.com/nvm-sh/nvm) and run `nvm install`
+- Install Node lts/* or install [nvm](https://github.com/nvm-sh/nvm) and run `nvm install`
 - Install dependencies: `npm install`
 
 ### Tasks
@@ -178,14 +178,23 @@ The following code is referenced by index.html and launches the application:
 
 ```js
 import compose from './compose';
-import config from './config';
 
-const { startup, composition } = compose({ config, window });
-const app = { config, ...composition };
-window.app = app;
+const isLocalhost = (/localhost/).test(window.location.host);
+
+const modules = compose({
+    window,
+    gtag: { enabled: !isLocalhost },
+    sentry: { enabled: !isLocalhost }
+});
+
+const { config, startup, components } = modules;
+window.app = modules;
 window.document.title = config.app.name;
-console.log({ app });
-startup.start(app => document.body.append(app));
+
+const { createRoot } = startup.start();
+const container = document.getElementById('app');
+const root = createRoot(container);
+root.render(components.app());
 ```
 </details>
 
@@ -228,11 +237,14 @@ The compose function composes the application from modules in the src directory.
 ```js
 import composer from 'module-composer';
 import modules from './modules';
+import defaultConfig from './default-config.json';
 const { storage, util } = modules;
 
-export default ({ window, config, ...overrides }) => {
+export default (...configs) => {
 
-    const compose = composer(modules, { overrides });
+
+    const { compose, config } = composer(modules, defaultConfig, ...configs);
+    const { window } = config;
 
     // Data
     const { stores } = compose('stores', { storage, config }, stores => stores.setup());
@@ -314,18 +326,22 @@ _module-composer_ is a small library that reduces the amount of boilerplate code
 <summary>node_modules/module-composer/src/module-composer.js</summary>
 
 ```js
-const { isObject, isFunction, mapValues, override } = require('./util');
+const { isObject, isFunction, mapValues, override, merge } = require('./util');
 
-module.exports = (target, options = {}) => {
+module.exports = (target, ...configs) => {
+    const config = merge({}, ...configs);
+    const { moduleComposer: options = {} } = config;
     const modules = { ...target }, dependencies = mapValues(modules, () => []);
-    modules.composition = { modules, dependencies };
-    return (key, args = {}, customise = m => m) => {
+    const composition = { config, target, modules, dependencies };
+    const compose = (key, args = {}, customise = m => m) => {
         const totalArgs = { ...options.defaults, ...args };
-        const module = customise(composeRecursive(target[key], totalArgs, key));
+        const composed = composeRecursive(target[key], totalArgs, key);
+        const module = customise(composed);
         modules[key] = override({ [key]: module }, options.overrides)[key];
         dependencies[key] = Object.keys(totalArgs);
-        return { ...modules };
+        return { config, composition, ...modules };
     };
+    return { compose, composition, config };
 };
 
 const composeRecursive = (target, args, parentKey) => {
@@ -427,10 +443,12 @@ Because all relative files are loaded by index.js files, a simple search can be 
 
 
 <details open>
-<summary>tasks/check-coupling</summary>
+<summary>tasks/lib/check-relative-imports</summary>
 
 ```sh
 #!/bin/bash
+  
+. ./task-vars
 
 ! grep --exclude="index.js" -rnw "$MODULES" -e "require('."
 ! grep --exclude="index.js" -rnw "$MODULES" -e "from '."
@@ -767,12 +785,19 @@ Provides _startup functions_ which are used at [launch](#launching) time.
 <summary>src/modules/startup/start.js</summary>
 
 ```js
-export default ({ startup, components }) => render => {
+export default ({ startup }) => () => {
 
     startup.insertNilRole();
     startup.createHandlers();
     startup.createStyleManager();
-    return render && render(components.app());
+
+    return {
+        createRoot: container => {
+            return {
+                render: element => container.append(element)
+            };
+        }
+    };
 
 };
 ```
@@ -1437,7 +1462,7 @@ export default ({ test, compose, helpers }) => {
 
     test('tips modal triggered by link in nav bar', t => {
         const { components } = compose();
-        const $tipsLink = components.header.navBar().querySelector('.tips');
+        const $tipsLink = components.header.titleBar().querySelector('.tips');
         const $tipsModal = components.modals.tips('tips');
         const assertVisible = helpers.assertBoolClass(t, $tipsModal, 'visible');
         assertVisible(false);
@@ -1472,7 +1497,7 @@ This test creates a 'gravatar modal' and a 'tag list'. Clicking the 'import butt
 
 
 <details open>
-<summary>tests/components/gravatar/import-success.test.js</summary>
+<summary>tests/components/gravatar/import-success.fixme.js</summary>
 
 ```js
 export default ({ test, setup }) => {
@@ -1481,10 +1506,12 @@ export default ({ test, setup }) => {
         const { compose, helpers, window } = setup();
 
         const { components } = compose({
-            services: {
-                gravatar: {
-                    fetchProfileAsync: () => Promise.resolve({ displayName: 'foo' }),
-                    fetchImageAsync: () => Promise.resolve(new window.Blob(['BYTES'], { type: 'image/jpg' }))
+            overrides: {
+                services: {
+                    gravatar: {
+                        fetchProfileAsync: () => Promise.resolve({ displayName: 'foo' }),
+                        fetchImageAsync: () => Promise.resolve(new window.Blob(['BYTES'], { type: 'image/jpg' }))
+                    }
                 }
             }
         });
