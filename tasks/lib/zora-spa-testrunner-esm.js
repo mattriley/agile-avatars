@@ -4,8 +4,8 @@ import { createDiffReporter } from 'zora-reporters';
 import glob from 'fast-glob';
 import path from 'path';
 import configure from '../../src/configure';
-import testConfig from '../../testing/test-config';
 import composeTesting from '../../testing/compose';
+import testConfig from '../../testing/test-config.json';
 
 const setup = () => {
     const { window } = new JSDOM.JSDOM('', { url: 'https://localhost/' });
