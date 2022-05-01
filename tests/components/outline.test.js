@@ -2,12 +2,10 @@ export default ({ test, compose, helpers }) => {
 
     const setup = ({ outlineDefault }) => {
         const { components, services } = compose({
-            config: {
-                storage: {
-                    defaults: {
-                        settings: {
-                            options: { outline: outlineDefault }
-                        }
+            storage: {
+                defaults: {
+                    settings: {
+                        options: { outline: outlineDefault }
                     }
                 }
             }

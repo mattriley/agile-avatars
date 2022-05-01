@@ -2,12 +2,10 @@ export default ({ test, compose, window, helpers }) => {
 
     const setup = ({ spacingDefault }) => {
         const { components } = compose({
-            config: {
-                storage: {
-                    defaults: {
-                        settings: {
-                            options: { size: spacingDefault }
-                        }
+            storage: {
+                defaults: {
+                    settings: {
+                        options: { size: spacingDefault }
                     }
                 }
             }

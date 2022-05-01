@@ -15,9 +15,7 @@ export default ({ test, window, compose }) => {
     test('tracking metadata set correctly', t => {
         const date = new Date(1590969600000);
         const { vendorServices } = compose({
-            config: {
-                gtag: { enabled: true }
-            },
+            gtag: { enabled: true },
             overrides: {
                 io: {
                     date: () => date
@@ -31,9 +29,7 @@ export default ({ test, window, compose }) => {
 
     test('gtag function sets metadata correctly', t => {
         const { vendorServices } = compose({
-            config: {
-                gtag: { enabled: true }
-            }
+            gtag: { enabled: true }
         });
         vendorServices.gtag('foobar');
         t.deepEqual(Array.from(window.dataLayer[2]), ['foobar']);
@@ -41,9 +37,7 @@ export default ({ test, window, compose }) => {
 
     test('disabled', t => {
         const { vendorServices } = compose({
-            config: {
-                gtag: { enabled: false }
-            }
+            gtag: { enabled: false }
         });
         vendorServices.gtag('foobar');
         t.equal(window['ga-disable-UA-34497639-2'], true);
