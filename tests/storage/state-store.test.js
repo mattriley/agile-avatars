@@ -1,8 +1,11 @@
-export default ({ modules, test }) => {
+export default ({ setup, test }) => {
 
-    const { stateStore } = modules.storage;
+    // const { stateStore } = modules.composition.target.storage;
+
 
     test('insert increments id by 1', t => {
+        const { compose } = setup();
+        const { stateStore } = compose().composition.target.storage;
         const store = stateStore({});
         const data = { foo: 'bar' };
         const id1 = store.insert(data);
@@ -13,6 +16,8 @@ export default ({ modules, test }) => {
     });
 
     test('insert then get state', t => {
+        const { compose } = setup();
+        const { stateStore } = compose().composition.target.storage;
         const store = stateStore({});
         const data = { foo: 'bar' };
         const id = store.insert(data);
@@ -22,6 +27,8 @@ export default ({ modules, test }) => {
     });
 
     test('insert then set state', t => {
+        const { compose } = setup();
+        const { stateStore } = compose().composition.target.storage;
         const store = stateStore({});
         const data = { foo: 'bar' };
         const id = store.insert(data);
@@ -32,6 +39,8 @@ export default ({ modules, test }) => {
     });
 
     test('insert emits insert event and inserted item can be found', t => {
+        const { compose } = setup();
+        const { stateStore } = compose().composition.target.storage;
         const store = stateStore({});
 
         store.subscriptions.onInsert(id => {
@@ -45,6 +54,8 @@ export default ({ modules, test }) => {
     });
 
     test('insert callback invoked before insert event emitted', t => {
+        const { compose } = setup();
+        const { stateStore } = compose().composition.target.storage;
         const store = stateStore({});
 
         let callbackInvoked = false;
@@ -64,6 +75,8 @@ export default ({ modules, test }) => {
     });
 
     test('insert then remove', t => {
+        const { compose } = setup();
+        const { stateStore } = compose().composition.target.storage;
         const store = stateStore({});
         const data = { foo: 'bar' };
         const id = store.insert(data);
@@ -74,6 +87,8 @@ export default ({ modules, test }) => {
     });
 
     test('before remove emitted before removing', t => {
+        const { compose } = setup();
+        const { stateStore } = compose().composition.target.storage;
         const store = stateStore({});
 
         store.subscriptions.onBeforeRemove(id => {
@@ -89,6 +104,8 @@ export default ({ modules, test }) => {
     });
 
     test('onChangeAny is emitted when any item is changed', t => {
+        const { compose } = setup();
+        const { stateStore } = compose().composition.target.storage;
         const store = stateStore({});
 
         const data = { foo: 'bar' };
@@ -104,3 +121,4 @@ export default ({ modules, test }) => {
     });
 
 };
+
