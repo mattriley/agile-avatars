@@ -3,7 +3,7 @@ import { createHarness } from 'zora';
 import { createDiffReporter } from 'zora-reporters';
 import glob from 'fast-glob';
 import path from 'path';
-import configure from '../../src/configure';
+import composeModules from '../../src/compose';
 import composeTesting from '../../testing/compose';
 import testConfig from '../../testing/test-config.json';
 
@@ -11,10 +11,10 @@ const setup = () => {
     const { window } = new JSDOM.JSDOM('', { url: 'https://localhost/' });
     const { helpers } = composeTesting({ window });
 
-    const compose = config => {
+    const compose = (config = {}) => {
         window.document.getElementsByTagName('html')[0].innerHTML = '';
         delete window.dataLayer;
-        const modules = configure({ window }, testConfig, config);
+        const modules = composeModules({ window }, testConfig, config);
         modules.startup.start();
         return modules;
     };

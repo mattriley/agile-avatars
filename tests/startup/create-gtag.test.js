@@ -16,10 +16,8 @@ export default ({ test, window, compose }) => {
         const date = new Date(1590969600000);
         const { vendorServices } = compose({
             gtag: { enabled: true },
-            overrides: {
-                io: {
-                    date: () => date
-                }
+            moduleComposer: {
+                overrides: { io: { date: () => date } }
             }
         });
         vendorServices.gtag('foobar');

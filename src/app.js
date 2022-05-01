@@ -1,8 +1,8 @@
-import configure from './configure';
+import compose from './compose';
 
 const isLocalhost = (/localhost/).test(window.location.host);
 
-const modules = configure({
+const modules = compose({
     window,
     gtag: { enabled: !isLocalhost },
     sentry: { enabled: !isLocalhost }
