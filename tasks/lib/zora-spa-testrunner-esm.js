@@ -11,7 +11,7 @@ const setup = () => {
     const { window } = new JSDOM.JSDOM('', { url: 'https://localhost/' });
     const { helpers } = composeTesting({ window });
 
-    const compose = (config = {}) => {
+    const compose = config => {
         window.document.getElementsByTagName('html')[0].innerHTML = '';
         delete window.dataLayer;
         const modules = configure({ window }, testConfig, config);
