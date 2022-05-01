@@ -1,6 +1,6 @@
 export default ({ test, compose, helpers }) => {
 
-    test.only('import failure', async t => {
+    test('import failure', async t => {
         const { components } = compose({
             services: {
                 tags: {
