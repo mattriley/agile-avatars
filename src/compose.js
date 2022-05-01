@@ -2,8 +2,9 @@ import composer from 'module-composer';
 import modules from './modules';
 const { storage, util } = modules;
 
-export default ({ window, config, overrides }) => {
+export default config => {
 
+    const { window, overrides } = config;
     const compose = composer(modules, { overrides });
 
     // Data

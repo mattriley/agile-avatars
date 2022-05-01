@@ -2,7 +2,8 @@ import configure from './configure';
 
 const isLocalhost = (/localhost/).test(window.location.host);
 
-const modules = configure({ window }, {
+const modules = configure({
+    window,
     gtag: { enabled: !isLocalhost },
     sentry: { enabled: !isLocalhost }
 });
