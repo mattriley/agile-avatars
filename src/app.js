@@ -1,11 +1,14 @@
-import compose from './compose';
-import config from './default-config';
+import configure from './configure';
 
 const isLocalhost = (/localhost/).test(window.location.host);
-config.gtag.enabled = config.sentry.enabled = !isLocalhost;
 
-const { startup, components, composition } = compose({ config, window });
-window.app = { config, ...composition };
+const modules = configure({ window }, {
+    gtag: { enabled: !isLocalhost },
+    sentry: { enabled: !isLocalhost }
+});
+
+const { config, startup, components } = modules;
+window.app = modules;
 window.document.title = config.app.name;
 
 const { createRoot } = startup.start();
