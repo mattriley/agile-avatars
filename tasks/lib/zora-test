@@ -2,5 +2,4 @@
   
 . ./task-vars
 
-ls $TEST_PATTERN \
-| xargs node "./tasks/lib/zora-testrunner.js"
+node "./tasks/lib/zora-testrunner.js" "$TEST_PATTERN"

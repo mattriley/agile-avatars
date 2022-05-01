@@ -1,7 +1,7 @@
 import JSDOM from 'jsdom';
 import { createHarness } from 'zora';
 import { createDiffReporter } from 'zora-reporters';
-
+import glob from 'fast-glob';
 import path from 'path';
 import configure from '../../src/configure';
 import testConfig from '../../testing/test-config';
@@ -23,7 +23,8 @@ const setup = () => {
 };
 
 const testModuleArgs = setup();
-const testFiles = process.argv.slice(2);
+const [pattern] = process.argv.slice(2);
+const testFiles = glob.sync(pattern);
 const testHarness = createHarness({ indent: true });
 const test = testHarness[process.env.ZORA_ONLY === 'true' ? 'only' : 'test'];
 

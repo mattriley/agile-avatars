@@ -1,8 +1,10 @@
 const { createHarness } = require('zora');
 const { createDiffReporter } = require('zora-reporters');
+const glob = require('fast-glob');
 const path = require('path');
 
-const testFiles = process.argv.slice(2);
+const [pattern] = process.argv.slice(2);
+const testFiles = glob.sync(pattern);
 const testHarness = createHarness({ indent: true });
 const test = testHarness[process.env.ZORA_ONLY === 'true' ? 'only' : 'test'];
 

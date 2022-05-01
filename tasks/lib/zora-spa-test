@@ -2,5 +2,5 @@
   
 . ./task-vars
 
-ls $TEST_PATTERN \
-| xargs node --experimental-specifier-resolution=node "./tasks/lib/zora-spa-testrunner-esm.js"
+node --experimental-specifier-resolution=node \
+"./tasks/lib/zora-spa-testrunner-esm.js" "$TEST_PATTERN"
