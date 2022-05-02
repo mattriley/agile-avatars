@@ -53,7 +53,7 @@ NOTE: WORK IN PROGRESS!
 
 ### Prerequisites
 
-- Install Node lts/* or install [nvm](https://github.com/nvm-sh/nvm) and run `nvm install`
+- Install Node 16 or install [nvm](https://github.com/nvm-sh/nvm) and run `nvm install`
 - Install dependencies: `npm install`
 
 ### Tasks
@@ -181,8 +181,7 @@ import compose from './compose';
 
 const isLocalhost = (/localhost/).test(window.location.host);
 
-const modules = compose({
-    window,
+const modules = compose({ window }, {
     gtag: { enabled: !isLocalhost },
     sentry: { enabled: !isLocalhost }
 });
@@ -237,14 +236,12 @@ The compose function composes the application from modules in the src directory.
 ```js
 import composer from 'module-composer';
 import modules from './modules';
-import defaultConfig from './default-config.json';
+import defaultConfig from './default-config';
 const { storage, util } = modules;
 
-export default (...configs) => {
-
+export default ({ window }, ...configs) => {
 
     const { compose, config } = composer(modules, defaultConfig, ...configs);
-    const { window } = config;
 
     // Data
     const { stores } = compose('stores', { storage, config }, stores => stores.setup());
@@ -329,7 +326,7 @@ _module-composer_ is a small library that reduces the amount of boilerplate code
 const { isObject, isFunction, mapValues, override, merge } = require('./util');
 
 module.exports = (target, ...configs) => {
-    const config = merge({}, ...configs);
+    const config = merge({}, ...configs.flat());
     const { moduleComposer: options = {} } = config;
     const modules = { ...target }, dependencies = mapValues(modules, () => []);
     const composition = { config, target, modules, dependencies };
@@ -1812,10 +1809,10 @@ There does not seem to be any viable replacement for JSDOM. The fallback would b
 
 ## module-indexgen
 
-> Generates index.js files
+> Generates barrel (index.js) files that rollup exports for each module in a directory and re-exports them as a single module.
 
 - Homepage: https://github.com/mattriley/node-module-indexgen
-- __5__ dependencies :white_check_mark:
+- __4__ dependencies :white_check_mark:
 
 #### Used for
 
