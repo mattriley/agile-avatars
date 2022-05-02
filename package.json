@@ -10,7 +10,7 @@
         "@sentry/browser": "^6.19.6",
         "blueimp-md5": "^2.18.0",
         "lodash": "^4.17.21",
-        "module-composer": "^0.14.0",
+        "module-composer": "^0.14.1",
         "vanilla-picker": "github:mattriley/vanilla-picker"
     },
     "devDependencies": {
@@ -20,7 +20,7 @@
         "events": "^3.3.0",
         "husky": "^7.0.4",
         "jsdom": "^19.0.0",
-        "module-indexgen": "^0.9.6",
+        "module-indexgen": "^0.12.0",
         "parcel": "^2.4.1",
         "process": "^0.11.10",
         "zora": "^5.0.0",
