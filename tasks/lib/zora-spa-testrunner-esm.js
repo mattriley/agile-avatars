@@ -5,7 +5,7 @@ import glob from 'fast-glob';
 import path from 'path';
 import composeModules from '../../src/compose';
 import composeTesting from '../../testing/compose';
-import testConfig from '../../testing/test-config.json';
+import testConfig from '../../testing/test-config';
 
 const setup = () => {
     const { window } = new JSDOM.JSDOM('', { url: 'https://localhost/' });

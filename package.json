@@ -6,11 +6,12 @@
     "license": "GPL-3.0-or-later",
     "repository": "github:mattriley/agileavatars",
     "type": "module",
+    "private": true,
     "dependencies": {
         "@sentry/browser": "^6.19.6",
         "blueimp-md5": "^2.18.0",
         "lodash": "^4.17.21",
-        "module-composer": "^0.14.1",
+        "module-composer": "^0.14.2",
         "vanilla-picker": "github:mattriley/vanilla-picker"
     },
     "devDependencies": {

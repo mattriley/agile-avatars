@@ -2,8 +2,7 @@ import compose from './compose';
 
 const isLocalhost = (/localhost/).test(window.location.host);
 
-const modules = compose({
-    window,
+const modules = compose({ window }, {
     gtag: { enabled: !isLocalhost },
     sentry: { enabled: !isLocalhost }
 });

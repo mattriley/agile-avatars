@@ -1,13 +1,11 @@
 import composer from 'module-composer';
 import modules from './modules';
-import defaultConfig from './default-config.json';
+import defaultConfig from './default-config';
 const { storage, util } = modules;
 
-export default (...configs) => {
-
+export default ({ window }, ...configs) => {
 
     const { compose, config } = composer(modules, defaultConfig, ...configs);
-    const { window } = config;
 
     // Data
     const { stores } = compose('stores', { storage, config }, stores => stores.setup());
