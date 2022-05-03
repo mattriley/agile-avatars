@@ -12,7 +12,7 @@ Source code for [agileavatars.com](https://agileavatars.com). An experiment in f
 
 <br>
 <p align="center">
-  <img src="readme-docs/demo.gif?raw=true" />
+  <img src="readme-files/demo.gif?raw=true" />
   <br>
   <em>Agile Avatars in action</em>
 </p>
@@ -70,7 +70,7 @@ NOTE: WORK IN PROGRESS!
 
 <br>
 <p align="center">
-  <img src="readme-docs/itermocil.png?raw=true" />
+  <img src="readme-files/itermocil.png?raw=true" />
   <br>
   <em>iTerm2 pre-configured layout</em>
 </p>
@@ -146,7 +146,7 @@ With the plethora of frontend architectural styles in use today, this applicatio
 
 <br>
 <p align="center">
-  <img src="readme-docs/architecture.svg?raw=true" />
+  <img src="readme-files/architecture.svg?raw=true" />
   <br>
   <em>Presentation-Domain-Data layered architecture</em>
 </p>
@@ -208,7 +208,7 @@ Note: `window.agileavatars` changed to `window.app`.
 
 <br>
 <p align="center">
-  <img src="readme-docs/console-modules.png?raw=true" />
+  <img src="readme-files/console-modules.png?raw=true" />
   <br>
   <em>Application modules logged to the console</em>
 </p>
@@ -216,7 +216,7 @@ Note: `window.agileavatars` changed to `window.app`.
 
 <br>
 <p align="center">
-  <img src="readme-docs/console-state.png?raw=true" />
+  <img src="readme-files/console-state.png?raw=true" />
   <br>
   <em>Application state logged to the console</em>
 </p>
@@ -278,7 +278,7 @@ This _codified view_ of the architecture has some interesting implications:
 
 <br>
 <p align="center">
-  <img src="readme-docs/modules.svg?raw=true" />
+  <img src="readme-files/modules.svg?raw=true" />
   <br>
   <em>Generated dependency diagram using <a href="https://mermaid-js.github.io/mermaid">Mermaid</a></em>
 </p>
