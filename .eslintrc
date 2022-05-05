@@ -5,10 +5,20 @@
         "commonjs": true,
         "es2021": true
     },
-    "extends": "eslint:recommended",
+    "extends": [
+        "eslint:recommended"
+    ],
+    "settings": {
+        "react": {
+            "version": "detect"
+        }
+    },
     "parserOptions": {
+        "sourceType": "module",
         "ecmaVersion": "latest",
-        "sourceType": "module"
+        "ecmaFeatures": {
+            "jsx": true
+        }
     },
     "rules": {
         "indent": [
@@ -32,6 +42,12 @@
             "as-needed"
         ],
         "sort-vars": [
+            "off"
+        ],
+        "react/display-name": [
+            "off"
+        ],
+        "react/prop-types": [
             "off"
         ]
     }

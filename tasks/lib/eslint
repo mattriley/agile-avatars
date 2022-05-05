@@ -2,4 +2,4 @@
   
 . ./task-vars
 
-npx eslint "${ESLINT_PATHS[@]}" $@
+npx eslint "${ESLINT_PATHS[@]}" "$@"

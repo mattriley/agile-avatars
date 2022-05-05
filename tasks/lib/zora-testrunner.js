@@ -1,6 +1,7 @@
 const { createHarness } = require('zora');
 const { createDiffReporter } = require('zora-reporters');
 const glob = require('fast-glob');
+const process = require('process');
 const path = require('path');
 
 const [pattern] = process.argv.slice(2);

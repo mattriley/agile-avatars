@@ -5,7 +5,7 @@ const { storage, util } = modules;
 
 export default ({ window }, ...configs) => {
 
-    const { compose, config } = composer(modules, defaultConfig, ...configs);
+    const { compose, config } = composer({ window, ...modules }, defaultConfig, ...configs);
 
     // Data
     const { stores } = compose('stores', { storage, config }, stores => stores.setup());

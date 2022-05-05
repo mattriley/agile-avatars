@@ -2,6 +2,7 @@ import JSDOM from 'jsdom';
 import { createHarness } from 'zora';
 import { createDiffReporter } from 'zora-reporters';
 import glob from 'fast-glob';
+import process from 'process';
 import path from 'path';
 import composeModules from '../../src/compose';
 import composeTesting from '../../testing/compose';
