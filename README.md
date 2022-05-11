@@ -244,12 +244,12 @@ export default ({ window }, ...configs) => {
     const { compose, config } = composer({ window, ...modules }, defaultConfig, ...configs);
 
     // Data
-    const { stores } = compose('stores', { storage, config }, stores => stores.setup());
-    const { subscriptions } = compose('subscriptions', { stores, util }, subscriptions => subscriptions.setup());
+    const { stores } = compose('stores', { storage, config });
+    const { subscriptions } = compose('subscriptions', { stores, util });
 
     // Domain
     const { core } = compose('core', { util, config });
-    const { io } = compose('io', { window }, io => io.setup());
+    const { io } = compose('io', { window });
     const { services } = compose('services', { subscriptions, stores, core, io, util, config });
     const { vendorServices } = compose('vendorServices', { io, config, window });
 
@@ -302,13 +302,16 @@ _module-composer_ is a small library that reduces the amount of boilerplate code
 
 ```js
 const { isObject, isFunction, mapValues, override, merge } = require('./util');
+const mermaidGraph = require('./mermaid-graph');
+const defaultOptions = require('./default-options');
 
 module.exports = (target, ...configs) => {
     const config = merge({}, ...configs.flat());
-    const { moduleComposer: options = {} } = config;
+    const options = merge({ ...defaultOptions }, config.moduleComposer);
     const modules = { ...target }, dependencies = mapValues(modules, () => []);
-    const composition = { config, target, modules, dependencies };
-    const compose = (key, args = {}, customise = m => m) => {
+    const mermaid = () => mermaidGraph(dependencies);
+    const composition = { config, target, modules, dependencies, mermaid };
+    const compose = (key, args = {}, customise = options.customiser) => {
         const totalArgs = { ...options.defaults, ...args };
         const composed = composeRecursive(target[key], totalArgs, key);
         const module = customise(composed);
@@ -316,7 +319,7 @@ module.exports = (target, ...configs) => {
         dependencies[key] = Object.keys(totalArgs);
         return { config, composition, ...modules };
     };
-    return { compose, composition, config };
+    return { ...composition, compose };
 };
 
 const composeRecursive = (target, args, parentKey) => {

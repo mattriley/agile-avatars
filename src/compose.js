@@ -8,12 +8,12 @@ export default ({ window }, ...configs) => {
     const { compose, config } = composer({ window, ...modules }, defaultConfig, ...configs);
 
     // Data
-    const { stores } = compose('stores', { storage, config }, stores => stores.setup());
-    const { subscriptions } = compose('subscriptions', { stores, util }, subscriptions => subscriptions.setup());
+    const { stores } = compose('stores', { storage, config });
+    const { subscriptions } = compose('subscriptions', { stores, util });
 
     // Domain
     const { core } = compose('core', { util, config });
-    const { io } = compose('io', { window }, io => io.setup());
+    const { io } = compose('io', { window });
     const { services } = compose('services', { subscriptions, stores, core, io, util, config });
     const { vendorServices } = compose('vendorServices', { io, config, window });
 
