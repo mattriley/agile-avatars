@@ -241,7 +241,7 @@ const { storage, util } = modules;
 
 export default ({ window }, ...configs) => {
 
-    const { compose, config } = composer(modules, defaultConfig, ...configs);
+    const { compose, config } = composer({ window, ...modules }, defaultConfig, ...configs);
 
     // Data
     const { stores } = compose('stores', { storage, config }, stores => stores.setup());
@@ -283,28 +283,6 @@ This _codified view_ of the architecture has some interesting implications:
   <em>Generated dependency diagram using <a href="https://mermaid-js.github.io/mermaid">Mermaid</a></em>
 </p>
 <br>
-
-
-<!-- Modules | startup | components | services | vendor<br>services | vendor<br>components | subscriptions | styles | elements | diagnostics | ui | stores | io | core | window | util | storage
---- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---:
-startup | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
-components | ✅ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
-services | ✅ | ✅ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
-vendorServices | ❌ | ✅ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
-vendorComponents | ❌ | ✅ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
-subscriptions | ✅ | ✅ | ✅ | ❌ | ❌ | n/a | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
-styles | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
-elements | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
-diagnostics | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
-ui | ✅ | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ | ✅ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌ | ❌
-stores | ✅ | ❌ | ✅ | ❌ | ❌ | ✅ | ❌ | ❌ | ✅ | ❌ | n/a | ❌ | ❌ | ❌ | ❌ | ❌
-io | ❌ | ❌ | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌ | ❌
-core | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | n/a | ❌ | ❌ | ❌
-window | ❌ | ❌ | ❌ | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ | ✅ | ❌ | n/a | ❌ | ❌
-util | ✅ | ✅ | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ | ✅ | ❌ | ❌ | ❌ | ✅ | ❌ | n/a | ❌
-storage | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ | n/a
-<p align="center"><em>Generated dependency mapping (scrolls to the right)</em></p>
-<br> -->
 
 ## Deglobalising window
 

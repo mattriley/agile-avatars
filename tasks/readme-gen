@@ -1,0 +1,5 @@
+#!/bin/bash
+
+. ./task-vars
+
+cd ../agileavatars-docgen && ./task readme-gen
