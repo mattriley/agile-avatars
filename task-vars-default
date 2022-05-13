@@ -10,7 +10,6 @@ export TEST_HELPERS="./test-helpers"
 export TEST_WATCH_PATHS=("$SRC" "$TESTS" "$TEST_HELPERS")
 export ESLINT_PATHS=("$SRC" "$TESTS")
 export INDEXGEN_PATHS=("$MODULES")
-export INDEXGEN_TYPE="esm"
 export ITERMOCIL_TASKS=("edit" "test-watch" "indexgen-watch" "start")
 export TASK_PATHS=("./tasks" "./tasks/defaults" "./tasks/lib")
 export GITHUB_PAGES_PATH="./docs"

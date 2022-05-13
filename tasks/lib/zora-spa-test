@@ -4,4 +4,4 @@
 
 node \
     --experimental-specifier-resolution=node \
-    ./tasks/lib/zora-spa-testrunner-esm.js "$TEST_PATTERN"
+    ./tasks/lib/zora-spa-testrunner.js "$TEST_PATTERN"
