@@ -2,4 +2,5 @@
 
 . ./task-vars
 
-cd ../agileavatars-docgen && ./task readme-gen
+TARGET=$(pwd)
+cd ../agileavatars-docgen && ./bin/readme-gen "$TARGET"
