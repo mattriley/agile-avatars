@@ -429,6 +429,7 @@ Because all relative files are loaded by index.js files, a simple search can be 
 . ./task-vars
 
 ! grep --exclude="index.js" -rnw "$MODULES" -e "require('."
+
 ! grep --exclude="index.js" -rnw "$MODULES" -e "from '."
 ```
 </details>

@@ -2,4 +2,4 @@
   
 . ./task-vars
 
-./task itermocil
+./tasks/lib/itermocil

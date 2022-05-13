@@ -2,4 +2,6 @@
   
 . ./task-vars
 
-npx tape "$TEST_PATTERN" $@
+npx --no tape \
+    "$TEST_PATTERN" \
+    "$@"

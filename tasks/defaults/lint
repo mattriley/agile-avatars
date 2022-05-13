@@ -2,4 +2,4 @@
   
 . ./task-vars
 
-./task eslint "$@"
+./tasks/lib/eslint "$@"

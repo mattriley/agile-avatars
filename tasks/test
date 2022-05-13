@@ -1,3 +1,3 @@
 #!/bin/bash
 
-./task zora-spa-test
+./tasks/lib/zora-spa-test

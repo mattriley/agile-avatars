@@ -2,12 +2,12 @@
   
 . ./task-vars
 
-
 FORMULA="TomAnthony/brews/itermocil"
 
-# Exit if already installed.
 brew list $FORMULA > /dev/null && exit 0
 
 brew update
+
 brew install $FORMULA
+
 mkdir -p ~/.itermocil

@@ -2,4 +2,4 @@
   
 . ./task-vars
 
-./task indexgen --watch
+./tasks/lib/indexgen --watch

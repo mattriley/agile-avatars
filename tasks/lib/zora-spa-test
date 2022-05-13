@@ -2,5 +2,6 @@
   
 . ./task-vars
 
-node --experimental-specifier-resolution=node \
-"./tasks/lib/zora-spa-testrunner-esm.js" "$TEST_PATTERN"
+node \
+    --experimental-specifier-resolution=node \
+    ./tasks/lib/zora-spa-testrunner-esm.js "$TEST_PATTERN"

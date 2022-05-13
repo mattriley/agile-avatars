@@ -3,6 +3,9 @@
 . ./task-vars
 
 set -ex
-./task check-relative-imports
+
 ./task lint
+
 ./task cov-check
+
+./task readme-gen

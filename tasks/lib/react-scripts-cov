@@ -1,0 +1,7 @@
+#!/bin/bash
+  
+. ./task-vars
+
+./tasks/lib/react-scripts-test \
+    --coverage \
+    "$@"

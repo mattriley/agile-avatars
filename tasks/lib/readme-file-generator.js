@@ -1,17 +1,26 @@
-const ejs = require('ejs');
-const child = require('child_process');
-const process = require('process');
-const compose = require(process.cwd() + '/src/compose');
+import fs from 'fs';
+import ejs from 'ejs';
+import child from 'child_process';
+import process from 'process';
 
 const fetchText = url => child.execSync(`curl ${url}`).toString('utf8');
 
 const fetchCode = (url, opts = {}) => {
-    const open = opts.open || true;
     const code = fetchText(url);
+    return renderCode(code, url, opts);
+};
+
+const readCode = (path, opts = {}) => {
+    const code = fs.readFileSync(path, 'utf-8');
+    return renderCode(code, path, opts);
+};
+
+const renderCode = (code, summary, opts = {}) => {
+    const open = opts.open || true;
 
     return [
         `<details ${open ? 'open' : ''}>`,
-        `<summary>${url}</summary>`,
+        `<summary>${summary}</summary>`,
         '',
         '```js',
         (opts.includeFootnotes ? code : code.split('/*')[0]).trim(),
@@ -20,8 +29,8 @@ const fetchCode = (url, opts = {}) => {
     ].join('\n');
 };
 
-const moduleGraph = () => {
-    const { mermaid } = compose();
+const moduleGraph = compose => () => {
+    const { mermaid } = compose().composition;
     return [
         '```mermaid',
         mermaid(),
@@ -29,10 +38,18 @@ const moduleGraph = () => {
     ].join('\n');
 };
 
-const [templateFile = 'README-TEMPLATE.md'] = process.argv.slice(2);
-const data = { fetchText, fetchCode, moduleGraph };
+const [templateFile] = process.argv.slice(2);
+const composeFile = './src/compose.js';
 
-ejs.renderFile(templateFile, data, {}, (err, res) => {
-    if (err) throw err;
-    process.stdout.write(res);
-});
+const start = async () => {
+    const composeImport = fs.existsSync(composeFile) ? await import(composeFile) : undefined;
+    const compose = composeImport?.default ?? composeImport;
+    const data = { fetchText, fetchCode, readCode, moduleGraph: moduleGraph(compose) };
+
+    ejs.renderFile(templateFile, data, {}, (err, res) => {
+        if (err) throw err;
+        process.stdout.write(res);
+    });
+};
+
+start();

@@ -2,4 +2,4 @@
   
 . ./task-vars
 
-./task tape-test
+./tasks/lib/tape-test

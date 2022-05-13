@@ -2,4 +2,7 @@
   
 . ./task-vars
 
-node "./tasks/lib/zora-testrunner.js" "$TEST_PATTERN"
+node \
+    --experimental-specifier-resolution=node \
+    --input-type=module \
+    - < ./tasks/lib/zora-testrunner.js "$TEST_PATTERN"
