@@ -1,8 +1,0 @@
-#!/bin/bash
-  
-. ./task-vars
-
-./tasks/lib/react-scripts-cov \
-    --roots "$SRC" \
-    --collectCoverageFrom "<rootDir>/$SRC/**" \
-    --coverageThreshold="{\"global\":{\"branches\":$COV_BRANCHES,\"functions\":$COV_FUNCTIONS,\"lines\":$COV_LINES,\"statements\":$COV_STATEMENTS}}"

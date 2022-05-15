@@ -1,9 +1,0 @@
-#!/bin/bash
-  
-. ./task-vars
-
-./task cov
-
-INDEX_HTML="$(set -- ./coverage/**/index.html; echo "$1")"
-
-open -a "Google Chrome" "$INDEX_HTML"

@@ -1,7 +1,0 @@
-#!/bin/bash
-  
-. ./task-vars
-
-npx --no tape \
-    "$TEST_PATTERN" \
-    "$@"

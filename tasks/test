@@ -1,3 +1,3 @@
 #!/bin/bash
 
-./tasks/lib/zora-spa-test
+npx task zora-spa-test

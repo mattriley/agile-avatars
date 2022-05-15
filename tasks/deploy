@@ -2,7 +2,7 @@
 
 set -e
 
-./tasks/build-prod
+npx task build-prod
 
 PROFILE="prod"
 PROFILE_OUTPUT="$BUILD_OUTPUT/$PROFILE"

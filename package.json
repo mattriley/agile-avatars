@@ -24,6 +24,7 @@
         "module-indexgen": "^0.12.5",
         "parcel": "^2.5.0",
         "process": "^0.11.10",
+        "task-library": "^0.0.21",
         "zora": "^5.0.3",
         "zora-reporters": "^1.3.2"
     },

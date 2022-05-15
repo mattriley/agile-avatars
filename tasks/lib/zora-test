@@ -1,8 +1,0 @@
-#!/bin/bash
-  
-. ./task-vars
-
-node \
-    --experimental-specifier-resolution=node \
-    --input-type=module \
-    - < ./tasks/lib/zora-testrunner.js "$TEST_PATTERN"

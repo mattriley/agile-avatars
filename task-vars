@@ -1,7 +1,5 @@
 #!/bin/bash
 
-. ./task-vars-default
-
 export COV_BRANCHES=90
 export COV_LINES=90
 export COV_FUNCTIONS=90

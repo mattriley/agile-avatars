@@ -1,5 +1,0 @@
-#!/bin/bash
-  
-. ./task-vars
-
-ZORA_ONLY=true ./task test

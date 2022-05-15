@@ -1,10 +1,10 @@
+.DS_Store
 /*cache
 /*output
+/.vscode
 /build
+/config.*
 /coverage
+/itermocil.yml
 /node_modules
 /temp
-/config.*
-/itermocil.yml
-/.vscode
-.DS_Store

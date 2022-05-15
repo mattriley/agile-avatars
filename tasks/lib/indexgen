@@ -1,8 +1,0 @@
-#!/bin/bash
-  
-. ./task-vars
-
-npx --no indexgen \
-    "${INDEXGEN_PATHS[@]}" \
-    "$INDEXGEN_OPTIONS" \
-    "$@"

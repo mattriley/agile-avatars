@@ -1,5 +1,0 @@
-#!/bin/bash
-  
-. ./task-vars
-
-./tasks/lib/indexgen --watch

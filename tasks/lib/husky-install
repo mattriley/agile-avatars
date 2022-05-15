@@ -1,9 +1,0 @@
-#!/bin/bash
-  
-. ./task-vars
-
-npm i -D husky@latest
-
-npx husky install
-
-npx husky add .husky/pre-commit "./task pre-commit"

@@ -1,8 +1,0 @@
-#!/bin/bash
-  
-. ./task-vars
-
-npx --no tap \
-    "$TEST_PATTERN" \
-    --no-coverage \
-    "$@"
