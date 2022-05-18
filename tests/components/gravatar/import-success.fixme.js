@@ -4,11 +4,13 @@ export default ({ test, setup }) => {
         const { compose, helpers, window } = setup();
 
         const { components } = compose({
-            overrides: {
-                services: {
-                    gravatar: {
-                        fetchProfileAsync: () => Promise.resolve({ displayName: 'foo' }),
-                        fetchImageAsync: () => Promise.resolve(new window.Blob(['BYTES'], { type: 'image/jpg' }))
+            moduleComposer: {
+                overrides: {
+                    services: {
+                        gravatar: {
+                            fetchProfileAsync: () => Promise.resolve({ displayName: 'foo' }),
+                            fetchImageAsync: () => Promise.resolve(new window.Blob(['BYTES'], { type: 'image/jpg' }))
+                        }
                     }
                 }
             }

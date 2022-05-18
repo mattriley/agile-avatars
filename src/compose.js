@@ -3,9 +3,9 @@ import modules from './modules';
 import defaultConfig from './default-config';
 const { storage, util } = modules;
 
-export default ({ window }, ...configs) => {
+export default ({ window, configs }) => {
 
-    const { compose, config } = composer({ window, ...modules }, defaultConfig, ...configs);
+    const { compose, config } = composer({ window, ...modules }, defaultConfig, configs);
 
     // Data
     const { stores } = compose('stores', { storage, config });

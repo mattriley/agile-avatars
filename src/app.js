@@ -2,10 +2,14 @@ import compose from './compose';
 
 const isLocalhost = (/localhost/).test(window.location.host);
 
-const modules = compose({ window }, {
-    gtag: { enabled: !isLocalhost },
-    sentry: { enabled: !isLocalhost }
-});
+const configs = [
+    {
+        gtag: { enabled: !isLocalhost },
+        sentry: { enabled: !isLocalhost }
+    }
+];
+
+const modules = compose({ window, configs });
 
 const { config, startup, components } = modules;
 window.app = modules;

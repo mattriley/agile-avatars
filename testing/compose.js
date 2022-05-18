@@ -1,10 +1,9 @@
 import composer from 'module-composer';
 import modules from './modules';
 
-export default (...configs) => {
+export default ({ window, configs }) => {
 
-    const { compose, config } = composer(modules, ...configs);
-    const { window } = config;
+    const { compose } = composer(modules, configs);
     return compose('helpers', { window });
 
 };

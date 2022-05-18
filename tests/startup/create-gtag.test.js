@@ -26,17 +26,13 @@ export default ({ test, window, compose }) => {
     });
 
     test('gtag function sets metadata correctly', t => {
-        const { vendorServices } = compose({
-            gtag: { enabled: true }
-        });
+        const { vendorServices } = compose({ gtag: { enabled: true } });
         vendorServices.gtag('foobar');
         t.deepEqual(Array.from(window.dataLayer[2]), ['foobar']);
     });
 
     test('disabled', t => {
-        const { vendorServices } = compose({
-            gtag: { enabled: false }
-        });
+        const { vendorServices } = compose({ gtag: { enabled: false } });
         vendorServices.gtag('foobar');
         t.equal(window['ga-disable-UA-34497639-2'], true);
     });

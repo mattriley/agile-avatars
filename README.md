@@ -181,10 +181,14 @@ import compose from './compose';
 
 const isLocalhost = (/localhost/).test(window.location.host);
 
-const modules = compose({ window }, {
-    gtag: { enabled: !isLocalhost },
-    sentry: { enabled: !isLocalhost }
-});
+const configs = [
+    {
+        gtag: { enabled: !isLocalhost },
+        sentry: { enabled: !isLocalhost }
+    }
+];
+
+const modules = compose({ window, configs });
 
 const { config, startup, components } = modules;
 window.app = modules;
@@ -239,9 +243,9 @@ import modules from './modules';
 import defaultConfig from './default-config';
 const { storage, util } = modules;
 
-export default ({ window }, ...configs) => {
+export default ({ window, configs }) => {
 
-    const { compose, config } = composer({ window, ...modules }, defaultConfig, ...configs);
+    const { compose, config } = composer({ window, ...modules }, defaultConfig, configs);
 
     // Data
     const { stores } = compose('stores', { storage, config });
@@ -1470,11 +1474,13 @@ export default ({ test, setup }) => {
         const { compose, helpers, window } = setup();
 
         const { components } = compose({
-            overrides: {
-                services: {
-                    gravatar: {
-                        fetchProfileAsync: () => Promise.resolve({ displayName: 'foo' }),
-                        fetchImageAsync: () => Promise.resolve(new window.Blob(['BYTES'], { type: 'image/jpg' }))
+            moduleComposer: {
+                overrides: {
+                    services: {
+                        gravatar: {
+                            fetchProfileAsync: () => Promise.resolve({ displayName: 'foo' }),
+                            fetchImageAsync: () => Promise.resolve(new window.Blob(['BYTES'], { type: 'image/jpg' }))
+                        }
                     }
                 }
             }
