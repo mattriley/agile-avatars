@@ -326,6 +326,15 @@ module.exports = (target, ...configs) => {
     const modules = { ...target }, dependencies = mapValues(modules, () => []);
     const mermaid = opts => mermaidGraph(dependencies, opts);
     const composition = { config, target, modules, dependencies, mermaid };
+
+    const composeRecursive = (target, args, parentKey) => {
+        if (!isObject(target)) return target;
+        const product = {};
+        const newArg = { [parentKey]: product, ...args };
+        const newObj = mapValues(target, (val, key) => (isFunction(val) ? val(newArg) : composeRecursive(val, newArg, key)));
+        return Object.assign(product, newObj);
+    };
+
     const compose = (key, args = {}, customise = options.customiser) => {
         const totalArgs = { ...options.defaults, ...args };
         const composed = composeRecursive(target[key], totalArgs, key);
@@ -334,15 +343,8 @@ module.exports = (target, ...configs) => {
         dependencies[key] = Object.keys(totalArgs);
         return { config, composition, ...modules };
     };
-    return { ...composition, compose };
-};
 
-const composeRecursive = (target, args, parentKey) => {
-    if (!isObject(target)) return target;
-    const product = {};
-    const newArg = { [parentKey]: product, ...args };
-    const newObj = mapValues(target, (val, key) => (isFunction(val) ? val(newArg) : composeRecursive(val, newArg, key)));
-    return Object.assign(product, newObj);
+    return { ...composition, compose };
 };
 ```
 </details>
