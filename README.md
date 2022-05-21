@@ -280,13 +280,24 @@ This _codified view_ of the architecture has some interesting implications:
 - Ability to test the integrated application without also launching it.
 - Ability to programatically analyse and visualise dependencies.
 
-<br>
-<p align="center">
-  <img src="readme-files/modules.svg?raw=true" />
-  <br>
-  <em>Generated dependency diagram using <a href="https://mermaid-js.github.io/mermaid">Mermaid</a></em>
-</p>
-<br>
+```mermaid
+graph TD;
+    components-->ui;
+    components-->elements;
+    components-->services;
+    components-->subscriptions;
+    elements-->ui;
+    io-->window;
+    services-->subscriptions;
+    services-->stores;
+    services-->core;
+    services-->io;
+    stores-->storage;
+    styles-->ui;
+    styles-->subscriptions;
+    subscriptions-->stores;
+    ui-->window;
+``` 
 
 ## Deglobalising window
 
@@ -313,7 +324,7 @@ module.exports = (target, ...configs) => {
     const config = merge({}, ...configs.flat());
     const options = merge({ ...defaultOptions }, config.moduleComposer);
     const modules = { ...target }, dependencies = mapValues(modules, () => []);
-    const mermaid = () => mermaidGraph(dependencies);
+    const mermaid = opts => mermaidGraph(dependencies, opts);
     const composition = { config, target, modules, dependencies, mermaid };
     const compose = (key, args = {}, customise = options.customiser) => {
         const totalArgs = { ...options.defaults, ...args };
@@ -1653,7 +1664,7 @@ According to [this issue](https://github.com/blueimp/JavaScript-MD5/issues/26), 
 
 ## module-composer
 
-> A module composition utility
+> A tiny but powerful closure-based module composition utility.
 
 - Homepage: https://github.com/mattriley/node-module-composer
 - __1__ dependency :white_check_mark:
