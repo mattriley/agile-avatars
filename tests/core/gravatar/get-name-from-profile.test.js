@@ -1,6 +1,6 @@
 export default ({ test, compose }) => {
 
-    const { core } = compose();
+    const { core } = compose().modules;
 
     test('return given name when both given and display names present', t => {
         const profile = { name: { givenName: 'given' }, displayName: 'display' };

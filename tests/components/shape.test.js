@@ -3,7 +3,7 @@
 export default ({ test, compose, helpers }) => {
 
     const toggleTestCase = (t, shapeName) => {
-        const { components } = compose();
+        const { components } = compose().modules;
         const $shape = components.optionsBar.shapeOption(shapeName);
         const $anotherShape = components.optionsBar.shapeOption('foobar');
         helpers.dispatchEvent('click', $anotherShape);
@@ -14,7 +14,8 @@ export default ({ test, compose, helpers }) => {
     };
 
     const shapeTestCase = (t, shapeName) => {
-        const { components, services, config } = compose();
+        const { config, modules } = compose();
+        const { components, services } = modules;
         const $shape = components.optionsBar.shapeOption(shapeName);
         const $tagList = components.tagList.container();
         services.tags.insertTag();
@@ -44,7 +45,7 @@ export default ({ test, compose, helpers }) => {
     // TODO: Remove duplication
     test('shape not selected on keypress other than Enter or Space', t => {
         const shapeName = 'circle';
-        const { components } = compose();
+        const { components } = compose().modules;
         const $shape = components.optionsBar.shapeOption(shapeName);
         const $anotherShape = components.optionsBar.shapeOption('foobar');
         helpers.dispatchEvent('click', $anotherShape);

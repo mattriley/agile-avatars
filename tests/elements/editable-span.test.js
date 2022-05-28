@@ -2,7 +2,7 @@ export default ({ test, compose, helpers }) => {
 
     test('change invoked by enter key', async () => {
         await new Promise(resolve => {
-            const { elements } = compose();
+            const { elements } = compose().modules;
             const $editableSpan = elements.editableSpan();
 
             $editableSpan.addEventListener('change', () => {
@@ -15,7 +15,7 @@ export default ({ test, compose, helpers }) => {
     });
 
     test('change not invoked by key other than enter key', t => {
-        const { elements } = compose();
+        const { elements } = compose().modules;
         const $editableSpan = elements.editableSpan();
 
         $editableSpan.addEventListener('change', () => {
@@ -27,7 +27,7 @@ export default ({ test, compose, helpers }) => {
     });
 
     test('editing', t => {
-        const { elements } = compose();
+        const { elements } = compose().modules;
         const $editableSpan = elements.editableSpan();
 
         $editableSpan.addEventListener('change', () => {

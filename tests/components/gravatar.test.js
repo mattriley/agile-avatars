@@ -1,7 +1,7 @@
 export default ({ test, compose, helpers }) => {
 
     test('launches gravatar', t => {
-        const { components } = compose();
+        const { components } = compose().modules;
         const $gravatarModal = components.modals.gravatar();
         const assertVisible = helpers.assertBoolClass(t, $gravatarModal, 'visible');
         assertVisible(false);
@@ -11,14 +11,14 @@ export default ({ test, compose, helpers }) => {
     });
 
     test('prevented from importing from gravatar with no input', t => {
-        const { components } = compose();
+        const { components } = compose().modules;
         const $gravatar = components.modals.gravatar();
         const $importButton = $gravatar.querySelector('.import');
         t.equal($importButton.disabled, true);
     });
 
     test('prevented from importing from gravatar with blank input', t => {
-        const { components } = compose();
+        const { components } = compose().modules;
         const $gravatar = components.modals.gravatar();
         const $freetext = $gravatar.querySelector('.freetext');
         $freetext.textContent = '   \n   \n   ';
@@ -28,7 +28,7 @@ export default ({ test, compose, helpers }) => {
     });
 
     test('gravatar fallback changes', t => {
-        const { components } = compose();
+        const { components } = compose().modules;
         const $gravatar = components.modals.gravatar();
         const $freetext = $gravatar.querySelector('.freetext');
         const $monsterid = $gravatar.querySelector('[title=monsterid]');

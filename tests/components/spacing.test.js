@@ -9,7 +9,7 @@ export default ({ test, compose, window, helpers }) => {
                     }
                 }
             }
-        });
+        }).modules;
         const $spacingInput = components.optionsBar.options.spacing().querySelector('input');
         const $tagList = components.tagList.container();
         return { $tagList, $spacingInput };

@@ -9,7 +9,7 @@ export default ({ test, compose, helpers }) => {
                     }
                 }
             }
-        });
+        }).modules;
         const $checkbox = components.optionsBar.options.outline().querySelector('input');
         const $tagList = components.tagList.container();
         services.tags.insertTag();

@@ -1,7 +1,7 @@
 export default ({ test, compose, helpers }) => {
 
     test('tag name changes to blank', t => {
-        const { components, services } = compose();
+        const { components, services } = compose().modules;
         const $tagList = components.tagList.container();
         services.tags.insertTag({ tagName: 'foo' });
         const [tag1] = helpers.getTags($tagList);
@@ -13,7 +13,7 @@ export default ({ test, compose, helpers }) => {
     });
 
     test('tag name changes to different name', t => {
-        const { components, services } = compose();
+        const { components, services } = compose().modules;
         const $tagList = components.tagList.container();
         services.tags.insertTag({ tagName: 'foo' });
         const [tag1] = helpers.getTags($tagList);
@@ -25,7 +25,7 @@ export default ({ test, compose, helpers }) => {
     });
 
     test('tag name and role changes given expression', t => {
-        const { components, services } = compose();
+        const { components, services } = compose().modules;
         const $tagList = components.tagList.container();
         services.tags.insertTag();
         const [tag1] = helpers.getTags($tagList);
@@ -36,7 +36,7 @@ export default ({ test, compose, helpers }) => {
     });
 
     test('tag name change propagates to all instances of tag', t => {
-        const { components, services } = compose();
+        const { components, services } = compose().modules;
         const $tagList = components.tagList.container();
         services.tags.insertTag();
         services.settings.changeOption('active', 2);

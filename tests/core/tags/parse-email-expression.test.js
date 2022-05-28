@@ -1,6 +1,6 @@
 export default ({ test, compose }) => {
 
-    const { core } = compose();
+    const { core } = compose().modules;
 
     test('email address', t => {
         const expression = 'foo+xzy@bar.com+dev';

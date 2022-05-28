@@ -1,7 +1,7 @@
 export default ({ test, compose, window, helpers }) => {
 
     const setup = ({ sizeDefault }) => {
-        const { components, services, config } = compose({
+        const { config, modules } = compose({
             storage: {
                 defaults: {
                     settings: {
@@ -10,6 +10,7 @@ export default ({ test, compose, window, helpers }) => {
                 }
             }
         });
+        const { components, services } = modules;
         const $sizeInput = components.optionsBar.options.size().querySelector('input');
         const $tagList = components.tagList.container();
         services.tags.insertTag();

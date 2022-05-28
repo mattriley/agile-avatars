@@ -1,7 +1,7 @@
 export default ({ test, compose, window, helpers }) => {
 
     test('multiple images chosen', t => {
-        const { components } = compose();
+        const { components } = compose().modules;
         const $tagList = components.tagList.container();
         const $chooseImages = components.imageUploadOptions.chooseImages().querySelector('a');
 

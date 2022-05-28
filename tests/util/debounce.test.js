@@ -1,7 +1,7 @@
 export default ({ test, compose }) => {
 
     test('debounce is zero', async () => {
-        const { util } = compose();
+        const { util } = compose().modules;
         await new Promise(resolve => {
             const foo = () => {
                 resolve();
@@ -12,7 +12,7 @@ export default ({ test, compose }) => {
     });
 
     test('debounce is greater than zero', async () => {
-        const { util } = compose();
+        const { util } = compose().modules;
         await new Promise(resolve => {
             const foo = () => {
                 resolve();

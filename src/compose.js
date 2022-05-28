@@ -5,7 +5,7 @@ const { storage, util } = modules;
 
 export default ({ window, configs }) => {
 
-    const { compose, config } = composer(modules, defaultConfig, configs);
+    const { compose, composition, config } = composer(modules, defaultConfig, configs);
 
     // Data
     const { stores } = compose('stores', { storage, config });
@@ -27,6 +27,8 @@ export default ({ window, configs }) => {
 
     // Startup    
     compose('diagnostics', { stores, util });
-    return compose('startup', { ui, components, styles, services, subscriptions, stores, util, config });
+    compose('startup', { ui, components, styles, services, subscriptions, stores, util, config });
+
+    return composition;
 
 };

@@ -19,20 +19,20 @@ export default ({ test, window, compose }) => {
             moduleComposer: {
                 overrides: { io: { date: () => date } }
             }
-        });
+        }).modules;
         vendorServices.gtag('foobar');
         t.deepEqual(Array.from(window.dataLayer[0]), ['js', date]);
         t.deepEqual(Array.from(window.dataLayer[1]), ['config', 'UA-34497639-2']);
     });
 
     test('gtag function sets metadata correctly', t => {
-        const { vendorServices } = compose({ gtag: { enabled: true } });
+        const { vendorServices } = compose({ gtag: { enabled: true } }).modules;
         vendorServices.gtag('foobar');
         t.deepEqual(Array.from(window.dataLayer[2]), ['foobar']);
     });
 
     test('disabled', t => {
-        const { vendorServices } = compose({ gtag: { enabled: false } });
+        const { vendorServices } = compose({ gtag: { enabled: false } }).modules;
         vendorServices.gtag('foobar');
         t.equal(window['ga-disable-UA-34497639-2'], true);
     });

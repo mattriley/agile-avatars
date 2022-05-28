@@ -12,7 +12,7 @@ export default ({ test, compose, helpers }) => {
                     }
                 }
             }
-        });
+        }).modules;
 
         const subject = components.optionsBar.numberOption(mode);
         const $input = subject.querySelector('input');

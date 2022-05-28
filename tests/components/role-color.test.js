@@ -1,7 +1,7 @@
 export default ({ test, compose, helpers }) => {
 
     test('master role name reflects new color', t => {
-        const { components, services } = compose();
+        const { components, services } = compose().modules;
 
         const roleId = services.roles.insertRole({ roleName: 'foo' });
         const $roleCustomiser = components.roleList.roleCustomiser.container(roleId);
@@ -22,7 +22,7 @@ export default ({ test, compose, helpers }) => {
     });
 
     test('role color change propagates to tags', t => {
-        const { components, services } = compose();
+        const { components, services } = compose().modules;
 
         const roleId = services.roles.insertRole({ roleName: 'foo' });
         const $roleCustomiser = components.roleList.roleCustomiser.container(roleId);
