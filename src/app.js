@@ -7,12 +7,6 @@ const configs = [
     { sentry: { enabled: !isLocalhost } }
 ];
 
-const { config, modules } = compose({ window, configs });
-const { startup, components } = modules;
-window.app = modules;
-window.document.title = config.app.name;
-
-const { createRoot } = startup.start();
-const container = document.getElementById('app');
-const root = createRoot(container);
-root.render(components.app());
+const { modules, composition } = compose({ window, configs });
+const app = modules.startup.start({ composition });
+document.getElementById('app').append(app);

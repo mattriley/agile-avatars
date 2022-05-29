@@ -1,15 +1,12 @@
-export default ({ startup }) => () => {
+export default ({ startup, components, config, window }) => ({ composition }) => {
+
+    window.document.title = config.app.name;
+    window.app = composition;
 
     startup.insertNilRole();
     startup.createHandlers();
     startup.createStyleManager();
 
-    return {
-        createRoot: container => {
-            return {
-                render: element => container.append(element)
-            };
-        }
-    };
+    return components.app();
 
 };
