@@ -236,7 +236,7 @@ const { storage, util } = modules;
 
 export default ({ window, overrides, configs }) => {
 
-    const { compose, config } = composer(modules, { overrides, configs: [defaultConfig, configs] });
+    const { compose, config } = composer(modules, { overrides, defaultConfig, configs });
 
     // Data
     const { stores } = compose('stores', { storage, config });
