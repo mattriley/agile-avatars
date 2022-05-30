@@ -3,12 +3,10 @@ export default ({ test, compose, helpers }) => {
     test('import failure', async t => {
 
         const { components } = compose({
-            moduleComposer: {
-                overrides: {
-                    services: {
-                        tags: {
-                            insertGravatarAsync: () => Promise.reject(new Error())
-                        }
+            overrides: {
+                services: {
+                    tags: {
+                        insertGravatarAsync: () => Promise.reject(new Error())
                     }
                 }
             }

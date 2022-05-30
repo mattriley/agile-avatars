@@ -3,8 +3,8 @@ import modules from './modules';
 
 export default ({ window, configs }) => {
 
-    const { compose, composition } = composer(modules, configs);
+    const { compose } = composer(modules, { configs });
     compose('helpers', { window });
-    return composition;
+    return compose;
 
 };

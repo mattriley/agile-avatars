@@ -5,10 +5,12 @@ export default ({ test, compose, helpers }) => {
         const targetCount = defaultValue + adjustment;
 
         const { components, services } = compose({
-            storage: {
-                defaults: {
-                    settings: {
-                        options: { active: 0, passive: 0, [mode]: defaultValue }
+            config: {
+                storage: {
+                    defaults: {
+                        settings: {
+                            options: { active: 0, passive: 0, [mode]: defaultValue }
+                        }
                     }
                 }
             }

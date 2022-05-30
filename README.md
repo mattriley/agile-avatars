@@ -234,9 +234,9 @@ import modules from './modules';
 import defaultConfig from './default-config';
 const { storage, util } = modules;
 
-export default ({ window, configs }) => {
+export default ({ window, overrides, defaults, configs }) => {
 
-    const { compose, config } = composer(modules, defaultConfig, configs);
+    const { compose, config } = composer(modules, { overrides, defaults, configs: [defaultConfig, configs] });
 
     // Data
     const { stores } = compose('stores', { storage, config });
@@ -311,10 +311,10 @@ _module-composer_ is a small library that reduces the amount of boilerplate code
 ```js
 const util = require('./util');
 
-module.exports = (target, ...configs) => {
-    const config = util.merge({}, ...configs.flat());
-    const options = util.merge({ customiser: util.defaultCustomiser() }, config.moduleComposer);
+module.exports = (target, options = {}) => {
     const modules = { ...target };
+    const configs = util.flattenDeep([options.config, options.configs]);
+    const config = util.merge({}, ...configs);
     const dependencies = util.mapValues(modules, () => []);
     const mermaid = opts => util.mermaid(dependencies, opts);
 
@@ -327,7 +327,7 @@ module.exports = (target, ...configs) => {
         return Object.assign(product, newObj);
     };
 
-    const compose = (key, args = {}, customise = options.customiser) => {
+    const compose = (key, args = {}, customise = options.customiser ?? util.defaultCustomiser()) => {
         const totalArgs = { ...options.defaults, ...args };
         const module = customise(recurse(target[key], totalArgs, key));
         modules[key] = util.override({ [key]: module }, options.overrides)[key];
@@ -1483,13 +1483,11 @@ export default ({ test, setup }) => {
         const { compose, helpers, window } = setup();
 
         const { components } = compose({
-            moduleComposer: {
-                overrides: {
-                    services: {
-                        gravatar: {
-                            fetchProfileAsync: () => Promise.resolve({ displayName: 'foo' }),
-                            fetchImageAsync: () => Promise.resolve(new window.Blob(['BYTES'], { type: 'image/jpg' }))
-                        }
+            overrides: {
+                services: {
+                    gravatar: {
+                        fetchProfileAsync: () => Promise.resolve({ displayName: 'foo' }),
+                        fetchImageAsync: () => Promise.resolve(new window.Blob(['BYTES'], { type: 'image/jpg' }))
                     }
                 }
             }
