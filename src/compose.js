@@ -26,9 +26,7 @@ export default ({ window, overrides, configs }) => {
 
     // Startup    
     compose('diagnostics', { stores, util });
-    const { startup } = compose('startup', { ui, components, styles, services, subscriptions, stores, util, config, window });
-
-    console.warn(startup);
+    compose('startup', { ui, components, styles, services, subscriptions, stores, util, config, window });
 
     return compose;
 
