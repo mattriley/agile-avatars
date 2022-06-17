@@ -1,6 +1,6 @@
-export default ({ el, actions }) => () => {
+export default ({ ui, actions }) => () => {
 
-    return el('div').append(
+    return ui.el('div').append(
         actions.importButton(),
         actions.loading(),
         actions.error()

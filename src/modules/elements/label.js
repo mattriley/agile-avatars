@@ -1,10 +1,10 @@
-export default ({ el }) => (...nodes) => {
+export default ({ ui }) => (...nodes) => {
 
     const transformedNodes = nodes.map(node => {
-        return typeof node === 'string' ? el('span', 'label', { innerHTML: node }) : node;
+        return typeof node === 'string' ? ui.el('span', 'label', { innerHTML: node }) : node;
     });
 
-    return el('label').append(...transformedNodes);
+    return ui.el('label').append(...transformedNodes);
 
 };
 

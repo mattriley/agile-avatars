@@ -1,6 +1,6 @@
-export default ({ el }) => () => {
+export default ({ ui }) => () => {
 
-    return el('div', {
+    return ui.el('div', {
         title: 'Blocked and other badges',
         innerHTML: `
             <p>Create blocked and other badges in the same way as avatars.</p>

@@ -1,6 +1,6 @@
-export default ({ el, subscriptions, services, ui, config }) => shapeName => {
+export default ({ ui, subscriptions, services, config }) => shapeName => {
 
-    const $shape = el('span', 'shape-option', {
+    const $shape = ui.el('span', 'shape-option', {
         title: `Change shape to ${shapeName}`,
         tabIndex: 0
     }).addEventListener('click', () => {

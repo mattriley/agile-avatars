@@ -1,11 +1,11 @@
-export default ({ el, services, subscriptions, ui }) => () => {
+export default ({ ui, services, subscriptions }) => () => {
 
-    const $errorMessage = el('div', 'error-message');
+    const $errorMessage = ui.el('div', 'error-message');
 
-    const $dismiss = el('a', 'dismiss', { textContent: 'Dismiss' })
+    const $dismiss = ui.el('a', 'dismiss', { textContent: 'Dismiss' })
         .addEventListener('click', services.gravatar.status.to.ready);
 
-    const $error = el('div', 'error').append($errorMessage, $dismiss);
+    const $error = ui.el('div', 'error').append($errorMessage, $dismiss);
 
     subscriptions.settings.onChange('gravatar', 'status', () => {
         ui.toggleBoolClass($error, 'visible', services.gravatar.status.is.error());

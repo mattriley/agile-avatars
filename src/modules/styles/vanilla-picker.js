@@ -1,7 +1,7 @@
 import Picker from 'vanilla-picker';
 
-export default ({ el }) => () => {
+export default ({ ui }) => () => {
 
-    return el('style', { textContent: Picker.css });
+    return ui.el('style', { textContent: Picker.css });
 
 };

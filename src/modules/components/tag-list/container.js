@@ -1,8 +1,8 @@
-export default ({ el, tagList, services, subscriptions, ui, util, config }) => () => {
+export default ({ ui, tagList, services, subscriptions, util, config }) => () => {
 
     const $$tags = new Map();
 
-    const $tags = el('div', 'tag-list');
+    const $tags = ui.el('div', 'tag-list');
 
     subscriptions.tagInstances.onInsert(tagInstanceId => {
         const $tag = tagList.tag.container(tagInstanceId);

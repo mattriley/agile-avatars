@@ -1,6 +1,6 @@
-export default ({ el, roleList, subscriptions, ui }) => () => {
+export default ({ ui, roleList, subscriptions }) => () => {
 
-    const $roleList = el('div', 'role-list visible-false');
+    const $roleList = ui.el('div', 'role-list visible-false');
 
     subscriptions.roles.onInsert(roleId => {
         const $role = roleList.roleCustomiser.container(roleId);

@@ -1,6 +1,6 @@
-export default ({ el }) => () => {
+export default ({ ui }) => () => {
 
-    return el('div', {
+    return ui.el('div', {
         title: 'Laminating',
         innerHTML: `
             <p>

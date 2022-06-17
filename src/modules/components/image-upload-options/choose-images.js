@@ -1,6 +1,6 @@
-export default ({ el, services }) => () => {
+export default ({ ui, services }) => () => {
 
-    const $fileInput = el('input', {
+    const $fileInput = ui.el('input', {
         type: 'file',
         multiple: true,
         accept: 'image/*'
@@ -8,14 +8,14 @@ export default ({ el, services }) => () => {
         services.tags.insertFileBatchAsync(e.target.files);
     });
 
-    const $chooseImages = el('a', { textContent: 'Choose images' })
+    const $chooseImages = ui.el('a', { textContent: 'Choose images' })
         .addEventListener('click', e => {
             e.preventDefault();
             $fileInput.click();
             e.fileInput = $fileInput;
         });
 
-    return el('span').append($chooseImages);
+    return ui.el('span').append($chooseImages);
 
 };
 

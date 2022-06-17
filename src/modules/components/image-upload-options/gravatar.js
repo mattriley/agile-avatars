@@ -1,6 +1,6 @@
-export default ({ el, services, vendorServices }) => () => {
+export default ({ ui, services, vendorServices }) => () => {
 
-    return el('a', { textContent: 'Import images from Gravatar' })
+    return ui.el('a', { textContent: 'Import images from Gravatar' })
         .addEventListener('click', () => {
             vendorServices.gtag('event', 'gravatar-clicked');
             services.settings.changeModal('gravatar');

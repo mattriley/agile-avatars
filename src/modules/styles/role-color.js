@@ -1,6 +1,6 @@
-export default ({ el, subscriptions }) => roleId => {
+export default ({ ui, subscriptions }) => roleId => {
 
-    const $style = el('style');
+    const $style = ui.el('style');
 
     subscriptions.roles.onChange(roleId, 'color', color => {
         $style.textContent = `

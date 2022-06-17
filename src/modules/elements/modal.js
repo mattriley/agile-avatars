@@ -1,4 +1,4 @@
-export default ({ el, ui }) => (args = {}) => {
+export default ({ ui }) => (args = {}) => {
 
     const defaults = { visible: false, onVisibilityChange: () => undefined };
     const { title, content, actions, visible, onVisibilityChange } = { ...defaults, ...args };
@@ -7,21 +7,21 @@ export default ({ el, ui }) => (args = {}) => {
         $overlay.dispatchEvent(ui.event('dismiss'));
     };
 
-    const $dismiss = el('span', 'dismiss').addEventListener('click', dismiss);
+    const $dismiss = ui.el('span', 'dismiss').addEventListener('click', dismiss);
 
-    const $title = el('div', 'modal-title').append(title, $dismiss);
+    const $title = ui.el('div', 'modal-title').append(title, $dismiss);
     ui.toggleBoolClass($title, 'visible', Boolean(title));
 
-    const $content = el('div', 'modal-content').append(content);
+    const $content = ui.el('div', 'modal-content').append(content);
 
-    const $actions = el('div', 'modal-actions').append(actions);
+    const $actions = ui.el('div', 'modal-actions').append(actions);
     ui.toggleBoolClass($actions, 'visible', Boolean(actions));
 
-    const $prompt = el('div', 'modal-prompt')
+    const $prompt = ui.el('div', 'modal-prompt')
         .append($title, $content, $actions)
         .addEventListener('click', e => e.stopPropagation());
 
-    const $overlay = el('div', 'modal-overlay')
+    const $overlay = ui.el('div', 'modal-overlay')
         .append($prompt)
         .addEventListener('click', dismiss);
 

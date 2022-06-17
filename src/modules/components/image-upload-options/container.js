@@ -1,7 +1,7 @@
-export default ({ el, imageUploadOptions }) => () => {
+export default ({ ui, imageUploadOptions }) => () => {
 
-    return el('div', 'image-upload-options').append(
-        el('span', { textContent: 'Drag & drop images' }),
+    return ui.el('div', 'image-upload-options').append(
+        ui.el('span', { textContent: 'Drag & drop images' }),
         imageUploadOptions.chooseImages(),
         imageUploadOptions.gravatar()
     );

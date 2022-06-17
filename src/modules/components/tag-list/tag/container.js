@@ -1,4 +1,4 @@
-export default ({ el, tag, elements, services, subscriptions, config }) => tagInstanceId => {
+export default ({ ui, tag, elements, services, subscriptions, config }) => tagInstanceId => {
 
     const $layout = elements.layout({
         layout: config.tags.layout,
@@ -6,7 +6,7 @@ export default ({ el, tag, elements, services, subscriptions, config }) => tagIn
         componentArgs: [tagInstanceId]
     });
 
-    const $tag = el('div').append($layout);
+    const $tag = ui.el('div').append($layout);
 
     subscriptions.tagInstances.onChange(tagInstanceId, 'roleId', (roleId, { tagId, mode }) => {
         const isNilRole = services.roles.isNilRole(roleId);

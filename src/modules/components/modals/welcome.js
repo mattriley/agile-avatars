@@ -1,18 +1,18 @@
-export default ({ el, components, services, config }) => () => {
+export default ({ ui, components, services, config }) => () => {
 
-    const $heading = el('h1', 'welcome-title', {
+    const $heading = ui.el('h1', 'welcome-title', {
         textContent: `Welcome to ${config.app.name}`
     });
 
-    const $image = el('img', {
+    const $image = ui.el('img', {
         src: 'img/welcome.png',
         width: 800
     });
 
-    const $continue = el('button', { textContent: 'Continue' });
+    const $continue = ui.el('button', { textContent: 'Continue' });
     $continue.addEventListener('click', services.settings.clearModal);
 
-    const $content = el('div', 'welcome').append($heading, $image);
+    const $content = ui.el('div', 'welcome').append($heading, $image);
 
     return components.modal({
         name: 'welcome',

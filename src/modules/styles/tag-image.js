@@ -1,6 +1,6 @@
-export default ({ el, subscriptions }) => tagId => {
+export default ({ ui, subscriptions }) => tagId => {
 
-    const $style = el('style');
+    const $style = ui.el('style');
 
     subscriptions.tags.onChange(tagId, 'image', image => {
         $style.textContent = image ? `.tag${tagId} .tag-image { background-image: url(${image}); }` : '';

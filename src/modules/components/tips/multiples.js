@@ -1,6 +1,6 @@
-export default ({ el }) => () => {
+export default ({ ui }) => () => {
 
-    return el('div', 'multiples', {
+    return ui.el('div', 'multiples', {
         title: 'Multiples',
         innerHTML: `
             <p>

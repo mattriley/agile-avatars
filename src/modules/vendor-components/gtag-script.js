@@ -1,8 +1,8 @@
-export default ({ el, config }) => () => {
+export default ({ ui, config }) => () => {
 
     const { trackingId } = config.gtag;
 
-    return el('script', {
+    return ui.el('script', {
         src: `https://www.googletagmanager.com/gtag/js?id=${trackingId}`
     });
 

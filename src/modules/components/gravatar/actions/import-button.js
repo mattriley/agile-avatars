@@ -1,6 +1,6 @@
-export default ({ el, services, subscriptions, ui }) => () => {
+export default ({ ui, services, subscriptions }) => () => {
 
-    const $import = el('button', 'import', { textContent: 'Import' })
+    const $import = ui.el('button', 'import', { textContent: 'Import' })
         .addEventListener('click', () => {
             const { emails, fallback } = services.settings.getGravatar();
             services.tags.insertGravatarBatchAsync(emails, fallback);

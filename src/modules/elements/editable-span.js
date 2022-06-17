@@ -1,8 +1,8 @@
-export default ({ el, ui }) => className => {
+export default ({ ui }) => className => {
 
     const dispatchChange = () => $span.dispatchEvent(ui.event('change'));
 
-    const $span = el('span', className)
+    const $span = ui.el('span', className)
         .addEventListener('blur', () => {
             dispatchChange();
         })

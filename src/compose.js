@@ -19,15 +19,16 @@ export default ({ window, overrides, configs }) => {
 
     // Presentation
     const { ui } = compose('ui', { window });
-    const { el } = ui;
-    const { elements } = compose('elements', { el, ui, util });
-    const { vendorComponents } = compose('vendorComponents', { el, ui, config, window });
-    const { components } = compose('components', { el, ui, elements, vendorComponents, vendorServices, services, subscriptions, util, config });
-    const { styles } = compose('styles', { el, ui, subscriptions, config });
+    const { elements } = compose('elements', { ui, util });
+    const { vendorComponents } = compose('vendorComponents', { ui, config, window });
+    const { components } = compose('components', { ui, elements, vendorComponents, vendorServices, services, subscriptions, util, config });
+    const { styles } = compose('styles', { ui, subscriptions, config });
 
     // Startup    
     compose('diagnostics', { stores, util });
-    compose('startup', { ui, components, styles, services, subscriptions, stores, util, config, window });
+    const { startup } = compose('startup', { ui, components, styles, services, subscriptions, stores, util, config, window });
+
+    console.warn(startup);
 
     return compose;
 

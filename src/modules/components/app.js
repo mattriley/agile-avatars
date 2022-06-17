@@ -1,13 +1,13 @@
-export default ({ el, ui, components, vendorComponents, subscriptions }) => () => {
+export default ({ ui, components, vendorComponents, subscriptions }) => () => {
 
     const $$modals = Object.values(components.modals).map(modal => modal());
 
-    const $container = el('div', 'app').append(
+    const $container = ui.el('div', 'app').append(
         vendorComponents.gtagScript(),
-        el('div', 'modals').append(...$$modals),
+        ui.el('div', 'modals').append(...$$modals),
         components.header.container(),
         components.dropzone().append(
-            el('div', 'control-panel').append(
+            ui.el('div', 'control-panel').append(
                 components.imageUploadOptions.container(),
                 components.roleList.container(),
                 components.optionsBar.container()

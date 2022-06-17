@@ -1,6 +1,6 @@
-export default ({ el, subscriptions, config }) => () => {
+export default ({ ui, subscriptions, config }) => () => {
 
-    const $style = el('style');
+    const $style = ui.el('style');
 
     subscriptions.settings.onChange('options', 'size', size => {
         const width = size - (config.tags.imagePadding * 2);

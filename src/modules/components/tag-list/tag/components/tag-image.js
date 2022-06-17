@@ -1,6 +1,6 @@
-export default ({ el }) => () => {
+export default ({ ui }) => () => {
 
-    return el('div', 'tag-image');
+    return ui.el('div', 'tag-image');
 
 };
 

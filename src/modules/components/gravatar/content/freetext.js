@@ -1,6 +1,6 @@
-export default ({ el, services, subscriptions, elements }) => () => {
+export default ({ ui, services, subscriptions, elements }) => () => {
 
-    const $freetext = el('textarea', 'freetext')
+    const $freetext = ui.el('textarea', 'freetext')
         .addEventListener('input', () => {
             services.gravatar.changeFreetext($freetext.value);
         });

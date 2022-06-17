@@ -1,6 +1,6 @@
-export default ({ el }) => () => {
+export default ({ ui }) => () => {
 
-    return el('div', {
+    return ui.el('div', {
         title: 'Role shortcut',
         innerHTML: `
             <p>Roles can be set quickly by appending <mark>+role</mark> to a name. This applies to:</p>

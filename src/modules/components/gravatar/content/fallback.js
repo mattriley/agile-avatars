@@ -1,6 +1,6 @@
-export default ({ el, services, subscriptions, ui }) => fallback => {
+export default ({ ui, services, subscriptions }) => fallback => {
 
-    const $fallback = el('img', 'fallback', {
+    const $fallback = ui.el('img', 'fallback', {
         title: fallback,
         src: `img/gravatar-fallbacks/${fallback}.png`
     }).addEventListener('click', () => {

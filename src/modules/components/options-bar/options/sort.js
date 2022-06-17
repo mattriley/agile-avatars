@@ -1,10 +1,10 @@
-export default ({ el, elements, services, subscriptions, config }) => () => {
+export default ({ ui, elements, services, subscriptions, config }) => () => {
 
     const $$options = Object.entries(config.options.sort).map(([value, textContent]) => {
-        return el('option', { value, textContent });
+        return ui.el('option', { value, textContent });
     });
 
-    const $keepSorted = el('select')
+    const $keepSorted = ui.el('select')
         .append(...$$options)
         .addEventListener('change', () => {
             services.settings.changeOption('sort', $keepSorted.value);
