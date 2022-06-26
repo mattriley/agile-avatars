@@ -1,7 +1,4 @@
-export default ({ startup, components, config, window }) => ({ composition }) => {
-
-    window.document.title = config.app.name;
-    window.app = composition;
+export default ({ startup, components }) => () => {
 
     startup.insertNilRole();
     startup.createHandlers();

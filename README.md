@@ -187,7 +187,11 @@ const configs = [
 ];
 
 const composition = compose({ window, configs });
-const app = composition.modules.startup.start({ composition });
+const { config, modules } = composition;
+window.app = composition;
+window.document.title = config.app.name;
+
+const app = modules.startup.start();
 document.getElementById('app').append(app);
 ```
 </details>
@@ -793,10 +797,7 @@ Provides _startup functions_ which are used at [launch](#launching) time.
 <summary>src/modules/startup/start.js</summary>
 
 ```js
-export default ({ startup, components, config, window }) => ({ composition }) => {
-
-    window.document.title = config.app.name;
-    window.app = composition;
+export default ({ startup, components }) => () => {
 
     startup.insertNilRole();
     startup.createHandlers();
