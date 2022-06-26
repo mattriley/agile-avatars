@@ -7,6 +7,6 @@ const configs = [
     { sentry: { enabled: !isLocalhost } }
 ];
 
-const { modules, composition } = compose({ window, configs });
-const app = modules.startup.start({ composition });
+const composition = compose({ window, configs });
+const app = composition.modules.startup.start({ composition });
 document.getElementById('app').append(app);

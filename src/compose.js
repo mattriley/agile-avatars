@@ -28,6 +28,6 @@ export default ({ window, overrides, configs }) => {
     compose('diagnostics', { stores, util });
     compose('startup', { ui, components, styles, services, subscriptions, stores, util, config, window });
 
-    return compose;
+    return compose.end();
 
 };

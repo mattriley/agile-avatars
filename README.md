@@ -186,8 +186,8 @@ const configs = [
     { sentry: { enabled: !isLocalhost } }
 ];
 
-const { modules, composition } = compose({ window, configs });
-const app = modules.startup.start({ composition });
+const composition = compose({ window, configs });
+const app = composition.modules.startup.start({ composition });
 document.getElementById('app').append(app);
 ```
 </details>
@@ -259,7 +259,7 @@ export default ({ window, overrides, configs }) => {
     compose('diagnostics', { stores, util });
     compose('startup', { ui, components, styles, services, subscriptions, stores, util, config, window });
 
-    return compose;
+    return compose.end();
 
 };
 ```
@@ -308,24 +308,28 @@ _module-composer_ is a small library that reduces the amount of boilerplate code
 <summary>node_modules/module-composer/src/module-composer.js</summary>
 
 ```js
-const mermaid = require('./mermaid');
-const eject = require('./eject');
 const util = require('./util');
+const eject = require('./eject');
+const mermaid = require('./mermaid');
+const performance = require('./performance');
 
 module.exports = (target, options = {}) => {
+
     const defaultOptions = {
         configKeys: ['defaultConfig', 'config', 'configs'],
         customiserFunction: 'setup',
         customiser: m => m[opts.customiserFunction] ? m[opts.customiserFunction]() : m
     };
 
+    let ended = false;
     const opts = util.merge({}, defaultOptions, options);
     const configs = util.flattenDeep(util.pickValues(options, opts.configKeys));
     const config = util.merge({}, ...configs);
     const modules = { ...target };
     const dependencies = util.mapValues(modules, () => []);
     const composedDependencies = {};
-    const propTargets = { target, config, modules, dependencies, composedDependencies };
+    const stats = { totalDuration: 0, modules: {} };
+    const propTargets = { target, config, modules, dependencies, composedDependencies, stats };
 
     const recurse = (target, parentKey, [moduleArgs, ...otherArgs]) => {
         if (!util.isPlainObject(target)) return target;
@@ -339,25 +343,31 @@ module.exports = (target, options = {}) => {
     };
 
     const compose = (key, moduleArgs = {}, ...otherArgs) => {
+        if (ended) throw new Error('Composition has ended');
         if (!util.has(target, key)) throw new Error(`${key} not found`);
+        const startTime = performance.now();
         const moduleArgsWithDefaults = { ...options.defaults, ...moduleArgs };
         const module = opts.customiser(recurse(util.get(target, key), key, [moduleArgsWithDefaults, ...otherArgs]) ?? {});
         util.set(modules, key, util.override({ [key]: module }, options.overrides)[key]);
         dependencies[key] = composedDependencies[key] = Object.keys(moduleArgsWithDefaults);
+        const duration = performance.now() - startTime;
+        util.set(stats.modules, [key, 'duration'], duration);
+        stats.totalDuration += duration;
         return modules;
     };
 
-    const props = Object.entries(propTargets).flatMap(([key, val]) => [
-        [`get${util.upperFirst(key)}`, { value: () => ({ ...val }) }],
+    const propEntries = Object.entries(propTargets).flatMap(([key, val]) => [
         [key, { get() { return { ...val }; } }]
     ]).concat([
         ['mermaid', { value: opts => mermaid(dependencies, opts) }],
         ['eject', { value: () => eject(target, composedDependencies) }]
-    ]).map(([key, def]) => [key, { ...def, enumerable: true }]);
+    ]);
 
-    const composition = compose.composition = Object.defineProperties({}, Object.fromEntries(props));
-    Object.defineProperties(compose, Object.fromEntries(props));
-    return { compose, composition, config };
+    const props = Object.fromEntries(propEntries);
+    Object.defineProperties(compose, props);
+    compose.end = () => { ended = true; return Object.defineProperties({}, props); };
+    return { compose, config };
+
 };
 ```
 </details>
@@ -1707,56 +1717,6 @@ Presenting a color picker to change the color of a role.
 
 # List of Development Dependencies
 
-## c8
-
-> output coverage reports using Node.js' built in coverage
-
-- Homepage: undefined
-- __12__ dependencies :warning:
-
-#### Used for
-
-Code coverage
-
-
-
-#### Alternatives considered
-
-- __nyc__\
-nyc was originally used for code coverage and was fine however c8 was chosen for leveraging [native coverage](https://nodejs.org/dist/latest-v10.x/docs/api/cli.html#cli_node_v8_coverage_dir) in recent versions of Node and V8
-
-## chokidar-cli
-
-> Ultra-fast cross-platform command line utility to watch file system changes.
-
-- Homepage: https://github.com/open-npm-tools/chokidar-cli
-- __4__ dependencies :white_check_mark:
-
-#### Used for
-
-Running tests automatically on file change.
-
-
-
-
-## eslint
-
-> An AST-based pattern checker for JavaScript.
-
-- Homepage: https://eslint.org
-- __35__ dependencies :warning:
-
-#### Used for
-
-Linting and code formatting.
-
-
-
-#### Alternatives considered
-
-- __prettier__\
-Prettier was originally used for code formatting but was dropped due to limited configurability.
-
 ## events
 
 > undefined
@@ -1765,20 +1725,6 @@ Prettier was originally used for code formatting but was dropped due to limited 
 - __0__ dependencies :boom:
 
 
-
-
-
-
-## husky
-
-> Modern native Git hooks made easy
-
-- Homepage: https://typicode.github.io/husky
-- __0__ dependencies :boom:
-
-#### Used for
-
-Running pre-commit validation scripts.
 
 
 
@@ -1798,24 +1744,6 @@ Emulating a web browser so tests can be run with Node.js for speed.
 
 - __Low impact of material change__\
 There does not seem to be any viable replacement for JSDOM. The fallback would be to run the tests in a browser. The cost is estimated to be low.
-
-
-
-## module-indexgen
-
-> Generates barrel (index.js) files that rollup exports for each module in a directory and re-exports them as a single module.
-
-- Homepage: https://github.com/mattriley/node-module-indexgen
-- __4__ dependencies :white_check_mark:
-
-#### Used for
-
-Generating index.js files.
-
-#### Comments
-
-- __No alternative that more closely matches the need exists__\
-This library was extracted from Agile Avatars.
 
 
 
