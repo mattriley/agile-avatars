@@ -311,25 +311,29 @@ _module-composer_ is a small library that reduces the amount of boilerplate code
 const util = require('./util');
 const eject = require('./eject');
 const mermaid = require('./mermaid');
-const performance = require('./performance');
 
-module.exports = (target, options = {}) => {
+module.exports = (target, userOptions = {}) => {
 
     const defaultOptions = {
+        stats: true,
         configKeys: ['defaultConfig', 'config', 'configs'],
         customiserFunction: 'setup',
-        customiser: m => m[opts.customiserFunction] ? m[opts.customiserFunction]() : m
+        customiser: m => m[options.customiserFunction] ? m[options.customiserFunction]() : m
     };
 
     let ended = false;
-    const opts = util.merge({}, defaultOptions, options);
-    const configs = util.flattenDeep(util.pickValues(options, opts.configKeys));
-    const config = util.merge({}, ...configs);
-    const modules = { ...target };
-    const dependencies = util.mapValues(modules, () => []);
-    const composedDependencies = {};
-    const stats = { totalDuration: 0, modules: {} };
-    const propTargets = { target, config, modules, dependencies, composedDependencies, stats };
+    const options = util.merge({}, defaultOptions, userOptions);
+    const config = util.mergeConfig(options, options.configKeys);
+
+    const props = {
+        defaultOptions, userOptions, options, config, target,
+        modules: { ...target },
+        dependencies: util.mapValues(target, () => []),
+        composedDependencies: {},
+        stats: { totalDuration: 0, modules: {} },
+        mermaid: opts => mermaid(props.dependencies, opts),
+        eject: () => eject(target, props.composedDependencies)
+    };
 
     const recurse = (target, parentKey, [moduleArgs, ...otherArgs]) => {
         if (!util.isPlainObject(target)) return target;
@@ -342,30 +346,30 @@ module.exports = (target, options = {}) => {
         return Object.assign(product, newObj);
     };
 
-    const compose = (key, moduleArgs = {}, ...otherArgs) => {
+    const baseCompose = (key, moduleArgs = {}, ...otherArgs) => {
         if (ended) throw new Error('Composition has ended');
+        if (!key) throw new Error('key is required');
         if (!util.has(target, key)) throw new Error(`${key} not found`);
-        const startTime = performance.now();
+        if (props.composedDependencies[key]) throw new Error(`${key} already composed`);
         const moduleArgsWithDefaults = { ...options.defaults, ...moduleArgs };
-        const module = opts.customiser(recurse(util.get(target, key), key, [moduleArgsWithDefaults, ...otherArgs]) ?? {});
-        util.set(modules, key, util.override({ [key]: module }, options.overrides)[key]);
-        dependencies[key] = composedDependencies[key] = Object.keys(moduleArgsWithDefaults);
-        const duration = performance.now() - startTime;
-        util.set(stats.modules, [key, 'duration'], duration);
-        stats.totalDuration += duration;
-        return modules;
+        const module = options.customiser(recurse(util.get(target, key), key, [moduleArgsWithDefaults, ...otherArgs]) ?? {});
+        util.set(props.modules, key, util.override({ [key]: module }, options.overrides)[key]);
+        props.dependencies[key] = props.composedDependencies[key] = Object.keys(moduleArgsWithDefaults);
+        return props.modules;
     };
 
-    const propEntries = Object.entries(propTargets).flatMap(([key, val]) => [
-        [key, { get() { return { ...val }; } }]
-    ]).concat([
-        ['mermaid', { value: opts => mermaid(dependencies, opts) }],
-        ['eject', { value: () => eject(target, composedDependencies) }]
-    ]);
+    const timedCompose = (key, moduleArgs = {}, ...otherArgs) => {
+        const startTime = performance.now();
+        const result = baseCompose(key, moduleArgs, ...otherArgs);
+        const duration = performance.now() - startTime;
+        util.set(props.stats.modules, [key, 'duration'], duration);
+        props.stats.totalDuration += duration;
+        return result;
+    };
 
-    const props = Object.fromEntries(propEntries);
-    Object.defineProperties(compose, props);
-    compose.end = () => { ended = true; return Object.defineProperties({}, props); };
+    const end = () => { ended = true; return props; };
+    const compose = options.stats ? timedCompose : baseCompose;
+    Object.assign(compose, props, { end });
     return { compose, config };
 
 };
