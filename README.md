@@ -315,19 +315,13 @@ _module-composer_ is a small library that reduces the amount of boilerplate code
 const util = require('./util');
 const eject = require('./eject');
 const mermaid = require('./mermaid');
+const defaultOptions = require('./default-options');
 
 module.exports = (target, userOptions = {}) => {
 
-    const defaultOptions = {
-        stats: true,
-        configKeys: ['defaultConfig', 'config', 'configs'],
-        customiserFunction: 'setup',
-        customiser: m => m[options.customiserFunction] ? m[options.customiserFunction]() : m
-    };
-
     let ended = false;
     const options = util.merge({}, defaultOptions, userOptions);
-    const config = util.mergeConfig(options, options.configKeys);
+    const config = util.mergeValues({}, options, options.configKeys);
 
     const props = {
         defaultOptions, userOptions, options, config, target,
@@ -339,32 +333,31 @@ module.exports = (target, userOptions = {}) => {
         eject: () => eject(target, props.composedDependencies)
     };
 
-    const recurse = (target, parentKey, [moduleArgs, ...otherArgs]) => {
+    const recurse = (target, parentKey, deps) => {
         if (!util.isPlainObject(target)) return target;
         const product = {};
-        const newModulesArgs = { ...moduleArgs };
-        util.set(newModulesArgs, parentKey, product);
-        const newArgs = [newModulesArgs, ...otherArgs];
-        const evaluate = (val, key) => util.isPlainFunction(val) ? val(...newArgs) : recurse(val, key, newArgs);
-        const newObj = util.mapValues(target, evaluate);
-        return Object.assign(product, newObj);
+        deps = util.set({ ...deps }, parentKey, product);
+        const evaluate = (val, key) => util.isPlainFunction(val) ? val(deps) : recurse(val, key, deps);
+        return Object.assign(product, util.mapValues(target, evaluate));
     };
 
-    const baseCompose = (key, moduleArgs = {}, ...otherArgs) => {
+    const baseCompose = (key, deps = {}) => {
         if (ended) throw new Error('Composition has ended');
         if (!key) throw new Error('key is required');
         if (!util.has(target, key)) throw new Error(`${key} not found`);
         if (props.composedDependencies[key]) throw new Error(`${key} already composed`);
-        const moduleArgsWithDefaults = { ...options.defaults, ...moduleArgs };
-        const module = options.customiser(recurse(util.get(target, key), key, [moduleArgsWithDefaults, ...otherArgs]) ?? {});
-        util.set(props.modules, key, util.override({ [key]: module }, options.overrides)[key]);
-        props.dependencies[key] = props.composedDependencies[key] = Object.keys(moduleArgsWithDefaults);
+        deps = { ...options.defaults, ...deps };
+        const recursed = recurse(util.get(target, key), key, deps);
+        const customised = util.invoke(recursed, options.customiser, recursed) ?? recursed;
+        const overridden = util.merge({}, customised, util.get(options.overrides, key));
+        util.set(props.modules, key, overridden);
+        props.dependencies[key] = props.composedDependencies[key] = Object.keys(deps);
         return props.modules;
     };
 
-    const timedCompose = (key, moduleArgs = {}, ...otherArgs) => {
+    const timedCompose = (key, deps = {}) => {
         const startTime = performance.now();
-        const result = baseCompose(key, moduleArgs, ...otherArgs);
+        const result = baseCompose(key, deps);
         const duration = performance.now() - startTime;
         util.set(props.stats.modules, [key, 'duration'], duration);
         props.stats.totalDuration += duration;

@@ -11,7 +11,7 @@
         "@sentry/browser": "^7.3.0",
         "blueimp-md5": "^2.19.0",
         "lodash": "^4.17.21",
-        "module-composer": "^0.41.0",
+        "module-composer": "^0.42.0",
         "vanilla-picker": "github:mattriley/vanilla-picker"
     },
     "devDependencies": {
@@ -20,7 +20,7 @@
         "parcel": "^2.6.2",
         "process": "^0.11.10",
         "task-library": "^0.2.4",
-        "zora": "^5.0.3",
+        "zora": "^5.0.4",
         "zora-reporters": "^1.3.2"
     },
     "browserslist": [
