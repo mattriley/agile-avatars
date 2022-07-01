@@ -1618,7 +1618,7 @@ According to [this issue](https://github.com/blueimp/JavaScript-MD5/issues/26), 
 
 ## module-composer
 
-> A tiny but powerful closure-based module composition utility.
+> Bring order to chaos. Level up your JS application architecture with Module Composer, a tiny but powerful module composition utility based on functional dependency injection.
 
 - Homepage: https://github.com/mattriley/node-module-composer
 - __2__ dependencies :white_check_mark:
