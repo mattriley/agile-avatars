@@ -5,7 +5,7 @@
     <code>1657 sloc</code>&nbsp;
     <code>166 files</code>&nbsp;
     <code>5 deps</code>&nbsp;
-    <code>7 dev deps</code></p>
+    <code>9 dev deps</code></p>
 
 Great looking avatars for your agile board and experiment in FRAMEWORK-LESS, vanilla JavaScript.
 
@@ -65,6 +65,8 @@ Great looking avatars for your agile board and experiment in FRAMEWORK-LESS, van
   - [task-library](#task-library)
   - [zora](#zora)
   - [zora-reporters](#zora-reporters)
+  - [flat](#flat)
+  - [yaml](#yaml)
 - [Functional Programming](#functional-programming)
 - [Conventions](#conventions)
   - [Code](#code)
@@ -1686,6 +1688,30 @@ Lightweight test harness optimised for speed and simplicity.
 tape was originally used however zora is newer and has some advantages over tape.
 
 ## zora-reporters
+
+> undefined
+
+- Homepage: undefined
+- __0__ dependencies :boom:
+
+
+
+
+
+
+## flat
+
+> undefined
+
+- Homepage: undefined
+- __0__ dependencies :boom:
+
+
+
+
+
+
+## yaml
 
 > undefined
 

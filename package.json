@@ -22,7 +22,9 @@
         "process": "^0.11.10",
         "task-library": "^0.3.39",
         "zora": "^5.0.4",
-        "zora-reporters": "^1.3.2"
+        "zora-reporters": "^1.3.2",
+        "flat": "^5.0.2",
+        "yaml": "^2.1.1"
     },
     "browserslist": [
         ">1%",

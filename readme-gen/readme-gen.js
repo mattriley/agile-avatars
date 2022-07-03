@@ -1,5 +1,5 @@
 const process = require('process');
-const compose = require('../compose');
+const compose = require('./compose');
 const targetDir = process.cwd();
 
 const start = async () => {
