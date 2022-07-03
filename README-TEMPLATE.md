@@ -4,7 +4,7 @@
 
 > Agile Avatars makes it quick and easy to know who's working on what with great looking avatars for your agile board. No more fiddling with Word or Google Docs making sure everything aligns just right. Simply drag and drop your images, make some adjustments, print, and laminate!
 
-<%- await renderImage('readme-files/demo.gif', 'Agile Avatars in action') %>
+<%- await lib.renderImage('readme-files/demo.gif', 'Agile Avatars in action') %>
 
 Agile Avatars is also an experiment in developing a web application under an extreme set of constraints designed to preclude mainstream solutions. Bare in mind that Agile Avatars is small and doesn't necessarily cover every concern found in a typical web application. It does however do enough to present some interesting design challenges, especially around code organisation, dependency management, state management and view rendering. 
 

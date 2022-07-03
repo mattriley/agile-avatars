@@ -10,4 +10,4 @@
 
 - Install iTermocil and launch the pre-configured layout: `./task itermocil`
 
-<%- await renderImage('readme-files/itermocil.png', 'iTerm2 pre-configured layout') %>
+<%- await lib.renderImage('readme-files/itermocil.png', 'iTerm2 pre-configured layout') %>

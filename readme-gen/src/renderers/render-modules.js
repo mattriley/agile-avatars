@@ -1,11 +1,12 @@
 const ejs = require('ejs');
 const flatten = require('flat');
 const _ = require('lodash');
+const lib = require('task-library/src/lib/readme-gen');
 
-module.exports = ({ renderers }) => async ({ context, moduleNames, moduleTemplates, renderImage }) => {
+module.exports = ({ renderers }) => async ({ context, moduleNames, moduleTemplates }) => {
 
     const { renderCodeFile } = renderers;
-    const templateData = { renderCodeFile, renderImage, context, flatten };
+    const templateData = { renderCodeFile, context, flatten };
 
     const modules = await Promise.all(moduleNames.map(async name => {
         const collaborators = renderers.renderCollaborators({ moduleName: name });
@@ -31,7 +32,7 @@ module.exports = ({ renderers }) => async ({ context, moduleNames, moduleTemplat
 
         };
 
-        const content = await ejs.render(template, { renderIndex, collaborators, ...templateData }, { async: true });
+        const content = await ejs.render(template, { renderIndex, collaborators, ...templateData, lib }, { async: true });
         const title = `## ${name}\n`;
         //const block = renderers.renderCollaborators({ moduleName: name })
         // return [title, block, content].join('\n\n')

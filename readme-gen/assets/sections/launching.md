@@ -22,6 +22,6 @@ The following code is referenced by index.html and launches the application:
 
 Note: `window.agileavatars` changed to `window.app`.
 
-<%- await renderImage('readme-files/console-modules.png', 'Application modules logged to the console') %>
+<%- await lib.renderImage('readme-files/console-modules.png', 'Application modules logged to the console') %>
 
-<%- await renderImage('readme-files/console-state.png', 'Application state logged to the console') %>
+<%- await lib.renderImage('readme-files/console-state.png', 'Application state logged to the console') %>

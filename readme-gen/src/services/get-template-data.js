@@ -15,9 +15,8 @@ module.exports = ({ composition, io, services, renderers }) => async () => {
         templateData: {
             depTable: renderers.renderDepTable(),
             renderCodeFile: renderers.renderCodeFile,
-            renderImage: services.renderImage,
             moduleGraph: renderers.renderModuleGraph,
-            modules: renderers.renderModules({ context, moduleNames, moduleTemplates, renderers: renderers.renderCodeFile, renderImage: services.renderImage, renderCollaborators: services.renderCollaborators }),
+            modules: renderers.renderModules({ context, moduleNames, moduleTemplates, renderers: renderers.renderCodeFile, renderCollaborators: services.renderCollaborators }),
             dependencies: {
                 constraints: renderers.renderDependencyConstraints({ dependencyConstraints }),
                 production: renderDependencies('dependencies'),
@@ -32,10 +31,8 @@ module.exports = ({ composition, io, services, renderers }) => async () => {
             production: renderDependencies('dependencies'),
             development: renderDependencies('devDependencies')
         },
-        modules: renderers.renderModules({ context, moduleNames, moduleTemplates, renderCodeFile: renderers.renderCodeFile, renderImage: services.renderImage }),
-        renderSection,
-        renderImage: services.renderImage,
-        // moduleGraph: renderers.moduleGraph,
+        modules: renderers.renderModules({ context, moduleNames, moduleTemplates, renderCodeFile: renderers.renderCodeFile }),
+        renderSection
     };
 
 };
