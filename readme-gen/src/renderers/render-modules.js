@@ -2,8 +2,9 @@ const ejs = require('ejs');
 const flatten = require('flat');
 const _ = require('lodash');
 
-module.exports = ({ renderers }) => async ({ context, moduleNames, moduleTemplates, renderCodeFile, renderImage, renderCollaborators }) => {
+module.exports = ({ renderers }) => async ({ context, moduleNames, moduleTemplates, renderImage }) => {
 
+    const { renderCodeFile } = renderers;
     const templateData = { renderCodeFile, renderImage, context, flatten };
 
     const modules = await Promise.all(moduleNames.map(async name => {
