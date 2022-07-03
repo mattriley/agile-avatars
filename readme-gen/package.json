@@ -5,7 +5,6 @@
     "license": "GPL-3.0-or-later",
     "repository": "github:mattriley/agileavatars-docgen",
     "bin": {
-        "diagram-gen": "bin/diagram-gen",
         "drawio-gen": "bin/drawio-gen",
         "readme-gen": "bin/readme-gen.js"
     },
@@ -16,8 +15,5 @@
         "lodash": "^4.17.21",
         "module-composer": "^0.53.0",
         "yaml": "^2.1.1"
-    },
-    "devDependencies": {
-        "task-library": "^0.3.34"
     }
 }

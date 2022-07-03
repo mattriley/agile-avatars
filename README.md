@@ -76,10 +76,10 @@ Great looking avatars for your agile board and experiment in FRAMEWORK-LESS, van
 
 > Agile Avatars makes it quick and easy to know who's working on what with great looking avatars for your agile board. No more fiddling with Word or Google Docs making sure everything aligns just right. Simply drag and drop your images, make some adjustments, print, and laminate!
 
-<br>
+<br />
 <p align="center">
   <img src="readme-files/demo.gif?raw=true" />
-  <br>
+  <br />
   <em>Agile Avatars in action</em>
 </p>
 <br>
@@ -107,10 +107,10 @@ The solutions are designed around the needs of this application at this point in
 
 - Install iTermocil and launch the pre-configured layout: `./task itermocil`
 
-<br>
+<br />
 <p align="center">
   <img src="readme-files/itermocil.png?raw=true" />
-  <br>
+  <br />
   <em>iTerm2 pre-configured layout</em>
 </p>
 <br>
@@ -183,10 +183,10 @@ Further reading:
 
 With the plethora of frontend architectural styles in use today, this application takes a _back to basics_ approach with a classic layered architecture. The thought being that the simplicity and familiarity of this architectural style would be approachable for a wide audience including backend developers with limited exposure to frontend development.
 
-<br>
+<br />
 <p align="center">
   <img src="readme-files/architecture.svg?raw=true" />
-  <br>
+  <br />
   <em>Presentation-Domain-Data layered architecture</em>
 </p>
 <br>
@@ -240,18 +240,18 @@ document.getElementById('app').append(app);
 
 Note: `window.agileavatars` changed to `window.app`.
 
-<br>
+<br />
 <p align="center">
   <img src="readme-files/console-modules.png?raw=true" />
-  <br>
+  <br />
   <em>Application modules logged to the console</em>
 </p>
 <br>
 
-<br>
+<br />
 <p align="center">
   <img src="readme-files/console-state.png?raw=true" />
-  <br>
+  <br />
   <em>Application state logged to the console</em>
 </p>
 <br>

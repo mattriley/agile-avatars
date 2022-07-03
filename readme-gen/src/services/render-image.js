@@ -1,16 +1,8 @@
+const lib = require('task-library/src/lib/readme-gen');
+
 module.exports = () => (path, caption) => {
 
-    const lines = [
-        '<br>',
-        '<p align="center">',
-        `  <img src="${path}?raw=true" />`,
-        '  <br>',
-        `  <em>${caption}</em>`,
-        '</p>',
-        '<br>',
-    ];
-    
-    return lines.join('\n');
+    return lib.renderImage(path, caption);
 
 };
 

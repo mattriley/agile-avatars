@@ -1,7 +1,7 @@
-const path = require('path');
 const sortBy = require('lodash/sortBy');
+const lib = require('task-library/src/lib/readme-gen');
 
-module.exports = ({ targetDir, bootAgileAvatars: boot }) => ({ include }) => {
+module.exports = ({ targetDir }) => async ({ include }) => {
 
     // const boot = require(path.resolve(targetDir, 'boot'));
     // const boot = require(path.resolve(targetDir, 'src/boot'));
@@ -10,7 +10,8 @@ module.exports = ({ targetDir, bootAgileAvatars: boot }) => ({ include }) => {
     // const configPath = path.resolve(targetDir, 'src/data/config.json');
     // const config = require(configPath);
 
-    const { dependencies } = boot({});
+    const dependencies = await lib.compose(c => c.dependencies, `${targetDir}/src/compose.js`);
+
     // const include = ['subscriptions', 'components', 'elements', 'styles', 'ui', , 'io', 'services', 'core', 'stores', 'window'];
 
     const pairs = Object.entries(dependencies)
@@ -22,4 +23,4 @@ module.exports = ({ targetDir, bootAgileAvatars: boot }) => ({ include }) => {
     const lines = sortedPairs.map(([key, dep]) => `    ${key}-->${dep};`);
     return ['graph TD;', ...lines].join('\n');
 
-}
+};

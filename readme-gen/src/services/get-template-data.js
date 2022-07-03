@@ -1,6 +1,6 @@
-const path = require('path');
+const lib = require('task-library/src/lib/readme-gen');
 
-module.exports = ({ bootAgileAvatars: boot, targetDir, io, services, renderers }) => async () => {
+module.exports = ({ targetDir, io, services, renderers }) => async () => {
     const moduleNames = await io.loadModuleNames();
     const moduleTemplates = await io.loadModuleTemplates();
     const dependencies = await io.loadDependencies(); // here
@@ -8,17 +8,8 @@ module.exports = ({ bootAgileAvatars: boot, targetDir, io, services, renderers }
     const package = await io.loadPackage();
     const sectionTemplates = await io.loadSectionTemplates();
 
-    // const boot = require(path.resolve(targetDir, 'boot'));
-    // const bootPath = path.resolve(targetDir, 'src/boot');
-    // const boot = require(bootPath);
-    // const { default: boot } = await import(path.resolve(targetDir, 'src/boot'))
+    const context = await lib.compose(c => c.modules, `${targetDir}/src/compose.js`);
 
-
-    // const configPath = path.resolve(targetDir, 'src/data/config.json');
-    // const config = require(configPath);
-
-    // const context = boot({ config });
-    const context = boot({}).modules;
 
     const renderDependencies = renderers.renderDependencies({ dependencyConstraints, dependencies, package });
     const renderSection = renderers.renderSection({

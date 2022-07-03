@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-DEST_DIR=$1
-SOURCE_FILE=$2
-DEST_FILE=$DEST_DIR/$(basename "${2%.*}").svg
-
-./node_modules/.bin/mmdc -i "$SOURCE_FILE" -o "$DEST_FILE"

@@ -1,23 +1,17 @@
-const path = require('path');
 const sortBy = require('lodash/sortBy');
 const _ = require('lodash');
+const lib = require('task-library/src/lib/readme-gen');
 
-module.exports = ({ targetDir, bootAgileAvatars: boot }) => () => {
+module.exports = ({ targetDir }) => async () => {
 
-    // const configPath = path.resolve(targetDir, 'src/data/config.json');
-    // const config = require(configPath);
-
-    // const boot = require(path.resolve(targetDir, 'src/boot'));
-    // const { default: boot } = await import(path.resolve(targetDir, 'src/boot'))
-
-    const { dependencies } = boot({});
+    const dependencies = await lib.compose(c => c.dependencies, `${targetDir}/src/compose.js`);
 
     dependencies.window = [];
 
     const keys = Object.keys(dependencies);
 
     let names = sortBy(Object.keys(dependencies), name => {
-        const deps = dependencies[name].filter(n => keys.includes(n)) // because will contain more than modules (e.g. el, window)
+        const deps = dependencies[name].filter(n => keys.includes(n)); // because will contain more than modules (e.g. el, window)
         return deps.length;
     }).reverse();
 
@@ -30,22 +24,22 @@ module.exports = ({ targetDir, bootAgileAvatars: boot }) => () => {
 
         const res = names.map(n => {
             if (n === name) return 'n/a';
-            const deps = dependencies[n]
-            return deps.includes(name) ? '✅' : '❌'
-        })
+            const deps = dependencies[n];
+            return deps.includes(name) ? '✅' : '❌';
+        });
 
-        const title = name //_.kebabCase(name).replace('-', ' ')
-        return [title, ...res].join(' | ')
+        const title = name; //_.kebabCase(name).replace('-', ' ')
+        return [title, ...res].join(' | ');
 
-    })
+    });
 
     const header = ['Modules', ...titles].join(' | ');
     const line = '--- | ' + titles.map(n => ':---:').join(' | ');
 
-    const allRows = [header, line, ...rows]
+    const allRows = [header, line, ...rows];
 
-    const res = allRows.join('\n')
+    const res = allRows.join('\n');
 
     return res;
 
-}
+};
