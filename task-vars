@@ -1,10 +1,6 @@
 #!/bin/bash
 
-export COV_BRANCHES=90
-export COV_LINES=90
-export COV_FUNCTIONS=90
-export COV_STATEMENTS=90
-
+export PROJECT_NAME="Agile Avatars"
 export INDEXGEN_PATHS=("$MODULES" "./testing/modules")
 export INDEXGEN_OPTIONS="--fullySpecified"
 
@@ -15,3 +11,8 @@ export PUBLIC_INDEX_HTML="$PUBLIC/index.html"
 export PUBLIC_CSS="$PUBLIC/css"
 export PUBLIC_IMAGES="$PUBLIC/img"
 export DEVSERVER_PORT="1234"
+
+export COV_BRANCHES=90
+export COV_LINES=90
+export COV_FUNCTIONS=90
+export COV_STATEMENTS=90

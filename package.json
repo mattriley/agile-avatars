@@ -3,6 +3,7 @@
     "version": "1.0.0",
     "description": "Great looking avatars for your agile board and experiment in FRAMEWORK-LESS, vanilla JavaScript.",
     "author": "Matt Riley",
+    "homepage": "https://github.com/mattriley/agileavatars",
     "license": "GPL-3.0-or-later",
     "repository": "github:mattriley/agileavatars",
     "private": true,
@@ -11,7 +12,7 @@
         "@sentry/browser": "^7.4.1",
         "blueimp-md5": "^2.19.0",
         "lodash": "^4.17.21",
-        "module-composer": "^0.51.0",
+        "module-composer": "^0.53.0",
         "vanilla-picker": "github:mattriley/vanilla-picker"
     },
     "devDependencies": {
@@ -19,7 +20,7 @@
         "jsdom": "^20.0.0",
         "parcel": "^2.6.2",
         "process": "^0.11.10",
-        "task-library": "^0.3.20",
+        "task-library": "^0.3.33",
         "zora": "^5.0.4",
         "zora-reporters": "^1.3.2"
     },

@@ -172,10 +172,7 @@ In order to isolate Parcel, only public may use Parcel loaders. This allows unit
 
 The following code is referenced by index.html and launches the application:
 
-
-<details open>
-<summary>src/app.js</summary>
-
+###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/master/src/app.js">src/app.js</a></p>
 ```js
 import compose from './compose';
 
@@ -194,7 +191,6 @@ window.document.title = config.app.name;
 const app = modules.startup.start();
 document.getElementById('app').append(app);
 ```
-</details>
 
 #### Launch sequence
 
@@ -228,10 +224,7 @@ Composing is the process of making the application _ready to launch_ and involve
 
 The compose function composes the application from modules in the src directory.
 
-
-<details open>
-<summary>src/compose.js</summary>
-
+###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/master/src/compose.js">src/compose.js</a></p>
 ```js
 import composer from 'module-composer';
 import modules from './modules/index.js';
@@ -267,7 +260,6 @@ export default ({ window, overrides, configs }) => {
 
 };
 ```
-</details>
 
 This _codified view_ of the architecture has some interesting implications:
 
@@ -327,10 +319,7 @@ On the file system, a module is simply a directory of sources files that follow 
 
 #### Example: Root index.js for components module
 
-
-<details open>
-<summary>src/modules/components/index.js</summary>
-
+###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/master/src/modules/components/index.js">src/modules/components/index.js</a></p>
 ```js
 import app from './app.js';
 import dropzone from './dropzone.js';
@@ -358,14 +347,10 @@ export default {
     tips
 };
 ```
-</details>
 
 #### Example: Curried function accepting collaborators
 
-
-<details open>
-<summary>src/modules/components/tag-list/tag/components/tag-name.js</summary>
-
+###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/master/src/modules/components/tag-list/tag/components/tag-name.js">src/modules/components/tag-list/tag/components/tag-name.js</a></p>
 ```js
 export default ({ elements, services, subscriptions }) => tagInstanceId => {
 
@@ -382,7 +367,6 @@ export default ({ elements, services, subscriptions }) => tagInstanceId => {
 
 };
 ```
-</details>
 
 This design has some interesting implications:
 
@@ -428,10 +412,7 @@ changeTagName updates the state of the underlying tag, which triggers a propagat
 
 tagName subscribes to tag name change events and updates the editable span with the new tag name.
 
-
-<details open>
-<summary>src/modules/components/tag-list/tag/components/tag-name.js</summary>
-
+###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/master/src/modules/components/tag-list/tag/components/tag-name.js">src/modules/components/tag-list/tag/components/tag-name.js</a></p>
 ```js
 export default ({ elements, services, subscriptions }) => tagInstanceId => {
 
@@ -448,7 +429,6 @@ export default ({ elements, services, subscriptions }) => tagInstanceId => {
 
 };
 ```
-</details>
 
 #### List of components
 
@@ -495,10 +475,7 @@ Provides _pure functions_ to be consumed by the _services_ module. Without core,
 
 parseEmailExpression is a pure function. Amongst other properties of pure functions, its return value is the same for the same arguments, and its evaluation has no side effects.
 
-
-<details open>
-<summary>src/modules/core/tags/parse-email-expression.js</summary>
-
+###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/master/src/modules/core/tags/parse-email-expression.js">src/modules/core/tags/parse-email-expression.js</a></p>
 ```js
 export default ({ util }) => expression => {
 
@@ -512,8 +489,14 @@ export default ({ util }) => expression => {
     return { email, username, emailOrUsername, roleName };
 
 };
+
+/* FOOTNOTES
+
+Example of complex expression: 'foo+bar@gmail.com+dev'
+=> { email: 'foo+bar@gmail.com', username: 'foo', emailOrUsername: 'foo+bar@gmail.com', roleName: 'dev' }
+
+*/
 ```
-</details>
 
 #### List of core functions
 
@@ -568,10 +551,7 @@ Provides _element factory functions_. An element is a HTML element that relies o
 
 #### Example: editableSpan
 
-
-<details open>
-<summary>src/modules/elements/editable-span.js</summary>
-
+###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/master/src/modules/elements/editable-span.js">src/modules/elements/editable-span.js</a></p>
 ```js
 export default ({ ui }) => className => {
 
@@ -592,8 +572,14 @@ export default ({ ui }) => className => {
 
     return $span;
 };
+
+/* FOOTNOTES
+
+- Content editable span preferred over text field for the ability to expand/contract while editing.
+- `e.preventDefault()` on enter key prevents cursor moving to next line.
+
+*/
 ```
-</details>
 
 #### List of elements
 
@@ -619,10 +605,7 @@ Provides _io functions_ while preventing direct access to _window_.
 
 _io_ is a single-file module:
 
-
-<details open>
-<summary>src/modules/io/setup.js</summary>
-
+###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/master/src/modules/io/setup.js">src/modules/io/setup.js</a></p>
 ```js
 export default ({ window }) => () => {
 
@@ -635,7 +618,6 @@ export default ({ window }) => () => {
 
 };
 ```
-</details>
 
 #### List of io functions
 
@@ -660,10 +642,7 @@ Provides _service functions_. Service functions perform effects by orchestrate t
 
 #### Example: changeTagName
 
-
-<details open>
-<summary>src/modules/services/tags/change-tag-name.js</summary>
-
+###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/master/src/modules/services/tags/change-tag-name.js">src/modules/services/tags/change-tag-name.js</a></p>
 ```js
 export default ({ core, services, stores }) => (tagInstanceId, expression) => {
 
@@ -679,7 +658,6 @@ export default ({ core, services, stores }) => (tagInstanceId, expression) => {
 
 };
 ```
-</details>
 
 #### List of service functions
 
@@ -721,10 +699,7 @@ Provides _startup functions_ which are used at [launch](#launching) time.
 
 #### Example: start
 
-
-<details open>
-<summary>src/modules/startup/start.js</summary>
-
+###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/master/src/modules/startup/start.js">src/modules/startup/start.js</a></p>
 ```js
 export default ({ startup, components }) => () => {
 
@@ -736,7 +711,6 @@ export default ({ startup, components }) => () => {
 
 };
 ```
-</details>
 
 ## storage
 
@@ -754,10 +728,7 @@ Provides the _state store implementation_. State stores manage state changes and
 
 _storage_ is a single-file module:
 
-
-<details >
-<summary>src/modules/storage/state-store.js</summary>
-
+###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/master/src/modules/storage/state-store.js">src/modules/storage/state-store.js</a></p>
 ```js
 import EventEmitter from 'events';
 
@@ -822,7 +793,6 @@ export default (defaults = {}) => {
 
 };
 ```
-</details>
 
 ## stores
 
@@ -840,10 +810,7 @@ Provides the _state stores_. State stores manage state changes and raise change 
 
 `stores` is a single-file module that creates stores dynamically from _config_:
 
-
-<details open>
-<summary>src/modules/stores/setup.js</summary>
-
+###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/master/src/modules/stores/setup.js">src/modules/stores/setup.js</a></p>
 ```js
 export default ({ storage, config }) => () => {
 
@@ -855,7 +822,6 @@ export default ({ storage, config }) => () => {
 
 };
 ```
-</details>
 
 #### List of stores
 
@@ -878,10 +844,7 @@ Provides _style factory functions_. A style is simply a HTML style element that 
 
 #### Example: roleColor
 
-
-<details open>
-<summary>src/modules/styles/role-color.js</summary>
-
+###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/master/src/modules/styles/role-color.js">src/modules/styles/role-color.js</a></p>
 ```js
 export default ({ ui, subscriptions }) => roleId => {
 
@@ -898,14 +861,10 @@ export default ({ ui, subscriptions }) => roleId => {
 
 };
 ```
-</details>
 
 #### Source: styleManager
 
-
-<details open>
-<summary>src/modules/startup/create-style-manager.js</summary>
-
+###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/master/src/modules/startup/create-style-manager.js">src/modules/startup/create-style-manager.js</a></p>
 ```js
 export default ({ styles, subscriptions, ui, util }) => () => {
 
@@ -917,7 +876,6 @@ export default ({ styles, subscriptions, ui, util }) => () => {
 
 };
 ```
-</details>
 
 #### List of styles
 
@@ -952,10 +910,7 @@ The _subscriptions_ module was introduced to allow Components to subscribe to st
 
 _subscriptions_ is a single-file module that exposes only subscriptions from the stores:
 
-
-<details open>
-<summary>src/modules/subscriptions/setup.js</summary>
-
+###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/master/src/modules/subscriptions/setup.js">src/modules/subscriptions/setup.js</a></p>
 ```js
 export default ({ stores, util }) => () => {
 
@@ -963,7 +918,6 @@ export default ({ stores, util }) => () => {
 
 };
 ```
-</details>
 
 ## ui
 
@@ -1041,10 +995,7 @@ gtag is short for Google Global Site Tag.
 
 gtag depends on window for global variables to work correctly.
 
-
-<details open>
-<summary>src/modules/vendor-services/gtag.js</summary>
-
+###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/master/src/modules/vendor-services/gtag.js">src/modules/vendor-services/gtag.js</a></p>
 ```js
 /* eslint-disable */
 
@@ -1068,7 +1019,6 @@ export default ({ config, io, window }) => {
 
 };
 ```
-</details>
 
 #### List of vendor services
 
@@ -1114,10 +1064,7 @@ State is managed by a series of _state stores_.
 
 A __state store__ is collection of data items keyed by a unique identifier and managed using typical CRUD operations such as insert, find, update, remove.
 
-
-<details >
-<summary>src/modules/storage/state-store.js</summary>
-
+###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/master/src/modules/storage/state-store.js">src/modules/storage/state-store.js</a></p>
 ```js
 import EventEmitter from 'events';
 
@@ -1182,14 +1129,10 @@ export default (defaults = {}) => {
 
 };
 ```
-</details>
 
 #### Example: Inserting a role
 
-
-<details open>
-<summary>src/modules/services/roles/insert-role.js</summary>
-
+###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/master/src/modules/services/roles/insert-role.js">src/modules/services/roles/insert-role.js</a></p>
 ```js
 export default ({ core, services, subscriptions, stores, io }) => roleData => {
 
@@ -1201,14 +1144,10 @@ export default ({ core, services, subscriptions, stores, io }) => roleData => {
 
 };
 ```
-</details>
 
 #### Example: Changing a role name
 
-
-<details open>
-<summary>src/modules/services/roles/change-role-name.js</summary>
-
+###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/master/src/modules/services/roles/change-role-name.js">src/modules/services/roles/change-role-name.js</a></p>
 ```js
 export default ({ core, stores }) => (roleId, roleName) => {
 
@@ -1218,7 +1157,6 @@ export default ({ core, stores }) => (roleId, roleName) => {
 
 };
 ```
-</details>
 
 ## Subscriptions
 
@@ -1230,10 +1168,7 @@ During [compose](#composing) time, subscription functions are extracted from the
 
 #### Example: Reacting to a new role being inserted
 
-
-<details open>
-<summary>src/modules/components/role-list/container.js</summary>
-
+###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/master/src/modules/components/role-list/container.js">src/modules/components/role-list/container.js</a></p>
 ```js
 export default ({ ui, roleList, subscriptions }) => () => {
 
@@ -1252,14 +1187,10 @@ export default ({ ui, roleList, subscriptions }) => () => {
 
 };
 ```
-</details>
 
 ### Example: Reacting to a role name change
 
-
-<details open>
-<summary>src/modules/components/role-list/role-customiser/master-role-name.js</summary>
-
+###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/master/src/modules/components/role-list/role-customiser/master-role-name.js">src/modules/components/role-list/role-customiser/master-role-name.js</a></p>
 ```js
 export default ({ elements, services, subscriptions }) => roleId => {
 
@@ -1276,7 +1207,6 @@ export default ({ elements, services, subscriptions }) => roleId => {
 
 };
 ```
-</details>
 
 
 # View Rendering
@@ -1322,10 +1252,7 @@ $div.addEventListener('click', clickHandler);
 
 #### Source: el
 
-
-<details open>
-<summary>src/modules/ui/el.js</summary>
-
+###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/master/src/modules/ui/el.js">src/modules/ui/el.js</a></p>
 ```js
 export default ({ window }) => (tagName, ...opts) => {
 
@@ -1340,7 +1267,6 @@ export default ({ window }) => (tagName, ...opts) => {
 
 };
 ```
-</details>
 
 ### Observations
 
@@ -1356,10 +1282,7 @@ Because ultimately this approach uses `document.createElement` to create element
 
 This example uses `el` to create an element, but assigns a HTML string to `innerHTML` rather than appending child elements.
 
-
-<details open>
-<summary>src/modules/components/tips/naming.js</summary>
-
+###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/master/src/modules/components/tips/naming.js">src/modules/components/tips/naming.js</a></p>
 ```js
 export default ({ ui }) => () => {
 
@@ -1375,7 +1298,6 @@ export default ({ ui }) => () => {
 
 };
 ```
-</details>
 
 
 # Testing 
@@ -1388,10 +1310,7 @@ The application is tested from the outside-in, starting with the components. A c
 
 This test creates a 'nav bar' and a 'tips modal'; clicks the 'tips link' in the nav bar; then asserts the tips modal has a class indicating it should be visible. The mechanics behind this interaction are a black box, making it resilient to implementation changes which enables merciless refactoring.
 
-
-<details open>
-<summary>tests/components/tips.test.js</summary>
-
+###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/master/tests/components/tips.test.js">tests/components/tips.test.js</a></p>
 ```js
 export default ({ test, compose, helpers }) => {
 
@@ -1407,7 +1326,6 @@ export default ({ test, compose, helpers }) => {
 
 };
 ```
-</details>
 
 Not every component is tested directly. Many low level components can be treated as a black box when exercised by a higher level component. 
 
@@ -1430,10 +1348,7 @@ Where the execution path will reach a system boundary, stub just short of the in
 
 This test creates a 'gravatar modal' and a 'tag list'. Clicking the 'import button' will render a tag in the tag list using data fetched from Gravatar. The fetchProfileAsync and fetchImageAsync functions are stubbed to prevent the integration from occurring and to avoid coupling the test to the implementation details of the integration. 
 
-
-<details open>
-<summary>tests/components/gravatar/import-success.fixme.js</summary>
-
+###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/master/tests/components/gravatar/import-success.fixme.js">tests/components/gravatar/import-success.fixme.js</a></p>
 ```js
 export default ({ test, setup }) => {
 
@@ -1477,7 +1392,6 @@ export default ({ test, setup }) => {
 
 };
 ```
-</details>
 
 ### Narrow feedback
 
@@ -1501,10 +1415,7 @@ Rather than acting on individual files, tests act on the initialised application
 
 This test initialises the application by invoking compose and uses the components module to create an 'options bar' which should initially be hidden. It then uses the services module to insert a tag which should cause the options bar to become visible. 
 
-
-<details open>
-<summary>tests/components/options-bar.test.js</summary>
-
+###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/master/tests/components/options-bar.test.js">tests/components/options-bar.test.js</a></p>
 ```js
 export default ({ test, compose, helpers }) => {
 
@@ -1519,7 +1430,6 @@ export default ({ test, compose, helpers }) => {
 
 };
 ```
-</details>
 
 NB: As mentioned previously, compose has 1 required argument - window. This version of compose is actually a wrapper that supplies an instance of window provided by [JSDOM](https://github.com/jsdom/jsdom) to the original compose function for testing purposes.
 
@@ -1774,10 +1684,7 @@ This function transforms a list of store names into an object of store name -> s
 
 The `acc` variable is intentionally mutated given the scope of the mutation is small and isolated within the reduce function. An immutable equivalent could be `{ ...acc, [name]: store }`.
 
-
-<details open>
-<summary>src/modules/stores/setup.js</summary>
-
+###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/master/src/modules/stores/setup.js">src/modules/stores/setup.js</a></p>
 ```js
 export default ({ storage, config }) => () => {
 
@@ -1789,7 +1696,6 @@ export default ({ storage, config }) => () => {
 
 };
 ```
-</details>
 
 #### Further reading
 
@@ -1809,10 +1715,7 @@ From [Wikipedia](https://en.wikipedia.org/wiki/Pure_function):
 
 This function orchestrates pure and impure functions making it impure. However because the implementation of `parseFileExpression` has been extracted as a pure function.
 
-
-<details open>
-<summary>src/modules/services/tags/insert-file-async.js</summary>
-
+###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/master/src/modules/services/tags/insert-file-async.js">src/modules/services/tags/insert-file-async.js</a></p>
 ```js
 export default ({ core, services, util }) => file => {
 
@@ -1824,12 +1727,8 @@ export default ({ core, services, util }) => file => {
 
 };
 ```
-</details>
 
-
-<details open>
-<summary>src/modules/core/tags/parse-file-expression.js</summary>
-
+###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/master/src/modules/core/tags/parse-file-expression.js">src/modules/core/tags/parse-file-expression.js</a></p>
 ```js
 export default () => expression => {
 
@@ -1844,8 +1743,16 @@ export default () => expression => {
     return { tagName, roleName };
 
 };
+
+/* FOOTNOTES
+
+Example of complex expression: '1 foo bar+dev.jpg'
+=> { tagName: 'foo bar', roleName: 'dev' }
+
+Leading numbers are stripped to enable inserting tags in a preferred order.
+
+*/
 ```
-</details>
 
 
 ### Pipe
@@ -1854,10 +1761,7 @@ Where possible, use `pipe` to avoid nesting function calls and intermediate vari
 
 #### Example: Usage of pipe when inserting a file
 
-
-<details open>
-<summary>src/modules/services/tags/insert-file-async.js</summary>
-
+###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/master/src/modules/services/tags/insert-file-async.js">src/modules/services/tags/insert-file-async.js</a></p>
 ```js
 export default ({ core, services, util }) => file => {
 
@@ -1869,18 +1773,13 @@ export default ({ core, services, util }) => file => {
 
 };
 ```
-</details>
 
 #### Source: pipe
 
-
-<details open>
-<summary>src/modules/util/pipe.js</summary>
-
+###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/master/src/modules/util/pipe.js">src/modules/util/pipe.js</a></p>
 ```js
 export default (...funcs) => initial => funcs.reduce((v, f) => f(v), initial);
 ```
-</details>
 
 Once the [pipeline operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Pipeline_operator) is officially supported in JavaScript, we can remove the custom implementation.
 
@@ -1908,10 +1807,7 @@ I generally prefer to avoid variable prefixes but I've found these prefixes help
 
 Such comments are secondary to the code and so follow the code rather than preceed it.
 
-
-<details open>
-<summary>src/modules/components/tag-list/tag/components/tag-image.js</summary>
-
+###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/master/src/modules/components/tag-list/tag/components/tag-image.js">src/modules/components/tag-list/tag/components/tag-image.js</a></p>
 ```js
 export default ({ ui }) => () => {
 
@@ -1925,7 +1821,6 @@ Actual image is rendered using CSS background-image as a performance optimisatio
 
 */
 ```
-</details>
 
 ### Async functions end with the word Async
 
