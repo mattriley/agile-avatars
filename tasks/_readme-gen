@@ -1,6 +1,0 @@
-#!/bin/bash
-
-. ./task-vars
-
-TARGET=$(pwd)
-cd ../agileavatars-docgen && ./bin/readme-gen "$TARGET"
