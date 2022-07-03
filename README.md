@@ -268,6 +268,7 @@ This _codified view_ of the architecture has some interesting implications:
 - Ability to test the integrated application without also launching it.
 - Ability to programatically analyse and visualise dependencies.
 
+###### <p align="right"><em>Can't see the diagram?</em> <a id="link-1" href="https://github.com/mattriley/agileavatars#user-content-link-1">View it on GitHub</a></p>
 ```mermaid
 graph TD;
     components-->ui;
