@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+DEST_DIR=$1
+SOURCE_FILE=$2
+DEST_FILE=$DEST_DIR/$(basename "${2%.*}").svg
+draw.io -x -f svg --crop -o $DEST_FILE $SOURCE_FILE

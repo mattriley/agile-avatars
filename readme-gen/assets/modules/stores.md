@@ -1,0 +1,15 @@
+Provides the _state stores_. State stores manage state changes and raise change events. State stores are created at [compose](#composing) time as defined in config.
+
+#### Collaborators
+
+<%- await collaborators %>
+
+#### Source
+
+`stores` is a single-file module that creates stores dynamically from _config_:
+
+<%- await renderCodeFile('src/modules/stores/setup.js') %>
+
+#### List of stores
+
+<%- await renderIndex({ maxDepth: 1 }) %>

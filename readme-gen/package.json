@@ -1,0 +1,23 @@
+{
+    "name": "agileavatars-docgen",
+    "version": "1.0.0",
+    "author": "Matt Riley",
+    "license": "GPL-3.0-or-later",
+    "repository": "github:mattriley/agileavatars-docgen",
+    "bin": {
+        "diagram-gen": "bin/diagram-gen",
+        "drawio-gen": "bin/drawio-gen",
+        "readme-gen": "bin/readme-gen.js"
+    },
+    "dependencies": {
+        "ejs": "^3.1.8",
+        "fast-glob": "^3.2.11",
+        "flat": "^5.0.2",
+        "lodash": "^4.17.21",
+        "module-composer": "^0.53.0",
+        "yaml": "^2.1.1"
+    },
+    "devDependencies": {
+        "task-library": "^0.3.34"
+    }
+}

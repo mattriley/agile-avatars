@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+export TARGET_DIR=$1
+
+README_DOCS="$TARGET_DIR/readme-files"
+
+rm -rf $README_DOCS
+mkdir $README_DOCS
+
+DIRNAME="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+cd "$DIRNAME/.."
+
+# Copy static assets
+cp -a ./assets/static/. $README_DOCS/
+
+# Export .drawio to .svg
+find ./assets/diagrams -name "*.drawio" -print \
+    | xargs -n1 ./bin/drawio-gen $README_DOCS
+
+cd $TARGET_DIR && git add $README_DOCS

@@ -1,0 +1,10 @@
+noHype: Not driven by hype or popularity
+noNative: No alternative built into JavaScript exists
+noVanilla: Non-trivial to implement with vanilla JavaScript
+noNode: No alternative built into Node.js exists
+noCloser: No alternative that more closely matches the need exists
+noDeps: No alternative with fewer dependencies exists
+lowLearning: Low learning curve
+lowMaintenance: Low maintenance
+lowChange: Low likelihood of changing in a material way
+lowImpact: Low impact of material change

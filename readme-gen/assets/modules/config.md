@@ -1,0 +1,13 @@
+Provides _static application config_ as a plain JavaScript object, including default state used to initialise the state stores. Config is loaded at [compose](#composing) time.
+
+#### Collaborators
+
+<%- await collaborators %>
+
+- No collaborators required.
+
+#### Source
+
+_config_ is a single-file module:
+
+<%- await renderCodeFile('src/config/config.js') %>

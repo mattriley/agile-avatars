@@ -1,12 +1,78 @@
 # Agile Avatars
 
-![Build](https://github.com/mattriley/agileavatars/workflows/Build/badge.svg)
-[![codecov](https://codecov.io/gh/mattriley/agileavatars/branch/master/graph/badge.svg)](https://codecov.io/gh/mattriley/agileavatars)
-![Status](https://img.shields.io/uptimerobot/status/m783034155-295e5fbc9fd4a0e3a54363a5)
-![30 days](https://img.shields.io/uptimerobot/ratio/m783034155-295e5fbc9fd4a0e3a54363a5)
+<p align="right">
+    <code>96.43% cov</code>&nbsp;
+    <code>1657 sloc</code>&nbsp;
+    <code>166 files</code>&nbsp;
+    <code>5 deps</code>&nbsp;
+    <code>7 dev deps</code></p>
 
+Great looking avatars for your agile board and experiment in FRAMEWORK-LESS, vanilla JavaScript.
 
-Source code for [agileavatars.com](https://agileavatars.com). An experiment in frameworkless/vanilla JavaScript.
+## Table of Contents
+
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+- [Background](#background)
+- [Getting Started](#getting-started)
+- [Design Goals](#design-goals)
+- [Technical Constraints](#technical-constraints)
+- [Architecture](#architecture)
+- [Launching](#launching)
+- [Composing](#composing)
+  - [Deglobalising window](#deglobalising-window)
+  - [module-composer](#module-composer)
+- [Modules](#modules)
+- [List of Modules](#list-of-modules)
+  - [components](#components)
+  - [core](#core)
+  - [diagnostics](#diagnostics)
+  - [elements](#elements)
+  - [io](#io)
+  - [services](#services)
+  - [startup](#startup)
+  - [storage](#storage)
+  - [stores](#stores)
+  - [styles](#styles)
+  - [subscriptions](#subscriptions)
+  - [ui](#ui)
+  - [util](#util)
+  - [vendor-components](#vendor-components)
+  - [vendor-services](#vendor-services)
+- [State Management](#state-management)
+  - [Stores](#stores)
+  - [Subscriptions](#subscriptions)
+- [View Rendering](#view-rendering)
+  - [DOM API - document.createElement](#dom-api---documentcreateelement)
+  - [HTML strings - element.innerHTML](#html-strings---elementinnerhtml)
+- [Testing](#testing)
+  - [Approach](#approach)
+- [Dependencies](#dependencies)
+  - [Position](#position)
+  - [Constraints](#constraints)
+- [List of Production Dependencies](#list-of-production-dependencies)
+  - [@sentry/browser](#sentrybrowser)
+  - [blueimp-md5](#blueimp-md5)
+  - [lodash](#lodash)
+  - [module-composer](#module-composer-1)
+  - [vanilla-picker](#vanilla-picker)
+- [List of Development Dependencies](#list-of-development-dependencies)
+  - [events](#events)
+  - [jsdom](#jsdom)
+  - [parcel](#parcel)
+  - [process](#process)
+  - [task-library](#task-library)
+  - [zora](#zora)
+  - [zora-reporters](#zora-reporters)
+- [Functional Programming](#functional-programming)
+- [Conventions](#conventions)
+  - [Code](#code)
+  - [Documentation](#documentation)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+# Background
 
 > Agile Avatars makes it quick and easy to know who's working on what with great looking avatars for your agile board. No more fiddling with Word or Google Docs making sure everything aligns just right. Simply drag and drop your images, make some adjustments, print, and laminate!
 
@@ -21,33 +87,6 @@ Source code for [agileavatars.com](https://agileavatars.com). An experiment in f
 Agile Avatars is also an experiment in developing a web application under an extreme set of constraints designed to preclude mainstream solutions. Bare in mind that Agile Avatars is small and doesn't necessarily cover every concern found in a typical web application. It does however do enough to present some interesting design challenges, especially around code organisation, dependency management, state management and view rendering. 
 
 The solutions are designed around the needs of this application at this point in time. The design is intended to be evolvable through refactoring as the needs of the application change over time. The intent is to see what kind of design emerges as a result of an extreme set of constraints.
-
-NOTE: WORK IN PROGRESS!
-
-## Table of Contents
-
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
-- [Getting Started](#getting-started)
-- [Design Goals](#design-goals)
-- [Technical Constraints](#technical-constraints)
-- [Architecture](#architecture)
-- [Launching](#launching)
-- [Composing](#composing)
-- [Modules](#modules)
-- [List of Modules](#list-of-modules)
-- [State Management](#state-management)
-- [View Rendering](#view-rendering)
-- [Testing](#testing)
-- [Dependencies](#dependencies)
-- [List of Production Dependencies](#list-of-production-dependencies)
-- [List of Development Dependencies](#list-of-development-dependencies)
-- [Functional Programming](#functional-programming)
-- [Conventions](#conventions)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 # Getting Started
 
