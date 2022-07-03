@@ -16,4 +16,4 @@ The _subscriptions_ module was introduced to allow Components to subscribe to st
 
 _subscriptions_ is a single-file module that exposes only subscriptions from the stores:
 
-<%- await renderCodeFile('src/modules/subscriptions/setup.js') %>
+<%- await lib.renderCode(lib.fetchCode('src/modules/subscriptions/setup.js')) %>

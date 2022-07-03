@@ -10,7 +10,7 @@ gtag is short for Google Global Site Tag.
 
 gtag depends on window for global variables to work correctly.
 
-<%- await renderCodeFile('src/modules/vendor-services/gtag.js') %>
+<%- await lib.renderCode(lib.fetchCode('src/modules/vendor-services/gtag.js')) %>
 
 #### List of vendor services
 

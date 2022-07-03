@@ -14,7 +14,6 @@ module.exports = ({ composition, io, services, renderers }) => async () => {
         sectionTemplates,
         templateData: {
             depTable: renderers.renderDepTable(),
-            renderCodeFile: renderers.renderCodeFile,
             moduleGraph: renderers.renderModuleGraph,
             modules: renderers.renderModules({ context, moduleNames, moduleTemplates, renderers: renderers.renderCodeFile, renderCollaborators: services.renderCollaborators }),
             dependencies: {
@@ -31,7 +30,7 @@ module.exports = ({ composition, io, services, renderers }) => async () => {
             production: renderDependencies('dependencies'),
             development: renderDependencies('devDependencies')
         },
-        modules: renderers.renderModules({ context, moduleNames, moduleTemplates, renderCodeFile: renderers.renderCodeFile }),
+        modules: renderers.renderModules({ context, moduleNames, moduleTemplates }),
         renderSection
     };
 

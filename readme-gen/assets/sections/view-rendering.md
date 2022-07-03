@@ -39,7 +39,7 @@ $div.addEventListener('click', clickHandler);
 
 #### Source: el
 
-<%- await renderCodeFile('src/modules/ui/el.js') %>
+<%- await lib.renderCode(lib.fetchCode('src/modules/ui/el.js')) %>
 
 ### Observations
 
@@ -55,4 +55,4 @@ Because ultimately this approach uses `document.createElement` to create element
 
 This example uses `el` to create an element, but assigns a HTML string to `innerHTML` rather than appending child elements.
 
-<%- await renderCodeFile('src/modules/components/tips/naming.js') %>
+<%- await lib.renderCode(lib.fetchCode('src/modules/components/tips/naming.js')) %>

@@ -9,11 +9,11 @@ On the file system, a module is simply a directory of sources files that follow 
 
 #### Example: Root index.js for components module
 
-<%- await renderCodeFile('src/modules/components/index.js') %>
+<%- await lib.renderCode(lib.fetchCode('src/modules/components/index.js')) %>
 
 #### Example: Curried function accepting collaborators
 
-<%- await renderCodeFile('src/modules/components/tag-list/tag/components/tag-name.js') %>
+<%- await lib.renderCode(lib.fetchCode('src/modules/components/tag-list/tag/components/tag-name.js')) %>
 
 This design has some interesting implications:
 

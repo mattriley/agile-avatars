@@ -17,7 +17,7 @@ changeTagName updates the state of the underlying tag, which triggers a propagat
 
 tagName subscribes to tag name change events and updates the editable span with the new tag name.
 
-<%- await renderCodeFile('src/modules/components/tag-list/tag/components/tag-name.js') %>
+<%- await lib.renderCode(lib.fetchCode('src/modules/components/tag-list/tag/components/tag-name.js')) %>
 
 #### List of components
 

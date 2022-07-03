@@ -10,4 +10,4 @@ Provides _static application config_ as a plain JavaScript object, including def
 
 _config_ is a single-file module:
 
-<%- await renderCodeFile('src/config/config.js') %>
+<%- await lib.renderCode(lib.fetchCode('src/config/config.js')) %>

@@ -8,4 +8,4 @@ Provides _startup functions_ which are used at [launch](#launching) time.
 
 #### Example: start
 
-<%- await renderCodeFile('src/modules/startup/start.js') %>
+<%- await lib.renderCode(lib.fetchCode('src/modules/startup/start.js')) %>

@@ -2,7 +2,7 @@ Composing is the process of making the application _ready to launch_ and involve
 
 The compose function composes the application from modules in the src directory.
 
-<%- await renderCodeFile('src/compose.js') %>
+<%- await lib.renderCode(lib.fetchCode('src/compose.js')) %>
 
 This _codified view_ of the architecture has some interesting implications:
 

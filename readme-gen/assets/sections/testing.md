@@ -6,7 +6,7 @@ The application is tested from the outside-in, starting with the components. A c
 
 This test creates a 'nav bar' and a 'tips modal'; clicks the 'tips link' in the nav bar; then asserts the tips modal has a class indicating it should be visible. The mechanics behind this interaction are a black box, making it resilient to implementation changes which enables merciless refactoring.
 
-<%- await renderCodeFile('tests/components/tips.test.js') %>
+<%- await lib.renderCode(lib.fetchCode('tests/components/tips.test.js')) %>
 
 Not every component is tested directly. Many low level components can be treated as a black box when exercised by a higher level component. 
 
@@ -29,7 +29,7 @@ Where the execution path will reach a system boundary, stub just short of the in
 
 This test creates a 'gravatar modal' and a 'tag list'. Clicking the 'import button' will render a tag in the tag list using data fetched from Gravatar. The fetchProfileAsync and fetchImageAsync functions are stubbed to prevent the integration from occurring and to avoid coupling the test to the implementation details of the integration. 
 
-<%- await renderCodeFile('tests/components/gravatar/import-success.fixme.js') %>
+<%- await lib.renderCode(lib.fetchCode('tests/components/gravatar/import-success.fixme.js')) %>
 
 ### Narrow feedback
 
@@ -53,6 +53,6 @@ Rather than acting on individual files, tests act on the initialised application
 
 This test initialises the application by invoking compose and uses the components module to create an 'options bar' which should initially be hidden. It then uses the services module to insert a tag which should cause the options bar to become visible. 
 
-<%- await renderCodeFile('tests/components/options-bar.test.js') %>
+<%- await lib.renderCode(lib.fetchCode('tests/components/options-bar.test.js')) %>
 
 NB: As mentioned previously, compose has 1 required argument - window. This version of compose is actually a wrapper that supplies an instance of window provided by [JSDOM](https://github.com/jsdom/jsdom) to the original compose function for testing purposes.

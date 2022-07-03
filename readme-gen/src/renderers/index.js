@@ -1,5 +1,4 @@
 module.exports = {
-    renderCodeFile: require('./render-code-file'),
     renderCollaborators: require('./render-collaborators'),
     renderDepTable: require('./render-dep-table'),
     renderDependencies: require('./render-dependencies'),

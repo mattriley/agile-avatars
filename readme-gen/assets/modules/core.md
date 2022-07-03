@@ -10,7 +10,7 @@ Provides _pure functions_ to be consumed by the _services_ module. Without core,
 
 parseEmailExpression is a pure function. Amongst other properties of pure functions, its return value is the same for the same arguments, and its evaluation has no side effects.
 
-<%- await renderCodeFile('src/modules/core/tags/parse-email-expression.js') %>
+<%- await lib.renderCode(lib.fetchCode('src/modules/core/tags/parse-email-expression.js')) %>
 
 #### List of core functions
 

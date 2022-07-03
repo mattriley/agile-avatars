@@ -22,7 +22,7 @@ This function transforms a list of store names into an object of store name -> s
 
 The `acc` variable is intentionally mutated given the scope of the mutation is small and isolated within the reduce function. An immutable equivalent could be `{ ...acc, [name]: store }`.
 
-<%- await renderCodeFile('src/modules/stores/setup.js') %>
+<%- await lib.renderCode(lib.fetchCode('src/modules/stores/setup.js')) %>
 
 #### Further reading
 
@@ -42,9 +42,9 @@ From [Wikipedia](https://en.wikipedia.org/wiki/Pure_function):
 
 This function orchestrates pure and impure functions making it impure. However because the implementation of `parseFileExpression` has been extracted as a pure function.
 
-<%- await renderCodeFile('src/modules/services/tags/insert-file-async.js') %>
+<%- await lib.renderCode(lib.fetchCode('src/modules/services/tags/insert-file-async.js')) %>
 
-<%- await renderCodeFile('src/modules/core/tags/parse-file-expression.js') %>
+<%- await lib.renderCode(lib.fetchCode('src/modules/core/tags/parse-file-expression.js')) %>
 
 
 ### Pipe
@@ -53,11 +53,11 @@ Where possible, use `pipe` to avoid nesting function calls and intermediate vari
 
 #### Example: Usage of pipe when inserting a file
 
-<%- await renderCodeFile('src/modules/services/tags/insert-file-async.js') %>
+<%- await lib.renderCode(lib.fetchCode('src/modules/services/tags/insert-file-async.js')) %>
 
 #### Source: pipe
 
-<%- await renderCodeFile('src/modules/util/pipe.js') %>
+<%- await lib.renderCode(lib.fetchCode('src/modules/util/pipe.js')) %>
 
 Once the [pipeline operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Pipeline_operator) is officially supported in JavaScript, we can remove the custom implementation.
 

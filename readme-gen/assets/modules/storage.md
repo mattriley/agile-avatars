@@ -8,4 +8,4 @@ Provides the _state store implementation_. State stores manage state changes and
 
 _storage_ is a single-file module:
 
-<%- await renderCodeFile('src/modules/storage/state-store.js', { open: false }) %>
+<%- await lib.renderCode(lib.fetchCode('src/modules/storage/state-store.js')) %>

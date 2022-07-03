@@ -8,7 +8,7 @@ Provides the _state stores_. State stores manage state changes and raise change 
 
 `stores` is a single-file module that creates stores dynamically from _config_:
 
-<%- await renderCodeFile('src/modules/stores/setup.js') %>
+<%- await lib.renderCode(lib.fetchCode('src/modules/stores/setup.js')) %>
 
 #### List of stores
 

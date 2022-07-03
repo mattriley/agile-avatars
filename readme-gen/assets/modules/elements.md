@@ -9,7 +9,7 @@ Provides _element factory functions_. An element is a HTML element that relies o
 
 #### Example: editableSpan
 
-<%- await renderCodeFile('src/modules/elements/editable-span.js') %>
+<%- await lib.renderCode(lib.fetchCode('src/modules/elements/editable-span.js')) %>
 
 #### List of elements
 

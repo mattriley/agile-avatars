@@ -5,8 +5,7 @@ const lib = require('task-library/src/lib/readme-gen');
 
 module.exports = ({ renderers }) => async ({ context, moduleNames, moduleTemplates }) => {
 
-    const { renderCodeFile } = renderers;
-    const templateData = { renderCodeFile, context, flatten };
+    const templateData = { lib, context, flatten };
 
     const modules = await Promise.all(moduleNames.map(async name => {
         const collaborators = renderers.renderCollaborators({ moduleName: name });

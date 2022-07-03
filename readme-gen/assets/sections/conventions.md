@@ -11,7 +11,7 @@ I generally prefer to avoid variable prefixes but I've found these prefixes help
 
 Such comments are secondary to the code and so follow the code rather than preceed it.
 
-<%- await renderCodeFile('src/modules/components/tag-list/tag/components/tag-image.js', { includeFootnotes: true }) %>
+<%- await lib.renderCode(lib.fetchCode('src/modules/components/tag-list/tag/components/tag-image.js')) %>
 
 ### Async functions end with the word Async
 

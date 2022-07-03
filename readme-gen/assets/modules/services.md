@@ -8,7 +8,7 @@ Provides _service functions_. Service functions perform effects by orchestrate t
 
 #### Example: changeTagName
 
-<%- await renderCodeFile('src/modules/services/tags/change-tag-name.js') %>
+<%- await lib.renderCode(lib.fetchCode('src/modules/services/tags/change-tag-name.js')) %>
 
 #### List of service functions
 

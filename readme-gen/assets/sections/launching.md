@@ -11,7 +11,7 @@ In order to isolate Parcel, only public may use Parcel loaders. This allows unit
 
 The following code is referenced by index.html and launches the application:
 
-<%- await renderCodeFile('src/app.js') %>
+<%- await lib.renderCode(lib.fetchCode('src/app.js')) %>
 
 #### Launch sequence
 

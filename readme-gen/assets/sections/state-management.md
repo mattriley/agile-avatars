@@ -33,15 +33,15 @@ State is managed by a series of _state stores_.
 
 A __state store__ is collection of data items keyed by a unique identifier and managed using typical CRUD operations such as insert, find, update, remove.
 
-<%- await renderCodeFile('src/modules/storage/state-store.js', { open: false }) %>
+<%- await lib.renderCode(lib.fetchCode('src/modules/storage/state-store.js')) %>
 
 #### Example: Inserting a role
 
-<%- await renderCodeFile('src/modules/services/roles/insert-role.js') %>
+<%- await lib.renderCode(lib.fetchCode('src/modules/services/roles/insert-role.js')) %>
 
 #### Example: Changing a role name
 
-<%- await renderCodeFile('src/modules/services/roles/change-role-name.js') %>
+<%- await lib.renderCode(lib.fetchCode('src/modules/services/roles/change-role-name.js')) %>
 
 ## Subscriptions
 
@@ -53,8 +53,8 @@ During [compose](#composing) time, subscription functions are extracted from the
 
 #### Example: Reacting to a new role being inserted
 
-<%- await renderCodeFile('src/modules/components/role-list/container.js') %>
+<%- await lib.renderCode(lib.fetchCode('src/modules/components/role-list/container.js')) %>
 
 ### Example: Reacting to a role name change
 
-<%- await renderCodeFile('src/modules/components/role-list/role-customiser/master-role-name.js') %>
+<%- await lib.renderCode(lib.fetchCode('src/modules/components/role-list/role-customiser/master-role-name.js')) %>
