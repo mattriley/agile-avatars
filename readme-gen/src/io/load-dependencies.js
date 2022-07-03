@@ -1,23 +1,24 @@
-const mapValues = require('lodash/mapValues')
+const mapValues = require('lodash/mapValues');
 const YAML = require('yaml');
 
-module.exports = ({ targetDir, fs }) => () => {
+module.exports = ({ fs }) => () => {
 
-    const dependenciesFile = fs.readFileSync('./readme-gen/assets/dependencies/dependencies.yaml', 'utf8')
+    const dependenciesFile = fs.readFileSync('./readme-gen/assets/dependencies/dependencies.yaml', 'utf8');
 
     const dependencies = YAML.parse(dependenciesFile);
 
     const dependencyPackages = mapValues(dependencies, (val, name) => {
-        const p = `${targetDir}/node_modules/${name}/package.json`;
+        const p = `./node_modules/${name}/package.json`;
 
         try {
-            return require(p);
+            return JSON.parse(fs.readFileSync(p, 'utf8'));
+
         }
         catch (err) {
             // some don't have package.json?
             return {};
         }
-    })
+    });
 
     return {
         dependencies,

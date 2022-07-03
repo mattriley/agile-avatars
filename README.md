@@ -92,11 +92,6 @@ The solutions are designed around the needs of this application at this point in
 
 # Getting Started
 
-### Prerequisites
-
-- Install Node 16 or install [nvm](https://github.com/nvm-sh/nvm) and run `nvm install`
-- Install dependencies: `npm install`
-
 ### Tasks
 
 - Run the tests: `./task test`

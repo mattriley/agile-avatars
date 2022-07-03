@@ -1,16 +1,7 @@
 const sortBy = require('lodash/sortBy');
 module.exports = ({ composition }) => async ({ include }) => {
 
-    // const boot = require(path.resolve(targetDir, 'boot'));
-    // const boot = require(path.resolve(targetDir, 'src/boot'));
-    // const { default: boot } = await import(path.resolve(targetDir, 'src/boot'))
-
-    // const configPath = path.resolve(targetDir, 'src/data/config.json');
-    // const config = require(configPath);
-
     const { dependencies } = composition;
-
-    // const include = ['subscriptions', 'components', 'elements', 'styles', 'ui', , 'io', 'services', 'core', 'stores', 'window'];
 
     const pairs = Object.entries(dependencies)
         .filter(([key]) => include.includes(key))

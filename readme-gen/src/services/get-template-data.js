@@ -16,7 +16,6 @@ module.exports = ({ composition, io, services, renderers }) => async () => {
             depTable: renderers.renderDepTable(),
             renderCodeFile: services.renderCodeFile,
             renderImage: services.renderImage,
-            nodeVersion: io.loadNodeVersion(),
             moduleGraph: renderers.renderModuleGraph,
             modules: renderers.renderModules({ context, moduleNames, moduleTemplates, renderCodeFile: services.renderCodeFile, renderImage: services.renderImage, renderCollaborators: services.renderCollaborators }),
             dependencies: {

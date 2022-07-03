@@ -1,9 +1,8 @@
 const glob = require('fast-glob');
-const path = require('path');
 
-module.exports = ({ targetDir }) => () => {
+module.exports = () => () => {
 
-    const cwd = path.resolve(targetDir, 'src/modules');
-    return glob('*', { cwd, onlyDirectories: true })
+    const cwd = './src/modules';
+    return glob('*', { cwd, onlyDirectories: true });
 
 };

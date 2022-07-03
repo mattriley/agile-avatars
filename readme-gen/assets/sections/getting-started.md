@@ -1,8 +1,3 @@
-### Prerequisites
-
-- Install Node <%- await nodeVersion %> or install [nvm](https://github.com/nvm-sh/nvm) and run `nvm install`
-- Install dependencies: `npm install`
-
 ### Tasks
 
 - Run the tests: `./task test`

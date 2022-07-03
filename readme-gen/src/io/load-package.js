@@ -1,7 +1,7 @@
 const path = require('path');
 
-module.exports = ({ targetDir }) => () => {
+module.exports = () => () => {
 
-    return require(path.resolve(targetDir, 'package.json'));
+    return require(path.resolve('./package.json'));
 
 };
