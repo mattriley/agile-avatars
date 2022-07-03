@@ -1,8 +1,8 @@
-import debounce from './debounce';
-import mapValues from './map-values';
-import pipe from './pipe';
-import splitAt from './split-at';
-import upperFirst from './upper-first';
+import debounce from './debounce.js';
+import mapValues from './map-values.js';
+import pipe from './pipe.js';
+import splitAt from './split-at.js';
+import upperFirst from './upper-first.js';
 
 export default {
     debounce,

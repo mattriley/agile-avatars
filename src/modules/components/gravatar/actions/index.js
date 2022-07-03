@@ -1,7 +1,7 @@
-import container from './container';
-import error from './error';
-import importButton from './import-button';
-import loading from './loading';
+import container from './container.js';
+import error from './error.js';
+import importButton from './import-button.js';
+import loading from './loading.js';
 
 export default {
     container,

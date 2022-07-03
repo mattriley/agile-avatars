@@ -1,6 +1,6 @@
 import composer from 'module-composer';
-import modules from './modules';
-import defaultConfig from './default-config';
+import modules from './modules/index.js';
+import defaultConfig from './default-config.js';
 const { storage, util } = modules;
 
 export default ({ window, overrides, configs }) => {

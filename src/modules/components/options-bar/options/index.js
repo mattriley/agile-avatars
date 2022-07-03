@@ -1,9 +1,9 @@
-import modes from './modes';
-import outline from './outline';
-import shapes from './shapes';
-import size from './size';
-import sort from './sort';
-import spacing from './spacing';
+import modes from './modes.js';
+import outline from './outline.js';
+import shapes from './shapes.js';
+import size from './size.js';
+import sort from './sort.js';
+import spacing from './spacing.js';
 
 export default {
     modes,

@@ -1,4 +1,4 @@
-import dumpState from './dump-state';
+import dumpState from './dump-state.js';
 
 export default {
     dumpState

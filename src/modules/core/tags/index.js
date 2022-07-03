@@ -1,11 +1,11 @@
-import buildTag from './build-tag';
-import parseEmailExpression from './parse-email-expression';
-import parseFileExpression from './parse-file-expression';
-import parseTagExpression from './parse-tag-expression';
-import planTagInstanceAdjustment from './plan-tag-instance-adjustment';
-import sortTagInstancesByTagThenMode from './sort-tag-instances-by-tag-then-mode';
-import sortTagsByName from './sort-tags-by-name';
-import sortTagsByRoleThenName from './sort-tags-by-role-then-name';
+import buildTag from './build-tag.js';
+import parseEmailExpression from './parse-email-expression.js';
+import parseFileExpression from './parse-file-expression.js';
+import parseTagExpression from './parse-tag-expression.js';
+import planTagInstanceAdjustment from './plan-tag-instance-adjustment.js';
+import sortTagInstancesByTagThenMode from './sort-tag-instances-by-tag-then-mode.js';
+import sortTagsByName from './sort-tags-by-name.js';
+import sortTagsByRoleThenName from './sort-tags-by-role-then-name.js';
 
 export default {
     buildTag,

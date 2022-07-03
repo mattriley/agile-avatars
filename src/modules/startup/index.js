@@ -1,7 +1,7 @@
-import createHandlers from './create-handlers';
-import createStyleManager from './create-style-manager';
-import insertNilRole from './insert-nil-role';
-import start from './start';
+import createHandlers from './create-handlers.js';
+import createStyleManager from './create-style-manager.js';
+import insertNilRole from './insert-nil-role.js';
+import start from './start.js';
 
 export default {
     createHandlers,

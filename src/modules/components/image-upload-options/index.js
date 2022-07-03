@@ -1,6 +1,6 @@
-import chooseImages from './choose-images';
-import container from './container';
-import gravatar from './gravatar';
+import chooseImages from './choose-images.js';
+import container from './container.js';
+import gravatar from './gravatar.js';
 
 export default {
     chooseImages,

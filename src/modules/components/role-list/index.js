@@ -1,5 +1,5 @@
-import container from './container';
-import roleCustomiser from './role-customiser';
+import container from './container.js';
+import roleCustomiser from './role-customiser/index.js';
 
 export default {
     container,

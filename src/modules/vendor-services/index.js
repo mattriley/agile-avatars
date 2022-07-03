@@ -1,5 +1,5 @@
-import gtag from './gtag';
-import sentry from './sentry';
+import gtag from './gtag.js';
+import sentry from './sentry.js';
 
 export default {
     gtag,

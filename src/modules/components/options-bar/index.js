@@ -1,7 +1,7 @@
-import container from './container';
-import numberOption from './number-option';
-import options from './options';
-import shapeOption from './shape-option';
+import container from './container.js';
+import numberOption from './number-option.js';
+import options from './options/index.js';
+import shapeOption from './shape-option.js';
 
 export default {
     container,

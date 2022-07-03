@@ -1,5 +1,5 @@
-import gtagScript from './gtag-script';
-import vanillaPicker from './vanilla-picker';
+import gtagScript from './gtag-script.js';
+import vanillaPicker from './vanilla-picker.js';
 
 export default {
     gtagScript,

@@ -1,6 +1,6 @@
-import actions from './actions';
-import content from './content';
-import title from './title';
+import actions from './actions/index.js';
+import content from './content/index.js';
+import title from './title.js';
 
 export default {
     actions,

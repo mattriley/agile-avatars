@@ -1,18 +1,18 @@
-import components from './components';
-import core from './core';
-import diagnostics from './diagnostics';
-import elements from './elements';
-import io from './io';
-import services from './services';
-import startup from './startup';
-import storage from './storage';
-import stores from './stores';
-import styles from './styles';
-import subscriptions from './subscriptions';
-import ui from './ui';
-import util from './util';
-import vendorComponents from './vendor-components';
-import vendorServices from './vendor-services';
+import components from './components/index.js';
+import core from './core/index.js';
+import diagnostics from './diagnostics/index.js';
+import elements from './elements/index.js';
+import io from './io/index.js';
+import services from './services/index.js';
+import startup from './startup/index.js';
+import storage from './storage/index.js';
+import stores from './stores/index.js';
+import styles from './styles/index.js';
+import subscriptions from './subscriptions/index.js';
+import ui from './ui/index.js';
+import util from './util/index.js';
+import vendorComponents from './vendor-components/index.js';
+import vendorServices from './vendor-services/index.js';
 
 export default {
     components,

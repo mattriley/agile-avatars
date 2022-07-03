@@ -1,9 +1,9 @@
-import badges from './badges';
-import images from './images';
-import laminating from './laminating';
-import multiples from './multiples';
-import naming from './naming';
-import roleShortcut from './role-shortcut';
+import badges from './badges.js';
+import images from './images.js';
+import laminating from './laminating.js';
+import multiples from './multiples.js';
+import naming from './naming.js';
+import roleShortcut from './role-shortcut.js';
 
 export default {
     badges,

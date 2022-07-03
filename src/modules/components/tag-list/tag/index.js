@@ -1,5 +1,5 @@
-import components from './components';
-import container from './container';
+import components from './components/index.js';
+import container from './container.js';
 
 export default {
     components,

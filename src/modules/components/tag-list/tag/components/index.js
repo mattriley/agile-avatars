@@ -1,6 +1,6 @@
-import roleName from './role-name';
-import tagImage from './tag-image';
-import tagName from './tag-name';
+import roleName from './role-name.js';
+import tagImage from './tag-image.js';
+import tagName from './tag-name.js';
 
 export default {
     roleName,

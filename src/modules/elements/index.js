@@ -1,9 +1,9 @@
-import dropzone from './dropzone';
-import editableSpan from './editable-span';
-import label from './label';
-import layout from './layout';
-import modal from './modal';
-import number from './number';
+import dropzone from './dropzone.js';
+import editableSpan from './editable-span.js';
+import label from './label.js';
+import layout from './layout.js';
+import modal from './modal.js';
+import number from './number.js';
 
 export default {
     dropzone,

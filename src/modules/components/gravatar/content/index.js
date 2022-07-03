@@ -1,7 +1,7 @@
-import container from './container';
-import fallback from './fallback';
-import fallbacks from './fallbacks';
-import freetext from './freetext';
+import container from './container.js';
+import fallback from './fallback.js';
+import fallbacks from './fallbacks.js';
+import freetext from './freetext.js';
 
 export default {
     container,

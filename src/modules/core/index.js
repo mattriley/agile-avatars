@@ -1,6 +1,6 @@
-import gravatar from './gravatar';
-import roles from './roles';
-import tags from './tags';
+import gravatar from './gravatar/index.js';
+import roles from './roles/index.js';
+import tags from './tags/index.js';
 
 export default {
     gravatar,

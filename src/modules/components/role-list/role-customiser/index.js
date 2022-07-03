@@ -1,6 +1,6 @@
-import container from './container';
-import masterRoleName from './master-role-name';
-import roleColorPicker from './role-color-picker';
+import container from './container.js';
+import masterRoleName from './master-role-name.js';
+import roleColorPicker from './role-color-picker.js';
 
 export default {
     container,

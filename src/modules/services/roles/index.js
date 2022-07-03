@@ -1,11 +1,11 @@
-import changeRoleColor from './change-role-color';
-import changeRoleName from './change-role-name';
-import findOrInsertRoleWithName from './find-or-insert-role-with-name';
-import getNilRoleId from './get-nil-role-id';
-import getRole from './get-role';
-import insertRole from './insert-role';
-import isNilRole from './is-nil-role';
-import setupRolePropagation from './setup-role-propagation';
+import changeRoleColor from './change-role-color.js';
+import changeRoleName from './change-role-name.js';
+import findOrInsertRoleWithName from './find-or-insert-role-with-name.js';
+import getNilRoleId from './get-nil-role-id.js';
+import getRole from './get-role.js';
+import insertRole from './insert-role.js';
+import isNilRole from './is-nil-role.js';
+import setupRolePropagation from './setup-role-propagation.js';
 
 export default {
     changeRoleColor,

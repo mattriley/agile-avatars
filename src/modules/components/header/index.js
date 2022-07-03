@@ -1,5 +1,5 @@
-import container from './container';
-import titleBar from './title-bar';
+import container from './container.js';
+import titleBar from './title-bar.js';
 
 export default {
     container,

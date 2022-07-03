@@ -1,5 +1,5 @@
-import container from './container';
-import tag from './tag';
+import container from './container.js';
+import tag from './tag/index.js';
 
 export default {
     container,
