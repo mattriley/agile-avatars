@@ -1,7 +1,5 @@
 const sortBy = require('lodash/sortBy');
-const lib = require('task-library/src/lib/readme-gen');
-
-module.exports = ({ targetDir }) => async ({ include }) => {
+module.exports = ({ composition }) => async ({ include }) => {
 
     // const boot = require(path.resolve(targetDir, 'boot'));
     // const boot = require(path.resolve(targetDir, 'src/boot'));
@@ -10,7 +8,7 @@ module.exports = ({ targetDir }) => async ({ include }) => {
     // const configPath = path.resolve(targetDir, 'src/data/config.json');
     // const config = require(configPath);
 
-    const dependencies = await lib.compose(c => c.dependencies, `${targetDir}/src/compose.js`);
+    const { dependencies } = composition;
 
     // const include = ['subscriptions', 'components', 'elements', 'styles', 'ui', , 'io', 'services', 'core', 'stores', 'window'];
 

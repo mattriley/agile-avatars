@@ -1,6 +1,4 @@
-const lib = require('task-library/src/lib/readme-gen');
-
-module.exports = ({ targetDir, io, services, renderers }) => async () => {
+module.exports = ({ composition, io, services, renderers }) => async () => {
     const moduleNames = await io.loadModuleNames();
     const moduleTemplates = await io.loadModuleTemplates();
     const dependencies = await io.loadDependencies(); // here
@@ -8,7 +6,7 @@ module.exports = ({ targetDir, io, services, renderers }) => async () => {
     const package = await io.loadPackage();
     const sectionTemplates = await io.loadSectionTemplates();
 
-    const context = await lib.compose(c => c.modules, `${targetDir}/src/compose.js`);
+    const context = composition.modules;
 
 
     const renderDependencies = renderers.renderDependencies({ dependencyConstraints, dependencies, package });

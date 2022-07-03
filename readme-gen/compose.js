@@ -2,11 +2,12 @@ const fs = require('fs');
 const composer = require('module-composer');
 const src = require('./src');
 
-module.exports = ({ targetDir }) => {
+module.exports = ({ targetDir, composition }) => {
+
 
     const { compose } = composer(src);
-    const { io } = compose('io', { targetDir, fs });
-    const { renderers } = compose('renderers', { targetDir });
-    compose('services', { io, renderers, targetDir, fs });
+    const { io } = compose('io', { targetDir, composition, fs });
+    const { renderers } = compose('renderers', { composition, targetDir });
+    compose('services', { io, renderers, composition, targetDir, fs });
     return compose;
 };
