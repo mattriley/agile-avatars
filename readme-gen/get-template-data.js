@@ -6,15 +6,23 @@ const path = require('path');
 module.exports = async ({ io, renderers }) => {
 
     const dependencies = await io.loadDependencies(); // here
-    const sectionTemplates = await io.loadSectionTemplates();
 
-    const templateFiles = await glob('./readme-gen/assets/modules/*.md');
+    const templateFiles1 = await glob('./readme-gen/assets/modules/*.md');
 
-    const moduleTemplates = templateFiles.reduce((acc, f) => {
+    const moduleTemplates = templateFiles1.reduce((acc, f) => {
         const template = fs.readFileSync(f, 'utf-8');
         const { name } = path.parse(f);
         return Object.assign(acc, { [name]: template });
     }, {});
+
+    const templateFiles2 = await glob('./readme-gen/assets/sections/*.md');
+
+    const sectionTemplates = templateFiles2.reduce((acc, f) => {
+        const template = fs.readFileSync(f, 'utf-8');
+        const { name } = path.parse(f);
+        return Object.assign(acc, { [name]: template });
+    }, {});
+
 
 
 
