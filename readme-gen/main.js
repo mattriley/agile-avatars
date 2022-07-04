@@ -7,17 +7,19 @@ const _ = require('lodash');
 const glob = require('fast-glob');
 const ejs = require('ejs');
 
+const fsp = fs.promises;
+
 const start = async () => {
 
-    const constraintsFile = fs.readFileSync('./readme-gen/assets/dependencies/constraints.yaml', 'utf8');
+    const constraintsFile = await fsp.readFile('./readme-gen/assets/dependencies/constraints.yaml', 'utf8');
     const dependencyConstraints = YAML.parse(constraintsFile);
 
-    const loadDependencies = () => {
-        const dependenciesFile = fs.readFileSync('./readme-gen/assets/dependencies/dependencies.yaml', 'utf8');
+    const loadDependencies = async () => {
+        const dependenciesFile = await fsp.readFile('./readme-gen/assets/dependencies/dependencies.yaml', 'utf8');
         const dependencies = YAML.parse(dependenciesFile);
         const packages = _.mapValues(dependencies, (val, name) => {
             try {
-                return JSON.parse(fs.readFileSync(`./node_modules/${name}/package.json`, 'utf8'));
+                return require(path.resolve(`./node_modules/${name}/package.json`));
             }
             catch (err) {
                 // some don't have package.json?
