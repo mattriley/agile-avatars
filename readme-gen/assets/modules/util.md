@@ -2,7 +2,7 @@ Provides _low-level utility functions_.
 
 #### Collaborators
 
-<%- await collaborators %>
+<%- await renderCollaborators() %>
 
 #### List of utility functions
 

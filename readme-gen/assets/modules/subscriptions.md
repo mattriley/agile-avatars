@@ -10,7 +10,7 @@ The _subscriptions_ module was introduced to allow Components to subscribe to st
 
 #### Collaborators
 
-<%- await collaborators %>
+<%- await renderCollaborators() %>
 
 #### Source
 

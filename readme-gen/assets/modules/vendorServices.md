@@ -2,7 +2,7 @@ Provides vendor (third party) services including gtag and sentry. These are sepa
 
 #### Collaborators
 
-<%- await collaborators %>
+<%- await renderCollaborators() %>
 
 #### Example: gtag
 

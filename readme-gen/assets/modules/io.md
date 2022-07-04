@@ -2,7 +2,7 @@ Provides _io functions_ while preventing direct access to _window_.
 
 #### Collaborators
 
-<%- await collaborators %>
+<%- await renderCollaborators() %>
 
 #### Source
 

@@ -2,7 +2,7 @@ Provides _service functions_. Service functions perform effects by orchestrate t
 
 #### Collaborators
 
-<%- await collaborators %>
+<%- await renderCollaborators() %>
 
 - No access to _window_. IO operations are serviced by the _io_ module.
 

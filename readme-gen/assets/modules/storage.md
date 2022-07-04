@@ -2,7 +2,7 @@ Provides the _state store implementation_. State stores manage state changes and
 
 #### Collaborators
 
-<%- await collaborators %>
+<%- await renderCollaborators() %>
 
 #### Source
 

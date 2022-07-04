@@ -18,10 +18,8 @@ module.exports = ({ target, io, renderers }) => async () => {
     const moduleNames = Object.keys(target.composition.dependencies);
     const context = target.composition.modules;
 
-    const templateData = { lib, context, flatten };
-
     const modules = await Promise.all(moduleNames.map(async name => {
-        const collaborators = renderers.renderCollaborators({ moduleName: name });
+        const renderCollaborators = () => renderers.renderCollaborators({ moduleName: name });
         const template = moduleTemplates[name] || '';
 
         const renderIndex = (opts = {}) => {
@@ -42,7 +40,7 @@ module.exports = ({ target, io, renderers }) => async () => {
 
         };
 
-        const content = await io.ejs.render(template, { renderIndex, collaborators, ...templateData, lib }, { async: true });
+        const content = await io.ejs.render(template, { renderIndex, renderCollaborators, lib }, { async: true });
         const title = `## ${name}\n`;
         return [title, content].join('\n\n');
     }));

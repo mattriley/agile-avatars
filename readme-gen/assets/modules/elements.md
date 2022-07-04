@@ -2,7 +2,7 @@ Provides _element factory functions_. An element is a HTML element that relies o
 
 #### Collaborators
 
-<%- await collaborators %>
+<%- await renderCollaborators() %>
 
 - No access to _stores_ or _io_. Effects are serviced by raising events to be handled by _components_.
 - No access to _window_. Low-level presentation concerns are serviced by the _ui_ module.

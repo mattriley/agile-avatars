@@ -2,7 +2,7 @@ Provides _startup functions_ which are used at [launch](#launching) time.
 
 #### Collaborators
 
-<%- await collaborators %>
+<%- await renderCollaborators() %>
 
 - Largely unconstrained as only used during launch.
 

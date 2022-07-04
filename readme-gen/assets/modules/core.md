@@ -2,7 +2,7 @@ Provides _pure functions_ to be consumed by the _services_ module. Without core,
 
 #### Collaborators
 
-<%- await collaborators %>
+<%- await renderCollaborators() %>
 
 - No access to modules that produce side effects.
 
