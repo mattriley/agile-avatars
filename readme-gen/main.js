@@ -1,5 +1,4 @@
 const compose = require('./compose');
-const getTemplateData = require('./get-template-data');
 const lib = require('task-library/src/lib/readme-gen');
 const path = require('path');
 const YAML = require('yaml');
@@ -42,8 +41,7 @@ const start = async () => {
     const io = { fs, glob, ejs };
     const { modules } = compose({ io, target });
     const { renderers } = modules;
-    const templateData = await getTemplateData({ renderers });
-    await lib.renderFile('./README-TEMPLATE.md', { ...renderers, ...templateData });
+    await lib.renderFile('./README-TEMPLATE.md', renderers);
 };
 
 start();

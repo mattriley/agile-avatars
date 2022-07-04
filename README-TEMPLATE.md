@@ -64,11 +64,11 @@ The diff-like block lists the collaborators in green and the non-collaborators i
 
 # List of Production Dependencies
 
-<%- await dependencies.production %>
+<%- await renderDependencies('dependencies') %>
 
 # List of Development Dependencies
 
-<%- await dependencies.development %>
+<%- await renderDependencies('devDependencies') %>
 
 # Functional Programming
 
