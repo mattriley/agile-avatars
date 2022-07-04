@@ -1,6 +1,6 @@
-module.exports = ({ target }) => ({ dependencies, name }) => {
+module.exports = ({ target }) => ({ name }) => {
 
-    const p = dependencies.packages[name] || {};
+    const p = target.dependencies.packages[name] || {};
     const numDependencies = Object.keys(p.dependencies ?? {}).length;
     const icon = numDependencies === 0 ? ':boom:' : (numDependencies > 9 ? ':warning:' : ':white_check_mark:');
 
@@ -44,7 +44,7 @@ module.exports = ({ target }) => ({ dependencies, name }) => {
         ];
     };
 
-    const dep = dependencies.dependencies[name];
+    const dep = target.dependencies.dependencies[name];
     const usedForLines = dep?.usedFor ? renderUsedForLines(dep) : [];
     const commentLines = dep?.comments ? renderCommentLines(dep) : [];
     const alternativesConsideredLines = dep?.alternativesConsidered ? renderAlternativesConsideredLines(dep) : [];
