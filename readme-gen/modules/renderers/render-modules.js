@@ -1,27 +1,20 @@
-const ejs = require('ejs');
-const flatten = require('flat');
 const _ = require('lodash');
-const lib = require('task-library/src/lib/readme-gen');
-const glob = require('fast-glob');
+const flatten = require('flat');
 const path = require('path');
-const fs = require('fs');
+const lib = require('task-library/src/lib/readme-gen');
 
-module.exports = ({ target, renderers }) => async () => {
+module.exports = ({ target, io, renderers }) => async () => {
 
     const loadTemplates = async pattern => {
-        const templateFiles = await glob(pattern);
+        const templateFiles = await io.glob(pattern);
         return templateFiles.reduce((acc, f) => {
-            const template = fs.readFileSync(f, 'utf-8');
+            const template = io.fs.readFileSync(f, 'utf-8');
             const { name } = path.parse(f);
             return Object.assign(acc, { [name]: template });
         }, {});
     };
 
     const moduleTemplates = await loadTemplates('./readme-gen/assets/modules/*.md');
-
-
-
-
     const moduleNames = Object.keys(target.composition.dependencies);
     const context = target.composition.modules;
 
@@ -49,7 +42,7 @@ module.exports = ({ target, renderers }) => async () => {
 
         };
 
-        const content = await ejs.render(template, { renderIndex, collaborators, ...templateData, lib }, { async: true });
+        const content = await io.ejs.render(template, { renderIndex, collaborators, ...templateData, lib }, { async: true });
         const title = `## ${name}\n`;
         //const block = renderers.renderCollaborators({ moduleName: name })
         // return [title, block, content].join('\n\n')

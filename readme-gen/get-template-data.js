@@ -1,16 +1,15 @@
-const fs = require('fs');
-const YAML = require('yaml');
 const _ = require('lodash');
+const YAML = require('yaml');
 
-module.exports = async ({ renderers }) => {
+module.exports = async ({ io, renderers }) => {
 
 
     const loadDependencies = () => {
-        const dependenciesFile = fs.readFileSync('./readme-gen/assets/dependencies/dependencies.yaml', 'utf8');
+        const dependenciesFile = io.fs.readFileSync('./readme-gen/assets/dependencies/dependencies.yaml', 'utf8');
         const dependencies = YAML.parse(dependenciesFile);
         const packages = _.mapValues(dependencies, (val, name) => {
             try {
-                return JSON.parse(fs.readFileSync(`./node_modules/${name}/package.json`, 'utf8'));
+                return JSON.parse(io.fs.readFileSync(`./node_modules/${name}/package.json`, 'utf8'));
             }
             catch (err) {
                 // some don't have package.json?
@@ -22,7 +21,7 @@ module.exports = async ({ renderers }) => {
     };
 
     const dependencies = await loadDependencies();
-    const constraintsFile = fs.readFileSync('./readme-gen/assets/dependencies/constraints.yaml', 'utf8');
+    const constraintsFile = io.fs.readFileSync('./readme-gen/assets/dependencies/constraints.yaml', 'utf8');
     const dependencyConstraints = YAML.parse(constraintsFile);
 
     const renderDependencies = renderers.renderDependencies({ dependencyConstraints, dependencies });
