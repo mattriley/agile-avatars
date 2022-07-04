@@ -2,8 +2,8 @@ Provides _low-level presentation functions_ while preventing direct access to wi
 
 #### Collaborators
 
-<%- await renderCollaborators() %>
+<%- await lib.renderCollaborators() %>
 
 #### List of ui functions
 
-<%- await renderIndex() %>
+<%- await lib.renderIndex() %>

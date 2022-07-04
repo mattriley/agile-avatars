@@ -2,7 +2,7 @@ Provides _static application config_ as a plain JavaScript object, including def
 
 #### Collaborators
 
-<%- await renderCollaborators() %>
+<%- await lib.renderCollaborators() %>
 
 - No collaborators required.
 

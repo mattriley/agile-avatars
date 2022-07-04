@@ -2,7 +2,7 @@ Provides _pure functions_ to be consumed by the _services_ module. Without core,
 
 #### Collaborators
 
-<%- await renderCollaborators() %>
+<%- await lib.renderCollaborators() %>
 
 - No access to modules that produce side effects.
 
@@ -14,7 +14,7 @@ parseEmailExpression is a pure function. Amongst other properties of pure functi
 
 #### List of core functions
 
-<%- await renderIndex() %>
+<%- await lib.renderIndex() %>
 
 #### Further reading
 

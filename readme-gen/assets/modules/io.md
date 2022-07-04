@@ -2,7 +2,7 @@ Provides _io functions_ while preventing direct access to _window_.
 
 #### Collaborators
 
-<%- await renderCollaborators() %>
+<%- await lib.renderCollaborators() %>
 
 #### Source
 
@@ -12,4 +12,4 @@ _io_ is a single-file module:
 
 #### List of io functions
 
-<%- await renderIndex() %>
+<%- await lib.renderIndex() %>

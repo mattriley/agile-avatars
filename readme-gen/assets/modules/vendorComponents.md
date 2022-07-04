@@ -2,8 +2,8 @@ Provides vendor (third party) components including gtag and vanilla-picker. Thes
 
 #### Collaborators
 
-<%- await renderCollaborators() %>
+<%- await lib.renderCollaborators() %>
 
 #### List of vendor components
 
-<%- await renderIndex() %>
+<%- await lib.renderIndex() %>

@@ -2,8 +2,8 @@ Provides _low-level utility functions_.
 
 #### Collaborators
 
-<%- await renderCollaborators() %>
+<%- await lib.renderCollaborators() %>
 
 #### List of utility functions
 
-<%- await renderIndex() %>
+<%- await lib.renderIndex() %>

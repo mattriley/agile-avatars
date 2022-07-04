@@ -2,7 +2,7 @@ Provides _style factory functions_. A style is simply a HTML style element that 
 
 #### Collaborators
 
-<%- await renderCollaborators() %>
+<%- await lib.renderCollaborators() %>
 
 #### Example: roleColor
 
@@ -14,4 +14,4 @@ Provides _style factory functions_. A style is simply a HTML style element that 
 
 #### List of styles
 
-<%- await renderIndex() %>
+<%- await lib.renderIndex() %>

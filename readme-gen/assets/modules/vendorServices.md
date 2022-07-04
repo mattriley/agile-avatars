@@ -2,7 +2,7 @@ Provides vendor (third party) services including gtag and sentry. These are sepa
 
 #### Collaborators
 
-<%- await renderCollaborators() %>
+<%- await lib.renderCollaborators() %>
 
 #### Example: gtag
 
@@ -14,4 +14,4 @@ gtag depends on window for global variables to work correctly.
 
 #### List of vendor services
 
-<%- await renderIndex({ maxDepth: 1 }) %>
+<%- await lib.renderIndex({ maxDepth: 1 }) %>

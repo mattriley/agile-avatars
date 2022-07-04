@@ -2,7 +2,7 @@ Provides the _state stores_. State stores manage state changes and raise change 
 
 #### Collaborators
 
-<%- await renderCollaborators() %>
+<%- await lib.renderCollaborators() %>
 
 #### Source
 
@@ -12,4 +12,4 @@ Provides the _state stores_. State stores manage state changes and raise change 
 
 #### List of stores
 
-<%- await renderIndex({ maxDepth: 1 }) %>
+<%- await lib.renderIndex({ maxDepth: 1 }) %>

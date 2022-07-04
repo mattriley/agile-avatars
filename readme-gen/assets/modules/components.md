@@ -2,7 +2,7 @@ Provides _component factory functions_. A component is a HTML element that relie
 
 #### Collaborators
 
-<%- await renderCollaborators() %>
+<%- await lib.renderCollaborators() %>
 
 - No access to _stores_ or _io_. Effects are serviced by the _services_ module.
 - No access to _window_. Low-level presentation concerns are serviced by the _ui_ module.
@@ -21,4 +21,4 @@ tagName subscribes to tag name change events and updates the editable span with 
 
 #### List of components
 
-<%- await renderIndex() %>
+<%- await lib.renderIndex() %>
