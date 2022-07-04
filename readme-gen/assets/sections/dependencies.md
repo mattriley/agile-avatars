@@ -11,7 +11,7 @@ Further reading:
 
 ## Constraints
 
-<%- await renderDependencyConstraints() %>
+<%- await lib.renderDependencyConstraints() %>
 
 Production dependencies need to be carefully considered in order to keep the bundle size small. We can be more liberal with development dependencies as they don't impact the bundle size.
 

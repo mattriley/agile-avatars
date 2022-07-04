@@ -44,7 +44,7 @@ Following is a complete list of modules in Agile Avatars.
 
 The diff-like block lists the collaborators in green and the non-collaborators in red.
 
-<%- await renderModules() %>
+<%- await lib.renderModules() %>
 
 # State Management
 
@@ -64,11 +64,11 @@ The diff-like block lists the collaborators in green and the non-collaborators i
 
 # List of Production Dependencies
 
-<%- await renderDependencies('dependencies') %>
+<%- await lib.renderDependencies('dependencies') %>
 
 # List of Development Dependencies
 
-<%- await renderDependencies('devDependencies') %>
+<%- await lib.renderDependencies('devDependencies') %>
 
 # Functional Programming
 
