@@ -3,7 +3,7 @@
 export PROJECT_NAME="Agile Avatars"
 export INDEXGEN_PATHS=("$MODULES" "./testing/modules")
 export INDEXGEN_OPTIONS="--fullySpecified"
-export README_GEN="./readme-gen/readme-gen.js"
+export README_GEN="./readme-gen/main.js"
 
 export BUILD_OUTPUT="build_output"
 export PACKAGE_OUTPUT="package_output"
