@@ -2,9 +2,9 @@ const fs = require('fs');
 const composer = require('module-composer');
 const modules = require('./modules');
 
-module.exports = ({ composition }) => {
+module.exports = ({ target }) => {
     const { compose } = composer(modules);
-    compose('io', { composition, fs });
-    compose('renderers', { composition });
+    compose('io', { target, fs });
+    compose('renderers', { target });
     return compose.end();
 };

@@ -1,9 +1,9 @@
 const sortBy = require('lodash/sortBy');
 const _ = require('lodash');
 
-module.exports = ({ composition }) => async ({ moduleName }) => {
+module.exports = ({ target }) => async ({ moduleName }) => {
 
-    const { dependencies } = composition;
+    const { dependencies } = target.composition;
 
     dependencies.window = [];
 
