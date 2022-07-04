@@ -38,24 +38,24 @@ module.exports = async ({ renderers }) => {
     const dependencyConstraints = YAML.parse(constraintsFile);
 
     const renderDependencies = renderers.renderDependencies({ dependencyConstraints, dependencies });
-    const renderSection = renderers.renderSection({
-        sectionTemplates,
-        templateData: {
-            modules: renderers.renderModules({ moduleTemplates, renderers: renderers.renderCodeFile, renderCollaborators: renderers.renderCollaborators }),
-            dependencies: {
-                constraints: renderers.renderDependencyConstraints({ dependencyConstraints }),
-                production: renderDependencies('dependencies'),
-                development: renderDependencies('devDependencies')
-            }
-        }
-    });
 
-    return {
+    const templateData = {
+        modules: renderers.renderModules({ moduleTemplates, renderers: renderers.renderCodeFile, renderCollaborators: renderers.renderCollaborators }),
         dependencies: {
             constraints: renderers.renderDependencyConstraints({ dependencyConstraints }),
             production: renderDependencies('dependencies'),
             development: renderDependencies('devDependencies')
-        },
+        }
+    };
+
+
+    const renderSection = renderers.renderSection({
+        sectionTemplates,
+        templateData
+    });
+
+    return {
+        dependencies: templateData.dependencies,
         modules: renderers.renderModules({ moduleTemplates }),
         renderSection
     };
