@@ -44,8 +44,6 @@ module.exports = ({ target, io, renderers }) => async () => {
 
         const content = await io.ejs.render(template, { renderIndex, collaborators, ...templateData, lib }, { async: true });
         const title = `## ${name}\n`;
-        //const block = renderers.renderCollaborators({ moduleName: name })
-        // return [title, block, content].join('\n\n')
         return [title, content].join('\n\n');
     }));
 

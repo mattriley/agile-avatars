@@ -21,15 +21,13 @@ module.exports = async ({ io, renderers }) => {
     };
 
     const dependencies = await loadDependencies();
-    const constraintsFile = io.fs.readFileSync('./readme-gen/assets/dependencies/constraints.yaml', 'utf8');
-    const dependencyConstraints = YAML.parse(constraintsFile);
 
-    const renderDependencies = renderers.renderDependencies({ dependencyConstraints, dependencies });
+    const renderDependencies = renderers.renderDependencies({ dependencies });
 
     return {
         modules: renderers.renderModules(),
         dependencies: {
-            constraints: renderers.renderDependencyConstraints({ dependencyConstraints }),
+            constraints: renderers.renderDependencyConstraints(),
             production: renderDependencies('dependencies'),
             development: renderDependencies('devDependencies')
         }

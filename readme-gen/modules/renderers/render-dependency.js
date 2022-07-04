@@ -1,4 +1,4 @@
-module.exports = () => ({ dependencyConstraints, dependencies, name }) => {
+module.exports = ({ target }) => ({ dependencies, name }) => {
 
     const p = dependencies.packages[name] || {};
     const numDependencies = Object.keys(p.dependencies ?? {}).length;
@@ -23,7 +23,7 @@ module.exports = () => ({ dependencyConstraints, dependencies, name }) => {
 
     const renderCommentLines = dep => {
         const commentLines = Object.entries(dep.comments).map(([constraintKey, comment]) => {
-            const constraint = dependencyConstraints[constraintKey];
+            const constraint = target.dependencyConstraints[constraintKey];
             return `- __${constraint}__\\\n${comment}\n`;
         });
         return [
