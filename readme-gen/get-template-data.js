@@ -13,7 +13,6 @@ module.exports = async ({ target, io, renderers }) => {
     const renderSection = renderers.renderSection({
         sectionTemplates,
         templateData: {
-            depTable: renderers.renderDepTable(),
             moduleGraph: renderers.renderModuleGraph,
             modules: renderers.renderModules({ context, moduleNames, moduleTemplates, renderers: renderers.renderCodeFile, renderCollaborators: renderers.renderCollaborators }),
             dependencies: {
