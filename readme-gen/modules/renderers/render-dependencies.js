@@ -1,4 +1,4 @@
-module.exports = ({ target, renderers }) => () => packageKey => {
+module.exports = ({ target, renderers }) => packageKey => {
 
     const results = Object.entries(target.package[packageKey]).map(([name]) => {
         return renderers.renderDependency({ name });
