@@ -1,4 +1,4 @@
-module.exports = ({ composition, io, services, renderers }) => async () => {
+module.exports = async ({ composition, io, renderers }) => {
     const moduleNames = await io.loadModuleNames();
     const moduleTemplates = await io.loadModuleTemplates();
     const dependencies = await io.loadDependencies(); // here
@@ -15,7 +15,7 @@ module.exports = ({ composition, io, services, renderers }) => async () => {
         templateData: {
             depTable: renderers.renderDepTable(),
             moduleGraph: renderers.renderModuleGraph,
-            modules: renderers.renderModules({ context, moduleNames, moduleTemplates, renderers: renderers.renderCodeFile, renderCollaborators: services.renderCollaborators }),
+            modules: renderers.renderModules({ context, moduleNames, moduleTemplates, renderers: renderers.renderCodeFile, renderCollaborators: renderers.renderCollaborators }),
             dependencies: {
                 constraints: renderers.renderDependencyConstraints({ dependencyConstraints }),
                 production: renderDependencies('dependencies'),
