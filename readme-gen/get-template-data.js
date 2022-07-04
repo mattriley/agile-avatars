@@ -40,7 +40,7 @@ module.exports = async ({ renderers }) => {
     const renderDependencies = renderers.renderDependencies({ dependencyConstraints, dependencies });
 
     const templateData = {
-        modules: renderers.renderModules({ moduleTemplates, renderers: renderers.renderCodeFile, renderCollaborators: renderers.renderCollaborators }),
+        modules: renderers.renderModules({ moduleTemplates }),
         dependencies: {
             constraints: renderers.renderDependencyConstraints({ dependencyConstraints }),
             production: renderDependencies('dependencies'),
@@ -48,16 +48,7 @@ module.exports = async ({ renderers }) => {
         }
     };
 
-
-    const renderSection = renderers.renderSection({
-        sectionTemplates,
-        templateData
-    });
-
-    return {
-        dependencies: templateData.dependencies,
-        modules: renderers.renderModules({ moduleTemplates }),
-        renderSection
-    };
+    const renderSection = renderers.renderSection({ sectionTemplates, templateData });
+    return { renderSection, ...templateData };
 
 };

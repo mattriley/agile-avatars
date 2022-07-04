@@ -40,7 +40,6 @@ Great looking avatars for your agile board and experiment in FRAMEWORK-LESS, van
   - [util](#util)
   - [vendorComponents](#vendorcomponents)
   - [vendorServices](#vendorservices)
-  - [window](#window)
 - [State Management](#state-management)
   - [Stores](#stores)
   - [Subscriptions](#subscriptions)
@@ -1063,10 +1062,6 @@ export default ({ config, io, window }) => {
 ```
 gtag                                            sentry                                          
 ```
-
-## window
-
-
 
 
 # State Management
