@@ -3,7 +3,7 @@ module.exports = async ({ target, io, renderers }) => {
     const moduleTemplates = await io.loadModuleTemplates();
     const dependencies = await io.loadDependencies(); // here
     const dependencyConstraints = await io.loadDependencyConstraints();
-    const package = await io.loadPackage();
+    const package = target.package;
     const sectionTemplates = await io.loadSectionTemplates();
 
     const context = target.composition.modules;
