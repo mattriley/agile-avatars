@@ -12,31 +12,31 @@ The solutions are designed around the needs of this application at this point in
 
 # Getting Started
 
-<%- await renderSection('getting-started') %>
+<%- await include('./readme-gen/assets/sections/getting-started.md') %>
 
 # Design Goals
 
-<%- await renderSection('design-goals') %>
+<%- await include('./readme-gen/assets/sections/design-goals.md') %>
 
 # Technical Constraints
 
-<%- await renderSection('technical-constraints') %>
+<%- await include('./readme-gen/assets/sections/technical-constraints.md') %>
 
 # Architecture
 
-<%- await renderSection('architecture') %>
+<%- await include('./readme-gen/assets/sections/architecture.md') %>
 
 # Launching
 
-<%- await renderSection('launching') %>
+<%- await include('./readme-gen/assets/sections/launching.md') %>
 
 # Composing
 
-<%- await renderSection('composing') %>
+<%- await include('./readme-gen/assets/sections/composing.md') %>
 
 # Modules
 
-<%- await renderSection('modules') %>
+<%- await include('./readme-gen/assets/sections/modules.md') %>
 
 # List of Modules
 
@@ -48,19 +48,19 @@ The diff-like block lists the collaborators in green and the non-collaborators i
 
 # State Management
 
-<%- await renderSection('state-management') %>
+<%- await include('./readme-gen/assets/sections/state-management.md') %>
 
 # View Rendering
 
-<%- await renderSection('view-rendering') %>
+<%- await include('./readme-gen/assets/sections/view-rendering.md') %>
 
 # Testing 
 
-<%- await renderSection('testing') %>
+<%- await include('./readme-gen/assets/sections/testing.md') %>
 
 # Dependencies
 
-<%- await renderSection('dependencies') %>
+<%- await include('./readme-gen/assets/sections/dependencies.md') %>
 
 # List of Production Dependencies
 
@@ -72,8 +72,8 @@ The diff-like block lists the collaborators in green and the non-collaborators i
 
 # Functional Programming
 
-<%- await renderSection('functional-programming') %>
+<%- await include('./readme-gen/assets/sections/functional-programming.md') %>
 
 # Conventions
 
-<%- await renderSection('conventions') %>
+<%- await include('./readme-gen/assets/sections/conventions.md') %>

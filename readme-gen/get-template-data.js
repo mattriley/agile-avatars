@@ -33,13 +33,12 @@ module.exports = async ({ renderers }) => {
 
     const dependencies = await loadDependencies();
     const moduleTemplates = await loadTemplates('./readme-gen/assets/modules/*.md');
-    const sectionTemplates = await loadTemplates('./readme-gen/assets/sections/*.md');
     const constraintsFile = fs.readFileSync('./readme-gen/assets/dependencies/constraints.yaml', 'utf8');
     const dependencyConstraints = YAML.parse(constraintsFile);
 
     const renderDependencies = renderers.renderDependencies({ dependencyConstraints, dependencies });
 
-    const templateData = {
+    return {
         modules: renderers.renderModules({ moduleTemplates }),
         dependencies: {
             constraints: renderers.renderDependencyConstraints({ dependencyConstraints }),
@@ -47,8 +46,5 @@ module.exports = async ({ renderers }) => {
             development: renderDependencies('devDependencies')
         }
     };
-
-    const renderSection = renderers.renderSection({ sectionTemplates, templateData });
-    return { renderSection, ...templateData };
 
 };
