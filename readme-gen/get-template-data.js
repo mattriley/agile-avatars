@@ -1,11 +1,22 @@
 const fs = require('fs');
 const YAML = require('yaml');
+const glob = require('fast-glob');
+const path = require('path');
 
 module.exports = async ({ io, renderers }) => {
 
-    const moduleTemplates = await io.loadModuleTemplates();
     const dependencies = await io.loadDependencies(); // here
     const sectionTemplates = await io.loadSectionTemplates();
+
+    const templateFiles = await glob('./readme-gen/assets/modules/*.md');
+
+    const moduleTemplates = templateFiles.reduce((acc, f) => {
+        const template = fs.readFileSync(f, 'utf-8');
+        const { name } = path.parse(f);
+        return Object.assign(acc, { [name]: template });
+    }, {});
+
+
 
     const constraintsFile = fs.readFileSync('./readme-gen/assets/dependencies/constraints.yaml', 'utf8');
     const dependencyConstraints = YAML.parse(constraintsFile);
