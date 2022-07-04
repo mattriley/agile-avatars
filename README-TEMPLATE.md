@@ -44,7 +44,7 @@ Following is a complete list of modules in Agile Avatars.
 
 The diff-like block lists the collaborators in green and the non-collaborators in red.
 
-<%- await modules %>
+<%- await renderModules() %>
 
 # State Management
 
