@@ -5,27 +5,18 @@ const path = require('path');
 
 module.exports = async ({ io, renderers }) => {
 
-    const dependencies = await io.loadDependencies(); // here
+    const loadTemplates = async pattern => {
+        const templateFiles = await glob(pattern);
+        return templateFiles.reduce((acc, f) => {
+            const template = fs.readFileSync(f, 'utf-8');
+            const { name } = path.parse(f);
+            return Object.assign(acc, { [name]: template });
+        }, {});
+    };
 
-    const templateFiles1 = await glob('./readme-gen/assets/modules/*.md');
-
-    const moduleTemplates = templateFiles1.reduce((acc, f) => {
-        const template = fs.readFileSync(f, 'utf-8');
-        const { name } = path.parse(f);
-        return Object.assign(acc, { [name]: template });
-    }, {});
-
-    const templateFiles2 = await glob('./readme-gen/assets/sections/*.md');
-
-    const sectionTemplates = templateFiles2.reduce((acc, f) => {
-        const template = fs.readFileSync(f, 'utf-8');
-        const { name } = path.parse(f);
-        return Object.assign(acc, { [name]: template });
-    }, {});
-
-
-
-
+    const dependencies = await io.loadDependencies();
+    const moduleTemplates = await loadTemplates('./readme-gen/assets/modules/*.md');
+    const sectionTemplates = await loadTemplates('./readme-gen/assets/sections/*.md');
     const constraintsFile = fs.readFileSync('./readme-gen/assets/dependencies/constraints.yaml', 'utf8');
     const dependencyConstraints = YAML.parse(constraintsFile);
 
