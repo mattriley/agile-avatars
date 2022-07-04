@@ -2,8 +2,25 @@ const ejs = require('ejs');
 const flatten = require('flat');
 const _ = require('lodash');
 const lib = require('task-library/src/lib/readme-gen');
+const glob = require('fast-glob');
+const path = require('path');
+const fs = require('fs');
 
-module.exports = ({ target, renderers }) => async ({ moduleTemplates }) => {
+module.exports = ({ target, renderers }) => async () => {
+
+    const loadTemplates = async pattern => {
+        const templateFiles = await glob(pattern);
+        return templateFiles.reduce((acc, f) => {
+            const template = fs.readFileSync(f, 'utf-8');
+            const { name } = path.parse(f);
+            return Object.assign(acc, { [name]: template });
+        }, {});
+    };
+
+    const moduleTemplates = await loadTemplates('./readme-gen/assets/modules/*.md');
+
+
+
 
     const moduleNames = Object.keys(target.composition.dependencies);
     const context = target.composition.modules;

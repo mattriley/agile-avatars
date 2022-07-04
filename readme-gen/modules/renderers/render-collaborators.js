@@ -1,4 +1,3 @@
-const sortBy = require('lodash/sortBy');
 const _ = require('lodash');
 
 module.exports = ({ target }) => async ({ moduleName }) => {
@@ -9,7 +8,7 @@ module.exports = ({ target }) => async ({ moduleName }) => {
 
     const keys = Object.keys(dependencies);
 
-    let names = sortBy(Object.keys(dependencies), name => {
+    let names = _.sortBy(Object.keys(dependencies), name => {
         const deps = dependencies[name].filter(n => keys.includes(n)); // because will contain more than modules (e.g. el, window)
         return deps.length;
     }).reverse();
