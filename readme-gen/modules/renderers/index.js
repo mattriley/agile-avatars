@@ -3,5 +3,6 @@ module.exports = {
     renderDependencies: require('./render-dependencies'),
     renderDependency: require('./render-dependency'),
     renderDependencyConstraints: require('./render-dependency-constraints'),
+    renderIndex: require('./render-index'),
     renderModules: require('./render-modules')
 };
