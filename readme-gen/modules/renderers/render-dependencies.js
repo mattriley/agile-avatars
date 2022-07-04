@@ -1,8 +1,8 @@
-module.exports = ({ renderers }) => ({ dependencyConstraints, dependencies, package }) => packageKey => {
+module.exports = ({ target, renderers }) => ({ dependencyConstraints, dependencies }) => packageKey => {
 
-    const results = Object.entries(package[packageKey]).map(([name]) => {
+    const results = Object.entries(target.package[packageKey]).map(([name]) => {
         return renderers.renderDependency({ dependencyConstraints, dependencies, name });
     });
-    
+
     return results.join('\n');
 };

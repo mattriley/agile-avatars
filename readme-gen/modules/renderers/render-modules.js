@@ -3,7 +3,9 @@ const flatten = require('flat');
 const _ = require('lodash');
 const lib = require('task-library/src/lib/readme-gen');
 
-module.exports = ({ renderers }) => async ({ context, moduleNames, moduleTemplates }) => {
+module.exports = ({ target, renderers }) => async ({ context, moduleTemplates }) => {
+
+    const moduleNames = Object.keys(target.composition.dependencies);
 
     const templateData = { lib, context, flatten };
 

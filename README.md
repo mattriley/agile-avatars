@@ -38,8 +38,9 @@ Great looking avatars for your agile board and experiment in FRAMEWORK-LESS, van
   - [subscriptions](#subscriptions)
   - [ui](#ui)
   - [util](#util)
-  - [vendor-components](#vendor-components)
-  - [vendor-services](#vendor-services)
+  - [vendorComponents](#vendorcomponents)
+  - [vendorServices](#vendorservices)
+  - [window](#window)
 - [State Management](#state-management)
   - [Stores](#stores)
   - [Subscriptions](#subscriptions)
@@ -996,7 +997,7 @@ mapValues                                       upperFirst
 pipe                                            
 ```
 
-## vendor-components
+## vendorComponents
 
 
 Provides vendor (third party) components including gtag and vanilla-picker. These are separated from the components module because they have different collaborators. The components module avoids a direct dependency on window but some vendor components may require direct access to window which cannot be avoided.
@@ -1014,7 +1015,7 @@ Provides vendor (third party) components including gtag and vanilla-picker. Thes
 gtagScript                                      vanillaPicker                                   
 ```
 
-## vendor-services
+## vendorServices
 
 
 Provides vendor (third party) services including gtag and sentry. These are separated from the services module because they have different collaborators. The services module avoids a direct dependency on window but some vendor services may require direct access to window which cannot be avoided.
@@ -1062,6 +1063,10 @@ export default ({ config, io, window }) => {
 ```
 gtag                                            sentry                                          
 ```
+
+## window
+
+
 
 
 # State Management
