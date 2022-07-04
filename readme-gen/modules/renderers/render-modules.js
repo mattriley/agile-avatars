@@ -3,9 +3,10 @@ const flatten = require('flat');
 const _ = require('lodash');
 const lib = require('task-library/src/lib/readme-gen');
 
-module.exports = ({ target, renderers }) => async ({ context, moduleTemplates }) => {
+module.exports = ({ target, renderers }) => async ({ moduleTemplates }) => {
 
     const moduleNames = Object.keys(target.composition.dependencies);
+    const context = target.composition.modules;
 
     const templateData = { lib, context, flatten };
 
@@ -14,8 +15,6 @@ module.exports = ({ target, renderers }) => async ({ context, moduleTemplates })
         const template = moduleTemplates[name] || '';
 
         const renderIndex = (opts = {}) => {
-            // return Object.keys(flatten(context[_.camelCase(name)], opts)).map(c => `- ${c}`).sort().join('\n')
-
             const keys = Object.keys(flatten(context[_.camelCase(name)], opts)).sort();
 
             const half = Math.ceil(keys.length / 2);
