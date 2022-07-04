@@ -32,12 +32,24 @@ const start = async () => {
 
     const dependencies = await loadDependencies();
 
+    const loadTemplates = async pattern => {
+        const templateFiles = await glob(pattern);
+        return templateFiles.reduce((acc, f) => {
+            const template = fs.readFileSync(f, 'utf-8');
+            const { name } = path.parse(f);
+            return Object.assign(acc, { [name]: template });
+        }, {});
+    };
+
+    const moduleTemplates = await loadTemplates('./readme-gen/assets/modules/*.md');
+
 
     const target = {
         package: require(path.resolve('./package.json')),
         composition: await lib.compose(c => c),
         dependencies,
-        dependencyConstraints
+        dependencyConstraints,
+        moduleTemplates
     };
 
     const io = { fs, glob, ejs };
