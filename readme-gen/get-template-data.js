@@ -1,5 +1,9 @@
+const glob = require('fast-glob');
+
 module.exports = async ({ target, io, renderers }) => {
-    const moduleNames = await io.loadModuleNames();
+
+    const moduleNames = await glob('*', { cwd: './src/modules', onlyDirectories: true });
+
     const moduleTemplates = await io.loadModuleTemplates();
     const dependencies = await io.loadDependencies(); // here
     const dependencyConstraints = await io.loadDependencyConstraints();
@@ -7,6 +11,8 @@ module.exports = async ({ target, io, renderers }) => {
     const sectionTemplates = await io.loadSectionTemplates();
 
     const context = target.composition.modules;
+
+
 
 
     const renderDependencies = renderers.renderDependencies({ dependencyConstraints, dependencies, package });
