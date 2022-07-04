@@ -322,7 +322,7 @@ graph TD;
     styles-->subscriptions;
     subscriptions-->stores;
     ui-->window;
-``` 
+```
 
 ## Deglobalising window
 
