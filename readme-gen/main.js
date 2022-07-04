@@ -9,7 +9,8 @@ const start = async () => {
         composition: await lib.compose(c => c)
     };
 
-    const { io, renderers } = compose({ target }).modules;
+    const { modules } = compose({ target });
+    const { io, renderers } = modules;
     const templateData = await getTemplateData({ target, io, renderers });
     await lib.renderFile('./README-TEMPLATE.md', templateData);
 };
