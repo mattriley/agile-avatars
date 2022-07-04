@@ -1,15 +1,15 @@
 module.exports = () => ({ dependencyConstraints, dependencies, name }) => {
 
-    const package = dependencies.packages[name] || {}
-    const numDependencies = Object.keys(package.dependencies ?? {}).length;
+    const p = dependencies.packages[name] || {};
+    const numDependencies = Object.keys(p.dependencies ?? {}).length;
     const icon = numDependencies === 0 ? ':boom:' : (numDependencies > 9 ? ':warning:' : ':white_check_mark:');
 
     const headerLines = [
         `## ${name}`,
         '',
-        `> ${package.description}`,
+        `> ${p.description}`,
         '',
-        `- Homepage: ${package.homepage}`,
+        `- Homepage: ${p.homepage}`,
         `- __${numDependencies}__ dependenc${numDependencies === 1 ? 'y' : 'ies'} ${icon}`
     ];
 

@@ -45,14 +45,6 @@ module.exports = ({ target }) => async ({ moduleName }) => {
     const row = rows.find(row => _.camelCase(row.name) === _.camelCase(name));
     const allowed = row ? row.allowed.join(' ') : '';
     const notAllowed = row ? row.notAllowed.join(' ') : '';
-    // return '```diff\n+ ' + allowed  + '\n- ' + notAllowed + '\n```'
-
-
-    // const lines = [
-    //     '```diff\n+ ' + allowed  + '\n- ' + notAllowed + '\n```',
-    //     '',
-    //     `<p align="center"><em>Collaborators</em></p>`,
-    // ];
 
     const lines = [
         '```diff\n+ ' + allowed + '\n- ' + notAllowed + '\n```',

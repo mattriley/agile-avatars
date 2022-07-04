@@ -1,6 +1,5 @@
 const glob = require('fast-glob');
 const path = require('path');
-const _ = require('lodash');
 
 module.exports = ({ fs }) => async () => {
 
