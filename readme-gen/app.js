@@ -1,5 +1,5 @@
 const compose = require('./compose');
-const lib = require('task-library/src/lib/readme-gen');
+const _readmeGenLib = require('task-library/src/lib/readme-gen');
 const path = require('path');
 const YAML = require('yaml');
 const fs = require('fs');
@@ -10,6 +10,8 @@ const ejs = require('ejs');
 const fsp = fs.promises;
 
 const start = async () => {
+
+    const readmeGenLib = _readmeGenLib();
 
     const constraintsFile = await fsp.readFile('./readme-gen/assets/dependencies/constraints.yaml', 'utf8');
     const dependencyConstraints = YAML.parse(constraintsFile);
@@ -46,16 +48,16 @@ const start = async () => {
 
     const target = {
         package: require(path.resolve('./package.json')),
-        composition: await lib.compose(c => c),
+        composition: await readmeGenLib.compose(c => c),
         dependencies,
         dependencyConstraints,
         moduleTemplates
     };
 
     const io = { fs, glob, ejs };
-    const { modules } = compose({ io, target });
+    const { modules } = compose({ readmeGenLib, io, target });
     const { renderers } = modules;
-    await lib.renderFile('./README-TEMPLATE.md', renderers);
+    await readmeGenLib.renderFile(renderers);
 };
 
 start();
