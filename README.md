@@ -25,6 +25,7 @@ Great looking avatars for your agile board and experiment in FRAMEWORK-LESS, van
   - [module-composer](#module-composer)
 - [Modules](#modules)
 - [List of Modules](#list-of-modules)
+  - [window](#window)
   - [components](#components)
   - [core](#core)
   - [diagnostics](#diagnostics)
@@ -269,7 +270,7 @@ const { storage, util } = modules;
 
 export default ({ window, overrides, configs }) => {
 
-    const { compose, config } = composer(modules, { overrides, defaultConfig, configs });
+    const { compose, config } = composer({ window, ...modules }, { overrides, defaultConfig, configs });
 
     // Data
     const { stores } = compose('stores', { storage, config });
@@ -423,6 +424,10 @@ Because all relative files are loaded by index.js files, a simple search can be 
 Following is a complete list of modules in Agile Avatars.
 
 The diff-like block lists the collaborators in green and the non-collaborators in red.
+
+## window
+
+
 
 ## components
 
