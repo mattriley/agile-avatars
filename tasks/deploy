@@ -1,0 +1,4 @@
+#!/bin/bash
+
+npx task dist
+rsync -au --delete "$DIST/" "$DOCS"  
