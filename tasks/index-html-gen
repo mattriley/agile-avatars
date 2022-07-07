@@ -1,8 +1,8 @@
 #!/bin/bash
 
-local URL="https://agileavatars.com"
-local DESCRIPTION="Agile Avatars makes it quick and easy to know who's working on what with great looking avatars for your agile board. No more fiddling with Word or Google Docs making sure everything aligns just right. Simply drag and drop your images, make some adjustments, print, and laminate!"
-local IMAGE="$URL/img/social.jpg"
+URL="https://agileavatars.com"
+DESCRIPTION="Agile Avatars makes it quick and easy to know who's working on what with great looking avatars for your agile board. No more fiddling with Word or Google Docs making sure everything aligns just right. Simply drag and drop your images, make some adjustments, print, and laminate!"
+IMAGE="$URL/img/social.jpg"
 
 cat > "$INDEX_HTML" <<EOF
 <head>
