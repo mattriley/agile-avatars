@@ -1,3 +1,4 @@
+import './css/*.css';
 import compose from './compose';
 
 const isLocalhost = (/localhost/).test(window.location.host);

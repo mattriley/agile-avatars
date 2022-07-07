@@ -1,5 +1,0 @@
-#!/bin/bash
-
-PROFILE="$1"
-mkdir -p "$PACKAGE_OUTPUT"
-tar -czvf "$PACKAGE_OUTPUT/$PROFILE.tar.gz" -C "$BUILD_OUTPUT/$PROFILE" .
