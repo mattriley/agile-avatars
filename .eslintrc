@@ -6,7 +6,8 @@
         "es2021": true
     },
     "extends": [
-        "eslint:recommended"
+        "eslint:recommended",
+        "plugin:import/recommended"
     ],
     "settings": {
         "react": {

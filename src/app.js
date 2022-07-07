@@ -1,4 +1,4 @@
-import './css/*.css';
+import './css/*.css'; // eslint-disable-line import/no-unresolved
 import compose from './compose';
 
 const isLocalhost = (/localhost/).test(window.location.host);

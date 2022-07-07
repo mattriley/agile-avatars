@@ -1,17 +1,10 @@
 #!/bin/bash
 
 export PROJECT_NAME="Agile Avatars"
+export DIST_PROD="$GITHUB_PAGES_PATH"
 export INDEXGEN_PATHS=("$MODULES" "./testing/modules")
 export INDEXGEN_OPTIONS="--fullySpecified"
 export README_GEN="./readme-gen/app.js"
-
-export BUILD_OUTPUT="build_output"
-export PACKAGE_OUTPUT="package_output"
-export PUBLIC="public"
-export PUBLIC_INDEX_HTML="$PUBLIC/index.html"
-export PUBLIC_CSS="$PUBLIC/css"
-export PUBLIC_IMAGES="$PUBLIC/img"
-export DEVSERVER_PORT="1234"
 
 export COV_BRANCHES=90
 export COV_LINES=90

@@ -1,11 +1,11 @@
 # Agile Avatars
 
 <p align="right">
-    <code>96.43% cov</code>&nbsp;
-    <code>1657 sloc</code>&nbsp;
-    <code>166 files</code>&nbsp;
+    <code>96.38% cov</code>&nbsp;
+    <code>2075 sloc</code>&nbsp;
+    <code>180 files</code>&nbsp;
     <code>5 deps</code>&nbsp;
-    <code>9 dev deps</code></p>
+    <code>10 dev deps</code></p>
 
 Great looking avatars for your agile board and experiment in FRAMEWORK-LESS, vanilla JavaScript.
 
@@ -59,15 +59,16 @@ Great looking avatars for your agile board and experiment in FRAMEWORK-LESS, van
   - [module-composer](#module-composer-1)
   - [vanilla-picker](#vanilla-picker)
 - [List of Development Dependencies](#list-of-development-dependencies)
+  - [@parcel/resolver-glob](#parcelresolver-glob)
   - [events](#events)
+  - [flat](#flat)
   - [jsdom](#jsdom)
   - [parcel](#parcel)
   - [process](#process)
   - [task-library](#task-library)
+  - [yaml](#yaml)
   - [zora](#zora)
   - [zora-reporters](#zora-reporters)
-  - [flat](#flat)
-  - [yaml](#yaml)
 - [Functional Programming](#functional-programming)
 - [Conventions](#conventions)
   - [Code](#code)
@@ -211,6 +212,7 @@ The following code is referenced by index.html and launches the application:
 
 ###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/master/src/app.js">src/app.js</a></p>
 ```js
+import './css/*.css'; // eslint-disable-line import/no-unresolved
 import compose from './compose';
 
 const isLocalhost = (/localhost/).test(window.location.host);
@@ -1603,7 +1605,31 @@ Presenting a color picker to change the color of a role.
 
 # List of Development Dependencies
 
+## @parcel/resolver-glob
+
+> undefined
+
+- Homepage: undefined
+- __0__ dependencies :boom:
+
+
+
+
+
+
 ## events
+
+> undefined
+
+- Homepage: undefined
+- __0__ dependencies :boom:
+
+
+
+
+
+
+## flat
 
 > undefined
 
@@ -1669,6 +1695,18 @@ There does not seem to be any viable replacement for JSDOM. The fallback would b
 
 
 
+## yaml
+
+> undefined
+
+- Homepage: undefined
+- __0__ dependencies :boom:
+
+
+
+
+
+
 ## zora
 
 > the lightest yet the fastest javascript testing library
@@ -1688,30 +1726,6 @@ Lightweight test harness optimised for speed and simplicity.
 tape was originally used however zora is newer and has some advantages over tape.
 
 ## zora-reporters
-
-> undefined
-
-- Homepage: undefined
-- __0__ dependencies :boom:
-
-
-
-
-
-
-## flat
-
-> undefined
-
-- Homepage: undefined
-- __0__ dependencies :boom:
-
-
-
-
-
-
-## yaml
 
 > undefined
 
