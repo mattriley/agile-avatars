@@ -1,8 +1,9 @@
 #!/bin/bash
 
-URL="https://agileavatars.com"
+. $TASK_LIBRARY_SRC/load-task-vars
+
 DESCRIPTION="Agile Avatars makes it quick and easy to know who's working on what with great looking avatars for your agile board. No more fiddling with Word or Google Docs making sure everything aligns just right. Simply drag and drop your images, make some adjustments, print, and laminate!"
-IMAGE="$URL/img/social.jpg"
+IMAGE="$INDEX_HTML_URL/img/social.jpg"
 
 cat > "$INDEX_HTML" <<EOF
 <head>
@@ -10,16 +11,16 @@ cat > "$INDEX_HTML" <<EOF
 <meta name="title" content="$INDEX_HTML_TITLE">
 <meta name="description" content="$DESCRIPTION">
 <meta name="author" content="$INDEX_HTML_AUTHOR">
-<meta name="url" content="$URL">
+<meta name="url" content="$INDEX_HTML_URL">
 
 <meta property="og:type" content="website">
-<meta property="og:url" content="$URL">
+<meta property="og:url" content="$INDEX_HTML_URL">
 <meta property="og:title" content="$INDEX_HTML_TITLE">
 <meta property="og:description" content="$DESCRIPTION">
 <meta property="og:image" content="$IMAGE">
 
 <meta property="twitter:card" content="summary_large_image">
-<meta property="twitter:url" content="$URL">
+<meta property="twitter:url" content="$INDEX_HTML_URL">
 <meta property="twitter:title" content="$INDEX_HTML_TITLE">
 <meta property="twitter:description" content="$DESCRIPTION">
 <meta property="twitter:image" content="$IMAGE">
