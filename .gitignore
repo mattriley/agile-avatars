@@ -5,6 +5,7 @@
 /build
 /config.*
 /coverage
+/dist
 /itermocil.yml
 /metrics
 /temp
