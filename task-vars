@@ -2,6 +2,7 @@
 
 export PROJECT_NAME="Agile Avatars"
 export DIST_PROD="$GITHUB_PAGES_PATH"
+export DIST_PUBLIC_URL="/"
 export INDEXGEN_PATHS=("$MODULES" "./testing/modules")
 export INDEXGEN_OPTIONS="--fullySpecified"
 export README_GEN="./readme-gen/app.js"
