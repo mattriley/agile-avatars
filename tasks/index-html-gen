@@ -1,11 +1,10 @@
 #!/bin/bash
 
-. $TASK_LIBRARY_SRC/load-task-vars
-
 DESCRIPTION="Agile Avatars makes it quick and easy to know who's working on what with great looking avatars for your agile board. No more fiddling with Word or Google Docs making sure everything aligns just right. Simply drag and drop your images, make some adjustments, print, and laminate!"
 IMAGE="$INDEX_HTML_URL/img/social.jpg"
 
 cat > "$INDEX_HTML" <<EOF
+<html>
 <head>
 <title>$INDEX_HTML_TITLE</title>
 <meta name="title" content="$INDEX_HTML_TITLE">
@@ -32,4 +31,5 @@ cat > "$INDEX_HTML" <<EOF
 <body>
 <div id="app"></div>
 </body>
+</html>
 EOF

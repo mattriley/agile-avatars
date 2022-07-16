@@ -1,9 +1,9 @@
-# agileavatars
+# Agile Avatars
 
 
 <p align="right">
     <code>96.38% cov</code>&nbsp;
-    <code>2075 sloc</code>&nbsp;
+    <code>2077 sloc</code>&nbsp;
     <code>180 files</code>&nbsp;
     <code>5 deps</code>&nbsp;
     <code>10 dev deps</code>
