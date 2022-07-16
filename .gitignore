@@ -1,6 +1,8 @@
 .DS_Store
 /*cache
 /*output
+/.nyc_output
+/.serverless
 /.vscode
 /build
 /config.*
@@ -8,5 +10,8 @@
 /dist
 /itermocil.yml
 /metrics
+/node_modules
+/npm-debug.log
+/task-library
 /temp
 node_modules

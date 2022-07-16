@@ -1,18 +1,19 @@
-# Agile Avatars
+# agileavatars
+
 
 <p align="right">
     <code>96.38% cov</code>&nbsp;
     <code>2075 sloc</code>&nbsp;
     <code>180 files</code>&nbsp;
     <code>5 deps</code>&nbsp;
-    <code>10 dev deps</code></p>
+    <code>10 dev deps</code>
+</p>
 
 Great looking avatars for your agile board and experiment in FRAMEWORK-LESS, vanilla JavaScript.
 
-## Table of Contents
-
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+## Table of Contents
 
 - [Background](#background)
 - [Getting Started](#getting-started)
