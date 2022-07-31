@@ -4,7 +4,7 @@ export DISPLAY_NAME="Agile Avatars"
 export WEB_HOST_NAME="agileavatars.com"
 
 export BARREL_PATHS="$MODULES | ./testing/modules"
-export INDEXGEN_OPTIONS="--fullySpecified"
+export INDEXGEN_OPTIONS="--fullySpecified --type esm --filename index.js"
 export README_GEN="./readme-gen/app.js"
 
 export COV_BRANCHES=90

@@ -6,7 +6,7 @@
     <code>2077 sloc</code>&nbsp;
     <code>180 files</code>&nbsp;
     <code>5 deps</code>&nbsp;
-    <code>10 dev deps</code>
+    <code>14 dev deps</code>
 </p>
 
 Great looking avatars for your agile board and experiment in FRAMEWORK-LESS, vanilla JavaScript.
@@ -61,8 +61,12 @@ Great looking avatars for your agile board and experiment in FRAMEWORK-LESS, van
   - [vanilla-picker](#vanilla-picker)
 - [List of Development Dependencies](#list-of-development-dependencies)
   - [@parcel/resolver-glob](#parcelresolver-glob)
+  - [cloc](#cloc)
+  - [doctoc](#doctoc)
+  - [eslint](#eslint)
   - [events](#events)
   - [flat](#flat)
+  - [husky](#husky)
   - [jsdom](#jsdom)
   - [parcel](#parcel)
   - [process](#process)
@@ -1618,6 +1622,48 @@ Presenting a color picker to change the color of a role.
 
 
 
+## cloc
+
+> undefined
+
+- Homepage: undefined
+- __0__ dependencies :boom:
+
+
+
+
+
+
+## doctoc
+
+> undefined
+
+- Homepage: undefined
+- __0__ dependencies :boom:
+
+
+
+
+
+
+## eslint
+
+> An AST-based pattern checker for JavaScript.
+
+- Homepage: https://eslint.org
+- __35__ dependencies :warning:
+
+#### Used for
+
+Linting and code formatting.
+
+
+
+#### Alternatives considered
+
+- __prettier__\
+Prettier was originally used for code formatting but was dropped due to limited configurability.
+
 ## events
 
 > undefined
@@ -1638,6 +1684,20 @@ Presenting a color picker to change the color of a role.
 - __0__ dependencies :boom:
 
 
+
+
+
+
+## husky
+
+> Modern native Git hooks made easy
+
+- Homepage: https://typicode.github.io/husky
+- __0__ dependencies :boom:
+
+#### Used for
+
+Running pre-commit validation scripts.
 
 
 
