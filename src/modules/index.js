@@ -12,7 +12,6 @@ import subscriptions from './subscriptions/index.js';
 import ui from './ui/index.js';
 import util from './util/index.js';
 import vendorComponents from './vendor-components/index.js';
-import vendorServices from './vendor-services/index.js';
 
 export default {
     components,
@@ -28,6 +27,5 @@ export default {
     subscriptions,
     ui,
     util,
-    vendorComponents,
-    vendorServices
+    vendorComponents
 };

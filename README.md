@@ -2,10 +2,10 @@
 
 
 <p align="right">
-    <code>96.38% cov</code>&nbsp;
-    <code>2077 sloc</code>&nbsp;
-    <code>180 files</code>&nbsp;
-    <code>5 deps</code>&nbsp;
+    <code>96.5% cov</code>&nbsp;
+    <code>2033 sloc</code>&nbsp;
+    <code>176 files</code>&nbsp;
+    <code>6 deps</code>&nbsp;
     <code>14 dev deps</code>
 </p>
 
@@ -27,6 +27,7 @@ Great looking avatars for your agile board and experiment in FRAMEWORK-LESS, van
 - [Modules](#modules)
 - [List of Modules](#list-of-modules)
   - [window](#window)
+  - [mixpanel](#mixpanel)
   - [components](#components)
   - [core](#core)
   - [diagnostics](#diagnostics)
@@ -41,7 +42,6 @@ Great looking avatars for your agile board and experiment in FRAMEWORK-LESS, van
   - [ui](#ui)
   - [util](#util)
   - [vendorComponents](#vendorcomponents)
-  - [vendorServices](#vendorservices)
 - [State Management](#state-management)
   - [Stores](#stores)
   - [Subscriptions](#subscriptions)
@@ -57,6 +57,7 @@ Great looking avatars for your agile board and experiment in FRAMEWORK-LESS, van
   - [@sentry/browser](#sentrybrowser)
   - [blueimp-md5](#blueimp-md5)
   - [lodash](#lodash)
+  - [mixpanel-browser](#mixpanel-browser)
   - [module-composer](#module-composer-1)
   - [vanilla-picker](#vanilla-picker)
 - [List of Development Dependencies](#list-of-development-dependencies)
@@ -219,18 +220,12 @@ The following code is referenced by index.html and launches the application:
 ```js
 import './css/*.css'; // eslint-disable-line import/no-unresolved
 import compose from './compose';
+import mixpanel from 'mixpanel-browser';
 
-const isLocalhost = (/localhost/).test(window.location.host);
-
-const configs = [
-    { gtag: { enabled: !isLocalhost } },
-    { sentry: { enabled: !isLocalhost } }
-];
-
-const composition = compose({ window, configs });
+const composition = compose({ window, mixpanel });
 const { config, modules } = composition;
 window.app = composition;
-window.document.title = config.app.name;
+modules.mixpanel.init(config.mixpanelToken, { debug: config.isTest });
 
 const app = modules.startup.start();
 document.getElementById('app').append(app);
@@ -275,9 +270,12 @@ import modules from './modules/index.js';
 import defaultConfig from './default-config.js';
 const { storage, util } = modules;
 
-export default ({ window, overrides, configs }) => {
+export default ({ window, mixpanel, overrides, configs }) => {
 
-    const { compose, config } = composer({ window, ...modules }, { overrides, defaultConfig, configs });
+    const mixpanelStub = { track: () => { } };
+    mixpanel = mixpanel ?? mixpanelStub;
+
+    const { compose, config } = composer({ window, mixpanel, ...modules }, { overrides, defaultConfig, configs });
 
     // Data
     const { stores } = compose('stores', { storage, config });
@@ -287,13 +285,12 @@ export default ({ window, overrides, configs }) => {
     const { core } = compose('core', { util, config });
     const { io } = compose('io', { window });
     const { services } = compose('services', { subscriptions, stores, core, io, util, config });
-    const { vendorServices } = compose('vendorServices', { io, config, window });
 
     // Presentation
     const { ui } = compose('ui', { window });
     const { elements } = compose('elements', { ui, util });
     const { vendorComponents } = compose('vendorComponents', { ui, config, window });
-    const { components } = compose('components', { ui, elements, vendorComponents, vendorServices, services, subscriptions, util, config });
+    const { components } = compose('components', { mixpanel, ui, elements, vendorComponents, services, subscriptions, util, config });
     const { styles } = compose('styles', { ui, subscriptions, config });
 
     // Startup    
@@ -315,6 +312,7 @@ This _codified view_ of the architecture has some interesting implications:
 ###### <p align="right"><em>Can't see the diagram?</em> <a id="link-1" href="https://github.com/mattriley/agileavatars#user-content-link-1">View it on GitHub</a></p>
 ```mermaid
 graph TD;
+    components-->mixpanel;
     components-->ui;
     components-->elements;
     components-->services;
@@ -436,6 +434,10 @@ The diff-like block lists the collaborators in green and the non-collaborators i
 
 
 
+## mixpanel
+
+
+
 ## components
 
 
@@ -444,7 +446,7 @@ Provides _component factory functions_. A component is a HTML element that relie
 #### Collaborators
 
 ```diff
-+ elements services subscriptions ui util vendorComponents vendorServices
++ elements mixpanel services subscriptions ui util vendorComponents
 - core diagnostics io startup storage stores styles window
 ```
 
@@ -515,7 +517,7 @@ Provides _pure functions_ to be consumed by the _services_ module. Without core,
 
 ```diff
 + util
-- components diagnostics elements io services startup storage stores styles subscriptions ui vendorComponents vendorServices window
+- components diagnostics elements io mixpanel services startup storage stores styles subscriptions ui vendorComponents window
 ```
 
 - No access to modules that produce side effects.
@@ -574,7 +576,7 @@ Provides _diagnostic functions_ such as the ability to dump state to the console
 
 ```diff
 + stores util
-- components core elements io services startup storage styles subscriptions ui vendorComponents vendorServices window
+- components core elements io mixpanel services startup storage styles subscriptions ui vendorComponents window
 ```
 
 #### List of diagnostic functions
@@ -592,7 +594,7 @@ Provides _element factory functions_. An element is a HTML element that relies o
 
 ```diff
 + ui util
-- components core diagnostics io services startup storage stores styles subscriptions vendorComponents vendorServices window
+- components core diagnostics io mixpanel services startup storage stores styles subscriptions vendorComponents window
 ```
 
 - No access to _stores_ or _io_. Effects are serviced by raising events to be handled by _components_.
@@ -647,7 +649,7 @@ Provides _io functions_ while preventing direct access to _window_.
 
 ```diff
 + window
-- components core diagnostics elements services startup storage stores styles subscriptions ui util vendorComponents vendorServices
+- components core diagnostics elements mixpanel services startup storage stores styles subscriptions ui util vendorComponents
 ```
 
 #### Source
@@ -684,7 +686,7 @@ Provides _service functions_. Service functions perform effects by orchestrate t
 
 ```diff
 + core io stores subscriptions util
-- components diagnostics elements startup storage styles ui vendorComponents vendorServices window
+- components diagnostics elements mixpanel startup storage styles ui vendorComponents window
 ```
 
 - No access to _window_. IO operations are serviced by the _io_ module.
@@ -741,7 +743,7 @@ Provides _startup functions_ which are used at [launch](#launching) time.
 
 ```diff
 + components services stores styles subscriptions ui util window
-- core diagnostics elements io storage vendorComponents vendorServices
+- core diagnostics elements io mixpanel storage vendorComponents
 ```
 
 - Largely unconstrained as only used during launch.
@@ -770,7 +772,7 @@ Provides the _state store implementation_. State stores manage state changes and
 
 ```diff
 + 
-- components core diagnostics elements io services startup stores styles subscriptions ui util vendorComponents vendorServices window
+- components core diagnostics elements io mixpanel services startup stores styles subscriptions ui util vendorComponents window
 ```
 
 #### Source
@@ -852,7 +854,7 @@ Provides the _state stores_. State stores manage state changes and raise change 
 
 ```diff
 + storage
-- components core diagnostics elements io services startup styles subscriptions ui util vendorComponents vendorServices window
+- components core diagnostics elements io mixpanel services startup styles subscriptions ui util vendorComponents window
 ```
 
 #### Source
@@ -888,7 +890,7 @@ Provides _style factory functions_. A style is simply a HTML style element that 
 
 ```diff
 + subscriptions ui
-- components core diagnostics elements io services startup storage stores util vendorComponents vendorServices window
+- components core diagnostics elements io mixpanel services startup storage stores util vendorComponents window
 ```
 
 #### Example: roleColor
@@ -952,7 +954,7 @@ The _subscriptions_ module was introduced to allow Components to subscribe to st
 
 ```diff
 + stores util
-- components core diagnostics elements io services startup storage styles ui vendorComponents vendorServices window
+- components core diagnostics elements io mixpanel services startup storage styles ui vendorComponents window
 ```
 
 #### Source
@@ -977,7 +979,7 @@ Provides _low-level presentation functions_ while preventing direct access to wi
 
 ```diff
 + window
-- components core diagnostics elements io services startup storage stores styles subscriptions util vendorComponents vendorServices
+- components core diagnostics elements io mixpanel services startup storage stores styles subscriptions util vendorComponents
 ```
 
 #### List of ui functions
@@ -997,7 +999,7 @@ Provides _low-level utility functions_.
 
 ```diff
 + 
-- components core diagnostics elements io services startup storage stores styles subscriptions ui vendorComponents vendorServices window
+- components core diagnostics elements io mixpanel services startup storage stores styles subscriptions ui vendorComponents window
 ```
 
 #### List of utility functions
@@ -1017,62 +1019,13 @@ Provides vendor (third party) components including gtag and vanilla-picker. Thes
 
 ```diff
 + ui window
-- components core diagnostics elements io services startup storage stores styles subscriptions util vendorServices
+- components core diagnostics elements io mixpanel services startup storage stores styles subscriptions util
 ```
 
 #### List of vendor components
 
 ```
-gtagScript                                      vanillaPicker                                   
-```
-
-## vendorServices
-
-
-Provides vendor (third party) services including gtag and sentry. These are separated from the services module because they have different collaborators. The services module avoids a direct dependency on window but some vendor services may require direct access to window which cannot be avoided.
-
-#### Collaborators
-
-```diff
-+ io window
-- components core diagnostics elements services startup storage stores styles subscriptions ui util vendorComponents
-```
-
-#### Example: gtag
-
-gtag is short for Google Global Site Tag.
-
-gtag depends on window for global variables to work correctly.
-
-###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/master/src/modules/vendor-services/gtag.js">src/modules/vendor-services/gtag.js</a></p>
-```js
-/* eslint-disable */
-
-export default ({ config, io, window }) => {
-
-    const { trackingId, enabled } = config.gtag;
-
-    const initalise = () => {
-        window.dataLayer = [];
-        window[`ga-disable-${trackingId}`] = !enabled;
-        gtag('js', io.date());
-        gtag('config', trackingId);
-    }
-
-    function gtag() {
-        if (!window.dataLayer) initalise();
-        window.dataLayer.push(arguments);
-    }
-
-    return gtag;
-
-};
-```
-
-#### List of vendor services
-
-```
-gtag                                            sentry                                          
+vanillaPicker                                   
 ```
 
 
@@ -1564,6 +1517,18 @@ According to [this issue](https://github.com/blueimp/JavaScript-MD5/issues/26), 
 
 
 ## lodash
+
+> undefined
+
+- Homepage: undefined
+- __0__ dependencies :boom:
+
+
+
+
+
+
+## mixpanel-browser
 
 > undefined
 

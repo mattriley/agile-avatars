@@ -1,9 +1,10 @@
-export default ({ ui, components, vendorComponents, subscriptions }) => () => {
+export default ({ mixpanel, ui, components, subscriptions }) => () => {
+
+    mixpanel.track('pageview');
 
     const $$modals = Object.values(components.modals).map(modal => modal());
 
     const $container = ui.el('div', 'app').append(
-        vendorComponents.gtagScript(),
         ui.el('div', 'modals').append(...$$modals),
         components.header.container(),
         components.dropzone().append(

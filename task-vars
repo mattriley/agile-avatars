@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Task library
+
 export DISPLAY_NAME="Agile Avatars"
 export WEB_HOST_NAME="agileavatars.com"
 
@@ -11,3 +13,7 @@ export COV_BRANCHES=90
 export COV_LINES=90
 export COV_FUNCTIONS=90
 export COV_STATEMENTS=90
+
+# This project
+
+export MIXPANEL_TOKEN="2a4b8b61f947d51d88a2581a330d497e"

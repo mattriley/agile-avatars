@@ -3,9 +3,12 @@ import modules from './modules/index.js';
 import defaultConfig from './default-config.js';
 const { storage, util } = modules;
 
-export default ({ window, overrides, configs }) => {
+export default ({ window, mixpanel, overrides, configs }) => {
 
-    const { compose, config } = composer({ window, ...modules }, { overrides, defaultConfig, configs });
+    const mixpanelStub = { track: () => { } };
+    mixpanel = mixpanel ?? mixpanelStub;
+
+    const { compose, config } = composer({ window, mixpanel, ...modules }, { overrides, defaultConfig, configs });
 
     // Data
     const { stores } = compose('stores', { storage, config });
@@ -15,13 +18,12 @@ export default ({ window, overrides, configs }) => {
     const { core } = compose('core', { util, config });
     const { io } = compose('io', { window });
     const { services } = compose('services', { subscriptions, stores, core, io, util, config });
-    const { vendorServices } = compose('vendorServices', { io, config, window });
 
     // Presentation
     const { ui } = compose('ui', { window });
     const { elements } = compose('elements', { ui, util });
     const { vendorComponents } = compose('vendorComponents', { ui, config, window });
-    const { components } = compose('components', { ui, elements, vendorComponents, vendorServices, services, subscriptions, util, config });
+    const { components } = compose('components', { mixpanel, ui, elements, vendorComponents, services, subscriptions, util, config });
     const { styles } = compose('styles', { ui, subscriptions, config });
 
     // Startup    

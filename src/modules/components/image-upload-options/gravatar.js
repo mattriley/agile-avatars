@@ -1,8 +1,8 @@
-export default ({ ui, services, vendorServices }) => () => {
+export default ({ ui, services, mixpanel }) => () => {
 
     return ui.el('a', { textContent: 'Import images from Gravatar' })
         .addEventListener('click', () => {
-            vendorServices.gtag('event', 'gravatar-clicked');
+            mixpanel.track('gravatar-import');
             services.settings.changeModal('gravatar');
         });
 

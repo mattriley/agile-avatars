@@ -1,17 +1,11 @@
 import './css/*.css'; // eslint-disable-line import/no-unresolved
 import compose from './compose';
+import mixpanel from 'mixpanel-browser';
 
-const isLocalhost = (/localhost/).test(window.location.host);
-
-const configs = [
-    { gtag: { enabled: !isLocalhost } },
-    { sentry: { enabled: !isLocalhost } }
-];
-
-const composition = compose({ window, configs });
+const composition = compose({ window, mixpanel });
 const { config, modules } = composition;
 window.app = composition;
-window.document.title = config.app.name;
+modules.mixpanel.init(config.mixpanelToken, { debug: config.isTest });
 
 const app = modules.startup.start();
 document.getElementById('app').append(app);

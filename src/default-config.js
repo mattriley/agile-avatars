@@ -1,20 +1,16 @@
+/* eslint-disable no-undef */
+
 export default {
-    gtag: {
-        trackingId: 'UA-34497639-2',
-        enabled: false
-    },
-    sentry: {
-        dsn: 'https://63594154fcf34c34966aec13b15e2821@o418187.ingest.sentry.io/5320412',
-        enabled: false
-    },
+    isTest: process.env.STAGE !== 'prod',
+    mixpanelToken: process.env.MIXPANEL_TOKEN,
     app: {
-        name: 'Agile Avatars',
-        issues: 'https://github.com/mattriley/agileavatars/issues',
-        source: 'https://github.com/mattriley/agileavatars'
+        name: process.env.DISPLAY_NAME,
+        issues: process.env.ISSUES_URL,
+        source: process.env.SOURCE_CODE_URL
     },
     author: {
-        name: 'Matt Riley',
-        profile: 'https://www.linkedin.com/in/mattrileyau/'
+        name: process.env.AUTHOR_NAME,
+        profile: process.env.AUTHOR_URL
     },
     gravatar: {
         domain: 'https://secure.gravatar.com',
