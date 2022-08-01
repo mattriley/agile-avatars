@@ -24,8 +24,7 @@ cat > "$INDEX_HTML" <<EOF
 <meta property="twitter:description" content="$DESCRIPTION">
 <meta property="twitter:image" content="$IMAGE">
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Condensed|Shadows+Into+Light" />
-<script type="text/JavaScript" src="https://mattriley.github.io/webcomponents.js"></script>
+<script type="text/JavaScript" src="https://mattriley.github.io/web-components.js"></script>
 <script type="module" src="./app.js"></script>
 </head>
 <body>
