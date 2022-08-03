@@ -3,7 +3,7 @@
 
 <p align="right">
     <code>96.5% cov</code>&nbsp;
-    <code>2032 sloc</code>&nbsp;
+    <code>2033 sloc</code>&nbsp;
     <code>176 files</code>&nbsp;
     <code>6 deps</code>&nbsp;
     <code>14 dev deps</code>
@@ -222,11 +222,10 @@ import './css/*.css'; // eslint-disable-line import/no-unresolved
 import compose from './compose';
 import mixpanel from 'mixpanel-browser';
 
-const composition = compose({ window, mixpanel });
+const compositionName = 'Agile Avatars';
+const composition = compose({ compositionName, window, mixpanel });
 const { config, modules } = composition;
-window.app = composition;
 modules.mixpanel.init(config.mixpanelToken, { debug: config.isTest });
-
 const app = modules.startup.start();
 document.getElementById('app').append(app);
 ```
@@ -270,12 +269,13 @@ import modules from './modules/index.js';
 import defaultConfig from './default-config.js';
 const { storage, util } = modules;
 
-export default ({ window, mixpanel, overrides, configs }) => {
+export default ({ compositionName, window, mixpanel, overrides, configs }) => {
 
     const mixpanelStub = { track: () => { } };
     mixpanel = mixpanel ?? mixpanelStub;
 
-    const { compose, config } = composer({ window, mixpanel, ...modules }, { overrides, defaultConfig, configs });
+    const options = { compositionName, overrides, defaultConfig, configs };
+    const { compose, config } = composer({ window, mixpanel, ...modules }, options);
 
     // Data
     const { stores } = compose('stores', { storage, config });
@@ -1616,7 +1616,7 @@ Presenting a color picker to change the color of a role.
 > An AST-based pattern checker for JavaScript.
 
 - Homepage: https://eslint.org
-- __35__ dependencies :warning:
+- __39__ dependencies :warning:
 
 #### Used for
 

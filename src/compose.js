@@ -3,12 +3,13 @@ import modules from './modules/index.js';
 import defaultConfig from './default-config.js';
 const { storage, util } = modules;
 
-export default ({ window, mixpanel, overrides, configs }) => {
+export default ({ compositionName, window, mixpanel, overrides, configs }) => {
 
     const mixpanelStub = { track: () => { } };
     mixpanel = mixpanel ?? mixpanelStub;
 
-    const { compose, config } = composer({ window, mixpanel, ...modules }, { overrides, defaultConfig, configs });
+    const options = { compositionName, overrides, defaultConfig, configs };
+    const { compose, config } = composer({ window, mixpanel, ...modules }, options);
 
     // Data
     const { stores } = compose('stores', { storage, config });
