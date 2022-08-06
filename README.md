@@ -1,6 +1,6 @@
 # Agile Avatars
 
-<p align="right"><code>96.5% cov</code>&nbsp;<code>2033 sloc</code>&nbsp;<code>176 files</code>&nbsp;<code>5 deps</code>&nbsp;<code>14 dev deps</code></p>
+<p align="right"><code>96.5% cov</code>&nbsp;<code>2035 sloc</code>&nbsp;<code>177 files</code>&nbsp;<code>5 deps</code>&nbsp;<code>14 dev deps</code></p>
 
 Great looking avatars for your agile board and experiment in FRAMEWORK-LESS, vanilla JavaScript.
 
