@@ -1,15 +1,10 @@
 # Agile Avatars
 
-
-<p align="right">
-    <code>96.5% cov</code>&nbsp;
-    <code>2033 sloc</code>&nbsp;
-    <code>176 files</code>&nbsp;
-    <code>6 deps</code>&nbsp;
-    <code>14 dev deps</code>
-</p>
+<p align="right"><code>96.5% cov</code>&nbsp;<code>2033 sloc</code>&nbsp;<code>176 files</code>&nbsp;<code>5 deps</code>&nbsp;<code>14 dev deps</code></p>
 
 Great looking avatars for your agile board and experiment in FRAMEWORK-LESS, vanilla JavaScript.
+
+<br />
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -54,7 +49,6 @@ Great looking avatars for your agile board and experiment in FRAMEWORK-LESS, van
   - [Position](#position)
   - [Constraints](#constraints)
 - [List of Production Dependencies](#list-of-production-dependencies)
-  - [@sentry/browser](#sentrybrowser)
   - [blueimp-md5](#blueimp-md5)
   - [lodash](#lodash)
   - [mixpanel-browser](#mixpanel-browser)
@@ -92,7 +86,7 @@ Great looking avatars for your agile board and experiment in FRAMEWORK-LESS, van
   <br />
   <em>Agile Avatars in action</em>
 </p>
-<br>
+<br />
 
 Agile Avatars is also an experiment in developing a web application under an extreme set of constraints designed to preclude mainstream solutions. Bare in mind that Agile Avatars is small and doesn't necessarily cover every concern found in a typical web application. It does however do enough to present some interesting design challenges, especially around code organisation, dependency management, state management and view rendering. 
 
@@ -118,7 +112,7 @@ The solutions are designed around the needs of this application at this point in
   <br />
   <em>iTerm2 pre-configured layout</em>
 </p>
-<br>
+<br />
 
 
 # Design Goals
@@ -194,7 +188,7 @@ With the plethora of frontend architectural styles in use today, this applicatio
   <br />
   <em>Presentation-Domain-Data layered architecture</em>
 </p>
-<br>
+<br />
 
 #### Further reading
 
@@ -245,7 +239,7 @@ Note: `window.agileavatars` changed to `window.app`.
   <br />
   <em>Application modules logged to the console</em>
 </p>
-<br>
+<br />
 
 <br />
 <p align="center">
@@ -253,7 +247,7 @@ Note: `window.agileavatars` changed to `window.app`.
   <br />
   <em>Application state logged to the console</em>
 </p>
-<br>
+<br />
 
 
 # Composing
@@ -1477,20 +1471,6 @@ The following sections lists all dependencies, including:
 
 
 # List of Production Dependencies
-
-## @sentry/browser
-
-> Official Sentry SDK for browsers
-
-- Homepage: https://github.com/getsentry/sentry-javascript/tree/master/packages/browser
-- __4__ dependencies :white_check_mark:
-
-#### Used for
-
-Integration with [Sentry](https://sentry.io/) for monitoring and alerting.
-
-
-
 
 ## blueimp-md5
 
