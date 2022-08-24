@@ -1,4 +1,4 @@
-export default ({ window }) => () => {
+export default () => () => {
 
     console.log('foobar');
 

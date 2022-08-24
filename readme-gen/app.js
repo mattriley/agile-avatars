@@ -1,5 +1,5 @@
 const compose = require('./compose');
-const _readmeGenLib = require('task-library/src/lib/readme-gen');
+const _readmeGenLib = require('task-library/src/node/lib/readme-gen');
 const path = require('path');
 const YAML = require('yaml');
 const fs = require('fs');

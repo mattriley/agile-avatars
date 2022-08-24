@@ -1,6 +1,6 @@
-# Agile Avatars
+# Agileavatars
 
-<p align="right"><code>96.5% cov</code>&nbsp;<code>2035 sloc</code>&nbsp;<code>177 files</code>&nbsp;<code>5 deps</code>&nbsp;<code>14 dev deps</code></p>
+<p align="right"><code>96.5% cov</code>&nbsp;<code>2035 sloc</code>&nbsp;<code>177 files</code>&nbsp;<code>5 deps</code>&nbsp;<code>19 dev deps</code></p>
 
 Great looking avatars for your agile board and experiment in FRAMEWORK-LESS, vanilla JavaScript.
 
@@ -58,14 +58,19 @@ Great looking avatars for your agile board and experiment in FRAMEWORK-LESS, van
   - [@parcel/resolver-glob](#parcelresolver-glob)
   - [cloc](#cloc)
   - [doctoc](#doctoc)
+  - [ejs](#ejs)
   - [eslint](#eslint)
+  - [eslint-plugin-import](#eslint-plugin-import)
   - [events](#events)
   - [flat](#flat)
   - [husky](#husky)
   - [jsdom](#jsdom)
+  - [module-indexgen](#module-indexgen)
+  - [npm-check-updates](#npm-check-updates)
   - [parcel](#parcel)
   - [process](#process)
   - [task-library](#task-library)
+  - [testing](#testing)
   - [yaml](#yaml)
   - [zora](#zora)
   - [zora-reporters](#zora-reporters)
@@ -210,7 +215,7 @@ In order to isolate Parcel, only public may use Parcel loaders. This allows unit
 
 The following code is referenced by index.html and launches the application:
 
-###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/master/src/app.js">src/app.js</a></p>
+###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/undefined/src/app.js">src/app.js</a></p>
 ```js
 import './css/*.css'; // eslint-disable-line import/no-unresolved
 import compose from './compose';
@@ -256,7 +261,7 @@ Composing is the process of making the application _ready to launch_ and involve
 
 The compose function composes the application from modules in the src directory.
 
-###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/master/src/compose.js">src/compose.js</a></p>
+###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/undefined/src/compose.js">src/compose.js</a></p>
 ```js
 import composer from 'module-composer';
 import modules from './modules/index.js';
@@ -356,7 +361,7 @@ On the file system, a module is simply a directory of sources files that follow 
 
 #### Example: Root index.js for components module
 
-###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/master/src/modules/components/index.js">src/modules/components/index.js</a></p>
+###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/undefined/src/modules/components/index.js">src/modules/components/index.js</a></p>
 ```js
 import app from './app.js';
 import dropzone from './dropzone.js';
@@ -387,7 +392,7 @@ export default {
 
 #### Example: Curried function accepting collaborators
 
-###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/master/src/modules/components/tag-list/tag/components/tag-name.js">src/modules/components/tag-list/tag/components/tag-name.js</a></p>
+###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/undefined/src/modules/components/tag-list/tag/components/tag-name.js">src/modules/components/tag-list/tag/components/tag-name.js</a></p>
 ```js
 export default ({ elements, services, subscriptions }) => tagInstanceId => {
 
@@ -457,7 +462,7 @@ changeTagName updates the state of the underlying tag, which triggers a propagat
 
 tagName subscribes to tag name change events and updates the editable span with the new tag name.
 
-###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/master/src/modules/components/tag-list/tag/components/tag-name.js">src/modules/components/tag-list/tag/components/tag-name.js</a></p>
+###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/undefined/src/modules/components/tag-list/tag/components/tag-name.js">src/modules/components/tag-list/tag/components/tag-name.js</a></p>
 ```js
 export default ({ elements, services, subscriptions }) => tagInstanceId => {
 
@@ -520,7 +525,7 @@ Provides _pure functions_ to be consumed by the _services_ module. Without core,
 
 parseEmailExpression is a pure function. Amongst other properties of pure functions, its return value is the same for the same arguments, and its evaluation has no side effects.
 
-###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/master/src/modules/core/tags/parse-email-expression.js">src/modules/core/tags/parse-email-expression.js</a></p>
+###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/undefined/src/modules/core/tags/parse-email-expression.js">src/modules/core/tags/parse-email-expression.js</a></p>
 ```js
 export default ({ util }) => expression => {
 
@@ -596,7 +601,7 @@ Provides _element factory functions_. An element is a HTML element that relies o
 
 #### Example: editableSpan
 
-###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/master/src/modules/elements/editable-span.js">src/modules/elements/editable-span.js</a></p>
+###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/undefined/src/modules/elements/editable-span.js">src/modules/elements/editable-span.js</a></p>
 ```js
 export default ({ ui }) => className => {
 
@@ -650,7 +655,7 @@ Provides _io functions_ while preventing direct access to _window_.
 
 _io_ is a single-file module:
 
-###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/master/src/modules/io/setup.js">src/modules/io/setup.js</a></p>
+###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/undefined/src/modules/io/setup.js">src/modules/io/setup.js</a></p>
 ```js
 export default ({ window }) => () => {
 
@@ -687,7 +692,7 @@ Provides _service functions_. Service functions perform effects by orchestrate t
 
 #### Example: changeTagName
 
-###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/master/src/modules/services/tags/change-tag-name.js">src/modules/services/tags/change-tag-name.js</a></p>
+###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/undefined/src/modules/services/tags/change-tag-name.js">src/modules/services/tags/change-tag-name.js</a></p>
 ```js
 export default ({ core, services, stores }) => (tagInstanceId, expression) => {
 
@@ -744,7 +749,7 @@ Provides _startup functions_ which are used at [launch](#launching) time.
 
 #### Example: start
 
-###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/master/src/modules/startup/start.js">src/modules/startup/start.js</a></p>
+###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/undefined/src/modules/startup/start.js">src/modules/startup/start.js</a></p>
 ```js
 export default ({ startup, components }) => () => {
 
@@ -773,7 +778,7 @@ Provides the _state store implementation_. State stores manage state changes and
 
 _storage_ is a single-file module:
 
-###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/master/src/modules/storage/state-store.js">src/modules/storage/state-store.js</a></p>
+###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/undefined/src/modules/storage/state-store.js">src/modules/storage/state-store.js</a></p>
 ```js
 import EventEmitter from 'events';
 
@@ -855,7 +860,7 @@ Provides the _state stores_. State stores manage state changes and raise change 
 
 `stores` is a single-file module that creates stores dynamically from _config_:
 
-###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/master/src/modules/stores/setup.js">src/modules/stores/setup.js</a></p>
+###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/undefined/src/modules/stores/setup.js">src/modules/stores/setup.js</a></p>
 ```js
 export default ({ storage, config }) => () => {
 
@@ -889,7 +894,7 @@ Provides _style factory functions_. A style is simply a HTML style element that 
 
 #### Example: roleColor
 
-###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/master/src/modules/styles/role-color.js">src/modules/styles/role-color.js</a></p>
+###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/undefined/src/modules/styles/role-color.js">src/modules/styles/role-color.js</a></p>
 ```js
 export default ({ ui, subscriptions }) => roleId => {
 
@@ -909,7 +914,7 @@ export default ({ ui, subscriptions }) => roleId => {
 
 #### Source: styleManager
 
-###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/master/src/modules/startup/create-style-manager.js">src/modules/startup/create-style-manager.js</a></p>
+###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/undefined/src/modules/startup/create-style-manager.js">src/modules/startup/create-style-manager.js</a></p>
 ```js
 export default ({ styles, subscriptions, ui, util }) => () => {
 
@@ -955,7 +960,7 @@ The _subscriptions_ module was introduced to allow Components to subscribe to st
 
 _subscriptions_ is a single-file module that exposes only subscriptions from the stores:
 
-###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/master/src/modules/subscriptions/setup.js">src/modules/subscriptions/setup.js</a></p>
+###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/undefined/src/modules/subscriptions/setup.js">src/modules/subscriptions/setup.js</a></p>
 ```js
 export default ({ stores, util }) => () => {
 
@@ -1060,7 +1065,7 @@ State is managed by a series of _state stores_.
 
 A __state store__ is collection of data items keyed by a unique identifier and managed using typical CRUD operations such as insert, find, update, remove.
 
-###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/master/src/modules/storage/state-store.js">src/modules/storage/state-store.js</a></p>
+###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/undefined/src/modules/storage/state-store.js">src/modules/storage/state-store.js</a></p>
 ```js
 import EventEmitter from 'events';
 
@@ -1128,7 +1133,7 @@ export default (defaults = {}) => {
 
 #### Example: Inserting a role
 
-###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/master/src/modules/services/roles/insert-role.js">src/modules/services/roles/insert-role.js</a></p>
+###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/undefined/src/modules/services/roles/insert-role.js">src/modules/services/roles/insert-role.js</a></p>
 ```js
 export default ({ core, services, subscriptions, stores, io }) => roleData => {
 
@@ -1143,7 +1148,7 @@ export default ({ core, services, subscriptions, stores, io }) => roleData => {
 
 #### Example: Changing a role name
 
-###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/master/src/modules/services/roles/change-role-name.js">src/modules/services/roles/change-role-name.js</a></p>
+###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/undefined/src/modules/services/roles/change-role-name.js">src/modules/services/roles/change-role-name.js</a></p>
 ```js
 export default ({ core, stores }) => (roleId, roleName) => {
 
@@ -1164,7 +1169,7 @@ During [compose](#composing) time, subscription functions are extracted from the
 
 #### Example: Reacting to a new role being inserted
 
-###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/master/src/modules/components/role-list/container.js">src/modules/components/role-list/container.js</a></p>
+###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/undefined/src/modules/components/role-list/container.js">src/modules/components/role-list/container.js</a></p>
 ```js
 export default ({ ui, roleList, subscriptions }) => () => {
 
@@ -1186,7 +1191,7 @@ export default ({ ui, roleList, subscriptions }) => () => {
 
 ### Example: Reacting to a role name change
 
-###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/master/src/modules/components/role-list/role-customiser/master-role-name.js">src/modules/components/role-list/role-customiser/master-role-name.js</a></p>
+###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/undefined/src/modules/components/role-list/role-customiser/master-role-name.js">src/modules/components/role-list/role-customiser/master-role-name.js</a></p>
 ```js
 export default ({ elements, services, subscriptions }) => roleId => {
 
@@ -1248,7 +1253,7 @@ $div.addEventListener('click', clickHandler);
 
 #### Source: el
 
-###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/master/src/modules/ui/el.js">src/modules/ui/el.js</a></p>
+###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/undefined/src/modules/ui/el.js">src/modules/ui/el.js</a></p>
 ```js
 export default ({ window }) => (tagName, ...opts) => {
 
@@ -1278,7 +1283,7 @@ Because ultimately this approach uses `document.createElement` to create element
 
 This example uses `el` to create an element, but assigns a HTML string to `innerHTML` rather than appending child elements.
 
-###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/master/src/modules/components/tips/naming.js">src/modules/components/tips/naming.js</a></p>
+###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/undefined/src/modules/components/tips/naming.js">src/modules/components/tips/naming.js</a></p>
 ```js
 export default ({ ui }) => () => {
 
@@ -1306,7 +1311,7 @@ The application is tested from the outside-in, starting with the components. A c
 
 This test creates a 'nav bar' and a 'tips modal'; clicks the 'tips link' in the nav bar; then asserts the tips modal has a class indicating it should be visible. The mechanics behind this interaction are a black box, making it resilient to implementation changes which enables merciless refactoring.
 
-###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/master/tests/components/tips.test.js">tests/components/tips.test.js</a></p>
+###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/undefined/tests/components/tips.test.js">tests/components/tips.test.js</a></p>
 ```js
 export default ({ test, compose, helpers }) => {
 
@@ -1344,7 +1349,7 @@ Where the execution path will reach a system boundary, stub just short of the in
 
 This test creates a 'gravatar modal' and a 'tag list'. Clicking the 'import button' will render a tag in the tag list using data fetched from Gravatar. The fetchProfileAsync and fetchImageAsync functions are stubbed to prevent the integration from occurring and to avoid coupling the test to the implementation details of the integration. 
 
-###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/master/tests/components/gravatar/import-success.fixme.js">tests/components/gravatar/import-success.fixme.js</a></p>
+###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/undefined/tests/components/gravatar/import-success.fixme.js">tests/components/gravatar/import-success.fixme.js</a></p>
 ```js
 export default ({ test, setup }) => {
 
@@ -1411,7 +1416,7 @@ Rather than acting on individual files, tests act on the initialised application
 
 This test initialises the application by invoking compose and uses the components module to create an 'options bar' which should initially be hidden. It then uses the services module to insert a tag which should cause the options bar to become visible. 
 
-###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/master/tests/components/options-bar.test.js">tests/components/options-bar.test.js</a></p>
+###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/undefined/tests/components/options-bar.test.js">tests/components/options-bar.test.js</a></p>
 ```js
 export default ({ test, compose, helpers }) => {
 
@@ -1591,6 +1596,18 @@ Presenting a color picker to change the color of a role.
 
 
 
+## ejs
+
+> undefined
+
+- Homepage: undefined
+- __0__ dependencies :boom:
+
+
+
+
+
+
 ## eslint
 
 > An AST-based pattern checker for JavaScript.
@@ -1608,6 +1625,18 @@ Linting and code formatting.
 
 - __prettier__\
 Prettier was originally used for code formatting but was dropped due to limited configurability.
+
+## eslint-plugin-import
+
+> undefined
+
+- Homepage: undefined
+- __0__ dependencies :boom:
+
+
+
+
+
 
 ## events
 
@@ -1665,6 +1694,36 @@ There does not seem to be any viable replacement for JSDOM. The fallback would b
 
 
 
+## module-indexgen
+
+> Generates barrel (index.js) files that rollup exports for each module in a directory and re-exports them as a single module.
+
+- Homepage: https://github.com/mattriley/node-module-indexgen
+- __4__ dependencies :white_check_mark:
+
+#### Used for
+
+Generating index.js files.
+
+#### Comments
+
+- __No alternative that more closely matches the need exists__\
+This library was extracted from Agile Avatars.
+
+
+
+## npm-check-updates
+
+> undefined
+
+- Homepage: undefined
+- __0__ dependencies :boom:
+
+
+
+
+
+
 ## parcel
 
 > undefined
@@ -1690,6 +1749,18 @@ There does not seem to be any viable replacement for JSDOM. The fallback would b
 
 
 ## task-library
+
+> undefined
+
+- Homepage: undefined
+- __0__ dependencies :boom:
+
+
+
+
+
+
+## testing
 
 > undefined
 
@@ -1770,7 +1841,7 @@ This function transforms a list of store names into an object of store name -> s
 
 The `acc` variable is intentionally mutated given the scope of the mutation is small and isolated within the reduce function. An immutable equivalent could be `{ ...acc, [name]: store }`.
 
-###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/master/src/modules/stores/setup.js">src/modules/stores/setup.js</a></p>
+###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/undefined/src/modules/stores/setup.js">src/modules/stores/setup.js</a></p>
 ```js
 export default ({ storage, config }) => () => {
 
@@ -1801,7 +1872,7 @@ From [Wikipedia](https://en.wikipedia.org/wiki/Pure_function):
 
 This function orchestrates pure and impure functions making it impure. However because the implementation of `parseFileExpression` has been extracted as a pure function.
 
-###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/master/src/modules/services/tags/insert-file-async.js">src/modules/services/tags/insert-file-async.js</a></p>
+###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/undefined/src/modules/services/tags/insert-file-async.js">src/modules/services/tags/insert-file-async.js</a></p>
 ```js
 export default ({ core, services, util }) => file => {
 
@@ -1814,7 +1885,7 @@ export default ({ core, services, util }) => file => {
 };
 ```
 
-###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/master/src/modules/core/tags/parse-file-expression.js">src/modules/core/tags/parse-file-expression.js</a></p>
+###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/undefined/src/modules/core/tags/parse-file-expression.js">src/modules/core/tags/parse-file-expression.js</a></p>
 ```js
 export default () => expression => {
 
@@ -1847,7 +1918,7 @@ Where possible, use `pipe` to avoid nesting function calls and intermediate vari
 
 #### Example: Usage of pipe when inserting a file
 
-###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/master/src/modules/services/tags/insert-file-async.js">src/modules/services/tags/insert-file-async.js</a></p>
+###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/undefined/src/modules/services/tags/insert-file-async.js">src/modules/services/tags/insert-file-async.js</a></p>
 ```js
 export default ({ core, services, util }) => file => {
 
@@ -1862,7 +1933,7 @@ export default ({ core, services, util }) => file => {
 
 #### Source: pipe
 
-###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/master/src/modules/util/pipe.js">src/modules/util/pipe.js</a></p>
+###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/undefined/src/modules/util/pipe.js">src/modules/util/pipe.js</a></p>
 ```js
 export default (...funcs) => initial => funcs.reduce((v, f) => f(v), initial);
 ```
@@ -1893,7 +1964,7 @@ I generally prefer to avoid variable prefixes but I've found these prefixes help
 
 Such comments are secondary to the code and so follow the code rather than preceed it.
 
-###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/master/src/modules/components/tag-list/tag/components/tag-image.js">src/modules/components/tag-list/tag/components/tag-image.js</a></p>
+###### <p align="right"><a href="https://github.com/mattriley/agileavatars/blob/undefined/src/modules/components/tag-list/tag/components/tag-image.js">src/modules/components/tag-list/tag/components/tag-image.js</a></p>
 ```js
 export default ({ ui }) => () => {
 
