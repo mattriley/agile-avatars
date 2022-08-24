@@ -1,17 +1,17 @@
 {
-    "name": "agileavatars",
+    "name": "agile-avatars",
     "version": "1.0.0",
     "description": "Great looking avatars for your agile board and experiment in FRAMEWORK-LESS, vanilla JavaScript.",
     "license": "GPL-3.0-or-later",
-    "homepage": "https://github.com/mattriley/agileavatars",
-    "repository": "github:mattriley/agileavatars",
+    "homepage": "https://github.com/mattriley/agile-avatars",
+    "repository": "github:mattriley/agile-avatars",
     "author": {
         "name": "Matt Riley",
         "email": "m@ttriley.dev",
         "url": "https://github.com/mattriley"
     },
     "bugs": {
-        "url": "https://github.com/mattriley/agileavatars/issues",
+        "url": "https://github.com/mattriley/agile-avatars/issues",
         "email": "m@ttriley.dev"
     },
     "type": "module",
