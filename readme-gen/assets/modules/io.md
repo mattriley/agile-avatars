@@ -12,4 +12,4 @@ _io_ is a single-file module:
 
 #### List of io functions
 
-<%- await lib.renderIndex() %>
+<%- await lib.renderIndex({ maxDepth: 1 }) %>

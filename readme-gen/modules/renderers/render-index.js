@@ -1,7 +1,7 @@
 const _ = require('lodash');
 const flatten = require('flat');
 
-module.exports = ({ target }) => async (name, opts = {}) => {
+module.exports = ({ target }) => async (name, opts = { maxDepth: 2 }) => {
 
     const keys = Object.keys(flatten(target.composition.modules[name], opts)).sort();
     const half = Math.ceil(keys.length / 2);

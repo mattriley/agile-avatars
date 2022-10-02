@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# Task library
-
 export WEB_HOST_NAME="agileavatars.com"
 export INDEX_HTML_DESCRIPTION="Agile Avatars makes it quick and easy to know who's working on what with great looking avatars for your agile board. No more fiddling with Word or Google Docs making sure everything aligns just right. Simply drag and drop your images, make some adjustments, print, and laminate!"
 
@@ -9,10 +7,10 @@ export BARREL_PATHS="$MODULES | ./testing/modules"
 export INDEXGEN_OPTIONS="--fullySpecified --type esm --filename index.js"
 export README_GEN="./readme-gen/app.js"
 
-export COV_BRANCHES=90
-export COV_LINES=90
-export COV_FUNCTIONS=90
-export COV_STATEMENTS=90
+export COV_BRANCHES="90"
+export COV_LINES="90"
+export COV_FUNCTIONS="90"
+export COV_STATEMENTS="90"
 
 # This project
 

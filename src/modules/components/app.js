@@ -1,6 +1,6 @@
-export default ({ mixpanel, ui, components, subscriptions }) => () => {
+export default ({ io, ui, components, subscriptions }) => () => {
 
-    mixpanel.track('pageview');
+    io.mixpanel.track('pageview');
 
     const $$modals = Object.values(components.modals).map(modal => modal());
 

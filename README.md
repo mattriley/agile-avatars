@@ -1,6 +1,6 @@
 # Agile Avatars
 
-<p align="right"><code>96.5% cov</code>&nbsp;<code>2059 sloc</code>&nbsp;<code>177 files</code>&nbsp;<code>5 deps</code>&nbsp;<code>19 dev deps</code></p>
+<p align="right"><code>96.48% cov</code>&nbsp;<code>2057 sloc</code>&nbsp;<code>177 files</code>&nbsp;<code>5 deps</code>&nbsp;<code>19 dev deps</code></p>
 
 Great looking avatars for your agile board and experiment in FRAMEWORK-LESS, vanilla JavaScript.
 
@@ -21,8 +21,6 @@ Great looking avatars for your agile board and experiment in FRAMEWORK-LESS, van
   - [module-composer](#module-composer)
 - [Modules](#modules)
 - [List of Modules](#list-of-modules)
-  - [window](#window)
-  - [mixpanel](#mixpanel)
   - [components](#components)
   - [core](#core)
   - [diagnostics](#diagnostics)
@@ -219,12 +217,9 @@ The following code is referenced by index.html and launches the application:
 ```js
 import './css/*.css'; // eslint-disable-line import/no-unresolved
 import compose from './compose';
-import mixpanel from 'mixpanel-browser';
 
-const compositionName = 'Agile Avatars';
-const composition = compose({ compositionName, window, mixpanel });
-const { config, modules } = composition;
-modules.mixpanel.init(config.mixpanelToken, { debug: config.isTest });
+const composition = compose({ window });
+const { modules } = composition;
 const app = modules.startup.start();
 document.getElementById('app').append(app);
 ```
@@ -268,28 +263,25 @@ import modules from './modules/index.js';
 import defaultConfig from './default-config.js';
 const { storage, util } = modules;
 
-export default ({ compositionName, window, mixpanel, overrides, configs }) => {
+export default ({ window, overrides, configs }) => {
 
-    const mixpanelStub = { track: () => { } };
-    mixpanel = mixpanel ?? mixpanelStub;
-
-    const options = { compositionName, overrides, defaultConfig, configs };
-    const { compose, config } = composer({ window, mixpanel, ...modules }, options);
+    const options = { overrides, defaultConfig, configs };
+    const { compose, config } = composer({ window, ...modules }, options);
 
     // Data
     const { stores } = compose('stores', { storage, config });
     const { subscriptions } = compose('subscriptions', { stores, util });
 
     // Domain
-    const { core } = compose('core', { util, config });
-    const { io } = compose('io', { window });
-    const { services } = compose('services', { subscriptions, stores, core, io, util, config });
+    const { core } = compose.deep('core', { util, config });
+    const { io } = compose('io', { window, config });
+    const { services } = compose.deep('services', { subscriptions, stores, core, io, util, config });
 
     // Presentation
     const { ui } = compose('ui', { window });
     const { elements } = compose('elements', { ui, util });
     const { vendorComponents } = compose('vendorComponents', { ui, config, window });
-    const { components } = compose('components', { mixpanel, ui, elements, vendorComponents, services, subscriptions, util, config });
+    const { components } = compose.deep('components', { io, ui, elements, vendorComponents, services, subscriptions, util, config });
     const { styles } = compose('styles', { ui, subscriptions, config });
 
     // Startup    
@@ -311,7 +303,7 @@ This _codified view_ of the architecture has some interesting implications:
 ###### <p align="right"><em>Can't see the diagram?</em> <a id="link-1" href="https://github.com/mattriley/agile-avatars#user-content-link-1">View it on GitHub</a></p>
 ```mermaid
 graph TD;
-    components-->mixpanel;
+    components-->io;
     components-->ui;
     components-->elements;
     components-->services;
@@ -429,14 +421,6 @@ Following is a complete list of modules in Agile Avatars.
 
 The diff-like block lists the collaborators in green and the non-collaborators in red.
 
-## window
-
-
-
-## mixpanel
-
-
-
 ## components
 
 
@@ -445,8 +429,8 @@ Provides _component factory functions_. A component is a HTML element that relie
 #### Collaborators
 
 ```diff
-+ elements mixpanel services subscriptions ui util vendorComponents
-- core diagnostics io startup storage stores styles window
++ elements io services subscriptions ui util vendorComponents
+- core diagnostics startup storage stores styles
 ```
 
 - No access to _stores_ or _io_. Effects are serviced by the _services_ module.
@@ -483,28 +467,20 @@ export default ({ elements, services, subscriptions }) => tagInstanceId => {
 #### List of components
 
 ```
-app                                             optionsBar.options.modes                        
-dropzone                                        optionsBar.options.outline                      
-gravatar.actions.container                      optionsBar.options.shapes                       
-gravatar.actions.error                          optionsBar.options.size                         
-gravatar.actions.importButton                   optionsBar.options.sort                         
-gravatar.actions.loading                        optionsBar.options.spacing                      
-gravatar.content.container                      optionsBar.shapeOption                          
-gravatar.content.fallback                       roleList.container                              
-gravatar.content.fallbacks                      roleList.roleCustomiser.container               
-gravatar.content.freetext                       roleList.roleCustomiser.masterRoleName          
-gravatar.title                                  roleList.roleCustomiser.roleColorPicker         
-header.container                                tagList.container                               
-header.titleBar                                 tagList.tag.components.roleName                 
-imageUploadOptions.chooseImages                 tagList.tag.components.tagImage                 
-imageUploadOptions.container                    tagList.tag.components.tagName                  
-imageUploadOptions.gravatar                     tagList.tag.container                           
-modal                                           tips.badges                                     
-modals.gravatar                                 tips.images                                     
-modals.tips                                     tips.laminating                                 
-modals.welcome                                  tips.multiples                                  
-optionsBar.container                            tips.naming                                     
-optionsBar.numberOption                         tips.roleShortcut                               
+app                                             optionsBar.container                            
+dropzone                                        optionsBar.numberOption                         
+gravatar.actions                                optionsBar.options                              
+gravatar.content                                optionsBar.shapeOption                          
+gravatar.title                                  roleList.container                              
+header.container                                roleList.roleCustomiser                         
+header.titleBar                                 tagList.container                               
+imageUploadOptions.chooseImages                 tagList.tag                                     
+imageUploadOptions.container                    tips.badges                                     
+imageUploadOptions.gravatar                     tips.images                                     
+modal                                           tips.laminating                                 
+modals.gravatar                                 tips.multiples                                  
+modals.tips                                     tips.naming                                     
+modals.welcome                                  tips.roleShortcut                               
 ```
 
 ## core
@@ -516,7 +492,7 @@ Provides _pure functions_ to be consumed by the _services_ module. Without core,
 
 ```diff
 + util
-- components diagnostics elements io mixpanel services startup storage stores styles subscriptions ui vendorComponents window
+- components diagnostics elements io services startup storage stores styles subscriptions ui vendorComponents
 ```
 
 - No access to modules that produce side effects.
@@ -575,7 +551,7 @@ Provides _diagnostic functions_ such as the ability to dump state to the console
 
 ```diff
 + stores util
-- components core elements io mixpanel services startup storage styles subscriptions ui vendorComponents window
+- components core elements io services startup storage styles subscriptions ui vendorComponents
 ```
 
 #### List of diagnostic functions
@@ -593,7 +569,7 @@ Provides _element factory functions_. An element is a HTML element that relies o
 
 ```diff
 + ui util
-- components core diagnostics io mixpanel services startup storage stores styles subscriptions vendorComponents window
+- components core diagnostics io services startup storage stores styles subscriptions vendorComponents
 ```
 
 - No access to _stores_ or _io_. Effects are serviced by raising events to be handled by _components_.
@@ -647,8 +623,8 @@ Provides _io functions_ while preventing direct access to _window_.
 #### Collaborators
 
 ```diff
-+ window
-- components core diagnostics elements mixpanel services startup storage stores styles subscriptions ui util vendorComponents
++ 
+- components core diagnostics elements services startup storage stores styles subscriptions ui util vendorComponents
 ```
 
 #### Source
@@ -657,9 +633,14 @@ _io_ is a single-file module:
 
 ###### <p align="right"><a href="https://github.com/mattriley/agile-avatars/blob/undefined/src/modules/io/setup.js">src/modules/io/setup.js</a></p>
 ```js
-export default ({ window }) => () => {
+import mixpanel from 'mixpanel-browser';
+
+export default ({ window, config }) => () => {
+
+    config.mixpanelToken && mixpanel.init(config.mixpanelToken, { debug: config.isTest });
 
     return {
+        mixpanel,
         date: () => new window.Date(),
         fetch: (...args) => window.fetch(...args),
         random: () => window.Math.random(),
@@ -672,8 +653,9 @@ export default ({ window }) => () => {
 #### List of io functions
 
 ```
-date                                            fileReader                                      
+date                                            mixpanel                                        
 fetch                                           random                                          
+fileReader                                      
 ```
 
 ## services
@@ -685,7 +667,7 @@ Provides _service functions_. Service functions perform effects by orchestrate t
 
 ```diff
 + core io stores subscriptions util
-- components diagnostics elements mixpanel startup storage styles ui vendorComponents window
+- components diagnostics elements startup storage styles ui vendorComponents
 ```
 
 - No access to _window_. IO operations are serviced by the _io_ module.
@@ -712,25 +694,23 @@ export default ({ core, services, stores }) => (tagInstanceId, expression) => {
 #### List of service functions
 
 ```
-gravatar.changeFallback                         settings.changeOption                           
-gravatar.changeFreetext                         settings.clearModal                             
-gravatar.fetchImageAsync                        settings.getGravatar                            
-gravatar.fetchProfileAsync                      tags.adjustTagInstanceCounts                    
-gravatar.status.is.error                        tags.attachImageAsync                           
-gravatar.status.is.ready                        tags.buildTagInstance                           
-gravatar.status.is.working                      tags.changeTagName                              
-gravatar.status.to.error                        tags.changeTagRole                              
-gravatar.status.to.ready                        tags.getTagInstance                             
-gravatar.status.to.working                      tags.insertFileAsync                            
-roles.changeRoleColor                           tags.insertFileBatchAsync                       
-roles.changeRoleName                            tags.insertGravatarAsync                        
-roles.findOrInsertRoleWithName                  tags.insertGravatarBatchAsync                   
-roles.getNilRoleId                              tags.insertTag                                  
-roles.getRole                                   tags.insertTagInstance                          
-roles.insertRole                                tags.removeTagInstance                          
-roles.isNilRole                                 tags.setupRolePropagation                       
-roles.setupRolePropagation                      tags.setupTagPropagation                        
-settings.changeModal                            tags.sortTagInstances                           
+gravatar.changeFallback                         tags.adjustTagInstanceCounts                    
+gravatar.changeFreetext                         tags.attachImageAsync                           
+gravatar.fetchImageAsync                        tags.buildTagInstance                           
+gravatar.fetchProfileAsync                      tags.changeTagName                              
+gravatar.status                                 tags.changeTagRole                              
+roles.changeRoleColor                           tags.getTagInstance                             
+roles.changeRoleName                            tags.insertFileAsync                            
+roles.findOrInsertRoleWithName                  tags.insertFileBatchAsync                       
+roles.getNilRoleId                              tags.insertGravatarAsync                        
+roles.getRole                                   tags.insertGravatarBatchAsync                   
+roles.insertRole                                tags.insertTag                                  
+roles.isNilRole                                 tags.insertTagInstance                          
+roles.setupRolePropagation                      tags.removeTagInstance                          
+settings.changeModal                            tags.setupRolePropagation                       
+settings.changeOption                           tags.setupTagPropagation                        
+settings.clearModal                             tags.sortTagInstances                           
+settings.getGravatar                            
 ```
 
 ## startup
@@ -741,8 +721,8 @@ Provides _startup functions_ which are used at [launch](#launching) time.
 #### Collaborators
 
 ```diff
-+ components services stores styles subscriptions ui util window
-- core diagnostics elements io mixpanel storage vendorComponents
++ components services stores styles subscriptions ui util
+- core diagnostics elements io storage vendorComponents
 ```
 
 - Largely unconstrained as only used during launch.
@@ -771,7 +751,7 @@ Provides the _state store implementation_. State stores manage state changes and
 
 ```diff
 + 
-- components core diagnostics elements io mixpanel services startup stores styles subscriptions ui util vendorComponents window
+- components core diagnostics elements io services startup stores styles subscriptions ui util vendorComponents
 ```
 
 #### Source
@@ -853,7 +833,7 @@ Provides the _state stores_. State stores manage state changes and raise change 
 
 ```diff
 + storage
-- components core diagnostics elements io mixpanel services startup styles subscriptions ui util vendorComponents window
+- components core diagnostics elements io services startup styles subscriptions ui util vendorComponents
 ```
 
 #### Source
@@ -889,7 +869,7 @@ Provides _style factory functions_. A style is simply a HTML style element that 
 
 ```diff
 + subscriptions ui
-- components core diagnostics elements io mixpanel services startup storage stores util vendorComponents window
+- components core diagnostics elements io services startup storage stores util vendorComponents
 ```
 
 #### Example: roleColor
@@ -953,7 +933,7 @@ The _subscriptions_ module was introduced to allow Components to subscribe to st
 
 ```diff
 + stores util
-- components core diagnostics elements io mixpanel services startup storage styles ui vendorComponents window
+- components core diagnostics elements io services startup storage styles ui vendorComponents
 ```
 
 #### Source
@@ -977,8 +957,8 @@ Provides _low-level presentation functions_ while preventing direct access to wi
 #### Collaborators
 
 ```diff
-+ window
-- components core diagnostics elements io mixpanel services startup storage stores styles subscriptions util vendorComponents
++ 
+- components core diagnostics elements io services startup storage stores styles subscriptions util vendorComponents
 ```
 
 #### List of ui functions
@@ -998,7 +978,7 @@ Provides _low-level utility functions_.
 
 ```diff
 + 
-- components core diagnostics elements io mixpanel services startup storage stores styles subscriptions ui vendorComponents window
+- components core diagnostics elements io services startup storage stores styles subscriptions ui vendorComponents
 ```
 
 #### List of utility functions
@@ -1017,8 +997,8 @@ Provides vendor (third party) components including gtag and vanilla-picker. Thes
 #### Collaborators
 
 ```diff
-+ ui window
-- components core diagnostics elements io mixpanel services startup storage stores styles subscriptions util
++ ui
+- components core diagnostics elements io services startup storage stores styles subscriptions util
 ```
 
 #### List of vendor components
