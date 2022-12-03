@@ -1,6 +1,7 @@
 import composer from 'module-composer';
 import modules from './modules/index.js';
 import defaultConfig from './default-config.js';
+import 'module-composer/extensions/mermaid.js';
 const { storage, util } = modules;
 
 export default ({ window, overrides, configs }) => {

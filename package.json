@@ -28,7 +28,7 @@
         "blueimp-md5": "^2.19.0",
         "lodash": "^4.17.21",
         "mixpanel-browser": "^2.45.0",
-        "module-composer": "^0.85.0",
+        "module-composer": "^0.92.0",
         "vanilla-picker": "github:mattriley/vanilla-picker"
     },
     "devDependencies": {
