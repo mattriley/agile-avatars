@@ -21,6 +21,7 @@
         "deploy": "npx task deploy",
         "lint": "npx task lint",
         "pre": "npx task pre",
+        "setup": "nvm use && npm i && npx task setup",
         "start": "npx task start",
         "test": "npx task test"
     },
@@ -32,7 +33,7 @@
         "vanilla-picker": "github:mattriley/vanilla-picker"
     },
     "devDependencies": {
-        "@parcel/resolver-glob": "^2.7.0",
+        "@parcel/resolver-glob": "^2.8.0",
         "cloc": "^2.10.0",
         "doctoc": "^2.2.1",
         "ejs": "^3.1.8",
@@ -41,15 +42,15 @@
         "events": "^3.3.0",
         "flat": "^5.0.2",
         "husky": "^8.0.2",
-        "jsdom": "^20.0.0",
+        "jsdom": "^20.0.3",
         "module-indexgen": "^0.21.0",
         "npm-check-updates": "^16.4.3",
-        "parcel": "^2.7.0",
+        "parcel": "^2.8.0",
         "process": "^0.11.10",
-        "task-library": "^0.189.0",
+        "task-library": "^0.193.0",
         "testing": "file:./testing",
-        "yaml": "^2.1.1",
-        "zora": "^5.1.0",
+        "yaml": "^2.1.3",
+        "zora": "^5.2.0",
         "zora-reporters": "^1.4.0"
     },
     "browserslist": [

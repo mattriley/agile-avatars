@@ -1,6 +1,6 @@
 # Agile Avatars
 
-<p align="right"><code>96.48% cov</code>&nbsp;<code>2058 sloc</code>&nbsp;<code>177 files</code>&nbsp;<code>5 deps</code>&nbsp;<code>19 dev deps</code></p>
+<p align="right"><code>96.48% cov</code>&nbsp;<code>2057 sloc</code>&nbsp;<code>177 files</code>&nbsp;<code>5 deps</code>&nbsp;<code>19 dev deps</code></p>
 
 Great looking avatars for your agile board and experiment in FRAMEWORK-LESS, vanilla JavaScript.
 
@@ -261,7 +261,6 @@ The compose function composes the application from modules in the src directory.
 import composer from 'module-composer';
 import modules from './modules/index.js';
 import defaultConfig from './default-config.js';
-import 'module-composer/extensions/mermaid.js';
 const { storage, util } = modules;
 
 export default ({ window, overrides, configs }) => {
@@ -1662,7 +1661,7 @@ Running pre-commit validation scripts.
 > A JavaScript implementation of many web standards
 
 - Homepage: undefined
-- __27__ dependencies :warning:
+- __26__ dependencies :warning:
 
 #### Used for
 
