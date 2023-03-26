@@ -1,3 +1,4 @@
+import 'module-composer/extensions/mermaid.js';
 import composer from 'module-composer';
 import modules from './modules/index.js';
 import defaultConfig from './default-config.js';
