@@ -1,5 +1,5 @@
 import composer from 'module-composer';
-import modules from './modules';
+import modules from './modules/index.js';
 
 export default ({ window, configs }) => {
 
