@@ -41,6 +41,9 @@
         ],
         "sort-vars": [
             "off"
+        ],
+        "no-empty-pattern": [
+            "off"
         ]
     },
     "overrides": [],

@@ -16,7 +16,7 @@ export default ({ test, compose, helpers }) => {
         helpers.dispatchEvent('input', $color);
 
         const role = helpers.getRole($roleCustomiser);
-        t.equal(role.getRoleStyle().backgroundColor, 'rgba(255, 255, 255, 1)');
+        t.equal(role.getRoleStyle().backgroundColor, 'rgb(255, 255, 255)');
 
 
     });
@@ -41,7 +41,7 @@ export default ({ test, compose, helpers }) => {
         const imageStyle = tag1.getImageStyle();
         const roleStyle = tag1.getRoleStyle();
         t.equal(imageStyle.borderColor, '#ffffffff');
-        t.equal(roleStyle.backgroundColor, 'rgba(255, 255, 255, 1)');
+        t.equal(roleStyle.backgroundColor, 'rgb(255, 255, 255)');
 
     });
 

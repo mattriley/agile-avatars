@@ -1594,7 +1594,7 @@ Presenting a color picker to change the color of a role.
 > An AST-based pattern checker for JavaScript.
 
 - Homepage: https://eslint.org
-- __39__ dependencies :warning:
+- __40__ dependencies :warning:
 
 #### Used for
 
