@@ -1,7 +1,7 @@
-export default ({ ui, roleCustomiser, services }) => roleId => {
+export default ({ ui, components, services }) => roleId => {
 
-    const $masterRoleName = roleCustomiser.masterRoleName(roleId);
-    const $colorPicker = roleCustomiser.roleColorPicker(roleId);
+    const $masterRoleName = components.roleList.roleCustomiser.masterRoleName(roleId);
+    const $colorPicker = components.roleList.roleCustomiser.roleColorPicker(roleId);
 
     const isNilRole = services.roles.isNilRole(roleId);
 

@@ -1,5 +1,5 @@
-export default ({ ui, header }) => () => {
+export default ({ ui, components }) => () => {
 
-    return ui.el('header').append(header.titleBar());
+    return ui.el('header').append(components.header.titleBar());
 
 };

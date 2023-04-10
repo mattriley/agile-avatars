@@ -1,8 +1,8 @@
-export default ({ ui, tag, elements, services, subscriptions, config }) => tagInstanceId => {
+export default ({ ui, components, elements, services, subscriptions, config }) => tagInstanceId => {
 
     const $layout = elements.layout({
         layout: config.tags.layout,
-        components: tag.components,
+        components: components.tagList.tag.components,
         componentArgs: [tagInstanceId]
     });
 

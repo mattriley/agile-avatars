@@ -1155,12 +1155,12 @@ During [compose](#composing) time, subscription functions are extracted from the
 
 ###### <p align="right"><a href="https://github.com/mattriley/agile-avatars/blob/undefined/src/modules/components/role-list/container.js">src/modules/components/role-list/container.js</a></p>
 ```js
-export default ({ ui, roleList, subscriptions }) => () => {
+export default ({ ui, components, subscriptions }) => () => {
 
     const $roleList = ui.el('div', 'role-list visible-false');
 
     subscriptions.roles.onInsert(roleId => {
-        const $role = roleList.roleCustomiser.container(roleId);
+        const $role = components.roleList.roleCustomiser.container(roleId);
         $roleList.append($role);
     });
 

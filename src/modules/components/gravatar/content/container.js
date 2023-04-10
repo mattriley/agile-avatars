@@ -1,8 +1,8 @@
-export default ({ ui, content }) => () => {
+export default ({ ui, components }) => () => {
 
     return ui.el('div', 'gravatar').append(
-        content.freetext(),
-        content.fallbacks()
+        components.gravatar.content.freetext(),
+        components.gravatar.content.fallbacks()
     );
 
 };

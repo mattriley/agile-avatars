@@ -1,9 +1,9 @@
-export default ({ ui, actions }) => () => {
+export default ({ ui, components }) => () => {
 
     return ui.el('div').append(
-        actions.importButton(),
-        actions.loading(),
-        actions.error()
+        components.gravatar.actions.importButton(),
+        components.gravatar.actions.loading(),
+        components.gravatar.actions.error()
     );
 
 };

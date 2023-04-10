@@ -1,11 +1,11 @@
-export default ({ ui, tagList, services, subscriptions, util, config }) => () => {
+export default ({ ui, components, services, subscriptions, util, config }) => () => {
 
     const $$tags = new Map();
 
     const $tags = ui.el('div', 'tag-list');
 
     subscriptions.tagInstances.onInsert(tagInstanceId => {
-        const $tag = tagList.tag.container(tagInstanceId);
+        const $tag = components.tagList.tag.container(tagInstanceId);
         $$tags.set(tagInstanceId, $tag);
         $tags.append($tag);
         delayedSort();
