@@ -8,7 +8,8 @@ const { storage, util } = modules;
 
 export default ({ window, overrides, configs }) => {
 
-    const options = { overrides, defaultConfig, configs };
+    const extensions = ['mermaid', 'eject', 'perf'];
+    const options = { overrides, defaultConfig, configs, extensions };
     const { compose, config } = composer({ window, ...modules }, options);
 
     // Data

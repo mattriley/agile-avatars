@@ -1,6 +1,6 @@
 # Agile Avatars
 
-<p align="right"><code>96.48% cov</code>&nbsp;<code>2060 sloc</code>&nbsp;<code>177 files</code>&nbsp;<code>5 deps</code>&nbsp;<code>19 dev deps</code></p>
+<p align="right"><code>96.48% cov</code>&nbsp;<code>2061 sloc</code>&nbsp;<code>177 files</code>&nbsp;<code>5 deps</code>&nbsp;<code>19 dev deps</code></p>
 
 Great looking avatars for your agile board and experiment in FRAMEWORK-LESS, vanilla JavaScript.
 
@@ -268,7 +268,8 @@ const { storage, util } = modules;
 
 export default ({ window, overrides, configs }) => {
 
-    const options = { overrides, defaultConfig, configs };
+    const extensions = ['mermaid', 'eject', 'perf'];
+    const options = { overrides, defaultConfig, configs, extensions };
     const { compose, config } = composer({ window, ...modules }, options);
 
     // Data
