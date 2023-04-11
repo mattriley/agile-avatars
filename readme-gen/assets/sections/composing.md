@@ -11,7 +11,7 @@ This _codified view_ of the architecture has some interesting implications:
 - Ability to test the integrated application without also launching it.
 - Ability to programatically analyse and visualise dependencies.
 
-<%- await lib.compose(c => lib.renderCode(c.mermaid({ omit: ['config', 'diagnostics', 'startup', 'util', 'vendorComponents', 'vendorServices'] }), 'mermaid')) %>
+<%- await lib.mermaid({ omit: ['config', 'diagnostics', 'startup', 'util', 'vendorComponents', 'vendorServices'] }) %>
 
 ## Deglobalising window
 
