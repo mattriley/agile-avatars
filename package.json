@@ -29,7 +29,7 @@
         "blueimp-md5": "^2.19.0",
         "lodash": "^4.17.21",
         "mixpanel-browser": "^2.46.0",
-        "module-composer": "^0.103.0",
+        "module-composer": "^0.107.0",
         "vanilla-picker": "github:mattriley/vanilla-picker"
     },
     "devDependencies": {
@@ -44,10 +44,10 @@
         "husky": "^8.0.3",
         "jsdom": "^21.1.1",
         "module-indexgen": "^0.27.0",
-        "npm-check-updates": "^16.10.7",
+        "npm-check-updates": "^16.10.8",
         "parcel": "^2.8.3",
         "process": "^0.11.10",
-        "task-library": "^0.203.0",
+        "task-library": "^0.206.0",
         "testing": "file:./testing",
         "yaml": "^2.2.1",
         "zora": "^5.2.0",
