@@ -3,9 +3,10 @@ import modules from './modules/index.js';
 import defaultConfig from './default-config.js';
 const { storage, util } = modules;
 
-export default ({ window, ...options }) => {
+export default ({ window, configs, overrides }) => {
 
-    const { compose, config } = composer({ window, ...modules }, { defaultConfig, ...options });
+    const { configure } = composer({ window, ...modules }, { overrides });
+    const { compose, config } = configure(defaultConfig, configs);
 
     // Data
     const { stores } = compose('stores', { storage, config });
