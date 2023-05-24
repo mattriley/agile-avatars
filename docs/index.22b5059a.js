@@ -615,11 +615,11 @@ exports.default = ({ window , configs , overrides  })=>{
     }, {
         overrides
     });
-    const { compose , config  } = configure((0, _defaultConfigJsDefault.default), configs);
+    const { compose , constants  } = configure((0, _defaultConfigJsDefault.default), configs);
     // Data
     const { stores  } = compose("stores", {
         storage,
-        config
+        constants
     });
     const { subscriptions  } = compose("subscriptions", {
         stores,
@@ -628,11 +628,11 @@ exports.default = ({ window , configs , overrides  })=>{
     // Domain
     const { core  } = compose.deep("core", {
         util,
-        config
+        constants
     });
     const { io  } = compose("io", {
         window,
-        config
+        constants
     });
     const { services  } = compose.deep("services", {
         subscriptions,
@@ -640,7 +640,7 @@ exports.default = ({ window , configs , overrides  })=>{
         core,
         io,
         util,
-        config
+        constants
     });
     // Presentation
     const { ui  } = compose("ui", {
@@ -652,7 +652,7 @@ exports.default = ({ window , configs , overrides  })=>{
     });
     const { vendorComponents  } = compose("vendorComponents", {
         ui,
-        config,
+        constants,
         window
     });
     const { components  } = compose.deep("components", {
@@ -663,12 +663,12 @@ exports.default = ({ window , configs , overrides  })=>{
         services,
         subscriptions,
         util,
-        config
+        constants
     });
     const { styles  } = compose("styles", {
         ui,
         subscriptions,
-        config
+        constants
     });
     // Startup    
     compose("diagnostics", {
@@ -683,7 +683,7 @@ exports.default = ({ window , configs , overrides  })=>{
         subscriptions,
         stores,
         util,
-        config,
+        constants,
         window
     });
     return compose.end();
@@ -693,52 +693,47 @@ exports.default = ({ window , configs , overrides  })=>{
 const Session = require("61a22830378a8223");
 const util = require("cfd8e84cef0693a");
 module.exports = (target, userOptions = {})=>{
-    let session = Session(target, userOptions);
-    const end = ()=>{
-        if (session.state.ended) throw new Error("Composition has already ended");
-        session.state.ended = true;
-        return session.external;
-    };
-    const compose = (path, deps = {}, args = {}, opts = {})=>{
-        if (session.state.ended) throw new Error("Composition has ended");
-        return session.compose(path, deps, args, opts);
-    };
-    compose.deep = (path, deps = {}, args = {}, opts = {})=>{
-        const optsMod = util.merge({
-            depth: Infinity
-        }, opts);
-        return compose(path, deps, args, optsMod);
-    };
-    Object.assign(compose, session.external, {
-        end
-    });
-    // TODO: refactor
-    const configure = (...configs)=>{
-        const flatConfigs = configs.filter((c)=>!!c).flatMap((c)=>Array.isArray(c) ? c : [
-                c
-            ]);
-        const config = flatConfigs.reduce((acc, x)=>{
-            const config = typeof x === "function" ? x(acc) : x;
-            return util.merge(acc, config);
-        }, {});
-        session = Session(target, {
-            ...userOptions,
-            config
-        });
+    const createComposer = (config = {})=>{
+        const constants = util.deepFreeze(config);
+        const session = Session(target, constants, userOptions);
+        const deep = (path, deps = {}, args = {}, opts = {})=>{
+            const optsMod = util.merge({
+                depth: Infinity
+            }, opts);
+            return compose(path, deps, args, optsMod);
+        };
+        const end = ()=>{
+            if (session.state.ended) throw new Error("Composition has already ended");
+            session.state.ended = true;
+            return session.external;
+        };
+        const compose = (path, deps = {}, args = {}, opts = {})=>{
+            if (session.state.ended) throw new Error("Composition has ended");
+            return session.compose(path, deps, args, opts);
+        };
         Object.assign(compose, session.external, {
+            deep,
             end
         });
         return {
             compose,
-            config: session.external.config,
-            constants: session.external.config
+            constants
         };
     };
+    const configure = (...configs)=>{
+        const flatConfigs = configs.filter((c)=>!!c).flatMap((c)=>Array.isArray(c) ? c : [
+                c
+            ]);
+        const constants = flatConfigs.reduce((acc, x)=>{
+            const config = typeof x === "function" ? x(acc) : x;
+            return util.merge(acc, config);
+        }, {});
+        return createComposer(constants);
+    };
+    const composer = createComposer(userOptions.config);
     return {
-        compose,
-        configure,
-        config: session.external.config,
-        constants: session.external.config
+        ...composer,
+        configure
     };
 };
 
@@ -747,7 +742,7 @@ const Compose = require("3e795016db83b062");
 const Options = require("f4b2a196dc3cf9cc");
 const extensions = require("16ebdf1132c55edf");
 const util = require("f292aed5739aa077");
-module.exports = (target, userOptions = {})=>{
+module.exports = (target, constants = {}, userOptions = {})=>{
     if (!util.isPlainObject(target)) throw new Error("target must be a plain object");
     const targetModules = util.pickBy(target, util.isPlainObject);
     const defaultOptions = Options();
@@ -755,29 +750,23 @@ module.exports = (target, userOptions = {})=>{
         ...defaultOptions,
         ...userOptions
     };
-    const config = util.mergeValues({}, options, options.configOptionKeys);
-    const maybeConfig = Object.keys(config).length ? {
-        config
-    } : {};
     const state = {
         ended: false,
         dependencies: util.mapValues(targetModules, ()=>[]),
         composedDependencies: {},
         modules: {
-            ...maybeConfig,
             ...targetModules
         },
         extensions: {}
     };
-    const constants = util.deepFreeze(config);
     const external = {
         defaultOptions,
         userOptions,
         options,
-        config,
-        constants,
         target,
-        targetModules
+        targetModules,
+        constants,
+        config: {}
     };
     const session = {
         external: {
@@ -5704,8 +5693,8 @@ exports.default = ({ ui , services , subscriptions  })=>(fallback)=>{
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dCQuj":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-exports.default = ({ ui , components , elements , config  })=>()=>{
-        const $$fallbackOptions = config.gravatar.fallbacks.map(components.gravatar.content.fallback);
+exports.default = ({ ui , components , elements , constants  })=>()=>{
+        const $$fallbackOptions = constants.gravatar.fallbacks.map(components.gravatar.content.fallback);
         const $fallbacks = ui.el("div").append(...$$fallbackOptions);
         const labelText = "Select a generated image style to use in case profile image is not found.";
         return elements.label(labelText, $fallbacks);
@@ -5765,7 +5754,7 @@ exports.default = ({ ui , components  })=>()=>{
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"2fEjb":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-exports.default = ({ services , ui , config  })=>()=>{
+exports.default = ({ services , ui , constants  })=>()=>{
         const $tips = ui.el("a", "tips", {
             textContent: "Tips & tricks"
         }).addEventListener("click", ()=>{
@@ -5774,15 +5763,15 @@ exports.default = ({ services , ui , config  })=>()=>{
         const $issues = ui.el("a", {
             textContent: "Send feedback",
             target: "_blank",
-            href: config.app.issues
+            href: constants.app.issues
         });
         const $source = ui.el("a", {
             textContent: "Source code",
             target: "_blank",
-            href: config.app.source
+            href: constants.app.source
         });
         const $devBar = ui.el("dev-bar").append($tips, $issues, $source);
-        $devBar.setAttribute("app-name", config.app.name);
+        $devBar.setAttribute("app-name", constants.app.name);
         return $devBar;
     };
 
@@ -5926,9 +5915,9 @@ exports.default = ({ ui , components  })=>()=>{
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dun5l":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-exports.default = ({ ui , components , services , config  })=>()=>{
+exports.default = ({ ui , components , services , constants  })=>()=>{
         const $heading = ui.el("h1", "welcome-title", {
-            textContent: `Welcome to ${config.app.name}`
+            textContent: `Welcome to ${constants.app.name}`
         });
         const $image = ui.el("img", {
             src: "img/welcome.png",
@@ -5967,9 +5956,9 @@ exports.default = {
 },{"./container.js":"bkUEY","./number-option.js":"1I2Sn","./options/index.js":"jNouT","./shape-option.js":"1FXQI","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"bkUEY":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-exports.default = ({ components , elements , subscriptions , ui , config  })=>()=>{
+exports.default = ({ components , elements , subscriptions , ui , constants  })=>()=>{
         const $optionsBar = elements.layout({
-            layout: config.options.layout,
+            layout: constants.options.layout,
             components: components.optionsBar.options
         });
         $optionsBar.className = "options-bar visible-false";
@@ -5982,8 +5971,8 @@ exports.default = ({ components , elements , subscriptions , ui , config  })=>()
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1I2Sn":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-exports.default = ({ elements , services , subscriptions , util , config  })=>(optionName)=>{
-        const { min , max , step  } = config.options[optionName];
+exports.default = ({ elements , services , subscriptions , util , constants  })=>(optionName)=>{
+        const { min , max , step  } = constants.options[optionName];
         const $number = elements.number({
             min,
             max,
@@ -6025,8 +6014,8 @@ exports.default = {
 },{"./modes.js":"F1qjp","./outline.js":"h2rVZ","./shapes.js":"jwVSN","./size.js":"abFvJ","./sort.js":"iUrfQ","./spacing.js":"gO3Rx","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"F1qjp":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-exports.default = ({ ui , components , config  })=>()=>{
-        const $$modes = config.options.modes.map(components.optionsBar.numberOption);
+exports.default = ({ ui , components , constants  })=>()=>{
+        const $$modes = constants.options.modes.map(components.optionsBar.numberOption);
         return ui.el("span").append(...$$modes);
     };
 
@@ -6048,8 +6037,8 @@ exports.default = ({ ui , elements , services , subscriptions  })=>()=>{
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"jwVSN":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-exports.default = ({ ui , components , config  })=>()=>{
-        const $$shapes = config.options.shapes.map(components.optionsBar.shapeOption);
+exports.default = ({ ui , components , constants  })=>()=>{
+        const $$shapes = constants.options.shapes.map(components.optionsBar.shapeOption);
         return ui.el("span").append(...$$shapes);
     };
 
@@ -6061,8 +6050,8 @@ exports.default = ({ components  })=>()=>components.optionsBar.numberOption("siz
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"iUrfQ":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-exports.default = ({ ui , elements , services , subscriptions , config  })=>()=>{
-        const $$options = Object.entries(config.options.sort).map(([value, textContent])=>{
+exports.default = ({ ui , elements , services , subscriptions , constants  })=>()=>{
+        const $$options = Object.entries(constants.options.sort).map(([value, textContent])=>{
             return ui.el("option", {
                 value,
                 textContent
@@ -6085,7 +6074,7 @@ exports.default = ({ components  })=>()=>components.optionsBar.numberOption("spa
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1FXQI":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-exports.default = ({ ui , subscriptions , services , config  })=>(shapeName)=>{
+exports.default = ({ ui , subscriptions , services , constants  })=>(shapeName)=>{
         const $shape = ui.el("span", "shape-option", {
             title: `Change shape to ${shapeName}`,
             tabIndex: 0
@@ -6100,7 +6089,7 @@ exports.default = ({ ui , subscriptions , services , config  })=>(shapeName)=>{
                 e.preventDefault();
             }
         });
-        const borderRadius = config.options.shapeRadius[shapeName] || 0;
+        const borderRadius = constants.options.shapeRadius[shapeName] || 0;
         $shape.style.borderRadius = `${borderRadius}%`;
         subscriptions.settings.onChange("options", "shape", (selectedShape)=>{
             ui.toggleBoolClass($shape, "selected", shapeName === selectedShape);
@@ -6202,7 +6191,7 @@ exports.default = {
 },{"./container.js":"3kpr7","./tag/index.js":"XQMTh","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3kpr7":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-exports.default = ({ ui , components , services , subscriptions , util , config  })=>()=>{
+exports.default = ({ ui , components , services , subscriptions , util , constants  })=>()=>{
         const $$tags = new Map();
         const $tags = ui.el("div", "tag-list");
         subscriptions.tagInstances.onInsert((tagInstanceId)=>{
@@ -6222,7 +6211,7 @@ exports.default = ({ ui , components , services , subscriptions , util , config 
                 });
             });
         };
-        const delayedSort = util.debounce(sort, config.debounce.sortTagList);
+        const delayedSort = util.debounce(sort, constants.debounce.sortTagList);
         subscriptions.settings.onChange("options", "sort", sort);
         subscriptions.tagInstances.onChangeAny("tagName", delayedSort);
         subscriptions.tagInstances.onChangeAny("roleName", delayedSort);
@@ -6296,9 +6285,9 @@ exports.default = ({ elements , services , subscriptions  })=>(tagInstanceId)=>{
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hmBXU":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-exports.default = ({ ui , components , elements , services , subscriptions , config  })=>(tagInstanceId)=>{
+exports.default = ({ ui , components , elements , services , subscriptions , constants  })=>(tagInstanceId)=>{
         const $layout = elements.layout({
-            layout: config.tags.layout,
+            layout: constants.tags.layout,
             components: components.tagList.tag.components,
             componentArgs: [
                 tagInstanceId
@@ -6479,8 +6468,8 @@ exports.default = {
 },{"./build-image-url.js":"6vhdU","./build-profile-url.js":"bGawQ","./get-name-from-profile.js":"jHq6u","./hash-email.js":"bWFiv","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6vhdU":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-exports.default = ({ core , config  })=>(email, defaultImage)=>{
-        const { domain , size  } = config.gravatar;
+exports.default = ({ core , constants  })=>(email, defaultImage)=>{
+        const { domain , size  } = constants.gravatar;
         const emailHash = core.gravatar.hashEmail(email);
         return `${domain}/avatar/${emailHash}?r=g&s=${size}&d=${defaultImage}`;
     }; /* FOOTNOTES
@@ -6493,8 +6482,8 @@ https://en.gravatar.com/site/implement/images/
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"bGawQ":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-exports.default = ({ config , core  })=>(email)=>{
-        const { domain  } = config.gravatar;
+exports.default = ({ constants , core  })=>(email)=>{
+        const { domain  } = constants.gravatar;
         const emailHash = core.gravatar.hashEmail(email);
         return `${domain}/${emailHash}.json`;
     }; /* FOOTNOTES
@@ -6888,8 +6877,8 @@ exports.default = {
 },{"./assign-color.js":"2gCvJ","./build-role.js":"5XIVK","./random-color.js":"id4tj","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"2gCvJ":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-exports.default = ({ core , config  })=>(randomNumber)=>(roleData)=>{
-            const presetColor = config.roles.presetColors[roleData.roleName];
+exports.default = ({ core , constants  })=>(randomNumber)=>(roleData)=>{
+            const presetColor = constants.roles.presetColors[roleData.roleName];
             const randomColor = core.roles.randomColor(randomNumber);
             const color = presetColor || roleData.color || randomColor;
             return {
@@ -7063,9 +7052,9 @@ const plan = ({ tag , mode , count  })=>{
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gZk6d":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-exports.default = ({ config  })=>(tags, getTagInstance)=>{
+exports.default = ({ constants  })=>(tags, getTagInstance)=>{
         return tags.flatMap((tag)=>{
-            return config.options.modes.flatMap((mode)=>{
+            return constants.options.modes.flatMap((mode)=>{
                 return tag[mode].map((tagInstanceId)=>getTagInstance(tagInstanceId));
             });
         });
@@ -7266,9 +7255,9 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _mixpanelBrowser = require("mixpanel-browser");
 var _mixpanelBrowserDefault = parcelHelpers.interopDefault(_mixpanelBrowser);
-exports.default = ({ window , config  })=>()=>{
-        config.mixpanelToken && (0, _mixpanelBrowserDefault.default).init(config.mixpanelToken, {
-            debug: config.isTest
+exports.default = ({ window , constants  })=>()=>{
+        constants.mixpanelToken && (0, _mixpanelBrowserDefault.default).init(constants.mixpanelToken, {
+            debug: constants.isTest
         });
         return {
             mixpanel: (0, _mixpanelBrowserDefault.default),
@@ -12446,10 +12435,10 @@ exports.default = {
 },{"./adjust-tag-instance-counts.js":"6BGmi","./attach-image-async.js":"cKOMq","./build-tag-instance.js":"7pwHi","./change-tag-name.js":"9iM7S","./change-tag-role.js":"96smO","./get-tag-instance.js":"bMUpF","./insert-file-async.js":"1IOX7","./insert-file-batch-async.js":"28TMm","./insert-gravatar-async.js":"VPBK7","./insert-gravatar-batch-async.js":"1reft","./insert-tag.js":"1FfoM","./insert-tag-instance.js":"15v88","./remove-tag-instance.js":"4PfPu","./setup-role-propagation.js":"jA6qw","./setup-tag-propagation.js":"5bERz","./sort-tag-instances.js":"kVSh6","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6BGmi":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-exports.default = ({ core , config , stores , services  })=>()=>{
+exports.default = ({ core , constants , stores , services  })=>()=>{
         const tags = stores.tags.list();
         const options = stores.settings.find("options");
-        const modeCounts = Object.fromEntries(config.options.modes.map((mode)=>[
+        const modeCounts = Object.fromEntries(constants.options.modes.map((mode)=>[
                 mode,
                 options[mode]
             ]));
@@ -12571,7 +12560,7 @@ exports.default = ({ core , services  })=>(expression, defaultImage)=>{
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"1reft":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-exports.default = ({ services , config  })=>async (emails, fallback)=>{
+exports.default = ({ services , constants  })=>async (emails, fallback)=>{
         try {
             services.gravatar.status.to.working();
             const insert = async (email)=>{
@@ -12586,7 +12575,7 @@ exports.default = ({ services , config  })=>async (emails, fallback)=>{
             services.gravatar.status.to.ready();
             services.settings.clearModal();
         } catch (err) {
-            services.gravatar.status.to.error(config.gravatar.errorMessage);
+            services.gravatar.status.to.error(constants.gravatar.errorMessage);
             throw err; // probably for logging
         }
     };
@@ -12697,9 +12686,9 @@ exports.default = {
 },{"./create-handlers.js":"hBtZM","./create-style-manager.js":"4zzZW","./insert-nil-role.js":"4klEA","./start.js":"gvA1a","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hBtZM":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-exports.default = ({ services , subscriptions , util , config  })=>()=>{
-        const adjustTagInstanceCounts = util.debounce(services.tags.adjustTagInstanceCounts, config.debounce.adjustTagInstanceCounts);
-        config.options.modes.forEach((mode)=>{
+exports.default = ({ services , subscriptions , util , constants  })=>()=>{
+        const adjustTagInstanceCounts = util.debounce(services.tags.adjustTagInstanceCounts, constants.debounce.adjustTagInstanceCounts);
+        constants.options.modes.forEach((mode)=>{
             subscriptions.settings.onChange("options", mode, adjustTagInstanceCounts);
         });
         subscriptions.tags.onInsert(adjustTagInstanceCounts);
@@ -12719,8 +12708,8 @@ exports.default = ({ styles , subscriptions , ui , util  })=>()=>{
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4klEA":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-exports.default = ({ config , stores  })=>()=>{
-        const nilRoleId = stores.roles.insert(config.roles.nilRole);
+exports.default = ({ constants , stores  })=>()=>{
+        const nilRoleId = stores.roles.insert(constants.roles.nilRole);
         stores.settings.update("app", {
             nilRoleId
         });
@@ -13200,9 +13189,9 @@ exports.default = {
 },{"./setup.js":"hBu4u","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hBu4u":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-exports.default = ({ storage , config  })=>()=>{
-        return Object.fromEntries(config.storage.stores.map((name)=>{
-            const defaults = config.storage.defaults[name];
+exports.default = ({ storage , constants  })=>()=>{
+        return Object.fromEntries(constants.storage.stores.map((name)=>{
+            const defaults = constants.storage.defaults[name];
             const store = storage.stateStore(defaults);
             return [
                 name,
@@ -13277,10 +13266,10 @@ exports.default = ({ ui , subscriptions  })=>()=>{
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"3rj9R":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-exports.default = ({ ui , subscriptions , config  })=>()=>{
+exports.default = ({ ui , subscriptions , constants  })=>()=>{
         const $style = ui.el("style");
         subscriptions.settings.onChange("options", "shape", (shape)=>{
-            const borderRadius = config.options.shapeRadius[shape];
+            const borderRadius = constants.options.shapeRadius[shape];
             $style.textContent = `.tag-image { border-radius: ${borderRadius}%; }`;
         });
         return $style;
@@ -13289,10 +13278,10 @@ exports.default = ({ ui , subscriptions , config  })=>()=>{
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hB7MJ":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-exports.default = ({ ui , subscriptions , config  })=>()=>{
+exports.default = ({ ui , subscriptions , constants  })=>()=>{
         const $style = ui.el("style");
         subscriptions.settings.onChange("options", "size", (size)=>{
-            const width = size - config.tags.imagePadding * 2;
+            const width = size - constants.tags.imagePadding * 2;
             $style.textContent = `
             .tag-list { grid-template-columns: repeat(auto-fill, ${size}px); }
             .tag-image { width: ${width}px; height: ${width}px; }
