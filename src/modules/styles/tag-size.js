@@ -1,9 +1,9 @@
-export default ({ ui, subscriptions, config }) => () => {
+export default ({ ui, subscriptions, constants }) => () => {
 
     const $style = ui.el('style');
 
     subscriptions.settings.onChange('options', 'size', size => {
-        const width = size - (config.tags.imagePadding * 2);
+        const width = size - (constants.tags.imagePadding * 2);
         $style.textContent = `
             .tag-list { grid-template-columns: repeat(auto-fill, ${size}px); }
             .tag-image { width: ${width}px; height: ${width}px; }

@@ -1,6 +1,6 @@
-export default ({ ui, components, config }) => () => {
+export default ({ ui, components, constants }) => () => {
 
-    const $$shapes = config.options.shapes.map(components.optionsBar.shapeOption);
+    const $$shapes = constants.options.shapes.map(components.optionsBar.shapeOption);
     return ui.el('span').append(...$$shapes);
 
 };

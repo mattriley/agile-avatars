@@ -6,27 +6,27 @@ const { storage, util } = modules;
 export default ({ window, configs, overrides }) => {
 
     const { configure } = composer({ window, ...modules }, { overrides });
-    const { compose, config } = configure(defaultConfig, configs);
+    const { compose, constants } = configure(defaultConfig, configs);
 
     // Data
-    const { stores } = compose('stores', { storage, config });
+    const { stores } = compose('stores', { storage, constants });
     const { subscriptions } = compose('subscriptions', { stores, util });
 
     // Domain
-    const { core } = compose.deep('core', { util, config });
-    const { io } = compose('io', { window, config });
-    const { services } = compose.deep('services', { subscriptions, stores, core, io, util, config });
+    const { core } = compose.deep('core', { util, constants });
+    const { io } = compose('io', { window, constants });
+    const { services } = compose.deep('services', { subscriptions, stores, core, io, util, constants });
 
     // Presentation
     const { ui } = compose('ui', { window });
     const { elements } = compose('elements', { ui, util });
-    const { vendorComponents } = compose('vendorComponents', { ui, config, window });
-    const { components } = compose.deep('components', { io, ui, elements, vendorComponents, services, subscriptions, util, config });
-    const { styles } = compose('styles', { ui, subscriptions, config });
+    const { vendorComponents } = compose('vendorComponents', { ui, constants, window });
+    const { components } = compose.deep('components', { io, ui, elements, vendorComponents, services, subscriptions, util, constants });
+    const { styles } = compose('styles', { ui, subscriptions, constants });
 
     // Startup    
     compose('diagnostics', { stores, util });
-    compose('startup', { ui, components, styles, services, subscriptions, stores, util, config, window });
+    compose('startup', { ui, components, styles, services, subscriptions, stores, util, constants, window });
 
     return compose.end();
 

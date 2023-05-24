@@ -14,7 +14,7 @@ export default ({ test, compose, helpers }) => {
     };
 
     const shapeTestCase = (t, shapeName) => {
-        const { config, modules } = compose();
+        const { constants, modules } = compose();
         const { components, services } = modules;
         const $shape = components.optionsBar.shapeOption(shapeName);
         const $tagList = components.tagList.container();
@@ -22,7 +22,7 @@ export default ({ test, compose, helpers }) => {
         helpers.dispatchKeydown($shape, 'Enter');
         const [tag1] = helpers.getTags($tagList);
         const imageStyle = tag1.getImageStyle();
-        t.equal(imageStyle.borderRadius, `${config.options.shapeRadius[shapeName]}%`);
+        t.equal(imageStyle.borderRadius, `${constants.options.shapeRadius[shapeName]}%`);
 
     };
 

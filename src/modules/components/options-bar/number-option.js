@@ -1,6 +1,6 @@
-export default ({ elements, services, subscriptions, util, config }) => optionName => {
+export default ({ elements, services, subscriptions, util, constants }) => optionName => {
 
-    const { min, max, step } = config.options[optionName];
+    const { min, max, step } = constants.options[optionName];
 
     const $number = elements.number({ min, max, step })
         .addEventListener('change', e => {

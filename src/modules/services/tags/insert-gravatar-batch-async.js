@@ -1,4 +1,4 @@
-export default ({ services, config }) => async (emails, fallback) => {
+export default ({ services, constants }) => async (emails, fallback) => {
 
     try {
         services.gravatar.status.to.working();
@@ -15,7 +15,7 @@ export default ({ services, config }) => async (emails, fallback) => {
         services.gravatar.status.to.ready();
         services.settings.clearModal();
     } catch (err) {
-        services.gravatar.status.to.error(config.gravatar.errorMessage);
+        services.gravatar.status.to.error(constants.gravatar.errorMessage);
         throw err; // probably for logging
     }
 

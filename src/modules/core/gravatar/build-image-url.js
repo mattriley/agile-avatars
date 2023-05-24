@@ -1,6 +1,6 @@
-export default ({ core, config }) => (email, defaultImage) => {
+export default ({ core, constants }) => (email, defaultImage) => {
 
-    const { domain, size } = config.gravatar;
+    const { domain, size } = constants.gravatar;
     const emailHash = core.gravatar.hashEmail(email);
     return `${domain}/avatar/${emailHash}?r=g&s=${size}&d=${defaultImage}`;
 

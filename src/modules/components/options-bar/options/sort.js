@@ -1,6 +1,6 @@
-export default ({ ui, elements, services, subscriptions, config }) => () => {
+export default ({ ui, elements, services, subscriptions, constants }) => () => {
 
-    const $$options = Object.entries(config.options.sort).map(([value, textContent]) => {
+    const $$options = Object.entries(constants.options.sort).map(([value, textContent]) => {
         return ui.el('option', { value, textContent });
     });
 
