@@ -1,9 +1,9 @@
-export default ({ core, constants, stores, services }) => () => {
+export default ({ core, config, stores, services }) => () => {
 
     const tags = stores.tags.list();
 
     const options = stores.settings.find('options');
-    const modeCounts = Object.fromEntries(constants.options.modes.map(mode => [mode, options[mode]]));
+    const modeCounts = Object.fromEntries(config.options.modes.map(mode => [mode, options[mode]]));
     const plans = core.tags.planTagInstanceAdjustment(tags, modeCounts);
 
     plans.forEach(plan => {

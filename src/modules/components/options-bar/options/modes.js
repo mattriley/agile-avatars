@@ -1,6 +1,6 @@
-export default ({ ui, components, constants }) => () => {
+export default ({ ui, components, config }) => () => {
 
-    const $$modes = constants.options.modes.map(components.optionsBar.numberOption);
+    const $$modes = config.options.modes.map(components.optionsBar.numberOption);
     return ui.el('span').append(...$$modes);
 
 };

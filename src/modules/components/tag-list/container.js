@@ -1,4 +1,4 @@
-export default ({ ui, components, services, subscriptions, util, constants }) => () => {
+export default ({ ui, components, services, subscriptions, util, config }) => () => {
 
     const $$tags = new Map();
 
@@ -26,7 +26,7 @@ export default ({ ui, components, services, subscriptions, util, constants }) =>
 
     const delayedSort = util.debounce(
         sort,
-        constants.debounce.sortTagList
+        config.debounce.sortTagList
     );
 
     subscriptions.settings.onChange('options', 'sort', sort);

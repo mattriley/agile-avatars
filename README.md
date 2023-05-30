@@ -635,9 +635,9 @@ _io_ is a single-file module:
 ```js
 import mixpanel from 'mixpanel-browser';
 
-export default ({ window, constants }) => () => {
+export default ({ window, config }) => () => {
 
-    constants.mixpanelToken && mixpanel.init(constants.mixpanelToken, { debug: constants.isTest });
+    config.mixpanelToken && mixpanel.init(config.mixpanelToken, { debug: config.isTest });
 
     return {
         mixpanel,
@@ -842,10 +842,10 @@ Provides the _state stores_. State stores manage state changes and raise change 
 
 ###### <p align="right"><a href="https://github.com/mattriley/agile-avatars/blob/master/src/modules/stores/setup.js">src/modules/stores/setup.js</a></p>
 ```js
-export default ({ storage, constants }) => () => {
+export default ({ storage, config }) => () => {
 
-    return Object.fromEntries(constants.storage.stores.map(name => {
-        const defaults = constants.storage.defaults[name];
+    return Object.fromEntries(config.storage.stores.map(name => {
+        const defaults = config.storage.defaults[name];
         const store = storage.stateStore(defaults);
         return [name, store];
     }));
@@ -1823,10 +1823,10 @@ The `acc` variable is intentionally mutated given the scope of the mutation is s
 
 ###### <p align="right"><a href="https://github.com/mattriley/agile-avatars/blob/master/src/modules/stores/setup.js">src/modules/stores/setup.js</a></p>
 ```js
-export default ({ storage, constants }) => () => {
+export default ({ storage, config }) => () => {
 
-    return Object.fromEntries(constants.storage.stores.map(name => {
-        const defaults = constants.storage.defaults[name];
+    return Object.fromEntries(config.storage.stores.map(name => {
+        const defaults = config.storage.defaults[name];
         const store = storage.stateStore(defaults);
         return [name, store];
     }));

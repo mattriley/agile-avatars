@@ -1,4 +1,4 @@
-export default ({ services, ui, constants }) => () => {
+export default ({ services, ui, config }) => () => {
 
     const $tips = ui.el('a', 'tips', { textContent: 'Tips & tricks' })
         .addEventListener('click', () => {
@@ -8,17 +8,17 @@ export default ({ services, ui, constants }) => () => {
     const $issues = ui.el('a', {
         textContent: 'Send feedback',
         target: '_blank',
-        href: constants.app.issues
+        href: config.app.issues
     });
 
     const $source = ui.el('a', {
         textContent: 'Source code',
         target: '_blank',
-        href: constants.app.source
+        href: config.app.source
     });
 
     const $devBar = ui.el('dev-bar').append($tips, $issues, $source);
-    $devBar.setAttribute('app-name', constants.app.name);
+    $devBar.setAttribute('app-name', config.app.name);
 
     return $devBar;
 

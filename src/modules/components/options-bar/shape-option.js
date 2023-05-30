@@ -1,4 +1,4 @@
-export default ({ ui, subscriptions, services, constants }) => shapeName => {
+export default ({ ui, subscriptions, services, config }) => shapeName => {
 
     const $shape = ui.el('span', 'shape-option', {
         title: `Change shape to ${shapeName}`,
@@ -12,7 +12,7 @@ export default ({ ui, subscriptions, services, constants }) => shapeName => {
         }
     });
 
-    const borderRadius = constants.options.shapeRadius[shapeName] || 0;
+    const borderRadius = config.options.shapeRadius[shapeName] || 0;
     $shape.style.borderRadius = `${borderRadius}%`;
 
     subscriptions.settings.onChange('options', 'shape', selectedShape => {

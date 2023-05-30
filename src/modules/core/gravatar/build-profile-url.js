@@ -1,6 +1,6 @@
-export default ({ constants, core }) => email => {
+export default ({ config, core }) => email => {
 
-    const { domain } = constants.gravatar;
+    const { domain } = config.gravatar;
     const emailHash = core.gravatar.hashEmail(email);
     return `${domain}/${emailHash}.json`;
 

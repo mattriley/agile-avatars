@@ -1,7 +1,7 @@
-export default ({ ui, components, services, constants }) => () => {
+export default ({ ui, components, services, config }) => () => {
 
     const $heading = ui.el('h1', 'welcome-title', {
-        textContent: `Welcome to ${constants.app.name}`
+        textContent: `Welcome to ${config.app.name}`
     });
 
     const $image = ui.el('img', {

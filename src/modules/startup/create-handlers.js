@@ -1,11 +1,11 @@
-export default ({ services, subscriptions, util, constants }) => () => {
+export default ({ services, subscriptions, util, config }) => () => {
 
     const adjustTagInstanceCounts = util.debounce(
         services.tags.adjustTagInstanceCounts,
-        constants.debounce.adjustTagInstanceCounts
+        config.debounce.adjustTagInstanceCounts
     );
 
-    constants.options.modes.forEach(mode => {
+    config.options.modes.forEach(mode => {
         subscriptions.settings.onChange('options', mode, adjustTagInstanceCounts);
     });
 

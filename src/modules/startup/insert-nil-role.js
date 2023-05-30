@@ -1,6 +1,6 @@
-export default ({ constants, stores }) => () => {
+export default ({ config, stores }) => () => {
 
-    const nilRoleId = stores.roles.insert(constants.roles.nilRole);
+    const nilRoleId = stores.roles.insert(config.roles.nilRole);
     stores.settings.update('app', { nilRoleId });
 
 };
