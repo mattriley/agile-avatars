@@ -1,6 +1,6 @@
 # Agile Avatars
 
-<p align="right"><code>96.48% cov</code>&nbsp;<code>2057 sloc</code>&nbsp;<code>177 files</code>&nbsp;<code>5 deps</code>&nbsp;<code>19 dev deps</code></p>
+<p align="right"><code>96.53% cov</code>&nbsp;<code>2057 sloc</code>&nbsp;<code>177 files</code>&nbsp;<code>5 deps</code>&nbsp;<code>19 dev deps</code></p>
 
 Great looking avatars for your agile board and experiment in FRAMEWORK-LESS, vanilla JavaScript.
 
@@ -1293,13 +1293,13 @@ This test creates a 'nav bar' and a 'tips modal'; clicks the 'tips link' in the 
 
 ###### <p align="right"><a href="https://github.com/mattriley/agile-avatars/blob/master/tests/components/tips.test.js">tests/components/tips.test.js</a></p>
 ```js
-export default ({ test, compose, helpers }) => {
+export default ({ test, assert }) => ({ compose, helpers }) => {
 
-    test('tips modal triggered by link in nav bar', t => {
+    test('tips modal triggered by link in nav bar', () => {
         const { components } = compose().modules;
         const $tipsLink = components.header.titleBar().querySelector('.tips');
         const $tipsModal = components.modals.tips('tips');
-        const assertVisible = helpers.assertBoolClass(t, $tipsModal, 'visible');
+        const assertVisible = helpers.assertBoolClass(assert, $tipsModal, 'visible');
         assertVisible(false);
         helpers.dispatchEvent('click', $tipsLink);
         assertVisible(true);
@@ -1331,9 +1331,9 @@ This test creates a 'gravatar modal' and a 'tag list'. Clicking the 'import butt
 
 ###### <p align="right"><a href="https://github.com/mattriley/agile-avatars/blob/master/tests/components/gravatar/import-success.fixme.js">tests/components/gravatar/import-success.fixme.js</a></p>
 ```js
-export default ({ test, setup }) => {
+export default ({ test, assert }) => ({ setup }) => {
 
-    test('import success', async t => {
+    test('import success', async () => {
         const { compose, helpers, window } = setup();
 
         const { components } = compose({
@@ -1352,7 +1352,7 @@ export default ({ test, setup }) => {
         const $importButton = $gravatarModal.querySelector('.import');
         const $tagList = components.tagList.container();
 
-        const assertGravatarModalVisible = helpers.assertBoolClass(t, $gravatarModal, 'visible');
+        const assertGravatarModalVisible = helpers.assertBoolClass(assert, $gravatarModal, 'visible');
 
         $freetextField.value = 'foo@bar.com';
         helpers.dispatchEvent('input', $freetextField);
@@ -1364,8 +1364,8 @@ export default ({ test, setup }) => {
 
             },
             async tag1 => {
-                t.equal(tag1.getTagName(), 'Foo');
-                t.equal(await tag1.getImage(), 'url(data:image/jpg;base64,QllURVM=)');
+                assert.equal(tag1.getTagName(), 'Foo');
+                assert.equal(await tag1.getImage(), 'url(data:image/jpg;base64,QllURVM=)');
                 assertGravatarModalVisible(false);
             }
         );
@@ -1398,12 +1398,12 @@ This test initialises the application by invoking compose and uses the component
 
 ###### <p align="right"><a href="https://github.com/mattriley/agile-avatars/blob/master/tests/components/options-bar.test.js">tests/components/options-bar.test.js</a></p>
 ```js
-export default ({ test, compose, helpers }) => {
+export default ({ test, assert }) => ({ compose, helpers }) => {
 
-    test('options bar not visible until first tag inserted', t => {
+    test('options bar not visible until first tag inserted', () => {
         const { components, services } = compose().modules;
         const $optionsBar = components.optionsBar.container();
-        const assertVisible = helpers.assertBoolClass(t, $optionsBar, 'visible');
+        const assertVisible = helpers.assertBoolClass(assert, $optionsBar, 'visible');
         assertVisible(false);
         services.tags.insertTag();
         assertVisible(true);

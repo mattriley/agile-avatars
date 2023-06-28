@@ -1,6 +1,6 @@
-export default ({ test, compose, window, helpers }) => {
+export default ({ test, assert }) => ({ compose, window, helpers }) => {
 
-    test('multiple images dropped', async t => {
+    test('multiple images dropped', async () => {
         const { components } = compose().modules;
         const $tagList = components.tagList.container();
         const $dropzone = components.dropzone();
@@ -18,8 +18,8 @@ export default ({ test, compose, window, helpers }) => {
                 $dropzone.dispatchEvent(event);
             },
             (tag1, tag2) => {
-                t.deepEqual([tag1.getTagName(), tag1.getRoleName()], ['Foo', 'BAR']);
-                t.deepEqual([tag2.getTagName(), tag2.getRoleName()], ['Baz', 'QUX']);
+                assert.deepEqual([tag1.getTagName(), tag1.getRoleName()], ['Foo', 'BAR']);
+                assert.deepEqual([tag2.getTagName(), tag2.getRoleName()], ['Baz', 'QUX']);
 
             }
         );

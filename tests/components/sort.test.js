@@ -1,4 +1,4 @@
-export default ({ test, compose, helpers }) => {
+export default ({ test, assert }) => ({ compose, helpers }) => {
 
     const setup = () => {
         const { services, components } = compose().modules;
@@ -13,7 +13,7 @@ export default ({ test, compose, helpers }) => {
         return { $tagList, changeSortOption, services, helpers };
     };
 
-    test('keep sorted by order added', t => {
+    test('keep sorted by order added', () => {
         const { $tagList, services, changeSortOption } = setup();
 
         changeSortOption('orderAdded');
@@ -22,12 +22,12 @@ export default ({ test, compose, helpers }) => {
         services.tags.insertTag({ tagName: 'A', roleName: 'B' });
 
         const [tag1, tag2] = helpers.getTags($tagList);
-        t.deepEqual([tag1.getTagName(), tag1.getRoleName()], ['B', 'A']);
-        t.deepEqual([tag2.getTagName(), tag2.getRoleName()], ['A', 'B']);
+        assert.deepEqual([tag1.getTagName(), tag1.getRoleName()], ['B', 'A']);
+        assert.deepEqual([tag2.getTagName(), tag2.getRoleName()], ['A', 'B']);
 
     });
 
-    test('keep sorted by role then name', t => {
+    test('keep sorted by role then name', () => {
         const { $tagList, services, changeSortOption } = setup();
 
         changeSortOption('roleThenName');
@@ -38,13 +38,13 @@ export default ({ test, compose, helpers }) => {
 
         const [tag1, tag2, tag3] = helpers.getTags($tagList);
 
-        t.deepEqual([tag1.getTagName(), tag1.getRoleName()], ['B', 'A']);
-        t.deepEqual([tag2.getTagName(), tag2.getRoleName()], ['C', 'A']);
-        t.deepEqual([tag3.getTagName(), tag3.getRoleName()], ['A', 'B']);
+        assert.deepEqual([tag1.getTagName(), tag1.getRoleName()], ['B', 'A']);
+        assert.deepEqual([tag2.getTagName(), tag2.getRoleName()], ['C', 'A']);
+        assert.deepEqual([tag3.getTagName(), tag3.getRoleName()], ['A', 'B']);
 
     });
 
-    test('keep sorted by name', t => {
+    test('keep sorted by name', () => {
         const { $tagList, services, changeSortOption } = setup();
 
         changeSortOption('name');
@@ -53,12 +53,12 @@ export default ({ test, compose, helpers }) => {
         services.tags.insertTag({ tagName: 'A', roleName: 'B' });
 
         const [tag1, tag2] = helpers.getTags($tagList);
-        t.deepEqual([tag1.getTagName(), tag1.getRoleName()], ['A', 'B']);
-        t.deepEqual([tag2.getTagName(), tag2.getRoleName()], ['B', 'A']);
+        assert.deepEqual([tag1.getTagName(), tag1.getRoleName()], ['A', 'B']);
+        assert.deepEqual([tag2.getTagName(), tag2.getRoleName()], ['B', 'A']);
 
     });
 
-    test('sorts existing tags', t => {
+    test('sorts existing tags', () => {
         const { $tagList, services, changeSortOption } = setup();
 
         services.tags.insertTag({ tagName: 'A', roleName: 'B' });
@@ -67,34 +67,34 @@ export default ({ test, compose, helpers }) => {
 
         {
             const tags = helpers.getTags($tagList);
-            t.equal(tags.length, 3);
+            assert.equal(tags.length, 3);
         }
 
         changeSortOption('roleThenName');
 
         {
             const [tag1, tag2, tag3] = helpers.getTags($tagList);
-            t.deepEqual([tag1.getTagName(), tag1.getRoleName()], ['B', 'A']);
-            t.deepEqual([tag2.getTagName(), tag2.getRoleName()], ['C', 'A']);
-            t.deepEqual([tag3.getTagName(), tag3.getRoleName()], ['A', 'B']);
+            assert.deepEqual([tag1.getTagName(), tag1.getRoleName()], ['B', 'A']);
+            assert.deepEqual([tag2.getTagName(), tag2.getRoleName()], ['C', 'A']);
+            assert.deepEqual([tag3.getTagName(), tag3.getRoleName()], ['A', 'B']);
         }
 
         changeSortOption('name');
 
         {
             const [tag1, tag2, tag3] = helpers.getTags($tagList);
-            t.deepEqual([tag1.getTagName(), tag1.getRoleName()], ['A', 'B']);
-            t.deepEqual([tag2.getTagName(), tag2.getRoleName()], ['B', 'A']);
-            t.deepEqual([tag3.getTagName(), tag3.getRoleName()], ['C', 'A']);
+            assert.deepEqual([tag1.getTagName(), tag1.getRoleName()], ['A', 'B']);
+            assert.deepEqual([tag2.getTagName(), tag2.getRoleName()], ['B', 'A']);
+            assert.deepEqual([tag3.getTagName(), tag3.getRoleName()], ['C', 'A']);
         }
 
         changeSortOption('orderAdded');
 
         {
             const [tag1, tag2, tag3] = helpers.getTags($tagList);
-            t.deepEqual([tag1.getTagName(), tag1.getRoleName()], ['A', 'B']);
-            t.deepEqual([tag2.getTagName(), tag2.getRoleName()], ['C', 'A']);
-            t.deepEqual([tag3.getTagName(), tag3.getRoleName()], ['B', 'A']);
+            assert.deepEqual([tag1.getTagName(), tag1.getRoleName()], ['A', 'B']);
+            assert.deepEqual([tag2.getTagName(), tag2.getRoleName()], ['C', 'A']);
+            assert.deepEqual([tag3.getTagName(), tag3.getRoleName()], ['B', 'A']);
         }
 
 

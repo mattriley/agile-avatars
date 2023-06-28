@@ -1,6 +1,6 @@
-export default ({ test, compose, window, helpers }) => {
+export default ({ test, assert }) => ({ compose, window, helpers }) => {
 
-    test('multiple images chosen', t => {
+    test('multiple images chosen', () => {
         const { components } = compose().modules;
         const $tagList = components.tagList.container();
         const $chooseImages = components.imageUploadOptions.chooseImages().querySelector('a');
@@ -21,8 +21,8 @@ export default ({ test, compose, window, helpers }) => {
                     helpers.dispatchEvent('change', $fileInput);
                 },
                 (tag1, tag2) => {
-                    t.deepEqual([tag1.getTagName(), tag1.getRoleName()], ['Foo', 'BAR']);
-                    t.deepEqual([tag2.getTagName(), tag2.getRoleName()], ['Baz', 'QUX']);
+                    assert.deepEqual([tag1.getTagName(), tag1.getRoleName()], ['Foo', 'BAR']);
+                    assert.deepEqual([tag2.getTagName(), tag2.getRoleName()], ['Baz', 'QUX']);
 
                 }
             );

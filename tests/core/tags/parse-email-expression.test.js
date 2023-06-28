@@ -1,11 +1,11 @@
-export default ({ test, compose }) => {
+export default ({ test, assert }) => ({ compose }) => {
 
     const { core } = compose().modules;
 
-    test('email address', t => {
+    test('email address', () => {
         const expression = 'foo+xzy@bar.com+dev';
         const actual = core.tags.parseEmailExpression(expression);
-        t.equal(actual, {
+        assert.deepEqual(actual, {
             email: 'foo+xzy@bar.com',
             username: 'foo',
             emailOrUsername: 'foo+xzy@bar.com',
@@ -13,10 +13,10 @@ export default ({ test, compose }) => {
         });
     });
 
-    test('username', t => {
+    test('username', () => {
         const expression = 'foo+dev';
         const actual = core.tags.parseEmailExpression(expression);
-        t.equal(actual, {
+        assert.deepEqual(actual, {
             email: '',
             username: 'foo',
             emailOrUsername: 'foo',

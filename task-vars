@@ -8,6 +8,7 @@ export INDEX_HTML_DESCRIPTION="Agile Avatars makes it quick and easy to know who
 export BARREL_PATHS="$MODULES | ./testing/modules"
 export INDEXGEN_OPTIONS="--fullySpecified --type esm --filename index.js"
 export README_GEN="./readme-gen/app.js"
+export TEST_RUNNER="custom"
 
 export COV_BRANCHES="90"
 export COV_LINES="90"

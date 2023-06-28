@@ -1,4 +1,4 @@
-export default ({ test, compose, helpers }) => {
+export default ({ test, assert }) => ({ compose, helpers }) => {
 
     test('change invoked by enter key', async () => {
         await new Promise(resolve => {
@@ -14,24 +14,24 @@ export default ({ test, compose, helpers }) => {
         });
     });
 
-    test('change not invoked by key other than enter key', t => {
+    test('change not invoked by key other than enter key', () => {
         const { elements } = compose().modules;
         const $editableSpan = elements.editableSpan();
 
         $editableSpan.addEventListener('change', () => {
-            t.fail();
+            assert.fail();
         });
 
         helpers.dispatchKeydown($editableSpan, 'A');
 
     });
 
-    test('editing', t => {
+    test('editing', () => {
         const { elements } = compose().modules;
         const $editableSpan = elements.editableSpan();
 
         $editableSpan.addEventListener('change', () => {
-            t.equal($editableSpan.textContent, 'foo');
+            assert.equal($editableSpan.textContent, 'foo');
 
         });
 

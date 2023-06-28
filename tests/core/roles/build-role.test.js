@@ -1,30 +1,30 @@
-export default ({ test, compose }) => {
+export default ({ test, assert }) => ({ compose }) => {
 
     const { core } = compose().modules;
 
-    test('missing role name', t => {
+    test('missing role name', () => {
         const role = core.roles.buildRole({});
-        t.equal(role.roleName, '');
+        assert.equal(role.roleName, '');
     });
 
-    test('transforms role name', t => {
+    test('transforms role name', () => {
         const role = core.roles.buildRole({ roleName: ' foo ' });
-        t.equal(role.roleName, 'FOO');
+        assert.equal(role.roleName, 'FOO');
     });
 
-    test('uses given color', t => {
+    test('uses given color', () => {
         const role = core.roles.buildRole({ color: 'foo' });
-        t.equal(role.color, 'foo');
+        assert.equal(role.color, 'foo');
     });
 
-    test('uses preset color', t => {
+    test('uses preset color', () => {
         const role = core.roles.buildRole({ roleName: 'dev' });
-        t.equal(role.color, '#48a56a');
+        assert.equal(role.color, '#48a56a');
     });
 
-    test('uses random color', t => {
+    test('uses random color', () => {
         const role = core.roles.buildRole({}, 0.3815);
-        t.equal(role.color, '#61a9fb');
+        assert.equal(role.color, '#61a9fb');
     });
 
 };

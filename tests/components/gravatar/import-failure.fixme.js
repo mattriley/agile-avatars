@@ -1,6 +1,6 @@
-export default ({ test, compose, helpers }) => {
+export default ({ test, assert }) => ({ compose, helpers }) => {
 
-    test('import failure', async t => {
+    test('import failure', async () => {
 
         const { components } = compose({
             overrides: {
@@ -18,12 +18,10 @@ export default ({ test, compose, helpers }) => {
         const $importButton = $gravatarModal.querySelector('.import');
         const $errorContainer = $gravatarModal.querySelector('.error');
 
-        const assertImportButtonVisible = helpers.assertBoolClass(t, $importButton, 'visible');
-        const assertErrorContainerVisible = helpers.assertBoolClass(t, $errorContainer, 'visible');
+        const assertImportButtonVisible = helpers.assertBoolClass(assert, $importButton, 'visible');
+        const assertErrorContainerVisible = helpers.assertBoolClass(assert, $errorContainer, 'visible');
 
         const freetext = 'foo@bar.com';
-
-        console.warn('**', helpers.test);
 
         await helpers.onMutation(
             $gravatarModal,
@@ -32,7 +30,7 @@ export default ({ test, compose, helpers }) => {
 
                 $freetextField.value = freetext;
                 helpers.dispatchEvent('input', $freetextField);
-                t.notOk($importButton.disabled);
+                assert.false($importButton.disabled);
                 helpers.dispatchEvent('click', $importButton);
                 // here
             },
@@ -43,14 +41,14 @@ export default ({ test, compose, helpers }) => {
                 const $dismiss = $errorContainer.querySelector('.dismiss');
                 assertImportButtonVisible(false);
                 assertErrorContainerVisible(true);
-                t.equal($errorMessage.textContent, 'An error occurred. Please check your connection and try again.');
+                assert.equal($errorMessage.textContent, 'An error occurred. Please check your connection and try again.');
                 helpers.dispatchEvent('click', $dismiss);
             },
             () => {
 
                 assertImportButtonVisible(true);
                 assertErrorContainerVisible(false);
-                t.equal($freetextField.value, freetext);
+                assert.equal($freetextField.value, freetext);
             }
         );
 

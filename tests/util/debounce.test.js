@@ -1,4 +1,4 @@
-export default ({ test, compose }) => {
+export default ({ test }) => ({ compose }) => {
 
     test('debounce is zero', async () => {
         const { util } = compose().modules;

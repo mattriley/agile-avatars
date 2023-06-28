@@ -1,9 +1,9 @@
-export default ({ test, compose }) => {
+export default ({ test, assert }) => ({ compose }) => {
 
-    test('gets state', t => {
+    test('gets state', () => {
         const { diagnostics } = compose().modules;
         const state = diagnostics.dumpState();
-        t.equal(Object.keys(state), ['settings', 'roles', 'tags', 'tagInstances']);
+        assert.deepEqual(Object.keys(state), ['settings', 'roles', 'tags', 'tagInstances']);
     });
 
 };

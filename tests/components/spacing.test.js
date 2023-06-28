@@ -1,4 +1,4 @@
-export default ({ test, compose, window, helpers }) => {
+export default ({ test, assert }) => ({ compose, window, helpers }) => {
 
     const setup = ({ spacingDefault }) => {
         const { components } = compose({
@@ -17,23 +17,23 @@ export default ({ test, compose, window, helpers }) => {
         return { $tagList, $spacingInput };
     };
 
-    const testCase = (t, adjustment) => {
+    const testCase = adjustment => {
         const spacingDefault = 5;
         const { $tagList, $spacingInput } = setup({ spacingDefault });
         const targetSpacing = spacingDefault + adjustment;
         $spacingInput.value = targetSpacing;
         helpers.dispatchEvent('input', $spacingInput);
         const tagListStyle = window.getComputedStyle($tagList);
-        t.equal(tagListStyle.gap, `${targetSpacing}px`);
+        assert.equal(tagListStyle.gap, `${targetSpacing}px`);
 
     };
 
-    test('tag spacing increases', t => {
-        testCase(t, 2);
+    test('tag spacing increases', () => {
+        testCase(2);
     });
 
-    test('tag spacing decreases', t => {
-        testCase(t, -2);
+    test('tag spacing decreases', () => {
+        testCase(-2);
     });
 
 };

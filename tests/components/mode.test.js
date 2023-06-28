@@ -1,4 +1,4 @@
-export default ({ test, compose, helpers }) => {
+export default ({ test, assert }) => ({ compose, helpers }) => {
 
     const testCase = (t, mode, adjustment) => {
         const defaultValue = 2;
@@ -24,7 +24,7 @@ export default ({ test, compose, helpers }) => {
 
         {
             const modeCount = $tagList.querySelectorAll(`.${mode}`).length;
-            t.equal(modeCount, defaultValue);
+            assert.equal(modeCount, defaultValue);
         }
 
         $input.value = targetCount;
@@ -32,26 +32,26 @@ export default ({ test, compose, helpers }) => {
 
         {
             const modeCount = $tagList.querySelectorAll(`.${mode}`).length;
-            t.equal(modeCount, targetCount);
+            assert.equal(modeCount, targetCount);
         }
 
 
     };
 
-    test('active instances increased', t => {
-        testCase(t, 'active', 1);
+    test('active instances increased', () => {
+        testCase(assert, 'active', 1);
     });
 
-    test('active instances decreased', t => {
-        testCase(t, 'active', -1);
+    test('active instances decreased', () => {
+        testCase(assert, 'active', -1);
     });
 
-    test('passive instances increased', t => {
-        testCase(t, 'passive', 1);
+    test('passive instances increased', () => {
+        testCase(assert, 'passive', 1);
     });
 
-    test('passive instances decreased', t => {
-        testCase(t, 'passive', -1);
+    test('passive instances decreased', () => {
+        testCase(assert, 'passive', -1);
     });
 
 };

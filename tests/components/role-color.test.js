@@ -1,6 +1,6 @@
-export default ({ test, compose, helpers }) => {
+export default ({ test, assert }) => ({ compose, helpers }) => {
 
-    test('master role name reflects new color', t => {
+    test('master role name reflects new color', () => {
         const { components, services } = compose().modules;
 
         const roleId = services.roles.insertRole({ roleName: 'foo' });
@@ -16,12 +16,12 @@ export default ({ test, compose, helpers }) => {
         helpers.dispatchEvent('input', $color);
 
         const role = helpers.getRole($roleCustomiser);
-        t.equal(role.getRoleStyle().backgroundColor, 'rgb(255, 255, 255)');
+        assert.equal(role.getRoleStyle().backgroundColor, 'rgb(255, 255, 255)');
 
 
     });
 
-    test('role color change propagates to tags', t => {
+    test('role color change propagates to tags', () => {
         const { components, services } = compose().modules;
 
         const roleId = services.roles.insertRole({ roleName: 'foo' });
@@ -40,8 +40,8 @@ export default ({ test, compose, helpers }) => {
         const [tag1] = helpers.getTags($tagList);
         const imageStyle = tag1.getImageStyle();
         const roleStyle = tag1.getRoleStyle();
-        t.equal(imageStyle.borderColor, '#ffffffff');
-        t.equal(roleStyle.backgroundColor, 'rgb(255, 255, 255)');
+        assert.equal(imageStyle.borderColor, '#ffffffff');
+        assert.equal(roleStyle.backgroundColor, 'rgb(255, 255, 255)');
 
     });
 

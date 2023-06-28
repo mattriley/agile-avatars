@@ -1,13 +1,13 @@
 // TODO: Explicit tests for toggling with Enter and Space keys.
 
-export default ({ test, compose, helpers }) => {
+export default ({ test, assert }) => ({ compose, helpers }) => {
 
-    const toggleTestCase = (t, shapeName) => {
+    const toggleTestCase = shapeName => {
         const { components } = compose().modules;
         const $shape = components.optionsBar.shapeOption(shapeName);
         const $anotherShape = components.optionsBar.shapeOption('foobar');
         helpers.dispatchEvent('click', $anotherShape);
-        const assertSelected = helpers.assertBoolClass(t, $shape, 'selected');
+        const assertSelected = helpers.assertBoolClass(assert, $shape, 'selected');
         assertSelected(false);
         helpers.dispatchEvent('click', $shape);
         assertSelected(true);
@@ -22,34 +22,34 @@ export default ({ test, compose, helpers }) => {
         helpers.dispatchKeydown($shape, 'Enter');
         const [tag1] = helpers.getTags($tagList);
         const imageStyle = tag1.getImageStyle();
-        t.equal(imageStyle.borderRadius, `${constants.options.shapeRadius[shapeName]}%`);
+        assert.equal(imageStyle.borderRadius, `${constants.options.shapeRadius[shapeName]}%`);
 
     };
 
-    test('square shape toggles on and off', t => {
-        toggleTestCase(t, 'square');
+    test('square shape toggles on and off', () => {
+        toggleTestCase('square');
     });
 
-    test('square shape applied to tag', t => {
-        shapeTestCase(t, 'square');
+    test('square shape applied to tag', () => {
+        shapeTestCase('square');
     });
 
-    test('circle shape toggles on and off', t => {
-        toggleTestCase(t, 'circle');
+    test('circle shape toggles on and off', () => {
+        toggleTestCase('circle');
     });
 
-    test('circle shape applied to tag', t => {
-        shapeTestCase(t, 'circle');
+    test('circle shape applied to tag', () => {
+        shapeTestCase('circle');
     });
 
     // TODO: Remove duplication
-    test('shape not selected on keypress other than Enter or Space', t => {
+    test('shape not selected on keypress other than Enter or Space', () => {
         const shapeName = 'circle';
         const { components } = compose().modules;
         const $shape = components.optionsBar.shapeOption(shapeName);
         const $anotherShape = components.optionsBar.shapeOption('foobar');
         helpers.dispatchEvent('click', $anotherShape);
-        const assertSelected = helpers.assertBoolClass(t, $shape, 'selected');
+        const assertSelected = helpers.assertBoolClass(assert, $shape, 'selected');
         assertSelected(false);
         helpers.dispatchKeydown($shape, 'A');
         assertSelected(false);

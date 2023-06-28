@@ -1,41 +1,41 @@
-export default ({ test, compose, helpers }) => {
+export default ({ test, assert }) => ({ compose, helpers }) => {
 
-    test('tag name changes to blank', t => {
+    test('tag name changes to blank', () => {
         const { components, services } = compose().modules;
         const $tagList = components.tagList.container();
         services.tags.insertTag({ tagName: 'foo' });
         const [tag1] = helpers.getTags($tagList);
         const { getTagName, setTagName } = tag1;
-        t.equal(getTagName(), 'Foo');
+        assert.equal(getTagName(), 'Foo');
         setTagName('');
-        t.equal(getTagName(), '');
+        assert.equal(getTagName(), '');
 
     });
 
-    test('tag name changes to different name', t => {
+    test('tag name changes to different name', () => {
         const { components, services } = compose().modules;
         const $tagList = components.tagList.container();
         services.tags.insertTag({ tagName: 'foo' });
         const [tag1] = helpers.getTags($tagList);
         const { getTagName, setTagName } = tag1;
-        t.equal(getTagName(), 'Foo');
+        assert.equal(getTagName(), 'Foo');
         setTagName('bar');
-        t.equal(getTagName(), 'bar');
+        assert.equal(getTagName(), 'bar');
 
     });
 
-    test('tag name and role changes given expression', t => {
+    test('tag name and role changes given expression', () => {
         const { components, services } = compose().modules;
         const $tagList = components.tagList.container();
         services.tags.insertTag();
         const [tag1] = helpers.getTags($tagList);
         const { setTagName, getTagName, getRoleName } = tag1;
         setTagName('foo+bar');
-        t.deepEqual([getTagName(), getRoleName()], ['foo', 'BAR']);
+        assert.deepEqual([getTagName(), getRoleName()], ['foo', 'BAR']);
 
     });
 
-    test('tag name change propagates to all instances of tag', t => {
+    test('tag name change propagates to all instances of tag', () => {
         const { components, services } = compose().modules;
         const $tagList = components.tagList.container();
         services.tags.insertTag();
@@ -43,7 +43,7 @@ export default ({ test, compose, helpers }) => {
 
         {
             const tags = helpers.getTags($tagList);
-            t.equal(tags.length, 2);
+            assert.equal(tags.length, 2);
         }
 
         {
@@ -54,8 +54,8 @@ export default ({ test, compose, helpers }) => {
 
         {
             const [tag1, tag2] = helpers.getTags($tagList);
-            t.equal(tag1.getTagName(), 'Foo');
-            t.equal(tag2.getTagName(), 'Foo');
+            assert.equal(tag1.getTagName(), 'Foo');
+            assert.equal(tag2.getTagName(), 'Foo');
         }
 
 

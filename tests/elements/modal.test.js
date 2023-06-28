@@ -1,34 +1,34 @@
-export default ({ test, compose, helpers }) => {
+export default ({ test, assert }) => ({ compose, helpers }) => {
 
-    test('hidden by default', t => {
+    test('hidden by default', () => {
         const { elements } = compose().modules;
         const $modal = elements.modal();
-        helpers.assertBoolClass(t, $modal, 'visible')(false);
+        helpers.assertBoolClass(assert, $modal, 'visible')(false);
     });
 
-    test('immediately visible', t => {
+    test('immediately visible', () => {
         const { elements } = compose().modules;
         const $modal = elements.modal({ visible: true });
-        helpers.assertBoolClass(t, $modal, 'visible')(true);
+        helpers.assertBoolClass(assert, $modal, 'visible')(true);
     });
 
-    test('visible by callback', t => {
+    test('visible by callback', () => {
         const { elements } = compose().modules;
 
         const onVisibilityChange = (setVisible, $modal) => {
             setVisible(true);
-            helpers.assertBoolClass(t, $modal, 'visible')(true);
+            helpers.assertBoolClass(assert, $modal, 'visible')(true);
         };
 
         elements.modal({ onVisibilityChange });
     });
 
-    test('hidden by callback', t => {
+    test('hidden by callback', () => {
         const { elements } = compose().modules;
 
         const onVisibilityChange = (setVisible, $modal) => {
             setVisible(false);
-            helpers.assertBoolClass(t, $modal, 'visible')(false);
+            helpers.assertBoolClass(assert, $modal, 'visible')(false);
         };
 
         elements.modal({ visible: true, onVisibilityChange });
@@ -61,26 +61,26 @@ export default ({ test, compose, helpers }) => {
         });
     });
 
-    test('not dismissed by clicking prompt', t => {
+    test('not dismissed by clicking prompt', () => {
         const { elements } = compose().modules;
 
         const $modal = elements.modal({ visible: true })
             .addEventListener('dismiss', () => {
-                t.fail();
+                assert.fail();
             });
 
         helpers.dispatchEvent('click', $modal.querySelector('.modal-prompt'));
     });
 
-    test('title and content', t => {
+    test('title and content', () => {
         const { elements } = compose().modules;
         const title = 'foo';
         const content = 'bar';
         const $modal = elements.modal({ title, content, visible: true });
         const $title = $modal.querySelector('.modal-title');
         const $content = $modal.querySelector('.modal-content');
-        t.equal($title.textContent, title);
-        t.equal($content.textContent, content);
+        assert.equal($title.textContent, title);
+        assert.equal($content.textContent, content);
     });
 
 };

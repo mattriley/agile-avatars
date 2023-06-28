@@ -1,6 +1,6 @@
-export default ({ test, setup }) => {
+export default ({ test, assert }) => ({ setup }) => {
 
-    test('import success', async t => {
+    test('import success', async () => {
         const { compose, helpers, window } = setup();
 
         const { components } = compose({
@@ -19,7 +19,7 @@ export default ({ test, setup }) => {
         const $importButton = $gravatarModal.querySelector('.import');
         const $tagList = components.tagList.container();
 
-        const assertGravatarModalVisible = helpers.assertBoolClass(t, $gravatarModal, 'visible');
+        const assertGravatarModalVisible = helpers.assertBoolClass(assert, $gravatarModal, 'visible');
 
         $freetextField.value = 'foo@bar.com';
         helpers.dispatchEvent('input', $freetextField);
@@ -31,8 +31,8 @@ export default ({ test, setup }) => {
 
             },
             async tag1 => {
-                t.equal(tag1.getTagName(), 'Foo');
-                t.equal(await tag1.getImage(), 'url(data:image/jpg;base64,QllURVM=)');
+                assert.equal(tag1.getTagName(), 'Foo');
+                assert.equal(await tag1.getImage(), 'url(data:image/jpg;base64,QllURVM=)');
                 assertGravatarModalVisible(false);
             }
         );

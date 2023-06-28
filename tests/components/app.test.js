@@ -1,9 +1,9 @@
-export default ({ test, compose }) => {
+export default ({ test, assert }) => ({ compose }) => {
 
-    test('app renders', t => {
+    test('app renders', () => {
         const { components } = compose().modules;
         const $app = components.app();
-        t.ok($app);
+        assert($app);
     });
 
 };
