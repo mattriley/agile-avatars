@@ -47,7 +47,7 @@
         "npm-check-updates": "^16.10.13",
         "parcel": "^2.9.3",
         "process": "^0.11.10",
-        "task-library": "^0.228.0",
+        "task-library": "^0.229.0",
         "testing": "file:./testing",
         "yaml": "^2.3.1"
     },
