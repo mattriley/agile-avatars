@@ -1,6 +1,6 @@
 # Agile Avatars
 
-<p align="right"><code>96.53% cov</code>&nbsp;<code>2057 sloc</code>&nbsp;<code>177 files</code>&nbsp;<code>5 deps</code>&nbsp;<code>19 dev deps</code></p>
+<p align="right"><code>96.53% cov</code>&nbsp;<code>2057 sloc</code>&nbsp;<code>177 files</code>&nbsp;<code>5 deps</code>&nbsp;<code>17 dev deps</code></p>
 
 Great looking avatars for your agile board and experiment in FRAMEWORK-LESS, vanilla JavaScript.
 
@@ -70,8 +70,6 @@ Great looking avatars for your agile board and experiment in FRAMEWORK-LESS, van
   - [task-library](#task-library)
   - [testing](#testing)
   - [yaml](#yaml)
-  - [zora](#zora)
-  - [zora-reporters](#zora-reporters)
 - [Functional Programming](#functional-programming)
 - [Conventions](#conventions)
   - [Code](#code)
@@ -1753,36 +1751,6 @@ This library was extracted from Agile Avatars.
 
 
 ## yaml
-
-> undefined
-
-- Homepage: undefined
-- __0__ dependencies :boom:
-
-
-
-
-
-
-## zora
-
-> the lightest yet the fastest javascript testing library
-
-- Homepage: undefined
-- __0__ dependencies :boom:
-
-#### Used for
-
-Lightweight test harness optimised for speed and simplicity.
-
-
-
-#### Alternatives considered
-
-- __tape__\
-tape was originally used however zora is newer and has some advantages over tape.
-
-## zora-reporters
 
 > undefined
 
