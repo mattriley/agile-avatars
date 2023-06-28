@@ -1,4 +1,4 @@
-export default ({ test, assert }) => ({ compose, helpers }) => {
+export default ({ test, assert, helpers }) => ({ compose }) => {
 
     const testCase = (t, mode, adjustment) => {
         const defaultValue = 2;

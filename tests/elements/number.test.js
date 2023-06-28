@@ -1,4 +1,4 @@
-export default ({ test, assert }) => ({ compose, helpers }) => {
+export default ({ test, assert, helpers }) => ({ compose }) => {
 
     test('empty reverts to minimum on blur', () => {
         const { elements } = compose().modules;

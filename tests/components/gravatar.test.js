@@ -1,4 +1,4 @@
-export default ({ test, assert }) => ({ compose, helpers }) => {
+export default ({ test, assert, helpers }) => ({ compose }) => {
 
     test('launches gravatar', () => {
         const { components } = compose().modules;

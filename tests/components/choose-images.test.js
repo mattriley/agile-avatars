@@ -1,4 +1,4 @@
-export default ({ test, assert }) => ({ compose, window, helpers }) => {
+export default ({ test, assert, window, helpers }) => ({ compose }) => {
 
     test('multiple images chosen', () => {
         const { components } = compose().modules;

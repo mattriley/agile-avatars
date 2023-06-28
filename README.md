@@ -1291,7 +1291,7 @@ This test creates a 'nav bar' and a 'tips modal'; clicks the 'tips link' in the 
 
 ###### <p align="right"><a href="https://github.com/mattriley/agile-avatars/blob/master/tests/components/tips.test.js">tests/components/tips.test.js</a></p>
 ```js
-export default ({ test, assert }) => ({ compose, helpers }) => {
+export default ({ test, assert, helpers }) => ({ compose }) => {
 
     test('tips modal triggered by link in nav bar', () => {
         const { components } = compose().modules;
@@ -1396,7 +1396,7 @@ This test initialises the application by invoking compose and uses the component
 
 ###### <p align="right"><a href="https://github.com/mattriley/agile-avatars/blob/master/tests/components/options-bar.test.js">tests/components/options-bar.test.js</a></p>
 ```js
-export default ({ test, assert }) => ({ compose, helpers }) => {
+export default ({ test, assert, helpers }) => ({ compose }) => {
 
     test('options bar not visible until first tag inserted', () => {
         const { components, services } = compose().modules;

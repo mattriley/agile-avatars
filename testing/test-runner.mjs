@@ -26,6 +26,7 @@ const compose = ({ defaults, overrides, config } = {}) => {
 
 testFiles.forEach(async f => {
     const { default: setup } = await import(f);
-    const run = setup({ test, assert });
-    return run({ compose, window, helpers });
+    const run = setup({ test, assert, helpers, window });
+    // const const { services, components } = compose().modules;
+    return run({ compose });
 });
