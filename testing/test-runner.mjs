@@ -9,35 +9,30 @@ import path from 'path';
 
 const testFiles = process.argv.slice(2).map(f => path.resolve(f));
 
-const start = async () => {
-    const { default: composeModules } = await import('../src/compose.js');
-    const { default: composeTesting } = await import('./compose.js');
-    const { default: defaultTestConfig } = await import('./test-config.js');
+const { default: composeModules } = await import('../src/compose.js');
+const { default: composeTesting } = await import('./compose.js');
+const { default: defaultTestConfig } = await import('./test-config.js');
 
-    const setup = () => {
-        const { window } = new JSDOM.JSDOM('', { url: 'https://localhost/' });
-        const { helpers } = composeTesting({ window }).modules;
+const setup = () => {
+    const { window } = new JSDOM.JSDOM('', { url: 'https://localhost/' });
+    const { helpers } = composeTesting({ window }).modules;
 
-        const compose = ({ defaults, overrides, config } = {}) => {
-            window.document.getElementsByTagName('html')[0].innerHTML = '';
-            delete window.dataLayer;
-            const options = { defaults, overrides, config: [defaultTestConfig, config] };
-            const composition = composeModules({ window, ...options });
-            composition.modules.startup.start({ composition });
-            return composition;
-        };
-
-        return { compose, window, helpers };
+    const compose = ({ defaults, overrides, config } = {}) => {
+        window.document.getElementsByTagName('html')[0].innerHTML = '';
+        delete window.dataLayer;
+        const options = { defaults, overrides, config: [defaultTestConfig, config] };
+        const composition = composeModules({ window, ...options });
+        composition.modules.startup.start({ composition });
+        return composition;
     };
 
-    const testTarget = setup();
-
-    const testModules = await Promise.all(testFiles.map(async f => {
-        const { default: setup } = await import(f);
-        return setup({ test, assert });
-    }));
-
-    await Promise.all(testModules.map(run => run(testTarget)));
+    return { compose, window, helpers };
 };
 
-start();
+const testTarget = setup();
+
+await Promise.all(testFiles.map(async f => {
+    const { default: setup } = await import(f);
+    const run = setup({ test, assert });
+    return run(testTarget);
+}));
