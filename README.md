@@ -1,6 +1,6 @@
 # Agile Avatars
 
-<p align="right"><code>96.5% cov</code>&nbsp;<code>2057 sloc</code>&nbsp;<code>177 files</code>&nbsp;<code>5 deps</code>&nbsp;<code>17 dev deps</code></p>
+<p align="right"><code>96.5% cov</code>&nbsp;<code>2057 sloc</code>&nbsp;<code>177 files</code>&nbsp;<code>5 deps</code>&nbsp;<code>18 dev deps</code></p>
 
 Great looking avatars for your agile board and experiment in FRAMEWORK-LESS, vanilla JavaScript.
 
@@ -64,6 +64,7 @@ Great looking avatars for your agile board and experiment in FRAMEWORK-LESS, van
   - [husky](#husky)
   - [jsdom](#jsdom)
   - [module-indexgen](#module-indexgen)
+  - [module-testrunner](#module-testrunner)
   - [npm-check-updates](#npm-check-updates)
   - [parcel](#parcel)
   - [process](#process)
@@ -1687,6 +1688,18 @@ Generating index.js files.
 
 - __No alternative that more closely matches the need exists__\
 This library was extracted from Agile Avatars.
+
+
+
+## module-testrunner
+
+> undefined
+
+- Homepage: undefined
+- __0__ dependencies :boom:
+
+
+
 
 
 

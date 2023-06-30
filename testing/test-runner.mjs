@@ -1,12 +1,7 @@
 /* eslint-disable import/no-unresolved */
 
-import test from 'node:test';
-import assert from 'node:assert/strict';
-import process from 'process';
 import JSDOM from 'jsdom';
-import path from 'path';
-
-const testFiles = process.argv.slice(2).map(f => path.resolve(f));
+import { run } from 'module-testrunner';
 
 const { default: composeModules } = await import('../src/compose.js');
 const { default: composeTesting } = await import('./compose.js');
@@ -24,9 +19,5 @@ const compose = ({ defaults, overrides, config } = {}) => {
     return composition;
 };
 
-testFiles.forEach(async f => {
-    const { default: setup } = await import(f);
-    const run = setup({ test, assert, helpers, window });
-    // const const { services, components } = compose().modules;
-    return run({ compose });
-});
+const args = [{ compose }];
+run({ args, helpers, window });
