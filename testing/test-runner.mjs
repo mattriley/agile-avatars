@@ -13,8 +13,8 @@ const { helpers } = composeTesting({ window }).modules;
 const compose = ({ defaults, overrides, config } = {}) => {
     window.document.getElementsByTagName('html')[0].innerHTML = '';
     delete window.dataLayer;
-    const options = { defaults, overrides, config: [defaultTestConfig, config] };
-    const composition = composeModules({ window, ...options });
+    const options = { window, defaults, overrides, config: [defaultTestConfig, config] };
+    const composition = composeModules(options);
     composition.modules.startup.start({ composition });
     return composition;
 };
