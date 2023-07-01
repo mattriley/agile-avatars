@@ -1,4 +1,4 @@
-export default ({ test, assert, helpers }) => ({ compose }) => {
+export default ({ test, assert }, { helpers }) => ({ compose }) => {
 
     test('tag name changes to blank', () => {
         const { components, services } = compose().modules;

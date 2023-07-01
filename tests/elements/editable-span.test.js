@@ -1,4 +1,4 @@
-export default ({ test, assert, helpers }) => ({ compose }) => {
+export default ({ test, assert }, { helpers }) => ({ compose }) => {
 
     test('change invoked by enter key', async () => {
         await new Promise(resolve => {

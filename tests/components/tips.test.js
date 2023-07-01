@@ -1,4 +1,4 @@
-export default ({ test, assert, helpers }) => ({ compose }) => {
+export default ({ test, assert }, { helpers }) => ({ compose }) => {
 
     test('tips modal triggered by link in nav bar', () => {
         const { components } = compose().modules;

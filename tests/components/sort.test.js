@@ -1,4 +1,4 @@
-export default ({ test, assert, helpers }) => ({ compose }) => {
+export default ({ test, assert }, { helpers }) => ({ compose }) => {
 
     const setup = () => {
         const { services, components } = compose().modules;

@@ -1,4 +1,4 @@
-export default ({ test, assert, helpers }) => ({ compose }) => {
+export default ({ test, assert }, { helpers }) => ({ compose }) => {
 
     test('options bar not visible until first tag inserted', () => {
         const { components, services } = compose().modules;

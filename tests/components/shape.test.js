@@ -1,6 +1,6 @@
 // TODO: Explicit tests for toggling with Enter and Space keys.
 
-export default ({ test, assert, helpers }) => ({ compose }) => {
+export default ({ test, assert }, { helpers }) => ({ compose }) => {
 
     const toggleTestCase = shapeName => {
         const { components } = compose().modules;
