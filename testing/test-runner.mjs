@@ -3,9 +3,9 @@
 import JSDOM from 'jsdom';
 import { run } from 'module-testrunner';
 
-const { default: composeModules } = await import('../src/compose.js');
-const { default: composeTesting } = await import('./compose.js');
-const { default: defaultTestConfig } = await import('./test-config.js');
+import { default as composeModules } from '../src/compose.js';
+import { default as composeTesting } from './compose.js';
+import { default as defaultTestConfig } from './test-config.js';
 
 const { window } = new JSDOM.JSDOM('', { url: 'https://localhost/' });
 const { helpers } = composeTesting({ window }).modules;
