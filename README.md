@@ -1509,7 +1509,7 @@ According to [this issue](https://github.com/blueimp/JavaScript-MD5/issues/26), 
 > Bring order to chaos. Level up your JS application architecture with Module Composer, a tiny but powerful module composition utility based on functional dependency injection.
 
 - Homepage: https://github.com/mattriley/node-module-composer
-- __3__ dependencies :white_check_mark:
+- __2__ dependencies :white_check_mark:
 
 #### Used for
 
@@ -1592,7 +1592,7 @@ Presenting a color picker to change the color of a role.
 > An AST-based pattern checker for JavaScript.
 
 - Homepage: https://eslint.org
-- __39__ dependencies :warning:
+- __37__ dependencies :warning:
 
 #### Used for
 
