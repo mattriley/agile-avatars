@@ -8,14 +8,14 @@ import { default as composeHelpers } from './compose.js';
 import { default as defaultTestConfig } from './test-config.js';
 
 const { window } = new JSDOM.JSDOM('', { url: 'https://localhost/' });
-const { helpers } = composeHelpers({ window }).modules;
+const { helpers } = composeHelpers({ window });
 
 const compose = ({ defaults, overrides, config } = {}) => {
     window.document.getElementsByTagName('html')[0].innerHTML = '';
     delete window.dataLayer;
     const options = { window, defaults, overrides, config: [defaultTestConfig, config] };
-    const composition = composeModules(options);
-    composition.modules.startup.start({ composition });
+    const { startup, composition } = composeModules(options);
+    startup.start({ composition });
     return composition;
 };
 

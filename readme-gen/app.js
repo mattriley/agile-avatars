@@ -48,16 +48,16 @@ const start = async () => {
 
     const target = {
         package: require(path.resolve('./package.json')),
-        composition: await readmeGenLib.compose(c => c),
+        composition: await readmeGenLib.compose(c => c.composition),
         dependencies,
         dependencyConstraints,
         moduleTemplates
     };
 
     const io = { fs, glob, ejs };
-    const { modules } = compose({ readmeGenLib, io, target });
-    const { renderers } = modules;
-    await readmeGenLib.renderFile(renderers);
+    const { renderers } = compose({ readmeGenLib, io, target });
+    // await readmeGenLib.renderFile(renderers);
+    return readmeGenLib.renderFile(renderers);
 };
 
 start();

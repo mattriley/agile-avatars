@@ -14,7 +14,7 @@ export default ({ test, assert }, { helpers }) => ({ compose }) => {
     };
 
     const shapeTestCase = (t, shapeName) => {
-        const { constants, modules } = compose();
+        const { config: constants, modules } = compose();
         const { components, services } = modules;
         const $shape = components.optionsBar.shapeOption(shapeName);
         const $tagList = components.tagList.container();

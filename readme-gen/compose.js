@@ -3,6 +3,5 @@ const modules = require('./modules');
 
 module.exports = ({ readmeGenLib, io, target }) => {
     const { compose } = composer({ io, ...modules });
-    compose('renderers', { readmeGenLib, io, target });
-    return compose.end();
+    return compose('renderers', { readmeGenLib, io, target });
 };

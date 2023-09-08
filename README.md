@@ -1,6 +1,6 @@
 # Agile Avatars
 
-<p align="right"><code>96.5% cov</code>&nbsp;<code>2057 sloc</code>&nbsp;<code>177 files</code>&nbsp;<code>5 deps</code>&nbsp;<code>18 dev deps</code></p>
+<p align="right"><code>96.5% cov</code>&nbsp;<code>2054 sloc</code>&nbsp;<code>177 files</code>&nbsp;<code>5 deps</code>&nbsp;<code>18 dev deps</code></p>
 
 Great looking avatars for your agile board and experiment in FRAMEWORK-LESS, vanilla JavaScript.
 
@@ -217,9 +217,8 @@ The following code is referenced by index.html and launches the application:
 import './css/*.css'; // eslint-disable-line import/no-unresolved
 import compose from './compose';
 
-const composition = compose({ window });
-const { modules } = composition;
-const app = modules.startup.start();
+const { startup } = compose({ window });
+const app = startup.start();
 document.getElementById('app').append(app);
 ```
 
@@ -264,8 +263,7 @@ const { storage, util } = modules;
 
 export default ({ window, config, ...options }) => {
 
-    const { configure } = composer({ window, ...modules }, options);
-    const { compose } = configure(defaultConfig, config);
+    const { compose } = composer({ window, ...modules }, { defaultConfig, config, ...options });
 
     // Data
     const { stores } = compose('stores', { storage });
@@ -285,9 +283,7 @@ export default ({ window, config, ...options }) => {
 
     // Startup    
     compose('diagnostics', { stores, util });
-    compose('startup', { ui, components, styles, services, subscriptions, stores, util, window });
-
-    return compose.end();
+    return compose('startup', { ui, components, styles, services, subscriptions, stores, util, window });
 
 };
 ```
@@ -1509,7 +1505,7 @@ According to [this issue](https://github.com/blueimp/JavaScript-MD5/issues/26), 
 > Bring order to chaos. Level up your JS application architecture with Module Composer, a tiny but powerful module composition utility based on functional dependency injection.
 
 - Homepage: https://github.com/mattriley/node-module-composer
-- __2__ dependencies :white_check_mark:
+- __1__ dependency :white_check_mark:
 
 #### Used for
 

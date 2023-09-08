@@ -1,7 +1,7 @@
 export default ({ test, assert }, { helpers, window }) => ({ compose }) => {
 
     const setup = ({ sizeDefault }) => {
-        const { constants, modules } = compose({
+        const { config: constants, modules } = compose({
             config: {
                 storage: {
                     defaults: {
