@@ -10,10 +10,10 @@ import { default as defaultTestConfig } from './test-config.js';
 const { window } = new JSDOM.JSDOM('', { url: 'https://localhost/' });
 const { helpers } = composeHelpers({ window });
 
-const compose = ({ defaults, overrides, config } = {}) => {
+const compose = ({ overrides, config } = {}) => {
     window.document.getElementsByTagName('html')[0].innerHTML = '';
     delete window.dataLayer;
-    const options = { window, defaults, overrides, config: [defaultTestConfig, config] };
+    const options = { window, overrides, config: [defaultTestConfig, config] };
     const { startup, composition } = composeModules(options);
     startup.start({ composition });
     return composition;

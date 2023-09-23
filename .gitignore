@@ -3,6 +3,7 @@
 /*output
 /.nyc_output
 /.serverless
+/.tap
 /.vscode
 /build
 /config.*

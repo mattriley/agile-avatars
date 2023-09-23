@@ -1,6 +1,6 @@
 # Agile Avatars
 
-<p align="right"><code>96.5% cov</code>&nbsp;<code>2054 sloc</code>&nbsp;<code>177 files</code>&nbsp;<code>5 deps</code>&nbsp;<code>18 dev deps</code></p>
+<p align="right"><code>96.5% cov</code>&nbsp;<code>2055 sloc</code>&nbsp;<code>177 files</code>&nbsp;<code>5 deps</code>&nbsp;<code>18 dev deps</code></p>
 
 Great looking avatars for your agile board and experiment in FRAMEWORK-LESS, vanilla JavaScript.
 
@@ -21,20 +21,20 @@ Great looking avatars for your agile board and experiment in FRAMEWORK-LESS, van
   - [module-composer](#module-composer)
 - [Modules](#modules)
 - [List of Modules](#list-of-modules)
-  - [components](#components)
-  - [core](#core)
-  - [diagnostics](#diagnostics)
-  - [elements](#elements)
-  - [io](#io)
-  - [services](#services)
-  - [startup](#startup)
+  - [util](#util)
   - [storage](#storage)
   - [stores](#stores)
-  - [styles](#styles)
   - [subscriptions](#subscriptions)
+  - [core](#core)
+  - [io](#io)
+  - [services](#services)
   - [ui](#ui)
-  - [util](#util)
+  - [elements](#elements)
   - [vendorComponents](#vendorcomponents)
+  - [components](#components)
+  - [styles](#styles)
+  - [diagnostics](#diagnostics)
+  - [startup](#startup)
 - [State Management](#state-management)
   - [Stores](#stores)
   - [Subscriptions](#subscriptions)
@@ -259,11 +259,13 @@ The compose function composes the application from modules in the src directory.
 import composer from 'module-composer';
 import modules from './modules/index.js';
 import defaultConfig from './default-config.js';
-const { storage, util } = modules;
 
 export default ({ window, config, ...options }) => {
 
     const { compose } = composer({ window, ...modules }, { defaultConfig, config, ...options });
+
+    const { util } = compose.asis('util');
+    const { storage } = compose.asis('storage');
 
     // Data
     const { stores } = compose('stores', { storage });
@@ -298,22 +300,22 @@ This _codified view_ of the architecture has some interesting implications:
 ###### <p align="right"><em>Can't see the diagram?</em> <a id="link-1" href="https://github.com/mattriley/agile-avatars#user-content-link-1">View it on GitHub</a></p>
 ```mermaid
 graph TD;
-    components-->io;
-    components-->ui;
-    components-->elements;
-    components-->services;
-    components-->subscriptions;
-    elements-->ui;
+    stores-->storage;
+    subscriptions-->stores;
     io-->window;
     services-->subscriptions;
     services-->stores;
     services-->core;
     services-->io;
-    stores-->storage;
+    ui-->window;
+    elements-->ui;
+    components-->io;
+    components-->ui;
+    components-->elements;
+    components-->services;
+    components-->subscriptions;
     styles-->ui;
     styles-->subscriptions;
-    subscriptions-->stores;
-    ui-->window;
 ```
 
 ## Deglobalising window
@@ -416,325 +418,24 @@ Following is a complete list of modules in Agile Avatars.
 
 The diff-like block lists the collaborators in green and the non-collaborators in red.
 
-## components
+## util
 
 
-Provides _component factory functions_. A component is a HTML element that relies on closures to react to user interaction and state changes by updating the DOM or invoking services for any non-presentation concerns.
-
-#### Collaborators
-
-```diff
-+ elements io services subscriptions ui util vendorComponents
-- core diagnostics startup storage stores styles
-```
-
-- No access to _stores_ or _io_. Effects are serviced by the _services_ module.
-- No access to _window_. Low-level presentation concerns are serviced by the _ui_ module.
-
-#### Example: tagName
-
-tagName renders the tag name for a given _tag instance_. A _tag_ is composed of an image, a name, and a role. Multiple _instances_ of a tag may be rendered at a time depending on the numbers specified in the _active_ and _passive_ fields.
-
-tagName accepts the ID of a tag instance and returns a [content editable](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Editable_content) span. tagName reacts to changes by invoking the changeTagName service function with the new tag name.
-
-changeTagName updates the state of the underlying tag, which triggers a propagation of the new tag name to all other instances of the tag.
-
-tagName subscribes to tag name change events and updates the editable span with the new tag name.
-
-###### <p align="right"><a href="https://github.com/mattriley/agile-avatars/blob/master/src/modules/components/tag-list/tag/components/tag-name.js">src/modules/components/tag-list/tag/components/tag-name.js</a></p>
-```js
-export default ({ elements, services, subscriptions }) => tagInstanceId => {
-
-    const $tagName = elements.editableSpan('tag-name')
-        .addEventListener('change', () => {
-            services.tags.changeTagName(tagInstanceId, $tagName.textContent);
-        });
-
-    subscriptions.tagInstances.onChange(tagInstanceId, 'tagName', tagName => {
-        $tagName.textContent = tagName;
-    });
-
-    return $tagName;
-
-};
-```
-
-#### List of components
-
-```
-app                                             optionsBar.container                            
-dropzone                                        optionsBar.numberOption                         
-gravatar.actions                                optionsBar.options                              
-gravatar.content                                optionsBar.shapeOption                          
-gravatar.title                                  roleList.container                              
-header.container                                roleList.roleCustomiser                         
-header.titleBar                                 tagList.container                               
-imageUploadOptions.chooseImages                 tagList.tag                                     
-imageUploadOptions.container                    tips.badges                                     
-imageUploadOptions.gravatar                     tips.images                                     
-modal                                           tips.laminating                                 
-modals.gravatar                                 tips.multiples                                  
-modals.tips                                     tips.naming                                     
-modals.welcome                                  tips.roleShortcut                               
-```
-
-## core
-
-
-Provides _pure functions_ to be consumed by the _services_ module. Without core, services would be interlaced with pure and impure functions, making them harder to test and reason about.
-
-#### Collaborators
-
-```diff
-+ util
-- components diagnostics elements io services startup storage stores styles subscriptions ui vendorComponents
-```
-
-- No access to modules that produce side effects.
-
-#### Example: parseEmailExpression
-
-parseEmailExpression is a pure function. Amongst other properties of pure functions, its return value is the same for the same arguments, and its evaluation has no side effects.
-
-###### <p align="right"><a href="https://github.com/mattriley/agile-avatars/blob/master/src/modules/core/tags/parse-email-expression.js">src/modules/core/tags/parse-email-expression.js</a></p>
-```js
-export default ({ util }) => expression => {
-
-    const indexOfAt = expression.indexOf('@');
-    const isEmail = indexOfAt > -1;
-    const [username] = (isEmail ? expression.substr(0, indexOfAt) : expression).split('+');
-    const lastIndexOfPlus = expression.lastIndexOf('+');
-    const hasRole = lastIndexOfPlus > indexOfAt;
-    const [emailOrUsername, roleName] = hasRole ? util.splitAt(expression, lastIndexOfPlus, 1) : [expression];
-    const email = isEmail ? emailOrUsername : '';
-    return { email, username, emailOrUsername, roleName };
-
-};
-
-/* FOOTNOTES
-
-Example of complex expression: 'foo+bar@gmail.com+dev'
-=> { email: 'foo+bar@gmail.com', username: 'foo', emailOrUsername: 'foo+bar@gmail.com', roleName: 'dev' }
-
-*/
-```
-
-#### List of core functions
-
-```
-gravatar.buildImageUrl                          tags.parseEmailExpression                       
-gravatar.buildProfileUrl                        tags.parseFileExpression                        
-gravatar.getNameFromProfile                     tags.parseTagExpression                         
-gravatar.hashEmail                              tags.planTagInstanceAdjustment                  
-roles.assignColor                               tags.sortTagInstancesByTagThenMode              
-roles.buildRole                                 tags.sortTagsByName                             
-roles.randomColor                               tags.sortTagsByRoleThenName                     
-tags.buildTag                                   
-```
-
-#### Further reading
-
-- [Pure function - Wikipedia](https://en.wikipedia.org/wiki/Pure_function)
-- [Functional Core, Imperative Shell - Gary Bernhardt](https://www.destroyallsoftware.com/screencasts/catalog/functional-core-imperative-shell)
-
-## diagnostics
-
-
-Provides _diagnostic functions_ such as the ability to dump state to the console.
-
-#### Collaborators
-
-```diff
-+ stores util
-- components core elements io services startup storage styles subscriptions ui vendorComponents
-```
-
-#### List of diagnostic functions
-
-```
-dumpState                                       
-```
-
-## elements
-
-
-Provides _element factory functions_. An element is a HTML element that relies on closures to react to user interaction by updating the element or raising events for components. Unlike components, they cannot react to state changes or invoke services. Elements are lower level and may be reused by multiple components.
-
-#### Collaborators
-
-```diff
-+ ui util
-- components core diagnostics io services startup storage stores styles subscriptions vendorComponents
-```
-
-- No access to _stores_ or _io_. Effects are serviced by raising events to be handled by _components_.
-- No access to _window_. Low-level presentation concerns are serviced by the _ui_ module.
-
-#### Example: editableSpan
-
-###### <p align="right"><a href="https://github.com/mattriley/agile-avatars/blob/master/src/modules/elements/editable-span.js">src/modules/elements/editable-span.js</a></p>
-```js
-export default ({ ui }) => className => {
-
-    const dispatchChange = () => $span.dispatchEvent(ui.event('change'));
-
-    const $span = ui.el('span', className)
-        .addEventListener('blur', () => {
-            dispatchChange();
-        })
-        .addEventListener('keydown', e => {
-            if (e.code === 'Enter') {
-                e.preventDefault();
-                dispatchChange();
-            }
-        });
-
-    $span.setAttribute('contenteditable', true);
-
-    return $span;
-};
-
-/* FOOTNOTES
-
-- Content editable span preferred over text field for the ability to expand/contract while editing.
-- `e.preventDefault()` on enter key prevents cursor moving to next line.
-
-*/
-```
-
-#### List of elements
-
-```
-dropzone                                        layout                                          
-editableSpan                                    modal                                           
-label                                           number                                          
-```
-
-## io
-
-
-Provides _io functions_ while preventing direct access to _window_.
+Provides _low-level utility functions_.
 
 #### Collaborators
 
 ```diff
 + 
-- components core diagnostics elements services startup storage stores styles subscriptions ui util vendorComponents
+- components core diagnostics elements io services startup storage stores styles subscriptions ui vendorComponents
 ```
 
-#### Source
-
-_io_ is a single-file module:
-
-###### <p align="right"><a href="https://github.com/mattriley/agile-avatars/blob/master/src/modules/io/setup.js">src/modules/io/setup.js</a></p>
-```js
-import mixpanel from 'mixpanel-browser';
-
-export default ({ window, config }) => () => {
-
-    config.mixpanelToken && mixpanel.init(config.mixpanelToken, { debug: config.isTest });
-
-    return {
-        mixpanel,
-        date: () => new window.Date(),
-        fetch: (...args) => window.fetch(...args),
-        random: () => window.Math.random(),
-        fileReader: () => new window.FileReader()
-    };
-
-};
-```
-
-#### List of io functions
+#### List of utility functions
 
 ```
-date                                            mixpanel                                        
-fetch                                           random                                          
-fileReader                                      
-```
-
-## services
-
-
-Provides _service functions_. Service functions perform effects by orchestrate the pure functions from _core_, the impure functions from _io_ (such as making HTTP requests), as well as updating state.
-
-#### Collaborators
-
-```diff
-+ core io stores subscriptions util
-- components diagnostics elements startup storage styles ui vendorComponents
-```
-
-- No access to _window_. IO operations are serviced by the _io_ module.
-
-#### Example: changeTagName
-
-###### <p align="right"><a href="https://github.com/mattriley/agile-avatars/blob/master/src/modules/services/tags/change-tag-name.js">src/modules/services/tags/change-tag-name.js</a></p>
-```js
-export default ({ core, services, stores }) => (tagInstanceId, expression) => {
-
-    const { tagId } = services.tags.getTagInstance(tagInstanceId);
-    const { tagName, roleName } = core.tags.parseTagExpression(expression);
-
-    stores.tags.update(tagId, { tagName });
-
-    if (roleName) {
-        const roleId = services.roles.findOrInsertRoleWithName(roleName);
-        stores.tags.update(tagId, { roleId });
-    }
-
-};
-```
-
-#### List of service functions
-
-```
-gravatar.changeFallback                         tags.adjustTagInstanceCounts                    
-gravatar.changeFreetext                         tags.attachImageAsync                           
-gravatar.fetchImageAsync                        tags.buildTagInstance                           
-gravatar.fetchProfileAsync                      tags.changeTagName                              
-gravatar.status                                 tags.changeTagRole                              
-roles.changeRoleColor                           tags.getTagInstance                             
-roles.changeRoleName                            tags.insertFileAsync                            
-roles.findOrInsertRoleWithName                  tags.insertFileBatchAsync                       
-roles.getNilRoleId                              tags.insertGravatarAsync                        
-roles.getRole                                   tags.insertGravatarBatchAsync                   
-roles.insertRole                                tags.insertTag                                  
-roles.isNilRole                                 tags.insertTagInstance                          
-roles.setupRolePropagation                      tags.removeTagInstance                          
-settings.changeModal                            tags.setupRolePropagation                       
-settings.changeOption                           tags.setupTagPropagation                        
-settings.clearModal                             tags.sortTagInstances                           
-settings.getGravatar                            
-```
-
-## startup
-
-
-Provides _startup functions_ which are used at [launch](#launching) time.
-
-#### Collaborators
-
-```diff
-+ components services stores styles subscriptions ui util
-- core diagnostics elements io storage vendorComponents
-```
-
-- Largely unconstrained as only used during launch.
-
-#### Example: start
-
-###### <p align="right"><a href="https://github.com/mattriley/agile-avatars/blob/master/src/modules/startup/start.js">src/modules/startup/start.js</a></p>
-```js
-export default ({ startup, components }) => () => {
-
-    startup.insertNilRole();
-    startup.createHandlers();
-    startup.createStyleManager();
-
-    return components.app();
-
-};
+debounce                                        splitAt                                         
+mapValues                                       upperFirst                                      
+pipe                                            
 ```
 
 ## storage
@@ -855,6 +556,351 @@ roles                                           tagInstances
 settings                                        tags                                            
 ```
 
+## subscriptions
+
+
+Provides _subscription functions_. A subscription function enables a listener to be notified of state changes.
+
+The subscription functions are actually implemented in the state store. This module exposes only the subscriptions from the stores to prevent direct read/write access to the the stores. 
+
+_stores_ enable retrieval and updating of state, and the ability to subscribe to state change events. In our layered architecture, the domain layer depends on the data layer, and so the _services_ module may access Stores directly.
+
+The presentation layer however depends on the domain layer, and so the _components_ module may _not_ access Stores directly. That's to say, the presentation layer should not be retrieving and updating state directly.
+
+The _subscriptions_ module was introduced to allow Components to subscribe to state change events while preventing access to the underlying stores. The subscriptions module is generated from the Stores, only providing access to subscriptions.
+
+#### Collaborators
+
+```diff
++ stores util
+- components core diagnostics elements io services startup storage styles ui vendorComponents
+```
+
+#### Source
+
+_subscriptions_ is a single-file module that exposes only subscriptions from the stores:
+
+###### <p align="right"><a href="https://github.com/mattriley/agile-avatars/blob/master/src/modules/subscriptions/setup.js">src/modules/subscriptions/setup.js</a></p>
+```js
+export default ({ stores, util }) => () => {
+
+    return util.mapValues(stores, store => store.subscriptions);
+
+};
+```
+
+## core
+
+
+Provides _pure functions_ to be consumed by the _services_ module. Without core, services would be interlaced with pure and impure functions, making them harder to test and reason about.
+
+#### Collaborators
+
+```diff
++ util
+- components diagnostics elements io services startup storage stores styles subscriptions ui vendorComponents
+```
+
+- No access to modules that produce side effects.
+
+#### Example: parseEmailExpression
+
+parseEmailExpression is a pure function. Amongst other properties of pure functions, its return value is the same for the same arguments, and its evaluation has no side effects.
+
+###### <p align="right"><a href="https://github.com/mattriley/agile-avatars/blob/master/src/modules/core/tags/parse-email-expression.js">src/modules/core/tags/parse-email-expression.js</a></p>
+```js
+export default ({ util }) => expression => {
+
+    const indexOfAt = expression.indexOf('@');
+    const isEmail = indexOfAt > -1;
+    const [username] = (isEmail ? expression.substr(0, indexOfAt) : expression).split('+');
+    const lastIndexOfPlus = expression.lastIndexOf('+');
+    const hasRole = lastIndexOfPlus > indexOfAt;
+    const [emailOrUsername, roleName] = hasRole ? util.splitAt(expression, lastIndexOfPlus, 1) : [expression];
+    const email = isEmail ? emailOrUsername : '';
+    return { email, username, emailOrUsername, roleName };
+
+};
+
+/* FOOTNOTES
+
+Example of complex expression: 'foo+bar@gmail.com+dev'
+=> { email: 'foo+bar@gmail.com', username: 'foo', emailOrUsername: 'foo+bar@gmail.com', roleName: 'dev' }
+
+*/
+```
+
+#### List of core functions
+
+```
+gravatar.buildImageUrl                          tags.parseEmailExpression                       
+gravatar.buildProfileUrl                        tags.parseFileExpression                        
+gravatar.getNameFromProfile                     tags.parseTagExpression                         
+gravatar.hashEmail                              tags.planTagInstanceAdjustment                  
+roles.assignColor                               tags.sortTagInstancesByTagThenMode              
+roles.buildRole                                 tags.sortTagsByName                             
+roles.randomColor                               tags.sortTagsByRoleThenName                     
+tags.buildTag                                   
+```
+
+#### Further reading
+
+- [Pure function - Wikipedia](https://en.wikipedia.org/wiki/Pure_function)
+- [Functional Core, Imperative Shell - Gary Bernhardt](https://www.destroyallsoftware.com/screencasts/catalog/functional-core-imperative-shell)
+
+## io
+
+
+Provides _io functions_ while preventing direct access to _window_.
+
+#### Collaborators
+
+```diff
++ 
+- components core diagnostics elements services startup storage stores styles subscriptions ui util vendorComponents
+```
+
+#### Source
+
+_io_ is a single-file module:
+
+###### <p align="right"><a href="https://github.com/mattriley/agile-avatars/blob/master/src/modules/io/setup.js">src/modules/io/setup.js</a></p>
+```js
+import mixpanel from 'mixpanel-browser';
+
+export default ({ window, config }) => () => {
+
+    config.mixpanelToken && mixpanel.init(config.mixpanelToken, { debug: config.isTest });
+
+    return {
+        mixpanel,
+        date: () => new window.Date(),
+        fetch: (...args) => window.fetch(...args),
+        random: () => window.Math.random(),
+        fileReader: () => new window.FileReader()
+    };
+
+};
+```
+
+#### List of io functions
+
+```
+date                                            mixpanel                                        
+fetch                                           random                                          
+fileReader                                      
+```
+
+## services
+
+
+Provides _service functions_. Service functions perform effects by orchestrate the pure functions from _core_, the impure functions from _io_ (such as making HTTP requests), as well as updating state.
+
+#### Collaborators
+
+```diff
++ core io stores subscriptions util
+- components diagnostics elements startup storage styles ui vendorComponents
+```
+
+- No access to _window_. IO operations are serviced by the _io_ module.
+
+#### Example: changeTagName
+
+###### <p align="right"><a href="https://github.com/mattriley/agile-avatars/blob/master/src/modules/services/tags/change-tag-name.js">src/modules/services/tags/change-tag-name.js</a></p>
+```js
+export default ({ core, services, stores }) => (tagInstanceId, expression) => {
+
+    const { tagId } = services.tags.getTagInstance(tagInstanceId);
+    const { tagName, roleName } = core.tags.parseTagExpression(expression);
+
+    stores.tags.update(tagId, { tagName });
+
+    if (roleName) {
+        const roleId = services.roles.findOrInsertRoleWithName(roleName);
+        stores.tags.update(tagId, { roleId });
+    }
+
+};
+```
+
+#### List of service functions
+
+```
+gravatar.changeFallback                         tags.adjustTagInstanceCounts                    
+gravatar.changeFreetext                         tags.attachImageAsync                           
+gravatar.fetchImageAsync                        tags.buildTagInstance                           
+gravatar.fetchProfileAsync                      tags.changeTagName                              
+gravatar.status                                 tags.changeTagRole                              
+roles.changeRoleColor                           tags.getTagInstance                             
+roles.changeRoleName                            tags.insertFileAsync                            
+roles.findOrInsertRoleWithName                  tags.insertFileBatchAsync                       
+roles.getNilRoleId                              tags.insertGravatarAsync                        
+roles.getRole                                   tags.insertGravatarBatchAsync                   
+roles.insertRole                                tags.insertTag                                  
+roles.isNilRole                                 tags.insertTagInstance                          
+roles.setupRolePropagation                      tags.removeTagInstance                          
+settings.changeModal                            tags.setupRolePropagation                       
+settings.changeOption                           tags.setupTagPropagation                        
+settings.clearModal                             tags.sortTagInstances                           
+settings.getGravatar                            
+```
+
+## ui
+
+
+Provides _low-level presentation functions_ while preventing direct access to window.
+
+#### Collaborators
+
+```diff
++ 
+- components core diagnostics elements io services startup storage stores styles subscriptions util vendorComponents
+```
+
+#### List of ui functions
+
+```
+appendToHead                                    refocus                                         
+el                                              toggleBoolClass                                 
+event                                           
+```
+
+## elements
+
+
+Provides _element factory functions_. An element is a HTML element that relies on closures to react to user interaction by updating the element or raising events for components. Unlike components, they cannot react to state changes or invoke services. Elements are lower level and may be reused by multiple components.
+
+#### Collaborators
+
+```diff
++ ui util
+- components core diagnostics io services startup storage stores styles subscriptions vendorComponents
+```
+
+- No access to _stores_ or _io_. Effects are serviced by raising events to be handled by _components_.
+- No access to _window_. Low-level presentation concerns are serviced by the _ui_ module.
+
+#### Example: editableSpan
+
+###### <p align="right"><a href="https://github.com/mattriley/agile-avatars/blob/master/src/modules/elements/editable-span.js">src/modules/elements/editable-span.js</a></p>
+```js
+export default ({ ui }) => className => {
+
+    const dispatchChange = () => $span.dispatchEvent(ui.event('change'));
+
+    const $span = ui.el('span', className)
+        .addEventListener('blur', () => {
+            dispatchChange();
+        })
+        .addEventListener('keydown', e => {
+            if (e.code === 'Enter') {
+                e.preventDefault();
+                dispatchChange();
+            }
+        });
+
+    $span.setAttribute('contenteditable', true);
+
+    return $span;
+};
+
+/* FOOTNOTES
+
+- Content editable span preferred over text field for the ability to expand/contract while editing.
+- `e.preventDefault()` on enter key prevents cursor moving to next line.
+
+*/
+```
+
+#### List of elements
+
+```
+dropzone                                        layout                                          
+editableSpan                                    modal                                           
+label                                           number                                          
+```
+
+## vendorComponents
+
+
+Provides vendor (third party) components including gtag and vanilla-picker. These are separated from the components module because they have different collaborators. The components module avoids a direct dependency on window but some vendor components may require direct access to window which cannot be avoided.
+
+#### Collaborators
+
+```diff
++ ui
+- components core diagnostics elements io services startup storage stores styles subscriptions util
+```
+
+#### List of vendor components
+
+```
+vanillaPicker                                   
+```
+
+## components
+
+
+Provides _component factory functions_. A component is a HTML element that relies on closures to react to user interaction and state changes by updating the DOM or invoking services for any non-presentation concerns.
+
+#### Collaborators
+
+```diff
++ elements io services subscriptions ui util vendorComponents
+- core diagnostics startup storage stores styles
+```
+
+- No access to _stores_ or _io_. Effects are serviced by the _services_ module.
+- No access to _window_. Low-level presentation concerns are serviced by the _ui_ module.
+
+#### Example: tagName
+
+tagName renders the tag name for a given _tag instance_. A _tag_ is composed of an image, a name, and a role. Multiple _instances_ of a tag may be rendered at a time depending on the numbers specified in the _active_ and _passive_ fields.
+
+tagName accepts the ID of a tag instance and returns a [content editable](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Editable_content) span. tagName reacts to changes by invoking the changeTagName service function with the new tag name.
+
+changeTagName updates the state of the underlying tag, which triggers a propagation of the new tag name to all other instances of the tag.
+
+tagName subscribes to tag name change events and updates the editable span with the new tag name.
+
+###### <p align="right"><a href="https://github.com/mattriley/agile-avatars/blob/master/src/modules/components/tag-list/tag/components/tag-name.js">src/modules/components/tag-list/tag/components/tag-name.js</a></p>
+```js
+export default ({ elements, services, subscriptions }) => tagInstanceId => {
+
+    const $tagName = elements.editableSpan('tag-name')
+        .addEventListener('change', () => {
+            services.tags.changeTagName(tagInstanceId, $tagName.textContent);
+        });
+
+    subscriptions.tagInstances.onChange(tagInstanceId, 'tagName', tagName => {
+        $tagName.textContent = tagName;
+    });
+
+    return $tagName;
+
+};
+```
+
+#### List of components
+
+```
+app                                             optionsBar.container                            
+dropzone                                        optionsBar.numberOption                         
+gravatar.actions                                optionsBar.options                              
+gravatar.content                                optionsBar.shapeOption                          
+gravatar.title                                  roleList.container                              
+header.container                                roleList.roleCustomiser                         
+header.titleBar                                 tagList.container                               
+imageUploadOptions.chooseImages                 tagList.tag                                     
+imageUploadOptions.container                    tips.badges                                     
+imageUploadOptions.gravatar                     tips.images                                     
+modal                                           tips.laminating                                 
+modals.gravatar                                 tips.multiples                                  
+modals.tips                                     tips.naming                                     
+modals.welcome                                  tips.roleShortcut                               
+```
+
 ## styles
 
 
@@ -911,95 +957,51 @@ tagOutline                                      vanillaPicker
 tagShape                                        
 ```
 
-## subscriptions
+## diagnostics
 
 
-Provides _subscription functions_. A subscription function enables a listener to be notified of state changes.
-
-The subscription functions are actually implemented in the state store. This module exposes only the subscriptions from the stores to prevent direct read/write access to the the stores. 
-
-_stores_ enable retrieval and updating of state, and the ability to subscribe to state change events. In our layered architecture, the domain layer depends on the data layer, and so the _services_ module may access Stores directly.
-
-The presentation layer however depends on the domain layer, and so the _components_ module may _not_ access Stores directly. That's to say, the presentation layer should not be retrieving and updating state directly.
-
-The _subscriptions_ module was introduced to allow Components to subscribe to state change events while preventing access to the underlying stores. The subscriptions module is generated from the Stores, only providing access to subscriptions.
+Provides _diagnostic functions_ such as the ability to dump state to the console.
 
 #### Collaborators
 
 ```diff
 + stores util
-- components core diagnostics elements io services startup storage styles ui vendorComponents
+- components core elements io services startup storage styles subscriptions ui vendorComponents
 ```
 
-#### Source
+#### List of diagnostic functions
 
-_subscriptions_ is a single-file module that exposes only subscriptions from the stores:
+```
+dumpState                                       
+```
 
-###### <p align="right"><a href="https://github.com/mattriley/agile-avatars/blob/master/src/modules/subscriptions/setup.js">src/modules/subscriptions/setup.js</a></p>
+## startup
+
+
+Provides _startup functions_ which are used at [launch](#launching) time.
+
+#### Collaborators
+
+```diff
++ components services stores styles subscriptions ui util
+- core diagnostics elements io storage vendorComponents
+```
+
+- Largely unconstrained as only used during launch.
+
+#### Example: start
+
+###### <p align="right"><a href="https://github.com/mattriley/agile-avatars/blob/master/src/modules/startup/start.js">src/modules/startup/start.js</a></p>
 ```js
-export default ({ stores, util }) => () => {
+export default ({ startup, components }) => () => {
 
-    return util.mapValues(stores, store => store.subscriptions);
+    startup.insertNilRole();
+    startup.createHandlers();
+    startup.createStyleManager();
+
+    return components.app();
 
 };
-```
-
-## ui
-
-
-Provides _low-level presentation functions_ while preventing direct access to window.
-
-#### Collaborators
-
-```diff
-+ 
-- components core diagnostics elements io services startup storage stores styles subscriptions util vendorComponents
-```
-
-#### List of ui functions
-
-```
-appendToHead                                    refocus                                         
-el                                              toggleBoolClass                                 
-event                                           
-```
-
-## util
-
-
-Provides _low-level utility functions_.
-
-#### Collaborators
-
-```diff
-+ 
-- components core diagnostics elements io services startup storage stores styles subscriptions ui vendorComponents
-```
-
-#### List of utility functions
-
-```
-debounce                                        splitAt                                         
-mapValues                                       upperFirst                                      
-pipe                                            
-```
-
-## vendorComponents
-
-
-Provides vendor (third party) components including gtag and vanilla-picker. These are separated from the components module because they have different collaborators. The components module avoids a direct dependency on window but some vendor components may require direct access to window which cannot be avoided.
-
-#### Collaborators
-
-```diff
-+ ui
-- components core diagnostics elements io services startup storage stores styles subscriptions util
-```
-
-#### List of vendor components
-
-```
-vanillaPicker                                   
 ```
 
 

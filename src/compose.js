@@ -1,11 +1,13 @@
 import composer from 'module-composer';
 import modules from './modules/index.js';
 import defaultConfig from './default-config.js';
-const { storage, util } = modules;
 
 export default ({ window, config, ...options }) => {
 
     const { compose } = composer({ window, ...modules }, { defaultConfig, config, ...options });
+
+    const { util } = compose.asis('util');
+    const { storage } = compose.asis('storage');
 
     // Data
     const { stores } = compose('stores', { storage });
