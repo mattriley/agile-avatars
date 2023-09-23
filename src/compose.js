@@ -2,9 +2,9 @@ import composer from 'module-composer';
 import modules from './modules/index.js';
 import defaultConfig from './default-config.js';
 
-export default ({ window, config, ...options }) => {
+export default ({ window, config, overrides }) => {
 
-    const { compose } = composer({ window, ...modules }, { defaultConfig, config, ...options });
+    const { compose } = composer(modules, { defaultConfig, config, overrides });
 
     const { util } = compose.asis('util');
     const { storage } = compose.asis('storage');
